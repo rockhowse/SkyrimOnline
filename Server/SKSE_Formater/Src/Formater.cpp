@@ -13,7 +13,6 @@ void replaceAll(std::string& str, const std::string& from, const std::string& to
 
 Formater::Formater()
 {
-
 }
 
 void Formater::Go()
