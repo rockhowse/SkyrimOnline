@@ -13,4 +13,10 @@ Some third party libraries are used and must NOT be commited or pushed as it wou
 The suggested folder structure is the follwing :
 
 SkyrimOnline/Src/<clone here>
-SkyrimOnline/
+
+
+Then download the dependencies here : https://github.com/downloads/yamashi/SkyrimOnline/Dependencies.rar
+
+Which you will have to unrar in : SkyrimOnline/Dependencies
+
+Also download the Directx SDK.

@@ -42,7 +42,7 @@
       <IntrinsicFunctions>true</IntrinsicFunctions>
       <PreprocessorDefinitions>WIN32;NDEBUG;_WINDOWS;_USRDLL;NINJATOONLINE_EXPORTS;_WINDLL;DETOURS_32BIT;DETOURS_X86;RUNTIME;RUNTIME_VERSION=0x07070000;%(PreprocessorDefinitions)</PreprocessorDefinitions>
       <AdditionalOptions>/Zm250 %(AdditionalOptions)</AdditionalOptions>
-      <AdditionalIncludeDirectories>$(DXSDK_DIR)\Include;..\..\..\Dependencies\MyGUI\Include;..\..\..\Dependencies\Boost\Include;..\Framework\Src;$(SolutionDir)\..\Dependencies\Zlib\include;.\Src\common;.\Src\;$(SolutionDir)\..\Dependencies\Bullet\include;$(SolutionDir)\..\Dependencies\;$(SolutionDir)\..\Dependencies\Crypto++\include;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+      <AdditionalIncludeDirectories>$(DXSDK_DIR)\Include;..\Framework\Src;.\Src\common;.\Src\;$(SolutionDir)\..\Dependencies\;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
       <InlineFunctionExpansion>AnySuitable</InlineFunctionExpansion>
       <FavorSizeOrSpeed>Speed</FavorSizeOrSpeed>
       <WholeProgramOptimization>true</WholeProgramOptimization>
