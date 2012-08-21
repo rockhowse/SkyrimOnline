@@ -12,8 +12,7 @@ Some third party libraries are used and must NOT be commited or pushed as it wou
 
 The suggested folder structure is the follwing :
 
-SkyrimOnline/Src/<clone here>
-
+Clone in : SkyrimOnline/Src/
 
 Then download the dependencies here : https://github.com/downloads/yamashi/SkyrimOnline/Dependencies.rar
 
