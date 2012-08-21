@@ -1,0 +1,78 @@
+#pragma once
+
+#define DIRECTINPUT_VERSION 0x0800
+
+// Boost
+#include <boost/asio.hpp>
+#include <boost/bind.hpp>
+#include <boost/thread.hpp>
+#include <boost/signal.hpp>
+#include <boost/date_time/posix_time/posix_time.hpp>
+#include <boost/tuple/tuple.hpp>
+#include <boost/timer.hpp>
+#include <boost/tokenizer.hpp>
+
+// Framework
+#include <System/Log.h>
+#include <Crypt/RSA.h>
+#include <Crypt/Cipher.h>
+#include <Network/IoServicePool.h>
+#include <Network/HttpClient.h>
+#include <Network/NinjatoStrategy.h>
+#include <Network/Packet.h>
+#include <Network/TcpConnection.h>
+
+// STL
+#include <list>
+#include <vector>
+#include <ctime>
+#include <fstream>
+#include <deque>
+#include <concurrent_queue.h>
+#include <unordered_map>
+#include <random>
+
+#include <Winuser.h>
+
+#include <dinput.h>
+
+#include <MyGUI.h>
+#include <MyGUI_DirectXPlatform.h>
+
+// skse common
+#include <common/ITypes.h>
+
+// papyrus common
+#include <common/skyscript.h>
+#include <common/obscript.h>
+#include <common/types.h>
+#include <common/enums.h>
+#include <common/plugin.h>
+#include <common/Utils.h>
+#include <common/Import.h>
+
+// Crypto++
+#include <cryptopp/md5.h>
+#include <cryptopp/hex.h>
+
+#include <StrSafe.h>
+#include <dbghelp.h>
+#include <shellapi.h>
+#include <shlobj.h>
+
+// Project code
+#include <Opcodes.h>
+#include <Script/Script.h>
+#include <Game/data.h>
+
+#include <skse/PapyrusVM.h>
+#include <skse/PapyrusNativeFunctions.h>
+
+#define CRYPTOPP_ENABLE_NAMESPACE_WEAK 1
+
+#pragma warning( disable : 4251 )
+#pragma warning( disable : 4244 )
+#pragma warning( disable : 4996 )
+#pragma warning( disable : 4355 )
+
+using namespace Framework;

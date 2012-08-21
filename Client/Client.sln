@@ -1,0 +1,43 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 11.00
+# Visual Studio 2010
+Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "SkyrimOnline", "Src\SkyrimOnline\SkyrimOnline.vcxproj", "{5BD3DA32-06CE-4029-BF72-2E00B3DF7F4E}"
+	ProjectSection(ProjectDependencies) = postProject
+		{9D810381-77E5-4D4B-9B4D-D4AFB7465097} = {9D810381-77E5-4D4B-9B4D-D4AFB7465097}
+	EndProjectSection
+EndProject
+Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "SkyrimOnlineProxy", "Src\SkyrimOnlineProxy\SkyrimOnlineProxy.vcxproj", "{D8B2564C-4766-4DDF-B7E0-43DB3971B3A3}"
+EndProject
+Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "Script", "Src\Script\Script.vcxproj", "{9D810381-77E5-4D4B-9B4D-D4AFB7465097}"
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Win32 = Debug|Win32
+		Debug|x64 = Debug|x64
+		Release|Win32 = Release|Win32
+		Release|x64 = Release|x64
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{5BD3DA32-06CE-4029-BF72-2E00B3DF7F4E}.Debug|Win32.ActiveCfg = Release|Win32
+		{5BD3DA32-06CE-4029-BF72-2E00B3DF7F4E}.Debug|Win32.Build.0 = Release|Win32
+		{5BD3DA32-06CE-4029-BF72-2E00B3DF7F4E}.Debug|x64.ActiveCfg = Release|Win32
+		{5BD3DA32-06CE-4029-BF72-2E00B3DF7F4E}.Release|Win32.ActiveCfg = Release|Win32
+		{5BD3DA32-06CE-4029-BF72-2E00B3DF7F4E}.Release|Win32.Build.0 = Release|Win32
+		{5BD3DA32-06CE-4029-BF72-2E00B3DF7F4E}.Release|x64.ActiveCfg = Release|Win32
+		{D8B2564C-4766-4DDF-B7E0-43DB3971B3A3}.Debug|Win32.ActiveCfg = Release|Win32
+		{D8B2564C-4766-4DDF-B7E0-43DB3971B3A3}.Debug|Win32.Build.0 = Release|Win32
+		{D8B2564C-4766-4DDF-B7E0-43DB3971B3A3}.Debug|x64.ActiveCfg = Release|Win32
+		{D8B2564C-4766-4DDF-B7E0-43DB3971B3A3}.Release|Win32.ActiveCfg = Release|Win32
+		{D8B2564C-4766-4DDF-B7E0-43DB3971B3A3}.Release|Win32.Build.0 = Release|Win32
+		{D8B2564C-4766-4DDF-B7E0-43DB3971B3A3}.Release|x64.ActiveCfg = Release|Win32
+		{9D810381-77E5-4D4B-9B4D-D4AFB7465097}.Debug|Win32.ActiveCfg = Release|Win32
+		{9D810381-77E5-4D4B-9B4D-D4AFB7465097}.Debug|Win32.Build.0 = Release|Win32
+		{9D810381-77E5-4D4B-9B4D-D4AFB7465097}.Debug|x64.ActiveCfg = Release|Win32
+		{9D810381-77E5-4D4B-9B4D-D4AFB7465097}.Release|Win32.ActiveCfg = Release|Win32
+		{9D810381-77E5-4D4B-9B4D-D4AFB7465097}.Release|Win32.Build.0 = Release|Win32
+		{9D810381-77E5-4D4B-9B4D-D4AFB7465097}.Release|x64.ActiveCfg = Release|Win32
+	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
+	EndGlobalSection
+EndGlobal
