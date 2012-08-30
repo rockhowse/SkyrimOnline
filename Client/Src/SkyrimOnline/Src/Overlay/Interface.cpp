@@ -211,12 +211,6 @@ namespace Skyrim
 		{
 			if(clock() - SkyrimOnline::GetInstance().GetRendering() < 400)
 			{
-				try
-				{
-				}
-				catch(...)
-				{
-				}
 				IDirect3DStateBlock9* pStateBlock = NULL;
  				pDevice->CreateStateBlock(D3DSBT_ALL, &pStateBlock);
  				pStateBlock->Capture();
