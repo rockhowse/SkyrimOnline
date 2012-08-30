@@ -19,16 +19,16 @@ namespace Skyrim
 
 			typedef boost::shared_ptr<Session> pointer;
 
-			Session(Game::PlayerWatcher& pPlayer);
+			Session();
 			~Session();
 
 			void Write(Network::Packet& msg);
 			void Update(float pDelta);
 
 			static void Init();
-			static pointer Create(Game::PlayerWatcher& pPlayer)
+			static pointer Create()
 			{
-				return pointer(new Session(pPlayer));
+				return pointer(new Session);
 			}
 
 			bool IsOffline();
@@ -40,13 +40,6 @@ namespace Skyrim
 			void SetCipher(Crypt::Cipher* pCipher);
 
 			void Connect(const std::string& pAddress, const std::string& pPort);
-
-			void SendEnterRegion(uint32_t pRegion);
-			void SendCharacterInfo(Game::Character& pCharacter);
-			void SendMoveAndLook(Game::Character& pCharacter, uint32_t pDelta);
-			void SendMount(uint32_t pId);
-			void SendUnmount();
-			void SendChatMessage(const std::string& pMessage);
 
 			boost::signal<void(const std::string&)> OnChatMessage;
 			boost::signal<void()>					OnSpawn;

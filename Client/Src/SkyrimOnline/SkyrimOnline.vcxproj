@@ -88,6 +88,7 @@
     <ClInclude Include="Src\Game\WorldManager.h" />
     <ClInclude Include="Src\Logic\GameState.hpp" />
     <ClInclude Include="Src\Logic\MasterSession.h" />
+    <ClInclude Include="Src\Logic\NetEngine.hpp" />
     <ClInclude Include="Src\Logic\States\InGame.hpp" />
     <ClInclude Include="Src\Logic\States\Login.hpp" />
     <ClInclude Include="Src\Logic\States\ShardList.hpp" />
@@ -117,6 +118,7 @@
     <ClCompile Include="Src\Game\WeatherManager.cpp" />
     <ClCompile Include="Src\Game\WorldManager.cpp" />
     <ClCompile Include="Src\Logic\MasterSession.cpp" />
+    <ClCompile Include="Src\Logic\NetEngine.cpp" />
     <ClCompile Include="Src\Logic\Senders\Character.cpp" />
     <ClCompile Include="Src\Logic\Senders\General.cpp" />
     <ClCompile Include="Src\Logic\States\InGame.cpp" />

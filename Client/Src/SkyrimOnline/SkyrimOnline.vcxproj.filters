@@ -132,6 +132,9 @@
     <ClInclude Include="Src\Logic\MasterSession.h">
       <Filter>Header Files</Filter>
     </ClInclude>
+    <ClInclude Include="Src\Logic\NetEngine.hpp">
+      <Filter>Header Files</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="Src\common\plugin.cpp">
@@ -234,6 +237,9 @@
       <Filter>Source Files</Filter>
     </ClCompile>
     <ClCompile Include="Src\Logic\MasterSession.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="Src\Logic\NetEngine.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
   </ItemGroup>

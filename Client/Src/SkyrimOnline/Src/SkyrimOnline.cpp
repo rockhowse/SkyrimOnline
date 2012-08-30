@@ -46,71 +46,19 @@ namespace Skyrim
 		mUI->Reset();
 	}
 	//--------------------------------------------------------------------------------
-	void SkyrimOnline::Setup()
+	bool SkyrimOnline::Exists()
 	{
-		//mStates["Login"].reset(new Logic::State::Login);
-		mStates["ShardList"].reset(new Logic::State::ShardList);
-		mStates["InGame"].reset(new Logic::State::InGame);
-
-		SetState("ShardList");
+		return instance != nullptr;
 	}
 	//--------------------------------------------------------------------------------
-	void SkyrimOnline::Run()
+	Game::AssetManager& SkyrimOnline::GetAssetManager()
 	{
-		mRun = true;
-		while (mRun)
-		{
-			System::Log::Flush();
-
-			EasySteam::Interface::Run();
-
-			SetRendering(clock());
-			uint32_t delta = uint32_t(mTimer.elapsed() * 1000);
-			mTimer.restart();
-
-			mInput.Update();
-			
-			if(mCurrentState)
-				mCurrentState->OnUpdate(delta);
-
-			Wait(0);
-		}
+		return mAssets;
 	}
 	//--------------------------------------------------------------------------------
-	void SkyrimOnline::SwitchMode()
+	Game::CharacterManager& SkyrimOnline::GetCharacterManager()
 	{
-		System::Log::Debug("SwitchMode()");
-		SetMode(!mMode);
-	}
-	//--------------------------------------------------------------------------------
-	void SkyrimOnline::SetMode(bool pMode)
-	{
-		mMode = pMode;
-		if(mMode)
-		{
-			// In game mode -> enable controls
-			::Game::EnablePlayerControls(true,true,true,true,true,true,true,true,1);
-			::Game::SetInChargen(false, false, true);
-			mUI->SetCursor(false);
-		}
-		else
-		{
-			// In UI mode -> disable controls
-			::Game::DisablePlayerControls(true,true,true,true,true,true,true,true,1);
-			mUI->SetCursor(true);
-		}
-	}
-	//--------------------------------------------------------------------------------
-	void SkyrimOnline::SetState(const std::string& pState)
-	{
-		if(mCurrentState)
-			mCurrentState->OnLeave();
-
-		if(mStates[pState])
-		{
-			mCurrentState = mStates[pState];
-			mCurrentState->OnEnter();
-		}
+		return mManager;
 	}
 	//--------------------------------------------------------------------------------
 	boost::shared_ptr<Logic::GameState> SkyrimOnline::GetCurrentGameState()
@@ -118,18 +66,52 @@ namespace Skyrim
 		return mCurrentState;
 	}
 	//--------------------------------------------------------------------------------
-	void SkyrimOnline::OnConnectionLost()
+	SkyrimOnline& SkyrimOnline::GetInstance()
 	{
+		if(instance == nullptr)
+			instance = new SkyrimOnline;
+		return *instance;
 	}
 	//--------------------------------------------------------------------------------
-	void SkyrimOnline::OnShardPick(const std::string& pAddress)
+	Overlay::Interface& SkyrimOnline::GetInterface()
 	{
-		mUI->GetMessage()->SetCaption("Connecting to the World !");
-		mUI->GetMessage()->Show();
-
-		mSession = Logic::Session::Create(mPlayer);
-
-		mSession->Connect(pAddress, "27500");
+		return *mUI;
+	}
+	//--------------------------------------------------------------------------------
+	Network::IoServicePool& SkyrimOnline::GetIoPool()
+	{
+		return mIoPool;
+	}
+	//--------------------------------------------------------------------------------
+	Game::PlayerWatcher& SkyrimOnline::GetPlayerWatcher()
+	{
+		return mPlayer;
+	}
+	//--------------------------------------------------------------------------------
+	unsigned int SkyrimOnline::GetRendering()
+	{
+		return mRendering;
+	}
+	//--------------------------------------------------------------------------------
+	Game::TimeManager& SkyrimOnline::GetTimeManager()
+	{
+		return mTimeManager;
+	}
+	//--------------------------------------------------------------------------------
+	std::string SkyrimOnline::GetUser()
+	{
+		return mUsername;
+	}
+	//--------------------------------------------------------------------------------
+	Game::WeatherManager& SkyrimOnline::GetWeatherManager()
+	{
+		return mWeatherManager;
+	}
+	//--------------------------------------------------------------------------------
+	void SkyrimOnline::Kill()
+	{
+		delete instance;
+		instance = nullptr;
 	}
 	//--------------------------------------------------------------------------------
 	void SkyrimOnline::OnConnect(bool pStatus)
@@ -145,9 +127,8 @@ namespace Skyrim
 			Network::Packet packet(1, 0, Opcode::CMSG_HANDSHAKE);
 			packet << mUsername << decKey << encKey << decIV << encIV;
 
-			mSession->SetCipher(new Crypt::Cipher(encKey, decKey, encIV, decIV));
-
-			mSession->Write(packet);
+			Logic::NetEngine::GetInstance().GetClient()->SetCipher(new Crypt::Cipher(encKey, decKey, encIV, decIV));
+			Logic::NetEngine::GetInstance().GetClient()->Write(packet);
 
 			mUI->GetMessage()->Hide();
 
@@ -159,10 +140,32 @@ namespace Skyrim
 		}
 	}
 	//--------------------------------------------------------------------------------
+	void SkyrimOnline::OnConnectionLost()
+	{
+	}
+	//--------------------------------------------------------------------------------
 	void SkyrimOnline::OnError(const std::string& pError)
 	{
 		System::Log::Debug(pError);
 		System::Log::Flush();
+	}
+	//--------------------------------------------------------------------------------
+	void SkyrimOnline::OnMouseMove(unsigned int x, unsigned int y, unsigned int z)
+	{
+		if(!mMode)
+			mUI->MouseMove(x,y,z);
+	}
+	//--------------------------------------------------------------------------------
+	void SkyrimOnline::OnMousePress(BYTE code)
+	{
+		if(!mMode)
+			mUI->InjectMouse(code,true);
+	}
+	//--------------------------------------------------------------------------------
+	void SkyrimOnline::OnMouseRelease(BYTE code)
+	{
+		if(!mMode)
+			mUI->InjectMouse(code,false);
 	}
 	//--------------------------------------------------------------------------------
 	void SkyrimOnline::OnPress(BYTE code)
@@ -187,106 +190,12 @@ namespace Skyrim
 		}
 	}
 	//--------------------------------------------------------------------------------
-	void SkyrimOnline::OnMousePress(BYTE code)
+	void SkyrimOnline::OnShardPick(const std::string& pAddress)
 	{
-		if(!mMode)
-			mUI->InjectMouse(code,true);
-	}
-	//--------------------------------------------------------------------------------
-	void SkyrimOnline::OnMouseRelease(BYTE code)
-	{
-		if(!mMode)
-			mUI->InjectMouse(code,false);
-	}
-	//--------------------------------------------------------------------------------
-	void SkyrimOnline::OnMouseMove(unsigned int x, unsigned int y, unsigned int z)
-	{
-		if(!mMode)
-			mUI->MouseMove(x,y,z);
-	}
-	//--------------------------------------------------------------------------------
-	SkyrimOnline& SkyrimOnline::GetInstance()
-	{
-		if(instance == nullptr)
-			instance = new SkyrimOnline;
-		return *instance;
-	}
-	//--------------------------------------------------------------------------------
-	bool SkyrimOnline::Exists()
-	{
-		return instance != nullptr;
-	}
-	//--------------------------------------------------------------------------------
-	void SkyrimOnline::Kill()
-	{
-		delete instance;
-		instance = nullptr;
-	}
-	//--------------------------------------------------------------------------------
-	void SkyrimOnline::Stop()
-	{
-		if(instance)
-			instance->mRun = false;
-	}
-	//--------------------------------------------------------------------------------
-	Game::CharacterManager& SkyrimOnline::GetCharacterManager()
-	{
-		return mManager;
-	}
-	//--------------------------------------------------------------------------------
-	Logic::Session::pointer SkyrimOnline::GetSession()
-	{
-		return mSession;
-	}
-	//--------------------------------------------------------------------------------
-	Overlay::Interface& SkyrimOnline::GetInterface()
-	{
-		return *mUI;
-	}
-	//--------------------------------------------------------------------------------
-	Game::TimeManager& SkyrimOnline::GetTimeManager()
-	{
-		return mTimeManager;
-	}
-	//--------------------------------------------------------------------------------
-	Game::WeatherManager& SkyrimOnline::GetWeatherManager()
-	{
-		return mWeatherManager;
-	}
-	//--------------------------------------------------------------------------------
-	Game::AssetManager& SkyrimOnline::GetAssetManager()
-	{
-		return mAssets;
-	}
-	//--------------------------------------------------------------------------------
-	Game::PlayerWatcher& SkyrimOnline::GetPlayerWatcher()
-	{
-		return mPlayer;
-	}
-	//--------------------------------------------------------------------------------
-	Network::IoServicePool& SkyrimOnline::GetIoPool()
-	{
-		return mIoPool;
-	}
-	//--------------------------------------------------------------------------------
-	unsigned int SkyrimOnline::GetRendering()
-	{
-		return mRendering;
-	}
-	//--------------------------------------------------------------------------------
-	void SkyrimOnline::SetRendering(unsigned int rendering)
-	{
-		mRendering = rendering;
-	}
-	//--------------------------------------------------------------------------------
-	std::string SkyrimOnline::GetUser()
-	{
-		return mUsername;
-	}
-	//--------------------------------------------------------------------------------
-	void SkyrimOnline::SetUser(const std::string& user)
-	{
-		mUsername = user;
+		mUI->GetMessage()->SetCaption("Connecting to the World !");
+		mUI->GetMessage()->Show();
+
+		Logic::NetEngine::Join(pAddress, "27500");
 	}
 	//--------------------------------------------------------------------------------
 	std::string SkyrimOnline::RandomData(uint32_t pSize)
@@ -314,6 +223,89 @@ namespace Skyrim
 			output += data;
 		}
 		return output.substr(0, pSize);
+	}
+	//--------------------------------------------------------------------------------
+	void SkyrimOnline::Run()
+	{
+		mRun = true;
+		while (mRun)
+		{
+			System::Log::Flush();
+
+			EasySteam::Interface::Run();
+
+			SetRendering(clock());
+			uint32_t delta = uint32_t(mTimer.elapsed() * 1000);
+			mTimer.restart();
+
+			mInput.Update();
+
+			if(mCurrentState)
+				mCurrentState->OnUpdate(delta);
+
+			Wait(0);
+		}
+	}
+	//--------------------------------------------------------------------------------
+	void SkyrimOnline::SetMode(bool pMode)
+	{
+		mMode = pMode;
+		if(mMode)
+		{
+			// In game mode -> enable controls
+			::Game::EnablePlayerControls(true,true,true,true,true,true,true,true,1);
+			::Game::SetInChargen(false, false, true);
+			mUI->SetCursor(false);
+		}
+		else
+		{
+			// In UI mode -> disable controls
+			::Game::DisablePlayerControls(true,true,true,true,true,true,true,true,1);
+			mUI->SetCursor(true);
+		}
+	}
+	//--------------------------------------------------------------------------------
+	void SkyrimOnline::SetRendering(unsigned int rendering)
+	{
+		mRendering = rendering;
+	}
+	//--------------------------------------------------------------------------------
+	void SkyrimOnline::SetState(const std::string& pState)
+	{
+		if(mCurrentState)
+			mCurrentState->OnLeave();
+
+		if(mStates[pState])
+		{
+			mCurrentState = mStates[pState];
+			mCurrentState->OnEnter();
+		}
+	}
+	//--------------------------------------------------------------------------------
+	void SkyrimOnline::Setup()
+	{
+		//mStates["Login"].reset(new Logic::State::Login);
+		mStates["ShardList"].reset(new Logic::State::ShardList);
+		mStates["InGame"].reset(new Logic::State::InGame);
+
+		SetState("ShardList");
+	}
+	//--------------------------------------------------------------------------------
+	void SkyrimOnline::SetUser(const std::string& user)
+	{
+		mUsername = user;
+	}
+	//--------------------------------------------------------------------------------
+	void SkyrimOnline::Stop()
+	{
+		if(instance)
+			instance->mRun = false;
+	}
+	//--------------------------------------------------------------------------------
+	void SkyrimOnline::SwitchMode()
+	{
+		System::Log::Debug("SwitchMode()");
+		SetMode(!mMode);
 	}
 	//--------------------------------------------------------------------------------
 }

@@ -8,7 +8,7 @@
 
 #include <Overlay/Interface.h>
 #include <Engine/InputManager.h>
-#include <Logic/Session.h>
+#include <Logic/NetEngine.hpp>
 #include <Logic/GameState.hpp>
 
 namespace Skyrim
@@ -49,7 +49,6 @@ namespace Skyrim
 		// End Singleton
 
 		Game::CharacterManager& GetCharacterManager();
-		Logic::Session::pointer GetSession();
 		Overlay::Interface& GetInterface();
 		Game::TimeManager& GetTimeManager();
 		Game::WeatherManager& GetWeatherManager();
@@ -67,10 +66,10 @@ namespace Skyrim
 		void SetMode(bool pMode);
 		void SetState(const std::string& pState);
 		/**
-		 * @brief Generate random data
-		 * @param pSize The size of the data to generate
-		 * @return The random data
-		 */
+		* @brief Generate random data
+		* @param pSize The size of the data to generate
+		* @return The random data
+		*/
 		static std::string RandomData(uint32_t pSize);
 
 		boost::shared_ptr<Logic::GameState> GetCurrentGameState();
@@ -96,7 +95,6 @@ namespace Skyrim
 		std::string mUsername;
 
 		//< Common shit
-		Logic::Session::pointer mSession;
 		Network::IoServicePool mIoPool;
 		boost::timer mTimer;
 

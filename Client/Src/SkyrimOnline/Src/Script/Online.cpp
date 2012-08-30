@@ -21,7 +21,7 @@ namespace Skyrim
 
 		SCRIPT_CHECK('inga')
 
-		SkyrimOnline::GetInstance().GetSession()->SendChatMessage(pMessage.data);
+		Logic::NetEngine::GetInstance().SendChatMessage(pMessage.data);
 
 		return 1;
 	}

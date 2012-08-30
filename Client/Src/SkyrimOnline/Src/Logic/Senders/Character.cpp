@@ -1,5 +1,5 @@
 #include "stdafx.h"
-#include <Logic/Session.h>
+#include <Logic/NetEngine.hpp>
 #include <SkyrimOnline.h>
 
 namespace Skyrim
@@ -7,7 +7,7 @@ namespace Skyrim
 	namespace Logic
 	{
 		//--------------------------------------------------------------------------------
-		void Session::SendCharacterInfo(Game::Character& pCharacter)
+		void NetEngine::SendCharacterInfo(Game::Character& pCharacter)
 		{
 			Network::Packet data(Opcode::CMSG_CHARACTER_INFO, 0xFFFFFFFF);
 			data << pCharacter.GetRace() 
@@ -20,7 +20,7 @@ namespace Skyrim
 			Write(data);
 		}
 		//--------------------------------------------------------------------------------
-		void Session::SendMoveAndLook(Game::Character& pCharacter, uint32_t pDelta)
+		void NetEngine::SendMoveAndLook(Game::Character& pCharacter, uint32_t pDelta)
 		{
 			Network::Packet data(Opcode::CMSG_MOVE_AND_LOOK, 0xFFFFFFFF);
 			data << pCharacter.GetPosX() << pCharacter.GetPosY() << pCharacter.GetPosZ()
@@ -30,19 +30,19 @@ namespace Skyrim
 			Write(data);
 		}
 		//--------------------------------------------------------------------------------
-		void Session::SendMount(uint32_t pId)
+		void NetEngine::SendMount(uint32_t pId)
 		{
 			Network::Packet mount(Opcode::CMSG_MOUNT_SPAWN, pId);
 			Write(mount);
 		}
 		//--------------------------------------------------------------------------------
-		void Session::SendUnmount()
+		void NetEngine::SendUnmount()
 		{
 			Network::Packet mount(Opcode::CMSG_MOUNT_REMOVE, 0xFFFFFFFF);
 			Write(mount);
 		}
 		//--------------------------------------------------------------------------------
-		void Session::SendEnterRegion(uint32_t pRegion)
+		void NetEngine::SendEnterRegion(uint32_t pRegion)
 		{	
 			Network::Packet region(Opcode::CMSG_ENTER_REGION, 0xFFFFFFFF);
 			region << pRegion;

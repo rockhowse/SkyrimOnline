@@ -34,8 +34,8 @@ namespace Skyrim
 
 				SkyrimOnline::GetInstance().SetMode(true);
 
-				SkyrimOnline::GetInstance().GetSession()->OnChatMessage.connect(boost::bind(&InGame::OnRemoteChatMessage, this, _1));
-				SkyrimOnline::GetInstance().GetSession()->OnSpawn.connect(boost::bind(&InGame::OnRemoteSpawn, this));
+				Logic::NetEngine::GetInstance().OnChatMessage.connect(boost::bind(&InGame::OnRemoteChatMessage, this, _1));
+				Logic::NetEngine::GetInstance().      OnSpawn.connect(boost::bind(&InGame::OnRemoteSpawn, this));
 			}
 			//--------------------------------------------------------------------------------
 			void InGame::OnLeave()
@@ -49,10 +49,10 @@ namespace Skyrim
 				SkyrimOnline::GetInstance().GetTimeManager().Update(pDelta);
 				SkyrimOnline::GetInstance().GetWeatherManager().Update(pDelta);
 
-				if(SkyrimOnline::GetInstance().GetSession() && !SkyrimOnline::GetInstance().GetSession()->IsOffline())
+				if(Logic::NetEngine::IsConnected())
 				{
 					SkyrimOnline::GetInstance().GetPlayerWatcher().Update(pDelta);
-					SkyrimOnline::GetInstance().GetSession()->Update(pDelta);
+					Logic::NetEngine::GetInstance().Update(pDelta);
 				}
 
 				mChat->Update(pDelta);
@@ -74,10 +74,9 @@ namespace Skyrim
 			//--------------------------------------------------------------------------------
 			void InGame::OnChatMessage(const std::string& pMessage)
 			{
-				Logic::Session::pointer session = SkyrimOnline::GetInstance().GetSession();
-				if(!session->IsOffline())
+				if(Logic::NetEngine::IsConnected())
 				{
-					session->SendChatMessage(pMessage);
+					Logic::NetEngine::GetInstance().SendChatMessage(pMessage);
 				}
 				else
 				{

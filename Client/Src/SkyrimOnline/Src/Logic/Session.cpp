@@ -27,13 +27,8 @@ namespace Skyrim
 			mHandlers[Opcode::SMSG_PLAYER_MOUNT_REMOVE] = &Session::HandleUnmount;
 		}
 		//--------------------------------------------------------------------------------
-		Session::Session(Game::PlayerWatcher& pPlayer)
+		Session::Session()
 		{
-			mEventLinks.push_back(pPlayer.OnEnterWorld.connect(boost::bind(&Session::SendCharacterInfo, this, _1)));
-			mEventLinks.push_back(pPlayer.OnMove      .connect(boost::bind(&Session::SendMoveAndLook,   this, _1, _2)));
-			mEventLinks.push_back(pPlayer.OnMount     .connect(boost::bind(&Session::SendMount,         this, _1)));
-			mEventLinks.push_back(pPlayer.OnUnmount   .connect(boost::bind(&Session::SendUnmount,       this)));
-			mEventLinks.push_back(pPlayer.OnRegion    .connect(boost::bind(&Session::SendEnterRegion,     this, _1)));
 		}
 		//--------------------------------------------------------------------------------
 		Session::~Session()
