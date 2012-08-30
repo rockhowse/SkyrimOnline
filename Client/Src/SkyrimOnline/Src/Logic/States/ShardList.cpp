@@ -26,7 +26,8 @@ namespace Skyrim
 				SkyrimOnline::GetInstance().SetMode(false);
 				mShardList->Hide();
 
-				SkyrimOnline::GetInstance().GetInterface().GetMessage()->SetCaption("Authentication complete, fetching shardlist.");
+				SkyrimOnline::GetInstance().GetInterface().GetMessage()->SetCaption("Fetching shardlist.");
+				SkyrimOnline::GetInstance().GetInterface().GetMessage()->SetVisible(true);
 
 				Network::HttpClient::AsyncRequest(boost::bind(&ShardList::OnShardlistReply, this, _1), SkyrimOnline::GetInstance().GetIoPool().GetIoService(), "skyrim-online.com", "/shardlist.php");
 			}

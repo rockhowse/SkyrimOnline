@@ -35,6 +35,8 @@ namespace Skyrim
 
 		mIoPool.Run();
 
+		SetUser(EasySteam::Interface::GetInstance().GetUser()->GetPersonaName());
+
 		System::Log::Debug("Mod() -e");
 	}
 	//--------------------------------------------------------------------------------
@@ -46,11 +48,11 @@ namespace Skyrim
 	//--------------------------------------------------------------------------------
 	void SkyrimOnline::Setup()
 	{
-		mStates["Login"].reset(new Logic::State::Login);
+		//mStates["Login"].reset(new Logic::State::Login);
 		mStates["ShardList"].reset(new Logic::State::ShardList);
 		mStates["InGame"].reset(new Logic::State::InGame);
 
-		SetState("Login");
+		SetState("ShardList");
 	}
 	//--------------------------------------------------------------------------------
 	void SkyrimOnline::Run()
@@ -59,6 +61,8 @@ namespace Skyrim
 		while (mRun)
 		{
 			System::Log::Flush();
+
+			EasySteam::Interface::Run();
 
 			SetRendering(clock());
 			uint32_t delta = uint32_t(mTimer.elapsed() * 1000);

@@ -145,7 +145,6 @@ BOOL APIENTRY DllMain(HMODULE hModule, DWORD fdwReason, LPVOID lpReserved)
 
 			if(strL.find("TESV.exe") != std::string::npos)
 			{
-				Imports();
 				DragonPluginInit(hModule);
 			}
 

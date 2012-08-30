@@ -57,6 +57,12 @@ __declspec(dllexport) void main()
 			}
 		}
 
+		if(!EasySteam::Interface::GetInstance().GetUser()->IsLoggedOn())
+		{
+			Debug::ShowMessageBox("Unable to retrieve steam.");
+			return;
+		}
+
 		Skyrim::RegisterOnlineScript();
 
 		srand((unsigned int)time(NULL));

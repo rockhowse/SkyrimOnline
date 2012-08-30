@@ -1,6 +1,15 @@
 #pragma once
 
 #define DIRECTINPUT_VERSION 0x0800
+#define _WIN32_WINNT 0x0502 
+
+#pragma warning( disable : 4251 )
+#pragma warning( disable : 4244 )
+#pragma warning( disable : 4996 )
+#pragma warning( disable : 4355 )
+#pragma warning( disable : 4995 )
+
+#include <tchar.h>
 
 // Boost
 #include <boost/asio.hpp>
@@ -68,11 +77,10 @@
 #include <skse/PapyrusVM.h>
 #include <skse/PapyrusNativeFunctions.h>
 
-#define CRYPTOPP_ENABLE_NAMESPACE_WEAK 1
-
-#pragma warning( disable : 4251 )
-#pragma warning( disable : 4244 )
-#pragma warning( disable : 4996 )
-#pragma warning( disable : 4355 )
+#include <EasySteam/Interface.hpp>
+#include <EasySteam/User.hpp>
+#include <EasySteam/Avatar.hpp>
+#include <EasySteam/Friends.hpp>
+#include <EasySteam/Friend.hpp>
 
 using namespace Framework;
