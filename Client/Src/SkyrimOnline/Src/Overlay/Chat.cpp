@@ -33,14 +33,12 @@ namespace Skyrim
 		//--------------------------------------------------------------------------------
 		void	Chat::Hide()
 		{
-			mEdit->setVisible(false);
-			mList->setVisible(false);
+			SetVisible(false);
 		}
 		//--------------------------------------------------------------------------------
 		void	Chat::Show()
 		{
-			mEdit->setVisible(true);
-			mList->setVisible(true);
+			SetVisible(true);
 		}
 		//--------------------------------------------------------------------------------
 		void	Chat::SetVisible(bool v)

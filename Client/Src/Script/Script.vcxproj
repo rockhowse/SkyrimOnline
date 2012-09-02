@@ -99,7 +99,9 @@
     <ClInclude Include="Src\exports\Exports.h" />
     <ClInclude Include="Src\exports\Location.h" />
     <ClInclude Include="Src\exports\Npc.h" />
+    <ClInclude Include="Src\FreeScript\Actor.h" />
     <ClInclude Include="Src\freescript\Forms.h" />
+    <ClInclude Include="Src\FreeScript\RTTI.h" />
     <ClInclude Include="Src\skse\CommandTable.h" />
     <ClInclude Include="Src\skse\GameAPI.h" />
     <ClInclude Include="Src\skse\GameBSExtraData.h" />
@@ -206,6 +208,8 @@
     <ClCompile Include="Src\exports\exports.cpp" />
     <ClCompile Include="Src\exports\Location.cpp" />
     <ClCompile Include="Src\exports\Npc.cpp" />
+    <ClCompile Include="Src\FreeScript\Actor.cpp" />
+    <ClCompile Include="Src\FreeScript\RTTI.cpp" />
     <ClCompile Include="Src\skse\CommandTable.cpp" />
     <ClCompile Include="Src\skse\GameAPI.cpp" />
     <ClCompile Include="Src\skse\GameData.cpp" />

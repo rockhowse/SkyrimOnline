@@ -2,15 +2,16 @@
 #include "Actor.h"
 #include "skse/PapyrusActor.h"
 #include "skse/PapyrusActorBase.h"
+#include "FreeScript/Actor.h"
+#include "FreeScript/RTTI.h"
 
 namespace SkyrimScript
 {
 	uint32_t GetRace(void* pActor)
 	{
-		CActor* actor = (CActor*)pActor;
-		if(actor)
+		if(pActor)
 		{
-			TESNPC* npc = DYNAMIC_CAST(actor->baseForm, TESForm, TESNPC);
+			TESNPC* npc = rtti_cast(FreeScript::GetBaseForm(pActor), TESForm, TESNPC);
 			if(npc)
 			{
 				return npc->race.race->formID;
@@ -21,9 +22,8 @@ namespace SkyrimScript
 
 	void* GetBaseForm(void* pActor)
 	{
-		CActor* actor = (CActor*)pActor;
-		if(actor)
-			return actor->baseForm;
+		if(pActor)
+			return FreeScript::GetBaseForm(pActor);
 		return nullptr;
 	}
 
@@ -50,15 +50,14 @@ namespace SkyrimScript
 
 	void SetName(void* pActor, const std::string& pName)
 	{
-		CActor* actor = (CActor*)pActor;
-		if(!actor) return;
-		TESNPC* npc = DYNAMIC_CAST(actor->baseForm, TESForm, TESNPC);
+		if(!pActor) return;
+		TESNPC* npc = rtti_cast(FreeScript::GetBaseForm(pActor), TESForm, TESNPC);
 		if(!npc) return;
 		npc->fullName.name = StringCache::Ref::Ref(pName.c_str());
 	}
 
 	void QueueNiNodeUpdate(void* pActor)
 	{
-		papyrusActor::QueueNiNodeUpdate((CActor*)pActor);
+		FreeScript::QueueNiNode(pActor);
 	}
 }
