@@ -1,10 +1,12 @@
 #pragma once
 
+#include "../FreeScript/Forms.hpp"
+
 namespace SkyrimScript
 {
-	TESNPC* NpcListAt(uint32_t pIndex);
+	FreeScript::TESNPC* NpcListAt(uint32_t pIndex);
 	uint32_t NpcListCount();
-	std::string NpcGetName(TESNPC* pThis);
-	void GetFaceMorph(TESNPC* pThis, std::vector<float>* pMorphOptions);
-	void SetFaceMorph(TESNPC* pThis, std::vector<float>* pMorphOptions);
+	std::string NpcGetName(FreeScript::TESNPC* pThis);
+	void GetFaceMorph(FreeScript::TESNPC* pThis, std::vector<float>* pMorphOptions);
+	void SetFaceMorph(FreeScript::TESNPC* pThis, std::vector<float>* pMorphOptions);
 }

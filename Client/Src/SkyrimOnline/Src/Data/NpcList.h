@@ -8,7 +8,7 @@ namespace Skyrim
 		{
 		public:
 
-			class Iterator : public std::iterator<std::input_iterator_tag, TESNPC*>
+			class Iterator : public std::iterator<std::input_iterator_tag, FreeScript::TESNPC*>
 			{
 			public:
 
@@ -18,7 +18,7 @@ namespace Skyrim
 				Iterator& operator++(int);
 				bool operator==(const Iterator& pItor);
 				bool operator!=(const Iterator& pItor);
-				TESNPC* operator*();
+				FreeScript::TESNPC* operator*();
 
 			private:
 

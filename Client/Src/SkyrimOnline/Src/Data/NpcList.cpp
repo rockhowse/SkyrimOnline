@@ -53,7 +53,7 @@ namespace Skyrim
 			return pItor.mPos != mPos;
 		}
 
-		TESNPC* NpcList::Iterator::operator*()
+		FreeScript::TESNPC* NpcList::Iterator::operator*()
 		{
 			return SkyrimScript::NpcListAt(mPos);
 		}

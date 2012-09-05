@@ -7,10 +7,10 @@
     </ProjectConfiguration>
   </ItemGroup>
   <PropertyGroup Label="Globals">
-    <ProjectGuid>{5BD3DA32-06CE-4029-BF72-2E00B3DF7F4E}</ProjectGuid>
+    <ProjectGuid>{414C2B24-3129-4D9E-B4B3-390D1AC36D8E}</ProjectGuid>
     <Keyword>Win32Proj</Keyword>
     <RootNamespace>SkyrimOnline</RootNamespace>
-    <ProjectName>SkyrimOnline</ProjectName>
+    <ProjectName>OffsetDumper</ProjectName>
   </PropertyGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.Default.props" />
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|Win32'" Label="Configuration">
@@ -56,89 +56,27 @@
       <EnableCOMDATFolding>true</EnableCOMDATFolding>
       <OptimizeReferences>true</OptimizeReferences>
       <OutputFile>$(OutDir)$(TargetName).asi</OutputFile>
-      <AdditionalLibraryDirectories>$(DXSDK_DIR)\Lib\x86;..\..\..\..\EasySteam\Bin\Release;..\..\..\..\Dependencies\lib;..\..\Bin;..\Bin\$(PlatformShortName)\;%(AdditionalLibraryDirectories)</AdditionalLibraryDirectories>
+      <AdditionalLibraryDirectories>$(DXSDK_DIR)\Lib\x86;..\..\..\..\EasySteam\Bin\Release;..\..\..\..\Dependencies\lib;..\..\Bin;%(AdditionalLibraryDirectories)</AdditionalLibraryDirectories>
       <AdditionalDependencies>SkyrimOnlineProxy.lib;cryptlib.lib;zlib.x86.lib;Framework.lib;d3dx9.lib;MyGUIEngine.lib;dxguid.lib;dinput8.lib;MyGUI.DirectXPlatform.lib;d3d9.lib;dbghelp.lib;FreeScript.lib;EasySteam.lib;%(AdditionalDependencies)</AdditionalDependencies>
       <ModuleDefinitionFile>
       </ModuleDefinitionFile>
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup>
-    <ClInclude Include="Src\common\Import.h" />
     <ClInclude Include="Src\common\invoke.h" />
     <ClInclude Include="Src\common\Utils.h" />
-    <ClInclude Include="Src\Data\ActorList.h" />
-    <ClInclude Include="Src\Data\NpcList.h" />
-    <ClInclude Include="Src\Directx\myIDirect3D9.h" />
-    <ClInclude Include="Src\Directx\myIDirect3DDevice9.h" />
-    <ClInclude Include="Src\Game\AssetManager.h" />
-    <ClInclude Include="Src\Game\Character.h" />
-    <ClInclude Include="Src\Game\CharacterManager.h" />
     <ClInclude Include="Src\common\enums.h" />
     <ClInclude Include="Src\common\obscript.h" />
     <ClInclude Include="Src\common\plugin.h" />
     <ClInclude Include="Src\common\skyscript.h" />
     <ClInclude Include="Src\common\types.h" />
-    <ClInclude Include="Src\Game\data.h" />
-    <ClInclude Include="Src\Engine\InputManager.h" />
-    <ClInclude Include="Src\Game\SkyrimFormManager.h" />
-    <ClInclude Include="Src\Game\TimeManager.h" />
-    <ClInclude Include="Src\Game\WeatherManager.h" />
-    <ClInclude Include="Src\Game\PlayerWatcher.h" />
-    <ClInclude Include="Src\Game\RemotePlayer.h" />
-    <ClInclude Include="Src\Game\WorldManager.h" />
-    <ClInclude Include="Src\Logic\GameState.hpp" />
-    <ClInclude Include="Src\Logic\MasterSession.h" />
-    <ClInclude Include="Src\Logic\NetEngine.hpp" />
-    <ClInclude Include="Src\Logic\States\InGame.hpp" />
-    <ClInclude Include="Src\Logic\States\Login.hpp" />
-    <ClInclude Include="Src\Logic\States\ShardList.hpp" />
-    <ClInclude Include="Src\Overlay\Chat.h" />
-    <ClInclude Include="Src\Overlay\FriendList.h" />
-    <ClInclude Include="Src\Overlay\Interface.h" />
-    <ClInclude Include="Src\Overlay\Login.h" />
-    <ClInclude Include="Src\Logic\Session.h" />
-    <ClInclude Include="Src\Script\Online.h" />
-    <ClInclude Include="Src\Script\Script.h" />
-    <ClInclude Include="Src\SkyrimOnline.h" />
-    <ClInclude Include="Src\Overlay\Message.h" />
-    <ClInclude Include="Src\Overlay\ShardList.h" />
     <ClInclude Include="Src\stdafx.h" />
+    <ClInclude Include="Src\Test.hpp" />
   </ItemGroup>
   <ItemGroup>
-    <ClCompile Include="Src\common\Import.cpp" />
-    <ClCompile Include="Src\Data\ActorList.cpp" />
-    <ClCompile Include="Src\Data\NpcList.cpp" />
-    <ClCompile Include="Src\Game\AssetManager.cpp" />
-    <ClCompile Include="Src\Game\Character.cpp" />
-    <ClCompile Include="Src\Game\CharacterManager.cpp" />
+    <ClCompile Include="Src\Actor.cpp" />
     <ClCompile Include="Src\common\plugin.cpp" />
-    <ClCompile Include="Src\Engine\InputManager.cpp" />
-    <ClCompile Include="Src\Game\SkyrimFormManager.cpp" />
-    <ClCompile Include="Src\Game\TimeManager.cpp" />
-    <ClCompile Include="Src\Game\WeatherManager.cpp" />
-    <ClCompile Include="Src\Game\WorldManager.cpp" />
-    <ClCompile Include="Src\Logic\MasterSession.cpp" />
-    <ClCompile Include="Src\Logic\NetEngine.cpp" />
-    <ClCompile Include="Src\Logic\Senders\Character.cpp" />
-    <ClCompile Include="Src\Logic\Senders\General.cpp" />
-    <ClCompile Include="Src\Logic\States\InGame.cpp" />
-    <ClCompile Include="Src\Logic\States\Login.cpp" />
-    <ClCompile Include="Src\Logic\States\ShardList.cpp" />
     <ClCompile Include="Src\main.cpp" />
-    <ClCompile Include="Src\Game\PlayerWatcher.cpp" />
-    <ClCompile Include="Src\Game\RemotePlayer.cpp" />
-    <ClCompile Include="Src\Logic\Handlers\Authentication.cpp" />
-    <ClCompile Include="Src\Logic\Handlers\Player.cpp" />
-    <ClCompile Include="Src\Logic\Handlers\World.cpp" />
-    <ClCompile Include="Src\Overlay\Chat.cpp" />
-    <ClCompile Include="Src\Overlay\FriendList.cpp" />
-    <ClCompile Include="Src\Overlay\Interface.cpp" />
-    <ClCompile Include="Src\Overlay\Login.cpp" />
-    <ClCompile Include="Src\Logic\Session.cpp" />
-    <ClCompile Include="Src\Script\Online.cpp" />
-    <ClCompile Include="Src\SkyrimOnline.cpp" />
-    <ClCompile Include="Src\Overlay\Message.cpp" />
-    <ClCompile Include="Src\Overlay\ShardList.cpp" />
     <ClCompile Include="Src\stdafx.cpp">
       <PrecompiledHeader Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">Create</PrecompiledHeader>
     </ClCompile>

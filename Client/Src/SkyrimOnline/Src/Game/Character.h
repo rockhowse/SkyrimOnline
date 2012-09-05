@@ -206,7 +206,7 @@ namespace Skyrim
 
 		private:
 
-			CActor* mActor;
+			FreeScript::Actor* mActor;
 			std::vector<float>    mFaceMorph;
 			std::vector<uint32_t> mWornForms;
 		};

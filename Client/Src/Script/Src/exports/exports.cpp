@@ -10,15 +10,4 @@ BOOL APIENTRY DllMain(HMODULE hModule, DWORD fdwReason, LPVOID lpReserved)
 
 namespace SkyrimScript
 {
-	void* ProxyDuplicate(void* pThis, void* pCopy)
-	{
-		TESForm* me = (TESForm*)pThis;
-		TESForm* copy = (TESForm*)pCopy;
-		me->CopyFrom(copy);
-
-		me->Init();
-		me->InitItem();
-
-		return me;
-	}
 }

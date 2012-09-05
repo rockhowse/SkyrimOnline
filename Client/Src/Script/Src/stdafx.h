@@ -12,6 +12,7 @@
 #include <concurrent_queue.h>
 #include <unordered_map>
 #include <cstdint>
+#include <array>
 
 #include <common/skyscript.h>
 #include <common/obscript.h>

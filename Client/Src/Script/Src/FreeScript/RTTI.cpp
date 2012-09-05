@@ -1,5 +1,5 @@
 #include "stdafx.h"
-#include "RTTI.h"
+#include "RTTI.hpp"
 
 namespace FreeScript
 {

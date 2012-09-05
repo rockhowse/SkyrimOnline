@@ -10,7 +10,7 @@
     <ProjectGuid>{9D810381-77E5-4D4B-9B4D-D4AFB7465097}</ProjectGuid>
     <Keyword>Win32Proj</Keyword>
     <RootNamespace>SkyrimOnline</RootNamespace>
-    <ProjectName>Script</ProjectName>
+    <ProjectName>FreeScript</ProjectName>
   </PropertyGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.Default.props" />
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|Win32'" Label="Configuration">
@@ -46,6 +46,7 @@
       <InlineFunctionExpansion>AnySuitable</InlineFunctionExpansion>
       <FavorSizeOrSpeed>Speed</FavorSizeOrSpeed>
       <WholeProgramOptimization>true</WholeProgramOptimization>
+      <ObjectFileName>$(IntDir)/%(RelativeDir)/</ObjectFileName>
     </ClCompile>
     <Link>
       <SubSystem>Console</SubSystem>
@@ -57,6 +58,9 @@
       <AdditionalDependencies>Winmm.lib;%(AdditionalDependencies)</AdditionalDependencies>
       <ModuleDefinitionFile>SkseProxy.def</ModuleDefinitionFile>
     </Link>
+    <ProjectReference>
+      <LinkLibraryDependencies>true</LinkLibraryDependencies>
+    </ProjectReference>
   </ItemDefinitionGroup>
   <ItemGroup>
     <ClInclude Include="Src\common\IArchive.h" />
@@ -99,9 +103,14 @@
     <ClInclude Include="Src\exports\Exports.h" />
     <ClInclude Include="Src\exports\Location.h" />
     <ClInclude Include="Src\exports\Npc.h" />
-    <ClInclude Include="Src\FreeScript\Actor.h" />
+    <ClInclude Include="Src\FreeScript\Actor.hpp" />
+    <ClInclude Include="Src\FreeScript\Components.hpp" />
+    <ClInclude Include="Src\FreeScript\ExtraData.hpp" />
     <ClInclude Include="Src\freescript\Forms.h" />
-    <ClInclude Include="Src\FreeScript\RTTI.h" />
+    <ClInclude Include="Src\FreeScript\Forms.hpp" />
+    <ClInclude Include="Src\FreeScript\References.hpp" />
+    <ClInclude Include="Src\FreeScript\RTTI.hpp" />
+    <ClInclude Include="Src\FreeScript\Types.hpp" />
     <ClInclude Include="Src\skse\CommandTable.h" />
     <ClInclude Include="Src\skse\GameAPI.h" />
     <ClInclude Include="Src\skse\GameBSExtraData.h" />
@@ -209,6 +218,7 @@
     <ClCompile Include="Src\exports\Location.cpp" />
     <ClCompile Include="Src\exports\Npc.cpp" />
     <ClCompile Include="Src\FreeScript\Actor.cpp" />
+    <ClCompile Include="Src\FreeScript\Forms.cpp" />
     <ClCompile Include="Src\FreeScript\RTTI.cpp" />
     <ClCompile Include="Src\skse\CommandTable.cpp" />
     <ClCompile Include="Src\skse\GameAPI.cpp" />

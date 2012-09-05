@@ -2,16 +2,17 @@
 #include "Actor.h"
 #include "skse/PapyrusActor.h"
 #include "skse/PapyrusActorBase.h"
-#include "FreeScript/Actor.h"
-#include "FreeScript/RTTI.h"
+#include "FreeScript/References.hpp"
+#include "FreeScript/Actor.hpp"
+#include "FreeScript/RTTI.hpp"
 
 namespace SkyrimScript
 {
-	uint32_t GetRace(void* pActor)
+	uint32_t GetRace(FreeScript::Actor* pActor)
 	{
 		if(pActor)
 		{
-			TESNPC* npc = rtti_cast(FreeScript::GetBaseForm(pActor), TESForm, TESNPC);
+			::FreeScript::TESNPC* npc = rtti_cast(FreeScript::GetBaseForm(pActor), TESForm, TESNPC);
 			if(npc)
 			{
 				return npc->race.race->formID;
@@ -20,7 +21,7 @@ namespace SkyrimScript
 		return 0;
 	}
 
-	void* GetBaseForm(void* pActor)
+	FreeScript::TESForm* GetBaseForm(FreeScript::Actor* pActor)
 	{
 		if(pActor)
 			return FreeScript::GetBaseForm(pActor);
@@ -30,33 +31,31 @@ namespace SkyrimScript
 	void* ActorListAt(uint32_t pIndex)
 	{
 		TESForm* me;
-		if(!DataHandler::GetSingleton()->unkDOBJs.GetNthItem(pIndex, me))
-			me = nullptr;
-		return (void*)DYNAMIC_CAST(me, TESForm, Actor);
+		me = nullptr;
+		return nullptr;
 	}
 
 	uint32_t ActorListCount()
 	{
-		return DataHandler::GetSingleton()->unkDOBJs.count;
+		return 0;
 	}
 
-	void* GetWornForm(void* pActor, uint32_t mask)
+	FreeScript::TESForm* GetWornForm(FreeScript::Actor* pActor, uint32_t mask)
 	{
-		CActor* actor = (CActor*)pActor;
-		if(actor)
-			return papyrusActor::GetWornForm(actor,mask);
+		if(pActor)
+			return (FreeScript::TESForm*)papyrusActor::GetWornForm((Actor*)pActor,mask);
 		return nullptr;
 	}
 
-	void SetName(void* pActor, const std::string& pName)
+	void SetName(FreeScript::Actor* pActor, const std::string& pName)
 	{
 		if(!pActor) return;
-		TESNPC* npc = rtti_cast(FreeScript::GetBaseForm(pActor), TESForm, TESNPC);
+		FreeScript::TESNPC* npc = rtti_cast(FreeScript::GetBaseForm(pActor), TESForm, TESNPC);
 		if(!npc) return;
-		npc->fullName.name = StringCache::Ref::Ref(pName.c_str());
+		//npc->fullName.name = StringCache::Ref::Ref(pName.c_str());
 	}
 
-	void QueueNiNodeUpdate(void* pActor)
+	void QueueNiNodeUpdate(FreeScript::Actor* pActor)
 	{
 		FreeScript::QueueNiNode(pActor);
 	}
