@@ -18,7 +18,7 @@ namespace SkyrimScript
 	std::string NpcGetName(FreeScript::TESNPC* pThis)
 	{
 		if(pThis)
-			return std::to_string((uint64_t)pThis->formID) + std::string(" ") + std::string(pThis->fullName.name);
+			return std::to_string((uint64_t)pThis->formID) + std::string(" ") + std::string(pThis->fullName.name.data);
 		return "";
 	}
 

@@ -220,6 +220,7 @@
     <ClCompile Include="Src\FreeScript\Actor.cpp" />
     <ClCompile Include="Src\FreeScript\Forms.cpp" />
     <ClCompile Include="Src\FreeScript\RTTI.cpp" />
+    <ClCompile Include="Src\FreeScript\Types.cpp" />
     <ClCompile Include="Src\skse\CommandTable.cpp" />
     <ClCompile Include="Src\skse\GameAPI.cpp" />
     <ClCompile Include="Src\skse\GameData.cpp" />

@@ -1,5 +1,7 @@
 #pragma once
 
+#include "Types.hpp"
+
 namespace FreeScript
 {
 	class BaseFormComponent
@@ -11,6 +13,6 @@ namespace FreeScript
 	{
 	public:
 
-		const char* name;
+		FreeScript::String name;
 	};
 }

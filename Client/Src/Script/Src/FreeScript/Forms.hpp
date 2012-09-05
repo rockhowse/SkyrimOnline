@@ -58,7 +58,7 @@ namespace FreeScript
 	{
 	public:
 		char				pad00to84[0x84 - 0x20];
-		TESFullName			fullName;	// 84
+		TESFullName			fullName;
 		char				pad8ctoc0[0xc0 - 0x8c];
 	};
 
@@ -96,4 +96,14 @@ namespace FreeScript
 		FreeScript::Vector<FreeScript::TESObjectREFR*> childList;
 		char pad58to8c[0x8c - 0x58];
 	};
+
+	class BGSLocation : public FreeScript::TESForm
+	{
+	public:
+
+		FreeScript::TESFullName		fullName;
+
+		char pad1cto88[0x88 - 0x1c];
+	};
+
 }

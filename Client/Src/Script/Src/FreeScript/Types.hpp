@@ -20,4 +20,13 @@ namespace FreeScript
 			throw std::runtime_error("Out of range !");
 		}
 	};
+
+	class String
+	{
+	public:
+
+		const char* data;
+
+		String(const char* data);
+	};
 }

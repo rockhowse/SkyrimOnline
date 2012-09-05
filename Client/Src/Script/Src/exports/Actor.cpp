@@ -6,6 +6,7 @@
 #include "FreeScript/Actor.hpp"
 #include "FreeScript/RTTI.hpp"
 
+
 namespace SkyrimScript
 {
 	uint32_t GetRace(FreeScript::Actor* pActor)
@@ -52,7 +53,7 @@ namespace SkyrimScript
 		if(!pActor) return;
 		FreeScript::TESNPC* npc = rtti_cast(FreeScript::GetBaseForm(pActor), TESForm, TESNPC);
 		if(!npc) return;
-		//npc->fullName.name = StringCache::Ref::Ref(pName.c_str());
+		npc->fullName.name = FreeScript::String(pName.c_str());
 	}
 
 	void QueueNiNodeUpdate(FreeScript::Actor* pActor)
