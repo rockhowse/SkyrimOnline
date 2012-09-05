@@ -1,23 +1,22 @@
 #include "stdafx.h"
 #include "Location.h"
-#include "skse/PapyrusActor.h"
-#include "skse/PapyrusActorBase.h"
+#include "../FreeScript/Forms.hpp"
 
 namespace SkyrimScript
 {
 	// Use BGSLocation*
 	const char* GetLocationString(void* pLocation)
 	{
-		BGSLocation* location = (BGSLocation*)pLocation;
-		if(location && location->GetName())
-			return location->GetName();
+		auto location = (FreeScript::BGSLocation*)pLocation;
+		if(location && location->fullName.name.data)
+			return location->fullName.name.data;
 		return "";
 	}
 
 	// Use BGSLocation*
 	uint32_t GetLocationId(void* pLocation)
 	{
-		BGSLocation* location = (BGSLocation*)pLocation;
+		auto location = (FreeScript::BGSLocation*)pLocation;
 		return location->formID;
 	}
 }

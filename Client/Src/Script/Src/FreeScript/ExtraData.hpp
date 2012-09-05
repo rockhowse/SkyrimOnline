@@ -1,7 +1,10 @@
 #pragma once
 
+#include "Types.hpp"
+
 namespace FreeScript
 {
+	class BaseExtraList;
 	class BSExtraData
 	{
 	public:
@@ -9,6 +12,36 @@ namespace FreeScript
 		virtual ~BSExtraData();
 
 		BSExtraData* next;
+	};
+
+	class ExtraContainerChanges : public BSExtraData
+	{
+	public:
+		ExtraContainerChanges();
+		virtual ~ExtraContainerChanges();
+
+		struct EntryData
+		{
+			TESForm* type;
+			List<FreeScript::BaseExtraList>* extendDataList;
+			int32_t countDelta;
+		};
+
+		struct Data
+		{
+			List<EntryData>*	objList;
+			TESObjectREFR*	owner;
+			float			totalWeight;
+			float			armorWeight;
+		};
+
+		Data * data;
+
+		struct FoundEquipData {
+			TESForm* pForm;
+			BaseExtraList* pExtraData;
+		};
+	//	FoundEquipData FindEquipped(__FMatch& matcher) const;
 	};
 
 	class BaseExtraList
@@ -48,10 +81,8 @@ namespace FreeScript
 			}
 		}
 
-		bool Remove(uint8_t pType, BSExtraData* pToRemove);
-		bool Add(uint8_t pType, BSExtraData* pToAdd);
+		FreeScript::ExtraContainerChanges* GetExtraContainerChanges() const;
 
-		BSExtraData* GetByType(uint32_t pType) const;
 		BSExtraData* mData;	
 		PresenceBitfield* mPresence;
 	};

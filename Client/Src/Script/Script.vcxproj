@@ -218,6 +218,7 @@
     <ClCompile Include="Src\exports\Location.cpp" />
     <ClCompile Include="Src\exports\Npc.cpp" />
     <ClCompile Include="Src\FreeScript\Actor.cpp" />
+    <ClCompile Include="Src\FreeScript\ExtraData.cpp" />
     <ClCompile Include="Src\FreeScript\Forms.cpp" />
     <ClCompile Include="Src\FreeScript\RTTI.cpp" />
     <ClCompile Include="Src\FreeScript\Types.cpp" />

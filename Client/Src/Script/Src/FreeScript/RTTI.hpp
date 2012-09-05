@@ -9,6 +9,8 @@ rtti_offset(TESForm,0x011E3000);
 rtti_offset(TESNPC,0x011E6A2C);
 rtti_offset(BGSBipedObjectForm, 0x011E6E10);
 rtti_offset(TESRace, 0x011E7C70);
+rtti_offset(ExtraContainerChanges, 0x011E5A64);
+rtti_offset(BSExtraData, 0x011E4200);
 
 #undef  rtti_offset
 

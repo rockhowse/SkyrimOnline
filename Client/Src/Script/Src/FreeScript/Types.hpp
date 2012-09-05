@@ -21,6 +21,37 @@ namespace FreeScript
 		}
 	};
 
+	template <class T>
+	class List
+	{
+		typedef typename T item_type;
+		struct Node {
+
+			item_type*	item;
+			Node*		next;
+		};
+
+		Node mHead;
+
+	public:
+
+		Node* Head() 
+		{
+			return &mHead;
+		}
+
+		item_type* At(const int32_t pIndex)
+		{
+			int32_t i = 0;
+			for(auto node = Head(); node && node->item; node = node->next, ++i)
+			{
+				if(i == pIndex)
+					return node->item;
+			}
+			return nullptr;
+		}
+	};
+
 	class String
 	{
 	public:

@@ -1,7 +1,5 @@
 #include "stdafx.h"
 #include "Actor.h"
-#include "skse/PapyrusActor.h"
-#include "skse/PapyrusActorBase.h"
 #include "FreeScript/References.hpp"
 #include "FreeScript/Actor.hpp"
 #include "FreeScript/RTTI.hpp"
@@ -44,7 +42,7 @@ namespace SkyrimScript
 	FreeScript::TESForm* GetWornForm(FreeScript::Actor* pActor, uint32_t mask)
 	{
 		if(pActor)
-			return (FreeScript::TESForm*)papyrusActor::GetWornForm((Actor*)pActor,mask);
+			return (FreeScript::TESForm*)FreeScript::GetWornForm(pActor, mask);
 		return nullptr;
 	}
 
