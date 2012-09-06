@@ -18,7 +18,7 @@ namespace Skyrim
 				mUsedOffsets[i] = false;
 			}
 
-			for(auto itor = Data::NpcList::begin(); itor != Data::NpcList::end(); ++itor)
+			for(auto itor = FreeScript::DataHolder::GetInstance()->mNpcs.begin(); itor != FreeScript::DataHolder::GetInstance()->mNpcs.end(); ++itor)
 			{
 				if(FreeScript::TESNPCHelper(*itor).GetName().find("SkyrimOnlineBaseAddr") != std::string::npos)
 				{

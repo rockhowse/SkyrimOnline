@@ -35,6 +35,63 @@ namespace FreeScript
 
 	public:
 
+		class Iterator : public std::iterator<std::input_iterator_tag, item_type>
+		{
+
+			friend class List<item_type>;
+			Iterator(Node* pHead) : mNode(pHead)
+			{
+			}
+
+		public:
+
+			Iterator& operator++()
+			{
+				if(!mNode)
+					throw std::out_of_range("iterator is end.");
+				mNode = mNode->next;
+				return *this;
+			}
+
+			Iterator operator++(int)
+			{
+				Iterator tmp(*this);
+				operator++();
+				return tmp;
+			}
+
+			bool operator==(const Iterator& pItor)
+			{
+				return this->mNode == pItor->mNode;
+			}
+
+			bool operator!=(const Iterator& pItor)
+			{
+				return !(*this == pItor);
+			}
+
+			item_type* operator*()
+			{
+				if(!mNode)
+					throw std::out_of_range("iterator is end.");
+				return mNode->item;
+			}
+
+		private:
+
+			Node* mNode;
+		};
+
+		Iterator begin()
+		{
+			return Iterator(&mHead);
+		}
+
+		Iterator end()
+		{
+			return Iterator(nullptr);
+		}
+
 		Node* Head() 
 		{
 			return &mHead;

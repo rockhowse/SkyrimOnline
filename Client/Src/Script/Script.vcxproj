@@ -66,6 +66,7 @@
     <ClInclude Include="Src\FreeScript\Actor.hpp" />
     <ClInclude Include="Src\FreeScript\Common.hpp" />
     <ClInclude Include="Src\FreeScript\Components.hpp" />
+    <ClInclude Include="Src\FreeScript\Data.hpp" />
     <ClInclude Include="Src\FreeScript\ExtraData.hpp" />
     <ClInclude Include="Src\freescript\Forms.h" />
     <ClInclude Include="Src\FreeScript\Forms.hpp" />
@@ -79,6 +80,7 @@
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="Src\FreeScript\Actor.cpp" />
+    <ClCompile Include="Src\FreeScript\Data.cpp" />
     <ClCompile Include="Src\FreeScript\ExtraData.cpp" />
     <ClCompile Include="Src\FreeScript\Forms.cpp" />
     <ClCompile Include="Src\FreeScript\FreeScript.cpp" />
