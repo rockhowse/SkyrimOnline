@@ -44,6 +44,8 @@ namespace Skyrim
 			GetInstance().mServerMode = false;
 			GetInstance().mClient = Session::Create();
 			GetInstance().mClient->Connect(pIp, pPort);
+			GetInstance().mClient->OnChatMessage.connect(boost::bind(&NetEngine::_OnChatMessage, &GetInstance(), _1));
+			GetInstance().mClient->OnSpawn.connect(boost::bind(&NetEngine::_OnSpawn, &GetInstance()));
 
 			GetInstance().mEventLinks.push_back(watcher.OnEnterWorld.connect(boost::bind(&NetEngine::SendCharacterInfo, &GetInstance(), _1)));
 			GetInstance().mEventLinks.push_back(watcher.OnMove      .connect(boost::bind(&NetEngine::SendMoveAndLook,   &GetInstance(), _1, _2)));
@@ -69,6 +71,16 @@ namespace Skyrim
 			if(mServerMode);
 			else if(mClient)
 				mClient->Write(pPacket);
+		}
+
+		void NetEngine::_OnSpawn()
+		{
+			OnSpawn();
+		}
+
+		void NetEngine::_OnChatMessage(const std::string& pMessage)
+		{
+			OnChatMessage(pMessage);
 		}
 	}
 }

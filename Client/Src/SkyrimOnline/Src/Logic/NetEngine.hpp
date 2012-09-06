@@ -32,6 +32,9 @@ namespace Skyrim
 
 			Session::pointer GetClient();
 
+			void _OnChatMessage(const std::string& pMessage);
+			void _OnSpawn();
+
 		protected:
 
 			void Write(Network::Packet& pPacket);
