@@ -7,6 +7,10 @@ namespace FreeScript
 	class BaseFormComponent
 	{
 	public:
+		BaseFormComponent();
+		virtual ~BaseFormComponent();
+
+		virtual void Init();
 	};
 
 	class TESFullName : public ::FreeScript::BaseFormComponent

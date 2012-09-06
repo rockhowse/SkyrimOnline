@@ -4,7 +4,7 @@
 
 namespace Skyrim
 {
-	UInt32 GetVersion(StaticFunctionTag* v)
+	/*UInt32 GetVersion(StaticFunctionTag* v)
 	{
 		std::ostringstream os;
 		os << "Executed Online.GetVersion() with args : ";
@@ -24,10 +24,11 @@ namespace Skyrim
 		Logic::NetEngine::GetInstance().SendChatMessage(pMessage.data);
 
 		return 1;
-	}
+	}*/
 
 	void RegisterOnlineScript()
 	{
+	/*
 		if(!*g_skyrimVM) return;
 
 		VMClassRegistry		* registry =	(*g_skyrimVM)->GetClassRegistry();
@@ -38,6 +39,6 @@ namespace Skyrim
 
 		registry->RegisterFunction(
 			new NativeFunction0 <StaticFunctionTag, UInt32> ("GetVersion", "Online", Skyrim::GetVersion, registry));
-		System::Log::Debug("Registered Online.GetVersion()...");
+		System::Log::Debug("Registered Online.GetVersion()...");*/
 	}
 }

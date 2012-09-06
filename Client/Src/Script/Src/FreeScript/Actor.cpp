@@ -5,28 +5,24 @@
 
 namespace FreeScript
 {
-	void QueueNiNode(void* ptr)
+	void QueueNiNodeUpdate(FreeScript::Actor* ptr)
 	{
-		((void(__thiscall*)(CActor*))0x0072CD80)((CActor*)ptr);
+		((void(__thiscall*)(FreeScript::Actor*,bool))0x0072CD80)(ptr,true);
 	}
 
-	::FreeScript::TESForm* GetBaseForm(void* ptr)
+	void SetName(FreeScript::Actor* pActor, const std::string& pName)
 	{
-		return (TESForm*)((char*)ptr + 0x24);
-	}
-
-	::FreeScript::TESNPC* GetNpc(::FreeScript::TESForm* ptr)
-	{
-		return (::FreeScript::TESNPC*)((char*)ptr + 0xC4);
-	}
-
-	uint32_t GetNpcFormID(::FreeScript::TESNPC* ptr)
-	{
-		return ptr->race.race->formID;
+		if(!pActor) return;
+		FreeScript::TESNPC* npc = rtti_cast(pActor->baseForm, TESForm, TESNPC);
+		if(!npc) return;
+		npc->fullName.name = FreeScript::String(pName.c_str());
 	}
 
 	FreeScript::TESForm* GetWornForm(::FreeScript::Actor* ptr, uint32_t mask)
 	{
+		if(!ptr)
+			return nullptr;
+
 		FreeScript::ExtraContainerChanges* pContainerChanges = ptr->extraData.GetExtraContainerChanges();
 		if (pContainerChanges) 
 		{

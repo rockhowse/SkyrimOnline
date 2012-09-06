@@ -48,9 +48,6 @@
 #include <MyGUI.h>
 #include <MyGUI_DirectXPlatform.h>
 
-// skse common
-#include <common/ITypes.h>
-
 // papyrus common
 #include <common/skyscript.h>
 #include <common/obscript.h>
@@ -74,8 +71,6 @@
 #include <Script/Script.h>
 #include <Game/data.h>
 
-#include <skse/PapyrusVM.h>
-#include <skse/PapyrusNativeFunctions.h>
 
 #include <EasySteam/Interface.hpp>
 #include <EasySteam/User.hpp>
@@ -83,8 +78,6 @@
 #include <EasySteam/Friends.hpp>
 #include <EasySteam/Friend.hpp>
 
-#include <FreeScript/RTTI.hpp>
-#include <FreeScript/Forms.hpp>
-#include <FreeScript/References.hpp>
+#include <FreeScript/FreeScript.hpp>
 
 using namespace Framework;

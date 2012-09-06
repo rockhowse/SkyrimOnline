@@ -74,8 +74,8 @@ namespace FreeScript
 				PresetCount =	4,
 			};
 
-			float	option[OptionCount];
-			UInt32	presets[PresetCount];
+			float	 option[OptionCount];
+			uint32_t presets[PresetCount];
 		};
 
 		// parents

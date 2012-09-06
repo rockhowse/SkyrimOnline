@@ -20,12 +20,12 @@ namespace Skyrim
 
 			for(auto itor = Data::NpcList::begin(); itor != Data::NpcList::end(); ++itor)
 			{
-				if(SkyrimScript::NpcGetName(*itor).find("SkyrimOnlineBaseAddr") != std::string::npos)
+				if(FreeScript::TESNPCHelper(*itor).GetName().find("SkyrimOnlineBaseAddr") != std::string::npos)
 				{
-					mBaseAddr = Form::GetFormID((TESForm*)*itor) + 1; 
+					mBaseAddr = (*itor)->formID + 1; 
 				}
-
 			}
+
 			if(mBaseAddr == 0)
 			{
 				System::Log::Debug("Unable to find the base address, enable SkyrimOnline.esp");

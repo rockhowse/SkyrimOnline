@@ -17,7 +17,7 @@ namespace Skyrim
 
 		uint32_t NpcList::size()
 		{
-			return SkyrimScript::NpcListCount();
+			return 0;
 		}
 
 		NpcList::Iterator::Iterator(int pPos)
@@ -55,7 +55,7 @@ namespace Skyrim
 
 		FreeScript::TESNPC* NpcList::Iterator::operator*()
 		{
-			return SkyrimScript::NpcListAt(mPos);
+			return nullptr;
 		}
 
 	}

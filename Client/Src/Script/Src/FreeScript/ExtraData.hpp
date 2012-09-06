@@ -4,7 +4,10 @@
 
 namespace FreeScript
 {
+	class TESForm;
+	class TESObjectREFR;
 	class BaseExtraList;
+
 	class BSExtraData
 	{
 	public:
@@ -22,7 +25,7 @@ namespace FreeScript
 
 		struct EntryData
 		{
-			TESForm* type;
+			FreeScript::TESForm* type;
 			List<FreeScript::BaseExtraList>* extendDataList;
 			int32_t countDelta;
 		};
@@ -41,7 +44,6 @@ namespace FreeScript
 			TESForm* pForm;
 			BaseExtraList* pExtraData;
 		};
-	//	FoundEquipData FindEquipped(__FMatch& matcher) const;
 	};
 
 	class BaseExtraList

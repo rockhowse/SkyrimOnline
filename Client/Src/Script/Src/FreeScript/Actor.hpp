@@ -5,9 +5,7 @@
 
 namespace FreeScript
 {
-	void QueueNiNode(void* ptr);
-	::FreeScript::TESForm* GetBaseForm(void* ptr);
-	::FreeScript::TESNPC* GetNpc(::FreeScript::TESForm* ptr);
-	uint32_t GetNpcFormID(::FreeScript::TESNPC* ptr);
+	void QueueNiNodeUpdate(FreeScript::Actor* ptr);
 	FreeScript::TESForm* GetWornForm(::FreeScript::Actor* ptr, uint32_t mask);
+	void SetName(FreeScript::Actor* pActor, const std::string& pName);
 }

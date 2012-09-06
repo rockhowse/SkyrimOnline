@@ -38,16 +38,16 @@
     <ClCompile>
       <WarningLevel>Level3</WarningLevel>
       <PrecompiledHeader>Use</PrecompiledHeader>
-      <Optimization>Full</Optimization>
+      <Optimization>Disabled</Optimization>
       <FunctionLevelLinking>false</FunctionLevelLinking>
-      <IntrinsicFunctions>true</IntrinsicFunctions>
+      <IntrinsicFunctions>false</IntrinsicFunctions>
       <PreprocessorDefinitions>WIN32;NDEBUG;_WINDOWS;_USRDLL;NINJATOONLINE_EXPORTS;_WINDLL;DETOURS_32BIT;DETOURS_X86;RUNTIME;RUNTIME_VERSION=0x051A0000;%(PreprocessorDefinitions)</PreprocessorDefinitions>
       <AdditionalOptions>/Zm250 %(AdditionalOptions)</AdditionalOptions>
       <AdditionalIncludeDirectories>$(DXSDK_DIR)\Include;..\..\..\..\Dependencies\include\Steamworks;..\..\..\..\Dependencies\include\MyGUI;..\..\..\..\Dependencies\include\Framework;..\..\..\..\EasySteam\EasySteam;..\..\..\..\Dependencies\include;.\Src\common;.\Src\;$(SolutionDir)\..\Common;$(SolutionDir)\Src\Script\Src;$(SolutionDir)\Src\Script\Src\exports;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
       <ObjectFileName>$(IntDir)/%(RelativeDir)/</ObjectFileName>
-      <InlineFunctionExpansion>AnySuitable</InlineFunctionExpansion>
-      <FavorSizeOrSpeed>Size</FavorSizeOrSpeed>
-      <WholeProgramOptimization>true</WholeProgramOptimization>
+      <InlineFunctionExpansion>Default</InlineFunctionExpansion>
+      <FavorSizeOrSpeed>Neither</FavorSizeOrSpeed>
+      <WholeProgramOptimization>false</WholeProgramOptimization>
       <EnableEnhancedInstructionSet>StreamingSIMDExtensions2</EnableEnhancedInstructionSet>
     </ClCompile>
     <Link>

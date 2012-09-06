@@ -10,7 +10,7 @@ namespace Skyrim
 			:mActor((FreeScript::Actor*)pActor)
 		{
 			mFaceMorph.reserve(19);
-			mWornForms.reserve(32);
+			mWornForms.reserve(14);
 		}
 		//--------------------------------------------------------------------------------
 		bool Character::IsDead()
@@ -65,7 +65,7 @@ namespace Skyrim
 		//--------------------------------------------------------------------------------
 		void Character::QueueNiNodeUpdate()
 		{
-			SkyrimScript::QueueNiNodeUpdate(mActor);
+			FreeScript::QueueNiNodeUpdate(mActor);
 		}
 		//--------------------------------------------------------------------------------
 		uint32_t Character::GetLevel()
@@ -75,24 +75,24 @@ namespace Skyrim
 		//--------------------------------------------------------------------------------
 		uint32_t Character::GetRace()
 		{
-			return SkyrimScript::GetRace(mActor);
+			return FreeScript::TESNPCHelper(FreeScript::ActorHelper(mActor).GetNpc()).GetRaceID();
 		}
 		//--------------------------------------------------------------------------------
 		uint32_t Character::GetGender()
 		{
-			return ActorBase::GetSex((TESNPC*)rtti_cast(SkyrimScript::GetBaseForm(mActor), TESForm, TESNPC));
+			return ActorBase::GetSex((TESNPC*)FreeScript::ActorHelper(mActor).GetNpc());
 		}
 		//--------------------------------------------------------------------------------
 		const std::vector<float>& Character::GetFaceMorph()
 		{
-			SkyrimScript::GetFaceMorph(rtti_cast(SkyrimScript::GetBaseForm(mActor), TESForm, TESNPC), &mFaceMorph);
+			FreeScript::TESNPCHelper(FreeScript::ActorHelper(mActor).GetNpc()).GetFaceMorph(mFaceMorph);
 			return mFaceMorph;
 		}
 		//--------------------------------------------------------------------------------
 		void Character::SetFaceMorph(const std::vector<float>& pFaceMorphs)
 		{
 			mFaceMorph = pFaceMorphs;
-			SkyrimScript::SetFaceMorph(rtti_cast(SkyrimScript::GetBaseForm(mActor), TESForm, TESNPC), &mFaceMorph);
+			FreeScript::TESNPCHelper(FreeScript::ActorHelper(mActor).GetNpc()).SetFaceMorph(pFaceMorphs);
 			this->QueueNiNodeUpdate();
 		}
 		//--------------------------------------------------------------------------------
@@ -111,15 +111,15 @@ namespace Skyrim
 		//--------------------------------------------------------------------------------
 		TESForm* Character::GetWornForm(uint32_t mask)
 		{
-			return (TESForm*)SkyrimScript::GetWornForm(mActor,mask);
+			return (TESForm*)FreeScript::GetWornForm(mActor,mask);
 		}
 		//--------------------------------------------------------------------------------
 		const std::vector<uint32_t>& Character::GetAllWornForms()
 		{
 			mWornForms.clear();
-			for(uint32_t i=0; i <= 31; i++)
+			for(uint32_t i=0; i <= 13; i++)
 			{
-				TESForm* pForm = this->GetWornForm(i);
+				TESForm* pForm = this->GetWornForm(1 << i);
 				if( pForm != nullptr )
 				{
 					mWornForms.push_back(pForm->ref_id);
@@ -146,23 +146,23 @@ namespace Skyrim
 		//--------------------------------------------------------------------------------
 		std::string Character::GetLocationString()
 		{
-			BGSLocation* location = GetLocation();
+			FreeScript::BGSLocation* location = (FreeScript::BGSLocation*)GetLocation();
 			if(location != nullptr)
-				return SkyrimScript::GetLocationString(location);
+				return FreeScript::BGSLocationHelper(location).GetName();
 			return "";
 		}
 		//--------------------------------------------------------------------------------
 		uint32_t Character::GetLocationId()
 		{
-			BGSLocation* location = GetLocation();
+			FreeScript::BGSLocation* location = (FreeScript::BGSLocation*)GetLocation();
 			if(location != nullptr)
-				return SkyrimScript::GetLocationId(location);
+				return location->formID;
 			return 0;
 		}
 		//--------------------------------------------------------------------------------
 		void Character::SetName(const std::string& pName)
 		{
-			SkyrimScript::SetName(mActor, pName);
+			FreeScript::SetName(mActor, pName);
 		}
 		//--------------------------------------------------------------------------------
 		CActor* Character::GetActor()

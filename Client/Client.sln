@@ -8,9 +8,12 @@ Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "SkyrimOnline", "Src\SkyrimO
 EndProject
 Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "SkyrimOnlineProxy", "Src\SkyrimOnlineProxy\SkyrimOnlineProxy.vcxproj", "{D8B2564C-4766-4DDF-B7E0-43DB3971B3A3}"
 EndProject
-Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "Script", "Src\Script\Script.vcxproj", "{9D810381-77E5-4D4B-9B4D-D4AFB7465097}"
+Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "FreeScript", "Src\Script\Script.vcxproj", "{9D810381-77E5-4D4B-9B4D-D4AFB7465097}"
 EndProject
 Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "OffsetDumper", "Src\OffsetDumper\OffsetDumper.vcxproj", "{414C2B24-3129-4D9E-B4B3-390D1AC36D8E}"
+	ProjectSection(ProjectDependencies) = postProject
+		{9D810381-77E5-4D4B-9B4D-D4AFB7465097} = {9D810381-77E5-4D4B-9B4D-D4AFB7465097}
+	EndProjectSection
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution

@@ -22,8 +22,9 @@ namespace FreeScript
 		Vector<float> pos;
 
 		TESObjectCELL	* parentCell;
-		char pad44to54[0x54 - 0x44];
+		uint32_t		  pad;
 		FreeScript::BaseExtraList	extraData;
+		uint32_t          pad50;
 	};
 
 	class Actor : public ::FreeScript::TESObjectREFR

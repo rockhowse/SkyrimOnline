@@ -32,9 +32,6 @@
 #include <random>
 
 
-// skse common
-#include <common/ITypes.h>
-
 // papyrus common
 #include <common/skyscript.h>
 #include <common/obscript.h>
@@ -49,11 +46,4 @@
 #include <shellapi.h>
 #include <shlobj.h>
 
-#include <skse/PapyrusVM.h>
-#include <skse/PapyrusNativeFunctions.h>
-
-#include <FreeScript/Forms.hpp>
-#include <FreeScript/Actor.hpp>
-#include <FreeScript/RTTI.hpp>
-
-#include <exports/Actor.h>
+#include <FreeScript/FreeScript.hpp>

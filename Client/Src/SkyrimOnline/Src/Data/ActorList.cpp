@@ -17,7 +17,7 @@ namespace Skyrim
 
 		uint32_t ActorList::size()
 		{
-			return SkyrimScript::ActorListCount();
+			return 0;
 		}
 
 		ActorList::Iterator::Iterator(int pPos)
@@ -55,7 +55,7 @@ namespace Skyrim
 
 		CActor* ActorList::Iterator::operator*()
 		{
-			return (CActor*)SkyrimScript::ActorListAt(mPos);
+			return nullptr;
 		}
 
 	}

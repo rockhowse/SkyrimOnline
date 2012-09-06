@@ -1,10 +1,5 @@
 #pragma once
 
-#include <Location.h>
-#include <Actor.h>
-#include <Exports.h>
-#include <Npc.h>
-
 template <class T>
 struct Func
 {

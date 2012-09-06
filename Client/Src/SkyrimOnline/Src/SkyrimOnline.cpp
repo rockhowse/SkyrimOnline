@@ -16,17 +16,6 @@ namespace Skyrim
 		:mUI(Overlay::Interface::GetInstance()), mInput(*this),mMode(true),mIoPool(1)
 	{
 		System::Log::Debug("Mod()");
-		
-		unsigned int count = SkyrimScript::ActorListCount();
-		std::ostringstream os;
-		os << "Count : " << count;
-		System::Log::Debug(os.str());
-		for(unsigned int i = 0; i < count; ++i)
-		{
-			std::ostringstream os;
-			os << "Ref : " << Form::GetFormID((TESForm*)SkyrimScript::ActorListAt(i));
-			System::Log::Debug(os.str());
-		}
 
 		mUI->Acquire();
 
