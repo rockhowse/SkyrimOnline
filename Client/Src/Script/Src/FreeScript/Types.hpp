@@ -16,7 +16,7 @@ namespace FreeScript
 		T& operator[](uint32_t pIndex)
 		{
 			if(pIndex < size)
-				return set[pIndex];
+				return data[pIndex];
 			throw std::runtime_error("Out of range !");
 		}
 	};

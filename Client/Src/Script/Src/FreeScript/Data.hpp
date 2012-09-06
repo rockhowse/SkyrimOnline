@@ -12,6 +12,6 @@ namespace FreeScript
 		static DataHolder* GetInstance();
 
 		char pad00to20c[0x20c];
-		List<TESNPC*>	mNpcs;
+		Vector<TESNPC*>	mNpcs;
 	};
 }

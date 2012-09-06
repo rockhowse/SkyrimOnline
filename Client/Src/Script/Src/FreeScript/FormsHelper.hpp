@@ -1,5 +1,6 @@
 #include "Forms.hpp"
 #include "Common.hpp"
+#include <sstream>
 
 namespace FreeScript
 {
@@ -18,7 +19,11 @@ namespace FreeScript
 		std::string GetDebugName()
 		{			
 			if(mData)
-				return std::to_string((uint64_t)mData->formID) + std::string(" ") + GetName();
+			{
+				std::ostringstream os;
+				os << std::hex << mData->formID << " " << GetName();
+				return os.str();
+			}
 			return "";
 		}
 
@@ -38,7 +43,7 @@ namespace FreeScript
 		void SetFaceMorph(const std::vector<float>& pMorphOptions)
 		{
 			for(uint32_t i = 0; i < pMorphOptions.size(); ++i)
-				mData->faceMorph->option[i] = pMorphOptions.at(i);
+				mData->faceMorph->option[i] = pMorphOptions[i];
 		}
 	};
 

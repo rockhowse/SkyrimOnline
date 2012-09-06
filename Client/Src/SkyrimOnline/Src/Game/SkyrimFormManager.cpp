@@ -18,11 +18,12 @@ namespace Skyrim
 				mUsedOffsets[i] = false;
 			}
 
-			for(auto itor = FreeScript::DataHolder::GetInstance()->mNpcs.begin(); itor != FreeScript::DataHolder::GetInstance()->mNpcs.end(); ++itor)
+			for(uint32_t i = 0, size = FreeScript::DataHolder::GetInstance()->mNpcs.size; i != size; ++i)
 			{
-				if(FreeScript::TESNPCHelper(*itor).GetName().find("SkyrimOnlineBaseAddr") != std::string::npos)
+				auto npc = FreeScript::DataHolder::GetInstance()->mNpcs[i];
+				if(FreeScript::TESNPCHelper(npc).GetName().find("SkyrimOnlineBaseAddr") != std::string::npos)
 				{
-					mBaseAddr = (*itor)->formID + 1; 
+					mBaseAddr = npc->formID + 1; 
 				}
 			}
 

@@ -16,6 +16,18 @@ void RunActorDump()
 			OUTPUT << std::hex << f->formID << std::endl;
 	}
 
+	for(uint32_t i = 0, size = FreeScript::DataHolder::GetInstance()->mNpcs.size; i != size; ++i)
+	{
+		RUN_TEST(TESNPCHelper(FreeScript::DataHolder::GetInstance()->mNpcs[i]).GetDebugName())
+	}
+
+	for(uint32_t i = 0, size = player->parentCell->childList.size; i != size; ++i)
+	{
+		auto actor = rtti_cast(player->parentCell->childList[i], TESObjectREFR, Actor);
+		if(actor)
+			RUN_TEST(player->parentCell->childList[i]->baseForm->formID)
+	}
+
 	TESNPCHelper(npc).GetFaceMorph(forms);
 	RUN_TEST(forms.size())
 	for(auto itor = forms.begin(); itor != forms.end(); ++itor)
