@@ -42,8 +42,8 @@ namespace Skyrim
 					 >> wornForms
 					 >> name;
 
-				Game::RemotePlayer* player = new Game::RemotePlayer(data.ObjectId, race, gender);
-				SkyrimOnline::GetInstance().GetCharacterManager().Add(player);
+				Game::ActorController* player = new Game::ActorController(data.ObjectId, race, gender);
+				SkyrimOnline::GetInstance().GetControllerManager().Add(player);
 				
 				player->GetCharacter()->SetFaceMorph(faceMorph);
 				player->GetCharacter()->EquipItems(wornForms);
@@ -59,7 +59,7 @@ namespace Skyrim
 		//--------------------------------------------------------------------------------
 		void Session::HandlePlayerMoveAndLook(Packet& data)
 		{
-			auto player = SkyrimOnline::GetInstance().GetCharacterManager().Get(data.ObjectId);
+			auto player = SkyrimOnline::GetInstance().GetControllerManager().Get(data.ObjectId);
 			float px, py, pz, rx, ry, rz;
 			uint32_t relapsed;
 			data >> px >> py >> pz >> rx >> ry >> rz >> relapsed;
@@ -71,9 +71,9 @@ namespace Skyrim
 		void Session::HandlePlayerRemove(Packet& data)
 		{
 			try{
-				auto player = SkyrimOnline::GetInstance().GetCharacterManager().Get(data.ObjectId);
+				auto player = SkyrimOnline::GetInstance().GetControllerManager().Get(data.ObjectId);
 				if(player)
-					delete SkyrimOnline::GetInstance().GetCharacterManager().Remove(player);
+					delete SkyrimOnline::GetInstance().GetControllerManager().Remove(player);
 			}
 			catch(std::exception& e)
 			{
@@ -84,7 +84,7 @@ namespace Skyrim
 		void Session::HandleMount(Packet& data)
 		{
 			try{
-				auto remote = SkyrimOnline::GetInstance().GetCharacterManager().Get(data.ObjectId);
+				auto remote = SkyrimOnline::GetInstance().GetControllerManager().Get(data.ObjectId);
 				if(remote)
 				{
 					uint32_t mountId;
@@ -101,7 +101,7 @@ namespace Skyrim
 		void Session::HandleUnmount(Packet& data)
 		{
 			try{
-				auto remote = SkyrimOnline::GetInstance().GetCharacterManager().Get(data.ObjectId);
+				auto remote = SkyrimOnline::GetInstance().GetControllerManager().Get(data.ObjectId);
 				if(remote)
 				{
 					remote->SetMount(0);

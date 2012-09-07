@@ -1,6 +1,6 @@
 #include "stdafx.h"
 #include <Game/SkyrimFormManager.h>
-#include <Game/RemotePlayer.h>
+#include <Game/ActorController.h>
 #include <SkyrimOnline.h>
 
 namespace Skyrim
@@ -8,7 +8,7 @@ namespace Skyrim
 	namespace Game
 	{
 		//--------------------------------------------------------------------------------
-		RemotePlayer::RemotePlayer(uint32_t pId, uint32_t pRace, uint32_t pSex)
+		ActorController::ActorController(uint32_t pId, uint32_t pRace, uint32_t pSex)
 			:mId(pId), mInit(false)
 		{
 			TESForm * me = SkyrimFormManager::GetInstance()->GetForm(pRace, pSex);
@@ -25,29 +25,30 @@ namespace Skyrim
 			SkyrimOnline::GetInstance().GetAssetManager().Add((TESObjectREFR*)mMaster);
 		}
 		//--------------------------------------------------------------------------------
-		RemotePlayer::~RemotePlayer()
+		ActorController::~ActorController()
 		{
 			SetMount(0);
 			
 			SkyrimOnline::GetInstance().GetAssetManager().Remove((TESObjectREFR*)mMe->GetActor());
 			SkyrimOnline::GetInstance().GetAssetManager().Remove((TESObjectREFR*)mMaster);
-			ObjectReference::Delete((TESObjectREFR*)mMe->GetActor());
-			ObjectReference::Delete((TESObjectREFR*)mMaster);
 
 			SkyrimFormManager::GetInstance()->ReleaseForm(ObjectReference::GetBaseObject((TESObjectREFR*)mMe->GetActor()));
+
+			ObjectReference::Delete((TESObjectREFR*)mMe->GetActor());
+			ObjectReference::Delete((TESObjectREFR*)mMaster);
 		}
 		//--------------------------------------------------------------------------------
-		boost::shared_ptr<Character> RemotePlayer::GetCharacter()
+		boost::shared_ptr<Character> ActorController::GetCharacter()
 		{
 			return mMe;
 		}
 		//--------------------------------------------------------------------------------
-		uint32_t RemotePlayer::GetId()
+		uint32_t ActorController::GetId()
 		{
 			return mId;
 		}
 		//--------------------------------------------------------------------------------
-		void RemotePlayer::SetPosition(float x, float y, float z)
+		void ActorController::SetPosition(float x, float y, float z)
 		{
 			ObjectReference::SetPosition((TESObjectREFR*)mMaster, x,y,z);
 			mMe->SetPos(x,y,z);
@@ -55,7 +56,7 @@ namespace Skyrim
 				mMount->SetPos(x,y,z);
 		}
 		//--------------------------------------------------------------------------------
-		void RemotePlayer::SetRotation(float x, float y, float z)
+		void ActorController::SetRotation(float x, float y, float z)
 		{
 			ObjectReference::SetAngle((TESObjectREFR*)mMaster, x,y,z);
 			mMe->SetRot(x,y,z);
@@ -63,7 +64,7 @@ namespace Skyrim
 				mMount->SetRot(x,y,z);
 		}
 		//--------------------------------------------------------------------------------
-		void RemotePlayer::InterpolateTo(float posX, float posY, float posZ, float rotX, float rotY, float rotZ, uint32_t time)
+		void ActorController::InterpolateTo(float posX, float posY, float posZ, float rotX, float rotY, float rotZ, uint32_t time)
 		{
 			if(!mInit ||ObjectReference::GetDistance((TESObjectREFR*)mMaster, (TESObjectREFR*)mMe->GetActor()) > 600.f)
 			{
@@ -78,11 +79,11 @@ namespace Skyrim
 			ObjectReference::SetAngle((TESObjectREFR*)mMaster, rotX,rotY,rotZ);
 		}
 		//--------------------------------------------------------------------------------
-		void RemotePlayer::Update(uint32_t elapsed)
+		void ActorController::Update(uint32_t elapsed)
 		{
 		}
 		//--------------------------------------------------------------------------------
-		void RemotePlayer::SetMount(uint32_t pMount)
+		void ActorController::SetMount(uint32_t pMount)
 		{
 			if(mMount)
 			{
@@ -92,7 +93,7 @@ namespace Skyrim
 			}
 			if(pMount != 0)
 			{
-				CActor* form = (CActor*)dyn_cast(ObjectReference::PlaceAtMe((TESObjectREFR*)::Game::GetPlayer(), ::Game::GetFormById(pMount), 1, true, false), "TESObjectREFR", "CActor");
+				CActor* form =  rtti_cast(ObjectReference::PlaceAtMe((TESObjectREFR*)::Game::GetPlayer(), ::Game::GetFormById(pMount), 1, true, false), TESObjectREFR, Actor);
 				mMount = boost::make_shared<Character>(form);
 
 				mMount->SetPos(mMe->GetPosX(), mMe->GetPosY(), mMe->GetPosZ());

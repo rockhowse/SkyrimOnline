@@ -15,7 +15,7 @@ namespace Skyrim
 		//--------------------------------------------------------------------------------
 		bool Character::IsDead()
 		{
-			return Actor::IsDead((CActor*)mActor);
+			return Actor::IsDead(mActor);
 		}
 		//--------------------------------------------------------------------------------
 		bool Character::IsRidding()
@@ -70,7 +70,7 @@ namespace Skyrim
 		//--------------------------------------------------------------------------------
 		uint32_t Character::GetLevel()
 		{
-			return Actor::GetLevel((CActor*)mActor);
+			return Actor::GetLevel(mActor);
 		}
 		//--------------------------------------------------------------------------------
 		uint32_t Character::GetRace()
@@ -98,13 +98,13 @@ namespace Skyrim
 		//--------------------------------------------------------------------------------
 		void Character::EquipItems(std::vector<uint32_t> wornForms)
 		{
-			Actor::UnequipAll((CActor*)mActor);
+			Actor::UnequipAll(mActor);
 			for( auto itor = wornForms.begin(); itor != wornForms.end(); ++itor )
 			{
 				if( *itor != 0 )
 				{
 					ObjectReference::AddItem((TESObjectREFR*)dyn_cast(mActor, "CActor", "TESObjectREFR"), ::Game::GetFormById(*itor), 1, true);
-					Actor::EquipItem((CActor*)mActor, ::Game::GetFormById(*itor), true, false); 
+					Actor::EquipItem(mActor, ::Game::GetFormById(*itor), true, false); 
 				}
 			}
 		}
@@ -167,7 +167,7 @@ namespace Skyrim
 		//--------------------------------------------------------------------------------
 		CActor* Character::GetActor()
 		{
-			return (CActor*)mActor;
+			return mActor;
 		}
 		//--------------------------------------------------------------------------------
 		void Character::SetActor(CActor* pActor)
@@ -179,10 +179,10 @@ namespace Skyrim
 		{
 			if (IsRidding())
 			{
-				CActor * lMount = ::Game::GetPlayersLastRiddenHorse();
+				FreeScript::Actor * lMount = (FreeScript::Actor*)::Game::GetPlayersLastRiddenHorse();
 				if(lMount)
 				{
-					return Form::GetFormID(ObjectReference::GetBaseObject((TESObjectREFR*)lMount));
+					return lMount->baseForm->formID;
 				}
 			}
 
@@ -191,762 +191,762 @@ namespace Skyrim
 		//--------------------------------------------------------------------------------
 		uint32_t Character::GetCarryWeight()
 		{
-			return Actor::GetActorValue((CActor*)mActor, "CarryWeight");
+			return Actor::GetActorValue(mActor, "CarryWeight");
 		}
 		//--------------------------------------------------------------------------------
 		uint32_t Character::GetMood()
 		{
-			return Actor::GetActorValue((CActor*)mActor, "Mood");
+			return Actor::GetActorValue(mActor, "Mood");
 		}
 		//--------------------------------------------------------------------------------
 		uint32_t Character::GetAssistance()
 		{
-			return Actor::GetActorValue((CActor*)mActor, "Assistance");
+			return Actor::GetActorValue(mActor, "Assistance");
 		}
 		//--------------------------------------------------------------------------------
 		uint32_t Character::GetEnergy()
 		{
-			return Actor::GetActorValue((CActor*)mActor, "Energy");
+			return Actor::GetActorValue(mActor, "Energy");
 		}
 		//--------------------------------------------------------------------------------
 		uint32_t Character::GetMorality()
 		{
-			return Actor::GetActorValue((CActor*)mActor, "Morality");
+			return Actor::GetActorValue(mActor, "Morality");
 		}
 		//--------------------------------------------------------------------------------
 		uint32_t Character::GetOneHanded()
 		{
-			return Actor::GetActorValue((CActor*)mActor, "OneHanded");
+			return Actor::GetActorValue(mActor, "OneHanded");
 		}
 		//--------------------------------------------------------------------------------
 		uint32_t Character::GetTwoHanded()
 		{
-			return Actor::GetActorValue((CActor*)mActor, "TwoHanded");
+			return Actor::GetActorValue(mActor, "TwoHanded");
 		}
 		//--------------------------------------------------------------------------------
 		uint32_t Character::GetMarksman()
 		{
-			return Actor::GetActorValue((CActor*)mActor, "Marksman");
+			return Actor::GetActorValue(mActor, "Marksman");
 		}
 		//--------------------------------------------------------------------------------
 		uint32_t Character::GetBlock()
 		{
-			return Actor::GetActorValue((CActor*)mActor, "Block");
+			return Actor::GetActorValue(mActor, "Block");
 		}
 		//--------------------------------------------------------------------------------
 		uint32_t Character::GetSmithing()
 		{
-			return Actor::GetActorValue((CActor*)mActor, "Smithing");
+			return Actor::GetActorValue(mActor, "Smithing");
 		}
 		//--------------------------------------------------------------------------------
 		uint32_t Character::GetHeavyArmor()
 		{
-			return Actor::GetActorValue((CActor*)mActor, "HeavyArmor");
+			return Actor::GetActorValue(mActor, "HeavyArmor");
 		}
 		//--------------------------------------------------------------------------------
 		uint32_t Character::GetLightArmor()
 		{
-			return Actor::GetActorValue((CActor*)mActor, "LightArmor");
+			return Actor::GetActorValue(mActor, "LightArmor");
 		}
 		//--------------------------------------------------------------------------------
 		uint32_t Character::GetPickpocket()
 		{
-			return Actor::GetActorValue((CActor*)mActor, "Pickpocket");
+			return Actor::GetActorValue(mActor, "Pickpocket");
 		}
 		//--------------------------------------------------------------------------------
 		uint32_t Character::GetLockpicking()
 		{
-			return Actor::GetActorValue((CActor*)mActor, "Lockpicking");
+			return Actor::GetActorValue(mActor, "Lockpicking");
 		}
 		//--------------------------------------------------------------------------------
 		uint32_t Character::GetSneak()
 		{
-			return Actor::GetActorValue((CActor*)mActor, "Sneak");
+			return Actor::GetActorValue(mActor, "Sneak");
 		}
 		//--------------------------------------------------------------------------------
 		uint32_t Character::GetAlchemy()
 		{
-			return Actor::GetActorValue((CActor*)mActor, "Alchemy");
+			return Actor::GetActorValue(mActor, "Alchemy");
 		}
 		//--------------------------------------------------------------------------------
 		uint32_t Character::GetSpeechcraft()
 		{
-			return Actor::GetActorValue((CActor*)mActor, "Speechcraft");
+			return Actor::GetActorValue(mActor, "Speechcraft");
 		}
 		//--------------------------------------------------------------------------------
 		uint32_t Character::GetAlteration()
 		{
-			return Actor::GetActorValue((CActor*)mActor, "Alteration");
+			return Actor::GetActorValue(mActor, "Alteration");
 		}
 		//--------------------------------------------------------------------------------
 		uint32_t Character::GetConjuration()
 		{
-			return Actor::GetActorValue((CActor*)mActor, "Conjuration");
+			return Actor::GetActorValue(mActor, "Conjuration");
 		}
 		//--------------------------------------------------------------------------------
 		uint32_t Character::GetDestruction()
 		{
-			return Actor::GetActorValue((CActor*)mActor, "Destruction");
+			return Actor::GetActorValue(mActor, "Destruction");
 		}
 		//--------------------------------------------------------------------------------
 		uint32_t Character::GetIllusion()
 		{
-			return Actor::GetActorValue((CActor*)mActor, "Illusion");
+			return Actor::GetActorValue(mActor, "Illusion");
 		}
 		//--------------------------------------------------------------------------------
 		uint32_t Character::GetRestoration()
 		{
-			return Actor::GetActorValue((CActor*)mActor, "Restoration");
+			return Actor::GetActorValue(mActor, "Restoration");
 		}
 		//--------------------------------------------------------------------------------
 		uint32_t Character::GetEnchanting()
 		{
-			return Actor::GetActorValue((CActor*)mActor, "Enchanting");
+			return Actor::GetActorValue(mActor, "Enchanting");
 		}
 		//--------------------------------------------------------------------------------
 		uint32_t Character::GetHealth()
 		{
-			return Actor::GetActorValue((CActor*)mActor, "Health");
+			return Actor::GetActorValue(mActor, "Health");
 		}
 		//--------------------------------------------------------------------------------
 		uint32_t Character::GetMagicka()
 		{
-			return Actor::GetActorValue((CActor*)mActor, "Magicka");
+			return Actor::GetActorValue(mActor, "Magicka");
 		}
 		//--------------------------------------------------------------------------------
 		uint32_t Character::GetStamina()
 		{
-			return Actor::GetActorValue((CActor*)mActor, "Stamina");
+			return Actor::GetActorValue(mActor, "Stamina");
 		}
 		//--------------------------------------------------------------------------------
 		uint32_t Character::GetHealRate()
 		{
-			return Actor::GetActorValue((CActor*)mActor, "HealRate");
+			return Actor::GetActorValue(mActor, "HealRate");
 		}
 		//--------------------------------------------------------------------------------
 		uint32_t Character::GetMagickaRate()
 		{
-			return Actor::GetActorValue((CActor*)mActor, "MagickaRate");
+			return Actor::GetActorValue(mActor, "MagickaRate");
 		}
 		//--------------------------------------------------------------------------------
 		uint32_t Character::GetStaminaRate()
 		{
-			return Actor::GetActorValue((CActor*)mActor, "StaminaRate");
+			return Actor::GetActorValue(mActor, "StaminaRate");
 		}
 		//--------------------------------------------------------------------------------
 		uint32_t Character::GetSpeedMult()
 		{
-			return Actor::GetActorValue((CActor*)mActor, "SpeedMult");
+			return Actor::GetActorValue(mActor, "SpeedMult");
 		}
 		//--------------------------------------------------------------------------------
 		uint32_t Character::GetInventoryWeight()
 		{
-			return Actor::GetActorValue((CActor*)mActor, "InventoryWeight");
+			return Actor::GetActorValue(mActor, "InventoryWeight");
 		}
 		//--------------------------------------------------------------------------------
 		uint32_t Character::GetDragonRend()
 		{
-			return Actor::GetActorValue((CActor*)mActor, "DragonRend");
+			return Actor::GetActorValue(mActor, "DragonRend");
 		}
 		//--------------------------------------------------------------------------------
 		uint32_t Character::GetCritChance()
 		{
-			return Actor::GetActorValue((CActor*)mActor, "CritChance");
+			return Actor::GetActorValue(mActor, "CritChance");
 		}
 		//--------------------------------------------------------------------------------
 		uint32_t Character::GetMeleeDamage()
 		{
-			return Actor::GetActorValue((CActor*)mActor, "MeleeDamage");
+			return Actor::GetActorValue(mActor, "MeleeDamage");
 		}
 		//--------------------------------------------------------------------------------
 		uint32_t Character::GetUnarmedDamage()
 		{
-			return Actor::GetActorValue((CActor*)mActor, "UnarmedDamage");
+			return Actor::GetActorValue(mActor, "UnarmedDamage");
 		}
 		//--------------------------------------------------------------------------------
 		uint32_t Character::GetMass()
 		{
-			return Actor::GetActorValue((CActor*)mActor, "Mass");
+			return Actor::GetActorValue(mActor, "Mass");
 		}
 		//--------------------------------------------------------------------------------
 		uint32_t Character::GetVoicePoints()
 		{
-			return Actor::GetActorValue((CActor*)mActor, "VoicePoints");
+			return Actor::GetActorValue(mActor, "VoicePoints");
 		}
 		//--------------------------------------------------------------------------------
 		uint32_t Character::GetVoiceRate()
 		{
-			return Actor::GetActorValue((CActor*)mActor, "VoiceRate");
+			return Actor::GetActorValue(mActor, "VoiceRate");
 		}
 		//--------------------------------------------------------------------------------
 		uint32_t Character::GetDamageResist()
 		{
-			return Actor::GetActorValue((CActor*)mActor, "DamageResist");
+			return Actor::GetActorValue(mActor, "DamageResist");
 		}
 		//--------------------------------------------------------------------------------
 		uint32_t Character::GetPoisonResist()
 		{
-			return Actor::GetActorValue((CActor*)mActor, "PoisonResist");
+			return Actor::GetActorValue(mActor, "PoisonResist");
 		}
 		//--------------------------------------------------------------------------------
 		uint32_t Character::GetFireResist()
 		{
-			return Actor::GetActorValue((CActor*)mActor, "FireResist");
+			return Actor::GetActorValue(mActor, "FireResist");
 		}
 		//--------------------------------------------------------------------------------
 		uint32_t Character::GetElectricResist()
 		{
-			return Actor::GetActorValue((CActor*)mActor, "ElectricResist");
+			return Actor::GetActorValue(mActor, "ElectricResist");
 		}
 		//--------------------------------------------------------------------------------
 		uint32_t Character::GetFrostResist()
 		{
-			return Actor::GetActorValue((CActor*)mActor, "FrostResist");
+			return Actor::GetActorValue(mActor, "FrostResist");
 		}
 		//--------------------------------------------------------------------------------
 		uint32_t Character::GetMagicResist()
 		{
-			return Actor::GetActorValue((CActor*)mActor, "MagicResist");
+			return Actor::GetActorValue(mActor, "MagicResist");
 		}
 		//--------------------------------------------------------------------------------
 		uint32_t Character::GetDiseaseResist()
 		{
-			return Actor::GetActorValue((CActor*)mActor, "DiseaseResist");
+			return Actor::GetActorValue(mActor, "DiseaseResist");
 		}
 		//--------------------------------------------------------------------------------
 		uint32_t Character::GetParalysis()
 		{
-			return Actor::GetActorValue((CActor*)mActor, "Paralysis");
+			return Actor::GetActorValue(mActor, "Paralysis");
 		}
 		//--------------------------------------------------------------------------------
 		uint32_t Character::GetInvisibility()
 		{
-			return Actor::GetActorValue((CActor*)mActor, "Invisibility");
+			return Actor::GetActorValue(mActor, "Invisibility");
 		}
 		//--------------------------------------------------------------------------------
 		uint32_t Character::GetNightEye()
 		{
-			return Actor::GetActorValue((CActor*)mActor, "NightEye");
+			return Actor::GetActorValue(mActor, "NightEye");
 		}
 		//--------------------------------------------------------------------------------
 		uint32_t Character::GetDetectLifeRange()
 		{
-			return Actor::GetActorValue((CActor*)mActor, "DetectLifeRange");
+			return Actor::GetActorValue(mActor, "DetectLifeRange");
 		}
 		//--------------------------------------------------------------------------------
 		uint32_t Character::GetWaterBreathing()
 		{
-			return Actor::GetActorValue((CActor*)mActor, "WaterBreathing");
+			return Actor::GetActorValue(mActor, "WaterBreathing");
 		}
 		//--------------------------------------------------------------------------------
 		uint32_t Character::GetWaterWalking()
 		{
-			return Actor::GetActorValue((CActor*)mActor, "WaterWalking");
+			return Actor::GetActorValue(mActor, "WaterWalking");
 		}
 		//--------------------------------------------------------------------------------
 		uint32_t Character::GetIgnoreCrippledLimbs()
 		{
-			return Actor::GetActorValue((CActor*)mActor, "IgnoreCrippledLimbs");
+			return Actor::GetActorValue(mActor, "IgnoreCrippledLimbs");
 		}
 		//--------------------------------------------------------------------------------
 		uint32_t Character::GetFame()
 		{
-			return Actor::GetActorValue((CActor*)mActor, "Fame");
+			return Actor::GetActorValue(mActor, "Fame");
 		}
 		//--------------------------------------------------------------------------------
 		uint32_t Character::GetInfamy()
 		{
-			return Actor::GetActorValue((CActor*)mActor, "Infamy");
+			return Actor::GetActorValue(mActor, "Infamy");
 		}
 		//--------------------------------------------------------------------------------
 		uint32_t Character::GetJumpingBonus()
 		{
-			return Actor::GetActorValue((CActor*)mActor, "JumpingBonus");
+			return Actor::GetActorValue(mActor, "JumpingBonus");
 		}
 		//--------------------------------------------------------------------------------
 		uint32_t Character::GetWardPower()
 		{
-			return Actor::GetActorValue((CActor*)mActor, "WardPower");
+			return Actor::GetActorValue(mActor, "WardPower");
 		}
 		//--------------------------------------------------------------------------------
 		uint32_t Character::GetRightItemCharge()
 		{
-			return Actor::GetActorValue((CActor*)mActor, "RightItemCharge");
+			return Actor::GetActorValue(mActor, "RightItemCharge");
 		}
 		//--------------------------------------------------------------------------------
 		uint32_t Character::GetLeftItemCharge()
 		{
-			return Actor::GetActorValue((CActor*)mActor, "LeftItemCharge");
+			return Actor::GetActorValue(mActor, "LeftItemCharge");
 		}
 		//--------------------------------------------------------------------------------
 		uint32_t Character::GetEquippedItemCharge()
 		{
-			return Actor::GetActorValue((CActor*)mActor, "EquippedItemCharge");
+			return Actor::GetActorValue(mActor, "EquippedItemCharge");
 		}
 		//--------------------------------------------------------------------------------
 		uint32_t Character::GetArmorPerks()
 		{
-			return Actor::GetActorValue((CActor*)mActor, "ArmorPerks");
+			return Actor::GetActorValue(mActor, "ArmorPerks");
 		}
 		//--------------------------------------------------------------------------------
 		uint32_t Character::GetShieldPerks()
 		{
-			return Actor::GetActorValue((CActor*)mActor, "ShieldPerks");
+			return Actor::GetActorValue(mActor, "ShieldPerks");
 		}
 		//--------------------------------------------------------------------------------
 		uint32_t Character::GetFavorActive()
 		{
-			return Actor::GetActorValue((CActor*)mActor, "FavorActive");
+			return Actor::GetActorValue(mActor, "FavorActive");
 		}
 		//--------------------------------------------------------------------------------
 		uint32_t Character::GetFavorsPerDay()
 		{
-			return Actor::GetActorValue((CActor*)mActor, "FavorsPerDay");
+			return Actor::GetActorValue(mActor, "FavorsPerDay");
 		}
 		//--------------------------------------------------------------------------------
 		uint32_t Character::GetFavorsPerDayTimer()
 		{
-			return Actor::GetActorValue((CActor*)mActor, "FavorsPerDayTimer");
+			return Actor::GetActorValue(mActor, "FavorsPerDayTimer");
 		}
 		//--------------------------------------------------------------------------------
 		uint32_t Character::GetEquippedStaffCharge()
 		{
-			return Actor::GetActorValue((CActor*)mActor, "EquippedStaffCharge");
+			return Actor::GetActorValue(mActor, "EquippedStaffCharge");
 		}
 		//--------------------------------------------------------------------------------
 		uint32_t Character::GetAbsorbChance()
 		{
-			return Actor::GetActorValue((CActor*)mActor, "AbsorbChance");
+			return Actor::GetActorValue(mActor, "AbsorbChance");
 		}
 		//--------------------------------------------------------------------------------
 		uint32_t Character::GetBlindness()
 		{
-			return Actor::GetActorValue((CActor*)mActor, "Blindness");
+			return Actor::GetActorValue(mActor, "Blindness");
 		}
 		//--------------------------------------------------------------------------------
 		uint32_t Character::GetWeaponSpeedMult()
 		{
-			return Actor::GetActorValue((CActor*)mActor, "WeaponSpeedMult");
+			return Actor::GetActorValue(mActor, "WeaponSpeedMult");
 		}
 		//--------------------------------------------------------------------------------
 		uint32_t Character::GetShoutRecoveryMult()
 		{
-			return Actor::GetActorValue((CActor*)mActor, "ShoutRecoveryMult");
+			return Actor::GetActorValue(mActor, "ShoutRecoveryMult");
 		}
 		//--------------------------------------------------------------------------------
 		uint32_t Character::GetBowStaggerBonus()
 		{
-			return Actor::GetActorValue((CActor*)mActor, "BowStaggerBonus");
+			return Actor::GetActorValue(mActor, "BowStaggerBonus");
 		}
 		//--------------------------------------------------------------------------------
 		uint32_t Character::GetTelekinesis()
 		{
-			return Actor::GetActorValue((CActor*)mActor, "Telekinesis");
+			return Actor::GetActorValue(mActor, "Telekinesis");
 		}
 		//--------------------------------------------------------------------------------
 		uint32_t Character::GetFavorPointsBonus()
 		{
-			return Actor::GetActorValue((CActor*)mActor, "FavorPointsBonus");
+			return Actor::GetActorValue(mActor, "FavorPointsBonus");
 		}
 		//--------------------------------------------------------------------------------
 		uint32_t Character::GetLastBribedIntimidated()
 		{
-			return Actor::GetActorValue((CActor*)mActor, "LastBribedIntimidated");
+			return Actor::GetActorValue(mActor, "LastBribedIntimidated");
 		}
 		//--------------------------------------------------------------------------------
 		uint32_t Character::GetLastFlattered()
 		{
-			return Actor::GetActorValue((CActor*)mActor, "LastFlattered");
+			return Actor::GetActorValue(mActor, "LastFlattered");
 		}
 		//--------------------------------------------------------------------------------
 		uint32_t Character::GetMovementNoiseMult()
 		{
-			return Actor::GetActorValue((CActor*)mActor, "MovementNoiseMult");
+			return Actor::GetActorValue(mActor, "MovementNoiseMult");
 		}
 		//--------------------------------------------------------------------------------
 		uint32_t Character::GetBypassVendorStolenCheck()
 		{
-			return Actor::GetActorValue((CActor*)mActor, "BypassVendorStolenCheck");
+			return Actor::GetActorValue(mActor, "BypassVendorStolenCheck");
 		}
 		//--------------------------------------------------------------------------------
 		uint32_t Character::GetBypassVendorKeywordCheck()
 		{
-			return Actor::GetActorValue((CActor*)mActor, "BypassVendorKeywordCheck");
+			return Actor::GetActorValue(mActor, "BypassVendorKeywordCheck");
 		}
 		//--------------------------------------------------------------------------------
 		uint32_t Character::GetWaitingForPlayer()
 		{
-			return Actor::GetActorValue((CActor*)mActor, "WaitingForPlayer");
+			return Actor::GetActorValue(mActor, "WaitingForPlayer");
 		}
 		//--------------------------------------------------------------------------------
 		uint32_t Character::GetOneHandedMod()
 		{
-			return Actor::GetActorValue((CActor*)mActor, "OneHandedMod");
+			return Actor::GetActorValue(mActor, "OneHandedMod");
 		}
 		//--------------------------------------------------------------------------------
 		uint32_t Character::GetTwoHandedMod()
 		{
-			return Actor::GetActorValue((CActor*)mActor, "TwoHandedMod");
+			return Actor::GetActorValue(mActor, "TwoHandedMod");
 		}
 		//--------------------------------------------------------------------------------
 		uint32_t Character::GetMarksmanMod()
 		{
-			return Actor::GetActorValue((CActor*)mActor, "MarksmanMod");
+			return Actor::GetActorValue(mActor, "MarksmanMod");
 		}
 		//--------------------------------------------------------------------------------
 		uint32_t Character::GetBlockMod()
 		{
-			return Actor::GetActorValue((CActor*)mActor, "BlockMod");
+			return Actor::GetActorValue(mActor, "BlockMod");
 		}
 		//--------------------------------------------------------------------------------
 		uint32_t Character::GetSmithingMod()
 		{
-			return Actor::GetActorValue((CActor*)mActor, "SmithingMod");
+			return Actor::GetActorValue(mActor, "SmithingMod");
 		}
 		//--------------------------------------------------------------------------------
 		uint32_t Character::GetHeavyArmorMod()
 		{
-			return Actor::GetActorValue((CActor*)mActor, "HeavyArmorMod");
+			return Actor::GetActorValue(mActor, "HeavyArmorMod");
 		}
 		//--------------------------------------------------------------------------------
 		uint32_t Character::GetLightArmorMod()
 		{
-			return Actor::GetActorValue((CActor*)mActor, "LightArmorMod");
+			return Actor::GetActorValue(mActor, "LightArmorMod");
 		}
 		//--------------------------------------------------------------------------------
 		uint32_t Character::GetPickPocketMod()
 		{
-			return Actor::GetActorValue((CActor*)mActor, "PickPocketMod");
+			return Actor::GetActorValue(mActor, "PickPocketMod");
 		}
 		//--------------------------------------------------------------------------------
 		uint32_t Character::GetLockpickingMod()
 		{
-			return Actor::GetActorValue((CActor*)mActor, "LockpickingMod");
+			return Actor::GetActorValue(mActor, "LockpickingMod");
 		}
 		//--------------------------------------------------------------------------------
 		uint32_t Character::GetSneakMod()
 		{
-			return Actor::GetActorValue((CActor*)mActor, "SneakMod");
+			return Actor::GetActorValue(mActor, "SneakMod");
 		}
 		//--------------------------------------------------------------------------------
 		uint32_t Character::GetAlchemyMod()
 		{
-			return Actor::GetActorValue((CActor*)mActor, "AlchemyMod");
+			return Actor::GetActorValue(mActor, "AlchemyMod");
 		}
 		//--------------------------------------------------------------------------------
 		uint32_t Character::GetSpeechcraftMod()
 		{
-			return Actor::GetActorValue((CActor*)mActor, "SpeechcraftMod");
+			return Actor::GetActorValue(mActor, "SpeechcraftMod");
 		}
 		//--------------------------------------------------------------------------------
 		uint32_t Character::GetAlterationMod()
 		{
-			return Actor::GetActorValue((CActor*)mActor, "AlterationMod");
+			return Actor::GetActorValue(mActor, "AlterationMod");
 		}
 		//--------------------------------------------------------------------------------
 		uint32_t Character::GetConjurationMod()
 		{
-			return Actor::GetActorValue((CActor*)mActor, "ConjurationMod");
+			return Actor::GetActorValue(mActor, "ConjurationMod");
 		}
 		//--------------------------------------------------------------------------------
 		uint32_t Character::GetDestructionMod()
 		{
-			return Actor::GetActorValue((CActor*)mActor, "DestructionMod");
+			return Actor::GetActorValue(mActor, "DestructionMod");
 		}
 		//--------------------------------------------------------------------------------
 		uint32_t Character::GetIllusionMod()
 		{
-			return Actor::GetActorValue((CActor*)mActor, "IllusionMod");
+			return Actor::GetActorValue(mActor, "IllusionMod");
 		}
 		//--------------------------------------------------------------------------------
 		uint32_t Character::GetRestorationMod()
 		{
-			return Actor::GetActorValue((CActor*)mActor, "RestorationMod");
+			return Actor::GetActorValue(mActor, "RestorationMod");
 		}
 		//--------------------------------------------------------------------------------
 		uint32_t Character::GetEnchantingMod()
 		{
-			return Actor::GetActorValue((CActor*)mActor, "EnchantingMod");
+			return Actor::GetActorValue(mActor, "EnchantingMod");
 		}
 		//--------------------------------------------------------------------------------
 		uint32_t Character::GetOneHandedSkillAdvance()
 		{
-			return Actor::GetActorValue((CActor*)mActor, "OneHandedSkillAdvance");
+			return Actor::GetActorValue(mActor, "OneHandedSkillAdvance");
 		}
 		//--------------------------------------------------------------------------------
 		uint32_t Character::GetTwoHandedSkillAdvance()
 		{
-			return Actor::GetActorValue((CActor*)mActor, "TwoHandedSkillAdvance");
+			return Actor::GetActorValue(mActor, "TwoHandedSkillAdvance");
 		}
 		//--------------------------------------------------------------------------------
 		uint32_t Character::GetMarksmanSkillAdvance()
 		{
-			return Actor::GetActorValue((CActor*)mActor, "MarksmanSkillAdvance");
+			return Actor::GetActorValue(mActor, "MarksmanSkillAdvance");
 		}
 		//--------------------------------------------------------------------------------
 		uint32_t Character::GetBlockSkillAdvance()
 		{
-			return Actor::GetActorValue((CActor*)mActor, "BlockSkillAdvance");
+			return Actor::GetActorValue(mActor, "BlockSkillAdvance");
 		}
 		//--------------------------------------------------------------------------------
 		uint32_t Character::GetSmithingSkillAdvance()
 		{
-			return Actor::GetActorValue((CActor*)mActor, "SmithingSkillAdvance");
+			return Actor::GetActorValue(mActor, "SmithingSkillAdvance");
 		}
 		//--------------------------------------------------------------------------------
 		uint32_t Character::GetHeavyArmorSkillAdvance()
 		{
-			return Actor::GetActorValue((CActor*)mActor, "HeavyArmorSkillAdvance");
+			return Actor::GetActorValue(mActor, "HeavyArmorSkillAdvance");
 		}
 		//--------------------------------------------------------------------------------
 		uint32_t Character::GetLightArmorSkillAdvance()
 		{
-			return Actor::GetActorValue((CActor*)mActor, "LightArmorSkillAdvance");
+			return Actor::GetActorValue(mActor, "LightArmorSkillAdvance");
 		}
 		//--------------------------------------------------------------------------------
 		uint32_t Character::GetPickPocketSkillAdvance()
 		{
-			return Actor::GetActorValue((CActor*)mActor, "PickPocketSkillAdvance");
+			return Actor::GetActorValue(mActor, "PickPocketSkillAdvance");
 		}
 		//--------------------------------------------------------------------------------
 		uint32_t Character::GetLockpickingSkillAdvance()
 		{
-			return Actor::GetActorValue((CActor*)mActor, "LockpickingSkillAdvance");
+			return Actor::GetActorValue(mActor, "LockpickingSkillAdvance");
 		}
 		//--------------------------------------------------------------------------------
 		uint32_t Character::GetSneakSkillAdvance()
 		{
-			return Actor::GetActorValue((CActor*)mActor, "SneakSkillAdvance");
+			return Actor::GetActorValue(mActor, "SneakSkillAdvance");
 		}
 		//--------------------------------------------------------------------------------
 		uint32_t Character::GetAlchemySkillAdvance()
 		{
-			return Actor::GetActorValue((CActor*)mActor, "AlchemySkillAdvance");
+			return Actor::GetActorValue(mActor, "AlchemySkillAdvance");
 		}
 		//--------------------------------------------------------------------------------
 		uint32_t Character::GetSpeechcraftSkillAdvance()
 		{
-			return Actor::GetActorValue((CActor*)mActor, "SpeechcraftSkillAdvance");
+			return Actor::GetActorValue(mActor, "SpeechcraftSkillAdvance");
 		}
 		//--------------------------------------------------------------------------------
 		uint32_t Character::GetAlterationSkillAdvance()
 		{
-			return Actor::GetActorValue((CActor*)mActor, "AlterationSkillAdvance");
+			return Actor::GetActorValue(mActor, "AlterationSkillAdvance");
 		}
 		//--------------------------------------------------------------------------------
 		uint32_t Character::GetConjurationSkillAdvance()
 		{
-			return Actor::GetActorValue((CActor*)mActor, "ConjurationSkillAdvance");
+			return Actor::GetActorValue(mActor, "ConjurationSkillAdvance");
 		}
 		//--------------------------------------------------------------------------------
 		uint32_t Character::GetDestructionSkillAdvance()
 		{
-			return Actor::GetActorValue((CActor*)mActor, "DestructionSkillAdvance");
+			return Actor::GetActorValue(mActor, "DestructionSkillAdvance");
 		}
 		//--------------------------------------------------------------------------------
 		uint32_t Character::GetIllusionSkillAdvance()
 		{
-			return Actor::GetActorValue((CActor*)mActor, "IllusionSkillAdvance");
+			return Actor::GetActorValue(mActor, "IllusionSkillAdvance");
 		}
 		//--------------------------------------------------------------------------------
 		uint32_t Character::GetRestorationSkillAdvance()
 		{
-			return Actor::GetActorValue((CActor*)mActor, "RestorationSkillAdvance");
+			return Actor::GetActorValue(mActor, "RestorationSkillAdvance");
 		}
 		//--------------------------------------------------------------------------------
 		uint32_t Character::GetEnchantingSkillAdvance()
 		{
-			return Actor::GetActorValue((CActor*)mActor, "EnchantingSkillAdvance");
+			return Actor::GetActorValue(mActor, "EnchantingSkillAdvance");
 		}
 		//--------------------------------------------------------------------------------
 		uint32_t Character::GetLeftWeaponSpeedMult()
 		{
-			return Actor::GetActorValue((CActor*)mActor, "LeftWeaponSpeedMult");
+			return Actor::GetActorValue(mActor, "LeftWeaponSpeedMult");
 		}
 		//--------------------------------------------------------------------------------
 		uint32_t Character::GetDragonSouls()
 		{
-			return Actor::GetActorValue((CActor*)mActor, "DragonSouls");
+			return Actor::GetActorValue(mActor, "DragonSouls");
 		}
 		//--------------------------------------------------------------------------------
 		uint32_t Character::GetCombatHealthRegenMult()
 		{
-			return Actor::GetActorValue((CActor*)mActor, "CombatHealthRegenMult");
+			return Actor::GetActorValue(mActor, "CombatHealthRegenMult");
 		}
 		//--------------------------------------------------------------------------------
 		uint32_t Character::GetOneHandedPowerMod()
 		{
-			return Actor::GetActorValue((CActor*)mActor, "OneHandedPowerMod");
+			return Actor::GetActorValue(mActor, "OneHandedPowerMod");
 		}
 		//--------------------------------------------------------------------------------
 		uint32_t Character::GetTwoHandedPowerMod()
 		{
-			return Actor::GetActorValue((CActor*)mActor, "TwoHandedPowerMod");
+			return Actor::GetActorValue(mActor, "TwoHandedPowerMod");
 		}
 		//--------------------------------------------------------------------------------
 		uint32_t Character::GetMarksmanPowerMod()
 		{
-			return Actor::GetActorValue((CActor*)mActor, "MarksmanPowerMod");
+			return Actor::GetActorValue(mActor, "MarksmanPowerMod");
 		}
 		//--------------------------------------------------------------------------------
 		uint32_t Character::GetBlockPowerMod()
 		{
-			return Actor::GetActorValue((CActor*)mActor, "BlockPowerMod");
+			return Actor::GetActorValue(mActor, "BlockPowerMod");
 		}
 		//--------------------------------------------------------------------------------
 		uint32_t Character::GetSmithingPowerMod()
 		{
-			return Actor::GetActorValue((CActor*)mActor, "SmithingPowerMod");
+			return Actor::GetActorValue(mActor, "SmithingPowerMod");
 		}
 		//--------------------------------------------------------------------------------
 		uint32_t Character::GetHeavyArmorPowerMod()
 		{
-			return Actor::GetActorValue((CActor*)mActor, "HeavyArmorPowerMod");
+			return Actor::GetActorValue(mActor, "HeavyArmorPowerMod");
 		}
 		//--------------------------------------------------------------------------------
 		uint32_t Character::GetLightArmorPowerMod()
 		{
-			return Actor::GetActorValue((CActor*)mActor, "LightArmorPowerMod");
+			return Actor::GetActorValue(mActor, "LightArmorPowerMod");
 		}
 		//--------------------------------------------------------------------------------
 		uint32_t Character::GetPickPocketPowerMod()
 		{
-			return Actor::GetActorValue((CActor*)mActor, "PickPocketPowerMod");
+			return Actor::GetActorValue(mActor, "PickPocketPowerMod");
 		}
 		//--------------------------------------------------------------------------------
 		uint32_t Character::GetLockpickingPowerMod()
 		{
-			return Actor::GetActorValue((CActor*)mActor, "LockpickingPowerMod");
+			return Actor::GetActorValue(mActor, "LockpickingPowerMod");
 		}
 		//--------------------------------------------------------------------------------
 		uint32_t Character::GetSneakPowerMod()
 		{
-			return Actor::GetActorValue((CActor*)mActor, "SneakPowerMod");
+			return Actor::GetActorValue(mActor, "SneakPowerMod");
 		}
 		//--------------------------------------------------------------------------------
 		uint32_t Character::GetAlchemyPowerMod()
 		{
-			return Actor::GetActorValue((CActor*)mActor, "AlchemyPowerMod");
+			return Actor::GetActorValue(mActor, "AlchemyPowerMod");
 		}
 		//--------------------------------------------------------------------------------
 		uint32_t Character::GetSpeechcraftPowerMod()
 		{
-			return Actor::GetActorValue((CActor*)mActor, "SpeechcraftPowerMod");
+			return Actor::GetActorValue(mActor, "SpeechcraftPowerMod");
 		}
 		//--------------------------------------------------------------------------------
 		uint32_t Character::GetAlterationPowerMod()
 		{
-			return Actor::GetActorValue((CActor*)mActor, "AlterationPowerMod");
+			return Actor::GetActorValue(mActor, "AlterationPowerMod");
 		}
 		//--------------------------------------------------------------------------------
 		uint32_t Character::GetConjurationPowerMod()
 		{
-			return Actor::GetActorValue((CActor*)mActor, "ConjurationPowerMod");
+			return Actor::GetActorValue(mActor, "ConjurationPowerMod");
 		}
 		//--------------------------------------------------------------------------------
 		uint32_t Character::GetDestructionPowerMod()
 		{
-			return Actor::GetActorValue((CActor*)mActor, "DestructionPowerMod");
+			return Actor::GetActorValue(mActor, "DestructionPowerMod");
 		}
 		//--------------------------------------------------------------------------------
 		uint32_t Character::GetIllusionPowerMod()
 		{
-			return Actor::GetActorValue((CActor*)mActor, "IllusionPowerMod");
+			return Actor::GetActorValue(mActor, "IllusionPowerMod");
 		}
 		//--------------------------------------------------------------------------------
 		uint32_t Character::GetRestorationPowerMod()
 		{
-			return Actor::GetActorValue((CActor*)mActor, "RestorationPowerMod");
+			return Actor::GetActorValue(mActor, "RestorationPowerMod");
 		}
 		//--------------------------------------------------------------------------------
 		uint32_t Character::GetEnchantingPowerMod()
 		{
-			return Actor::GetActorValue((CActor*)mActor, "EnchantingPowerMod");
+			return Actor::GetActorValue(mActor, "EnchantingPowerMod");
 		}
 		//--------------------------------------------------------------------------------
 		uint32_t Character::GetAttackDamageMult()
 		{
-			return Actor::GetActorValue((CActor*)mActor, "AttackDamageMult");
+			return Actor::GetActorValue(mActor, "AttackDamageMult");
 		}
 		//--------------------------------------------------------------------------------
 		uint32_t Character::GetHealRateMult()
 		{
-			return Actor::GetActorValue((CActor*)mActor, "HealRateMult");
+			return Actor::GetActorValue(mActor, "HealRateMult");
 		}
 		//--------------------------------------------------------------------------------
 		uint32_t Character::GetMagickaRateMult()
 		{
-			return Actor::GetActorValue((CActor*)mActor, "MagickaRateMult");
+			return Actor::GetActorValue(mActor, "MagickaRateMult");
 		}
 		//--------------------------------------------------------------------------------
 		uint32_t Character::GetStaminaRateMult()
 		{
-			return Actor::GetActorValue((CActor*)mActor, "StaminaRateMult");
+			return Actor::GetActorValue(mActor, "StaminaRateMult");
 		}
 		//--------------------------------------------------------------------------------
 		uint32_t Character::GetCombatHealthRegenMultMod()
 		{
-			return Actor::GetActorValue((CActor*)mActor, "CombatHealthRegenMultMod");
+			return Actor::GetActorValue(mActor, "CombatHealthRegenMultMod");
 		}
 		//--------------------------------------------------------------------------------
 		uint32_t Character::GetCombatHealthRegenMultPowerMod()
 		{
-			return Actor::GetActorValue((CActor*)mActor, "CombatHealthRegenMultPowerMod");
+			return Actor::GetActorValue(mActor, "CombatHealthRegenMultPowerMod");
 		}
 		//--------------------------------------------------------------------------------
 		uint32_t Character::GetHealRatePowerMod()
 		{
-			return Actor::GetActorValue((CActor*)mActor, "HealRatePowerMod");
+			return Actor::GetActorValue(mActor, "HealRatePowerMod");
 		}
 		//--------------------------------------------------------------------------------
 		uint32_t Character::GetMagickaRateMod()
 		{
-			return Actor::GetActorValue((CActor*)mActor, "MagickaRateMod");
+			return Actor::GetActorValue(mActor, "MagickaRateMod");
 		}
 		//--------------------------------------------------------------------------------
 		uint32_t Character::GetReflectDamage()
 		{
-			return Actor::GetActorValue((CActor*)mActor, "ReflectDamage");
+			return Actor::GetActorValue(mActor, "ReflectDamage");
 		}
 		//--------------------------------------------------------------------------------
 		uint32_t Character::GetNormalWeaponsResist()
 		{
-			return Actor::GetActorValue((CActor*)mActor, "NormalWeaponsResist");
+			return Actor::GetActorValue(mActor, "NormalWeaponsResist");
 		}
 		//--------------------------------------------------------------------------------
 		uint32_t Character::GetPerceptionCondition()
 		{
-			return Actor::GetActorValue((CActor*)mActor, "PerceptionCondition");
+			return Actor::GetActorValue(mActor, "PerceptionCondition");
 		}
 		//--------------------------------------------------------------------------------
 		uint32_t Character::GetEnduranceCondition()
 		{
-			return Actor::GetActorValue((CActor*)mActor, "EnduranceCondition");
+			return Actor::GetActorValue(mActor, "EnduranceCondition");
 		}
 		//--------------------------------------------------------------------------------
 		uint32_t Character::GetLeftAttackCondition()
 		{
-			return Actor::GetActorValue((CActor*)mActor, "LeftAttackCondition");
+			return Actor::GetActorValue(mActor, "LeftAttackCondition");
 		}
 		//--------------------------------------------------------------------------------
 		uint32_t Character::GetRightAttackCondition()
 		{
-			return Actor::GetActorValue((CActor*)mActor, "RightAttackCondition");
+			return Actor::GetActorValue(mActor, "RightAttackCondition");
 		}
 		//--------------------------------------------------------------------------------
 		uint32_t Character::GetLeftMobilityCondition()
 		{
-			return Actor::GetActorValue((CActor*)mActor, "LeftMobilityCondition");
+			return Actor::GetActorValue(mActor, "LeftMobilityCondition");
 		}
 		//--------------------------------------------------------------------------------
 		uint32_t Character::GetRightMobilityCondition()
 		{
-			return Actor::GetActorValue((CActor*)mActor, "RightMobilityCondition");
+			return Actor::GetActorValue(mActor, "RightMobilityCondition");
 		}
 		//--------------------------------------------------------------------------------
 		uint32_t Character::GetBrainCondition()
 		{
-			return Actor::GetActorValue((CActor*)mActor, "BrainCondition");
+			return Actor::GetActorValue(mActor, "BrainCondition");
 		}
 
 		//--------------------------------------------------------------------------------

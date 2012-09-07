@@ -63,16 +63,13 @@
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup>
-    <ClInclude Include="Src\common\Import.h" />
     <ClInclude Include="Src\common\invoke.h" />
     <ClInclude Include="Src\common\Utils.h" />
-    <ClInclude Include="Src\Data\ActorList.h" />
-    <ClInclude Include="Src\Data\NpcList.h" />
     <ClInclude Include="Src\Directx\myIDirect3D9.h" />
     <ClInclude Include="Src\Directx\myIDirect3DDevice9.h" />
     <ClInclude Include="Src\Game\AssetManager.h" />
     <ClInclude Include="Src\Game\Character.h" />
-    <ClInclude Include="Src\Game\CharacterManager.h" />
+    <ClInclude Include="Src\Game\ControllerManager.h" />
     <ClInclude Include="Src\common\enums.h" />
     <ClInclude Include="Src\common\obscript.h" />
     <ClInclude Include="Src\common\plugin.h" />
@@ -84,7 +81,7 @@
     <ClInclude Include="Src\Game\TimeManager.h" />
     <ClInclude Include="Src\Game\WeatherManager.h" />
     <ClInclude Include="Src\Game\PlayerWatcher.h" />
-    <ClInclude Include="Src\Game\RemotePlayer.h" />
+    <ClInclude Include="Src\Game\ActorController.h" />
     <ClInclude Include="Src\Game\WorldManager.h" />
     <ClInclude Include="Src\Logic\GameState.hpp" />
     <ClInclude Include="Src\Logic\MasterSession.h" />
@@ -105,12 +102,9 @@
     <ClInclude Include="Src\stdafx.h" />
   </ItemGroup>
   <ItemGroup>
-    <ClCompile Include="Src\common\Import.cpp" />
-    <ClCompile Include="Src\Data\ActorList.cpp" />
-    <ClCompile Include="Src\Data\NpcList.cpp" />
     <ClCompile Include="Src\Game\AssetManager.cpp" />
     <ClCompile Include="Src\Game\Character.cpp" />
-    <ClCompile Include="Src\Game\CharacterManager.cpp" />
+    <ClCompile Include="Src\Game\ControllerManager.cpp" />
     <ClCompile Include="Src\common\plugin.cpp" />
     <ClCompile Include="Src\Engine\InputManager.cpp" />
     <ClCompile Include="Src\Game\SkyrimFormManager.cpp" />
@@ -126,7 +120,7 @@
     <ClCompile Include="Src\Logic\States\ShardList.cpp" />
     <ClCompile Include="Src\main.cpp" />
     <ClCompile Include="Src\Game\PlayerWatcher.cpp" />
-    <ClCompile Include="Src\Game\RemotePlayer.cpp" />
+    <ClCompile Include="Src\Game\ActorController.cpp" />
     <ClCompile Include="Src\Logic\Handlers\Authentication.cpp" />
     <ClCompile Include="Src\Logic\Handlers\Player.cpp" />
     <ClCompile Include="Src\Logic\Handlers\World.cpp" />

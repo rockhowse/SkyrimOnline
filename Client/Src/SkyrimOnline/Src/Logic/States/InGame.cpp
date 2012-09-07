@@ -57,7 +57,7 @@ namespace Skyrim
 
 				mChat->Update(pDelta);
 
-				SkyrimOnline::GetInstance().GetCharacterManager().Update(pDelta);
+				SkyrimOnline::GetInstance().GetControllerManager().Update(pDelta);
 			}
 			//--------------------------------------------------------------------------------
 			bool InGame::IsSwitchingAllowed()

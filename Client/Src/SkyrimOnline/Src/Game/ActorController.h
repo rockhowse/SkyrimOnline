@@ -6,12 +6,12 @@ namespace Skyrim
 {
 	namespace Game
 	{
-		class RemotePlayer
+		class ActorController
 		{
 		public:
 
-			RemotePlayer(unsigned int pId, unsigned int pRace, uint32_t pSex);
-			~RemotePlayer();
+			ActorController(unsigned int pId, unsigned int pRace, uint32_t pSex);
+			~ActorController();
 
 			void Update(uint32_t elapsed);
 			void SetPosition(float x, float y, float z);

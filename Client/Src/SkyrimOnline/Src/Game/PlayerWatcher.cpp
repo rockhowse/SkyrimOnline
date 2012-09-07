@@ -1,7 +1,7 @@
 #include "stdafx.h"
 #include <Game/PlayerWatcher.h>
 #include <SkyrimOnline.h>
-#include <Game/RemotePlayer.h>
+#include <Game/ActorController.h>
 
 namespace Skyrim
 {

@@ -1,6 +1,5 @@
 #include "stdafx.h"
 #include "AssetManager.h"
-#include <Data/NpcList.h>
 
 namespace Skyrim
 {

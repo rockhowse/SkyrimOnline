@@ -6,6 +6,7 @@
 
 #pragma once
 
+#include <FreeScript/References.hpp>
 #include <windows.h>
 
 typedef int ScriptNone;
@@ -14,7 +15,7 @@ typedef DWORD uint;
 typedef char Axis;
 
 class BGSListForm;
-class CActor;
+typedef FreeScript::Actor CActor;
 class TESWordOfPower;
 class TESQuest;
 class BGSKeyword;

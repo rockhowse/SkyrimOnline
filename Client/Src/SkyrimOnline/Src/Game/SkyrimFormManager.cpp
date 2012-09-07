@@ -1,7 +1,6 @@
 #include "stdafx.h"
 #include "SkyrimFormManager.h"
 #include <SkyrimOnline.h>
-#include <Data/NpcList.h>
 
 namespace Skyrim
 {

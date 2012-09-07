@@ -1,7 +1,7 @@
 #pragma once
 
 #include <Game/PlayerWatcher.h>
-#include <Game/CharacterManager.h>
+#include <Game/ControllerManager.h>
 #include <Game/TimeManager.h>
 #include <Game/WeatherManager.h>
 #include <Game/AssetManager.h>
@@ -48,7 +48,7 @@ namespace Skyrim
 		static void Stop();
 		// End Singleton
 
-		Game::CharacterManager& GetCharacterManager();
+		Game::ControllerManager& GetControllerManager();
 		Overlay::Interface& GetInterface();
 		Game::TimeManager& GetTimeManager();
 		Game::WeatherManager& GetWeatherManager();
@@ -86,7 +86,7 @@ namespace Skyrim
 
 		//< Alright now start initializing gameplay stuff
 		Game::PlayerWatcher mPlayer;
-		Game::CharacterManager mManager;
+		Game::ControllerManager mManager;
 		Game::TimeManager mTimeManager;
 		Game::WeatherManager mWeatherManager;
 		Game::AssetManager mAssets;

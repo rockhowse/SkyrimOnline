@@ -3,7 +3,7 @@
 #include <Overlay/Chat.h>
 #include <Overlay/FriendList.h>
 #include <Logic/GameState.hpp>
-#include <Game/RemotePlayer.h>
+#include <Game/ActorController.h>
 
 namespace Skyrim
 {

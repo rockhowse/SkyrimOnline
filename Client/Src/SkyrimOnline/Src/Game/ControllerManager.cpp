@@ -1,18 +1,18 @@
 #include "stdafx.h"
-#include "CharacterManager.h"
+#include "ControllerManager.h"
 
 namespace Skyrim
 {
 	namespace Game
 	{
 		//--------------------------------------------------------------------------------
-		CharacterManager::CharacterManager()
+		ControllerManager::ControllerManager()
 		{
 		}
 		//--------------------------------------------------------------------------------
-		CharacterManager::~CharacterManager()
+		ControllerManager::~ControllerManager()
 		{
-			System::Log::Debug("CharacterManager::~CharacterManager()");
+			System::Log::Debug("ControllerManager::~ControllerManager()");
 			for(auto itor = mCharacters.begin(); itor != mCharacters.end(); ++itor)
 			{
 				delete itor->second;
@@ -20,13 +20,13 @@ namespace Skyrim
 			mCharacters.clear();
 		}
 		//--------------------------------------------------------------------------------
-		void CharacterManager::Add(RemotePlayer* pPlayer)
+		void ControllerManager::Add(ActorController* pPlayer)
 		{
 			if(mCharacters.find(pPlayer->GetId()) == mCharacters.end())
 				mCharacters[pPlayer->GetId()] = pPlayer;
 		}
 		//--------------------------------------------------------------------------------
-		RemotePlayer* CharacterManager::Remove(RemotePlayer* pPlayer)
+		ActorController* ControllerManager::Remove(ActorController* pPlayer)
 		{
 			auto itor = mCharacters.find(pPlayer->GetId());
 			if(itor != mCharacters.end())
@@ -34,7 +34,7 @@ namespace Skyrim
 			return pPlayer;
 		}
 		//--------------------------------------------------------------------------------
-		RemotePlayer* CharacterManager::Get(uint32_t pPlayer)
+		ActorController* ControllerManager::Get(uint32_t pPlayer)
 		{
 			auto itor = mCharacters.find(pPlayer);
 			if(itor != mCharacters.end())
@@ -42,7 +42,7 @@ namespace Skyrim
 			return nullptr;
 		}
 		//--------------------------------------------------------------------------------
-		void CharacterManager::Update(uint32_t elapsed)
+		void ControllerManager::Update(uint32_t elapsed)
 		{
 			for(auto itor = mCharacters.begin(); itor != mCharacters.end(); ++itor)
 			{

@@ -1,7 +1,6 @@
 #include "stdafx.h"
 #include "SkyrimOnline.h"
 #include <Overlay/Message.h>
-#include <Data/NpcList.h>
 
 #include <Logic/States/InGame.hpp>
 #include <Logic/States/Login.hpp>
@@ -45,7 +44,7 @@ namespace Skyrim
 		return mAssets;
 	}
 	//--------------------------------------------------------------------------------
-	Game::CharacterManager& SkyrimOnline::GetCharacterManager()
+	Game::ControllerManager& SkyrimOnline::GetControllerManager()
 	{
 		return mManager;
 	}
