@@ -56,8 +56,8 @@
       <EnableCOMDATFolding>true</EnableCOMDATFolding>
       <OptimizeReferences>true</OptimizeReferences>
       <OutputFile>$(OutDir)$(TargetName).asi</OutputFile>
-      <AdditionalLibraryDirectories>$(DXSDK_DIR)\Lib\x86;..\..\..\..\EasySteam\Bin\Release;..\..\..\..\Dependencies\lib;..\..\Bin;..\Bin\$(PlatformShortName)\;%(AdditionalLibraryDirectories)</AdditionalLibraryDirectories>
-      <AdditionalDependencies>SkyrimOnlineProxy.lib;cryptlib.lib;zlib.x86.lib;Framework.lib;d3dx9.lib;MyGUIEngine.lib;dxguid.lib;dinput8.lib;MyGUI.DirectXPlatform.lib;d3d9.lib;dbghelp.lib;FreeScript.lib;EasySteam.lib;%(AdditionalDependencies)</AdditionalDependencies>
+      <AdditionalLibraryDirectories>$(DXSDK_DIR)\Lib\x86;..\..\..\..\EasySteam\Bin\Release;..\..\..\..\Dependencies\lib;..\..\..\Server\Bin\x86;..\..\Bin;..\Bin\$(PlatformShortName)\;%(AdditionalLibraryDirectories)</AdditionalLibraryDirectories>
+      <AdditionalDependencies>Server.lib;SkyrimOnlineProxy.lib;cryptlib.lib;zlib.x86.lib;Framework.lib;d3dx9.lib;MyGUIEngine.lib;dxguid.lib;dinput8.lib;MyGUI.DirectXPlatform.lib;d3d9.lib;dbghelp.lib;FreeScript.lib;EasySteam.lib;%(AdditionalDependencies)</AdditionalDependencies>
       <ModuleDefinitionFile>
       </ModuleDefinitionFile>
     </Link>
@@ -84,7 +84,7 @@
     <ClInclude Include="Src\Game\ActorController.h" />
     <ClInclude Include="Src\Game\WorldManager.h" />
     <ClInclude Include="Src\Logic\GameState.hpp" />
-    <ClInclude Include="Src\Logic\MasterSession.h" />
+    <ClInclude Include="Src\Logic\MasterServer.h" />
     <ClInclude Include="Src\Logic\NetEngine.hpp" />
     <ClInclude Include="Src\Logic\States\InGame.hpp" />
     <ClInclude Include="Src\Logic\States\Login.hpp" />
@@ -111,7 +111,7 @@
     <ClCompile Include="Src\Game\TimeManager.cpp" />
     <ClCompile Include="Src\Game\WeatherManager.cpp" />
     <ClCompile Include="Src\Game\WorldManager.cpp" />
-    <ClCompile Include="Src\Logic\MasterSession.cpp" />
+    <ClCompile Include="Src\Logic\MasterServer.cpp" />
     <ClCompile Include="Src\Logic\NetEngine.cpp" />
     <ClCompile Include="Src\Logic\Senders\Character.cpp" />
     <ClCompile Include="Src\Logic\Senders\General.cpp" />

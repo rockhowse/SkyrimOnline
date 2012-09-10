@@ -59,7 +59,7 @@ namespace Skyrim
 
 			mChatJail.Update(pElapsed);
 
-			while(mConnection->HasPacket())
+			while(HasPacket())
 			{
 				Framework::Network::Packet data = PopPacket();
 				try{

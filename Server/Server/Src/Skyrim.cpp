@@ -4,19 +4,28 @@
 #include <System/Log.h>
 #include <Crypt/RSA.h>
 
-/*int main()
+Skyrim::Logic::World::pointer world;
+
+void __declspec(dllexport) Host(uint16_t pPort)
+{
+	world = boost::make_shared<Skyrim::Logic::World>(pPort);
+}
+
+void __declspec(dllexport) Run()
 {
 	try
 	{
-		Skyrim::Crypt::RSA::Init();
-		auto world = boost::make_shared<Skyrim::Logic::World>(27500);
+		if(world)
+			world->Run();
 	}
-	catch (std::exception& e)
+	catch(std::exception& e)
 	{
-		Skyrim::System::Log::Error(e.what());
+		Framework::System::Log::Error(e.what());
 	}
-	Skyrim::System::Log::Flush();
+}
 
-	system("pause");
-	return 0;
-}*/
+void __declspec(dllexport) Drop()
+{
+	world.reset();
+}
+

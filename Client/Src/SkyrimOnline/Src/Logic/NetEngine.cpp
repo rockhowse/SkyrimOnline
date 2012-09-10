@@ -24,7 +24,7 @@ namespace Skyrim
 		{
 			if(GetInstance().mServerMode)
 			{
-				return false;
+				return true;
 			}
 			if(GetInstance().mClient && !GetInstance().mClient->IsOffline())
 				return true;
@@ -35,11 +35,15 @@ namespace Skyrim
 		void NetEngine::Host()
 		{
 			GetInstance().mServerMode = true;
+			GetInstance().mServer = boost::make_shared<MasterServer>();
+			Join("127.0.0.1", "27500");
 		}
 
 		void NetEngine::Join(const std::string& pIp, const std::string& pPort)
 		{
 			auto& watcher = SkyrimOnline::GetInstance().GetPlayerWatcher();
+
+			GetInstance().mEventLinks.clear();
 
 			GetInstance().mServerMode = false;
 			GetInstance().mClient = Session::Create();
@@ -56,8 +60,10 @@ namespace Skyrim
 
 		void NetEngine::Update(float pDelta)
 		{
-			if(mServerMode);
-			else if(mClient)
+			if(mServerMode && mServer)
+				mServer->Run();
+			
+			if(mClient)
 				mClient->Update(pDelta);
 		}
 
@@ -68,8 +74,7 @@ namespace Skyrim
 
 		void NetEngine::Write(Network::Packet& pPacket)
 		{
-			if(mServerMode);
-			else if(mClient)
+			if(mClient)
 				mClient->Write(pPacket);
 		}
 

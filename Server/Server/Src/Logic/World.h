@@ -17,6 +17,7 @@ namespace Skyrim
 		{
 		public:
 
+			typedef boost::shared_ptr<World> pointer;
 			/**
 			 * Instantiate the server
 			 * @param pPort The port to start the server on
@@ -28,12 +29,6 @@ namespace Skyrim
 			 * @param pSession The session to drop from the server and world
 			 */
 			void Remove(Session::pointer pSession);
-
-			/**
-			 * Get the database work queue, needed to load a DAO
-			 * @return the database work queue
-			 */
-			Framework::System::DBWorkQueue* GetDatabaseWorkQueue();
 
 			Game::Map*	GetMap();
 
@@ -47,9 +42,11 @@ namespace Skyrim
 
 			uint32_t GetCount();
 
+			void Run();
+
 		private:
 
-			Framework::Network::Server							mServer;
+			Framework::Network::Server				mServer;
 
 			boost::mutex							mGuard;
 			std::deque<Session::pointer>			mSessions;

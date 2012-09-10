@@ -12,23 +12,18 @@ namespace Skyrim
 		World::World(unsigned short pPort)
 			:mId(0), mServer(pPort)
 		{
+			System::Log::Create("SkyrimOnlineServer.log");
 			System::Log::Print("               Skyrim Online        ");
 			System::Log::Print("Memory model : " + std::to_string((unsigned long long)sizeof(void*) * 8) + " bits				   ");
 
 			Session::Setup();
 
-			mDBWorkQueue.reset(new System::DBWorkQueue("wordpress", 1));
 			mWorkQueue.reset(new System::WorkQueue(1));
 
 			mServer.OnConnection.connect(boost::bind(&World::OnConnection, this, _1));
 			mServer.OnUpdate.connect(boost::bind(&World::OnUpdate, this, _1));
 
-			mServer.Start();
-		}
-		//---------------------------------------------------------------------
-		System::DBWorkQueue* World::GetDatabaseWorkQueue()
-		{
-			return mDBWorkQueue.get();
+			mServer.RunOnce();
 		}
 		//---------------------------------------------------------------------
 		Game::Map* World::GetMap()
@@ -97,6 +92,11 @@ namespace Skyrim
 				if(pSession != pPlayer)
 					pSession->HandlePlayerEvent(pPlayer);
 			});
+		}
+		//---------------------------------------------------------------------
+		void World::Run()
+		{
+			mServer.RunOnce();
 		}
 		//---------------------------------------------------------------------
 	}

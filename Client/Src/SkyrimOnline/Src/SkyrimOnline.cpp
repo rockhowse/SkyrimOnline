@@ -14,6 +14,7 @@ namespace Skyrim
 	SkyrimOnline::SkyrimOnline()
 		:mUI(Overlay::Interface::GetInstance()), mInput(*this),mMode(true),mIoPool(1)
 	{
+		System::Log::Create("SkyrimOnlineClient.log");
 		System::Log::Debug("Mod()");
 
 		mUI->Acquire();

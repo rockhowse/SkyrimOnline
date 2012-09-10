@@ -3,6 +3,7 @@
 #include <Game/Character.h>
 #include <Game/PlayerWatcher.h>
 #include <Logic/Session.h>
+#include <Logic/MasterServer.h>
 
 namespace Skyrim
 {
@@ -44,7 +45,7 @@ namespace Skyrim
 			bool mServerMode;
 
 			Session::pointer mClient;
-			//Session::pointer server;
+			MasterServer::pointer mServer;
 
 			std::vector<boost::signals::connection> mEventLinks;
 
