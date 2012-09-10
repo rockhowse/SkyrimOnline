@@ -12,6 +12,8 @@
 #include <cstdint>
 #include <array>
 #include <string>
+#include <vector>
+#include <skyscript.h>
 
 #pragma warning( disable : 4251 )
 #pragma warning( disable : 4244 )

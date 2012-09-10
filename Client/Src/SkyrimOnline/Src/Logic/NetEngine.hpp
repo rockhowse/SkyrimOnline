@@ -1,6 +1,5 @@
 #pragma once
 
-#include <Game/Character.h>
 #include <Game/PlayerWatcher.h>
 #include <Logic/Session.h>
 #include <Logic/MasterServer.h>
@@ -22,8 +21,8 @@ namespace Skyrim
 			void Update(float pDelta);
 			
 			void SendEnterRegion(uint32_t pRegion);
-			void SendCharacterInfo(Game::Character& pCharacter);
-			void SendMoveAndLook(Game::Character& pCharacter, uint32_t pDelta);
+			void SendCharacterInfo(FreeScript::Character& pCharacter);
+			void SendMoveAndLook(FreeScript::Character& pCharacter, uint32_t pDelta);
 			void SendMount(uint32_t pId);
 			void SendUnmount();
 			void SendChatMessage(const std::string& pMessage);

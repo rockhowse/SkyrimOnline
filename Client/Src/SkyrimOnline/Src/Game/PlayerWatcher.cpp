@@ -59,7 +59,7 @@ namespace Skyrim
 			return mPlayer.IsDead();
 		}
 		//--------------------------------------------------------------------------------
-		Character& PlayerWatcher::GetCharacter()
+		FreeScript::Character& PlayerWatcher::GetCharacter()
 		{
 			return mPlayer;
 		}

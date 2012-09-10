@@ -63,7 +63,15 @@
     </ProjectReference>
   </ItemDefinitionGroup>
   <ItemGroup>
+    <ClInclude Include="Src\Common\enums.h" />
+    <ClInclude Include="Src\Common\invoke.h" />
+    <ClInclude Include="Src\Common\obscript.h" />
+    <ClInclude Include="Src\Common\plugin.h" />
+    <ClInclude Include="Src\Common\skyscript.h" />
+    <ClInclude Include="Src\Common\types.h" />
+    <ClInclude Include="Src\Common\Utils.h" />
     <ClInclude Include="Src\FreeScript\Actor.hpp" />
+    <ClInclude Include="Src\FreeScript\Character.hpp" />
     <ClInclude Include="Src\FreeScript\Common.hpp" />
     <ClInclude Include="Src\FreeScript\Components.hpp" />
     <ClInclude Include="Src\FreeScript\Data.hpp" />
@@ -79,7 +87,9 @@
     <ClInclude Include="Src\stdafx.h" />
   </ItemGroup>
   <ItemGroup>
+    <ClCompile Include="Src\Common\plugin.cpp" />
     <ClCompile Include="Src\FreeScript\Actor.cpp" />
+    <ClCompile Include="Src\FreeScript\Character.cpp" />
     <ClCompile Include="Src\FreeScript\Data.cpp" />
     <ClCompile Include="Src\FreeScript\ExtraData.cpp" />
     <ClCompile Include="Src\FreeScript\Forms.cpp" />
@@ -89,6 +99,9 @@
     <ClCompile Include="Src\stdafx.cpp">
       <PrecompiledHeader Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">Create</PrecompiledHeader>
     </ClCompile>
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Src\Common\plugin.def" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">

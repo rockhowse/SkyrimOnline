@@ -7,7 +7,7 @@ namespace Skyrim
 	namespace Logic
 	{
 		//--------------------------------------------------------------------------------
-		void NetEngine::SendCharacterInfo(Game::Character& pCharacter)
+		void NetEngine::SendCharacterInfo(FreeScript::Character& pCharacter)
 		{
 			Network::Packet data(Opcode::CMSG_CHARACTER_INFO, 0xFFFFFFFF);
 			data << pCharacter.GetRace() 
@@ -20,7 +20,7 @@ namespace Skyrim
 			Write(data);
 		}
 		//--------------------------------------------------------------------------------
-		void NetEngine::SendMoveAndLook(Game::Character& pCharacter, uint32_t pDelta)
+		void NetEngine::SendMoveAndLook(FreeScript::Character& pCharacter, uint32_t pDelta)
 		{
 			Network::Packet data(Opcode::CMSG_MOVE_AND_LOOK, 0xFFFFFFFF);
 			data << pCharacter.GetPosX() << pCharacter.GetPosY() << pCharacter.GetPosZ()

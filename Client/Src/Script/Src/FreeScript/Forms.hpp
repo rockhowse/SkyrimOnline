@@ -27,6 +27,20 @@ namespace FreeScript
 	{
 	public:
 
+		enum Race
+		{
+			Argorian = 13740,
+			Breton,
+			Dunmer,
+			Altmer,
+			Imperial,
+			Khajiit,
+			Nord,
+			Orc,
+			Redguard,
+			Bosmer
+		};
+
 		char pad014to2bc[0x2bc - 0x14];
 	};
 

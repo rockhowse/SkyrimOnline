@@ -13,13 +13,13 @@ namespace Skyrim
 		{
 			TESForm * me = SkyrimFormManager::GetInstance()->GetForm(pRace, pSex);
 
-			mMe = boost::make_shared<Character>(
+			mMe = boost::make_shared<FreeScript::Character>(
 				(CActor*)ObjectReference::PlaceAtMe((TESObjectREFR*)::Game::GetPlayer(), me, 1, true, false));
 			mMaster = (CActor*)ObjectReference::PlaceAtMe((TESObjectREFR*)::Game::GetPlayer(), me, 1, true, true);
 
-			Actor::EnableAI(mMe->GetActor(), true);
-			Actor::KeepOffsetFromActor(mMe->GetActor(), mMaster, 0.f, 0.f, 0.f, 0.f, 0.f, 0.f, 20.f, 5.0f);
-			Actor::SetActorValue(mMe->GetActor(), "Health", 99999999.f);
+			::Actor::EnableAI(mMe->GetActor(), true);
+			::Actor::KeepOffsetFromActor(mMe->GetActor(), mMaster, 0.f, 0.f, 0.f, 0.f, 0.f, 0.f, 20.f, 5.0f);
+			::Actor::SetActorValue(mMe->GetActor(), "Health", 99999999.f);
 
 			SkyrimOnline::GetInstance().GetAssetManager().Add((TESObjectREFR*)mMe->GetActor());
 			SkyrimOnline::GetInstance().GetAssetManager().Add((TESObjectREFR*)mMaster);
@@ -38,7 +38,7 @@ namespace Skyrim
 			ObjectReference::Delete((TESObjectREFR*)mMaster);
 		}
 		//--------------------------------------------------------------------------------
-		boost::shared_ptr<Character> ActorController::GetCharacter()
+		boost::shared_ptr<FreeScript::Character> ActorController::GetCharacter()
 		{
 			return mMe;
 		}
@@ -94,15 +94,15 @@ namespace Skyrim
 			if(pMount != 0)
 			{
 				CActor* form =  rtti_cast(ObjectReference::PlaceAtMe((TESObjectREFR*)::Game::GetPlayer(), ::Game::GetFormById(pMount), 1, true, false), TESObjectREFR, Actor);
-				mMount = boost::make_shared<Character>(form);
+				mMount = boost::make_shared<FreeScript::Character>(form);
 
 				mMount->SetPos(mMe->GetPosX(), mMe->GetPosY(), mMe->GetPosZ());
 				mMount->SetRot(mMe->GetRotX(), mMe->GetRotY(), mMe->GetRotZ());
 
-				Actor::EnableAI(mMount->GetActor(), true);
+				::Actor::EnableAI(mMount->GetActor(), true);
 
 				ObjectReference::TetherToHorse((TESObjectREFR*)mMe->GetActor(), (TESObjectREFR*)mMount->GetActor());
-				Actor::KeepOffsetFromActor(mMount->GetActor(), mMaster, 0.f, 0.f, 0.f, 0.f, 0.f, 0.f, 10.f, 3.f);
+				::Actor::KeepOffsetFromActor(mMount->GetActor(), mMaster, 0.f, 0.f, 0.f, 0.f, 0.f, 0.f, 10.f, 3.f);
 
 				SkyrimOnline::GetInstance().GetAssetManager().Add((TESObjectREFR*)mMount->GetActor());
 			}

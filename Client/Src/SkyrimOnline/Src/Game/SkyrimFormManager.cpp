@@ -64,15 +64,15 @@ namespace Skyrim
 				{
 					switch(pRace)
 					{
-					case Skyrim::Race::Altmer: actorId = ID_TESNPC::HighElfMalePreset10; break;
-					case Skyrim::Race::Bosmer: actorId = ID_TESNPC::WoodElfMalePreset10; break;
-					case Skyrim::Race::Argorian: actorId = ID_TESNPC::ArgonianMalePreset10; break;
-					case Skyrim::Race::Dunmer: actorId = ID_TESNPC::DarkElfMalePreset10; break;
-					case Skyrim::Race::Imperial: actorId = ID_TESNPC::ImperialMalePreset10; break;
-					case Skyrim::Race::Khajiit: actorId = ID_TESNPC::KhajiitMalePreset10; break;
-					case Skyrim::Race::Nord: actorId = ID_TESNPC::NordMalePreset10; break;
-					case Skyrim::Race::Orc: actorId = ID_TESNPC::OrcMalePreset10; break;
-					case Skyrim::Race::Redguard: actorId = ID_TESNPC::RedguardMalePreset10; break;
+					case FreeScript::TESRace::Altmer: actorId = ID_TESNPC::HighElfMalePreset10; break;
+					case FreeScript::TESRace::Bosmer: actorId = ID_TESNPC::WoodElfMalePreset10; break;
+					case FreeScript::TESRace::Argorian: actorId = ID_TESNPC::ArgonianMalePreset10; break;
+					case FreeScript::TESRace::Dunmer: actorId = ID_TESNPC::DarkElfMalePreset10; break;
+					case FreeScript::TESRace::Imperial: actorId = ID_TESNPC::ImperialMalePreset10; break;
+					case FreeScript::TESRace::Khajiit: actorId = ID_TESNPC::KhajiitMalePreset10; break;
+					case FreeScript::TESRace::Nord: actorId = ID_TESNPC::NordMalePreset10; break;
+					case FreeScript::TESRace::Orc: actorId = ID_TESNPC::OrcMalePreset10; break;
+					case FreeScript::TESRace::Redguard: actorId = ID_TESNPC::RedguardMalePreset10; break;
 					}
 				}
 				else
@@ -80,15 +80,15 @@ namespace Skyrim
 					actorId = ID_TESNPC::BretonFemalePreset10;
 					switch(pRace)
 					{
-					case Skyrim::Race::Altmer: actorId = ID_TESNPC::HighElfFemalePreset10; break;
-					case Skyrim::Race::Bosmer: actorId = ID_TESNPC::WoodElfFemalePreset10; break;
-					case Skyrim::Race::Argorian: actorId = ID_TESNPC::ArgonianFemalePreset10; break;
-					case Skyrim::Race::Dunmer: actorId = ID_TESNPC::DarkElfFemalePreset10; break;
-					case Skyrim::Race::Imperial: actorId = ID_TESNPC::ImperialFemalePreset10; break;
-					case Skyrim::Race::Khajiit: actorId = ID_TESNPC::KhajiitFemalePreset10; break;
-					case Skyrim::Race::Nord: actorId = ID_TESNPC::NordFemalePreset10; break;
-					case Skyrim::Race::Orc: actorId = ID_TESNPC::OrcFemalePreset10; break;
-					case Skyrim::Race::Redguard: actorId = ID_TESNPC::RedguardFemalePreset10; break;
+					case FreeScript::TESRace::Altmer: actorId = ID_TESNPC::HighElfFemalePreset10; break;
+					case FreeScript::TESRace::Bosmer: actorId = ID_TESNPC::WoodElfFemalePreset10; break;
+					case FreeScript::TESRace::Argorian: actorId = ID_TESNPC::ArgonianFemalePreset10; break;
+					case FreeScript::TESRace::Dunmer: actorId = ID_TESNPC::DarkElfFemalePreset10; break;
+					case FreeScript::TESRace::Imperial: actorId = ID_TESNPC::ImperialFemalePreset10; break;
+					case FreeScript::TESRace::Khajiit: actorId = ID_TESNPC::KhajiitFemalePreset10; break;
+					case FreeScript::TESRace::Nord: actorId = ID_TESNPC::NordFemalePreset10; break;
+					case FreeScript::TESRace::Orc: actorId = ID_TESNPC::OrcFemalePreset10; break;
+					case FreeScript::TESRace::Redguard: actorId = ID_TESNPC::RedguardFemalePreset10; break;
 					}
 				}
 				TESForm* form = ::Game::GetFormById(mBaseAddr + offset);

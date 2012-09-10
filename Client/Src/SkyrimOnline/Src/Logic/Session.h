@@ -1,6 +1,5 @@
 #pragma once
 
-#include <Game/Character.h>
 #include <Game/PlayerWatcher.h>
 
 using boost::asio::ip::tcp;

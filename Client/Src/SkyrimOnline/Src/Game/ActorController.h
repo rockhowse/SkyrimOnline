@@ -1,7 +1,5 @@
 #pragma once
 
-#include "Character.h"
-
 namespace Skyrim
 {
 	namespace Game
@@ -19,7 +17,7 @@ namespace Skyrim
 			void InterpolateTo(float posX, float posY, float posZ, float rotX, float rotY, float rotZ, uint32_t time);
 			void SetMount(unsigned int pMount);
 
-			boost::shared_ptr<Character> GetCharacter();
+			boost::shared_ptr<FreeScript::Character> GetCharacter();
 			unsigned int GetId();
 
 		private:
@@ -35,8 +33,8 @@ namespace Skyrim
 			bool mInit;
 			unsigned int mId;
 			CActor*	mMaster;
-			boost::shared_ptr<Character> mMe;
-			boost::shared_ptr<Character> mMount;
+			boost::shared_ptr<FreeScript::Character> mMe;
+			boost::shared_ptr<FreeScript::Character> mMount;
 		};
 	}
 }

@@ -1,10 +1,11 @@
+#pragma once
+
 #include "Forms.hpp"
 #include "Common.hpp"
 #include <sstream>
 
 namespace FreeScript
 {
-
 	class TESNPCHelper : public BaseHelper<TESNPC>
 	{
 	public:
