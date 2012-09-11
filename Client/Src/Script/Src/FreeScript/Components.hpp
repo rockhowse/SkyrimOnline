@@ -40,7 +40,7 @@ namespace FreeScript
 			LongHair =	1 << 11,
 			Circlet =	1 << 12,
 			Ears =		1 << 13,
-			kPart_FX01 =1 << 31,
+			SpecialFX = 1 << 31,
 		};
 
 		struct Data
