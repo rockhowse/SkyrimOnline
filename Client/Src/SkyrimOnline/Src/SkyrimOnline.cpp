@@ -14,8 +14,7 @@ namespace Skyrim
 	SkyrimOnline::SkyrimOnline()
 		:mUI(Overlay::Interface::GetInstance()), mInput(*this),mMode(true),mIoPool(1)
 	{
-		System::Log::Create("SkyrimOnlineClient.log");
-		System::Log::Debug("Mod()");
+		_trace
 
 		mUI->Acquire();
 
@@ -25,13 +24,12 @@ namespace Skyrim
 		mIoPool.Run();
 
 		SetUser(EasySteam::Interface::GetInstance().GetUser()->GetPersonaName());
-
-		System::Log::Debug("Mod() -e");
 	}
 	//--------------------------------------------------------------------------------
 	SkyrimOnline::~SkyrimOnline()
 	{
-		System::Log::Debug("~Mod()");
+		_trace
+
 		mUI->Reset();
 	}
 	//--------------------------------------------------------------------------------
@@ -82,7 +80,7 @@ namespace Skyrim
 		return mRendering;
 	}
 	//--------------------------------------------------------------------------------
-	Game::TimeManager& SkyrimOnline::GetTimeManager()
+	TimeManager& SkyrimOnline::GetTimeManager()
 	{
 		return mTimeManager;
 	}
@@ -92,7 +90,7 @@ namespace Skyrim
 		return mUsername;
 	}
 	//--------------------------------------------------------------------------------
-	Game::WeatherManager& SkyrimOnline::GetWeatherManager()
+	WeatherManager& SkyrimOnline::GetWeatherManager()
 	{
 		return mWeatherManager;
 	}
@@ -105,6 +103,7 @@ namespace Skyrim
 	//--------------------------------------------------------------------------------
 	void SkyrimOnline::OnConnect(bool pStatus)
 	{
+		_trace
 		if(pStatus)
 		{
 			mUI->GetMessage()->SetCaption("Negotiating connection with World !");
@@ -118,10 +117,6 @@ namespace Skyrim
 
 			Logic::NetEngine::GetInstance().GetClient()->SetCipher(new Crypt::Cipher(encKey, decKey, encIV, decIV));
 			Logic::NetEngine::GetInstance().GetClient()->Write(packet);
-
-			mUI->GetMessage()->Hide();
-
-			SetState("InGame");
 		}
 		else
 		{
@@ -172,9 +167,6 @@ namespace Skyrim
 			if(code == DIK_F3)
 			{
 				SwitchMode();
-			}
-			else if(code == DIK_F6)
-			{
 			}
 		}
 	}
@@ -229,6 +221,7 @@ namespace Skyrim
 
 			mInput.Update();
 
+			Logic::NetEngine::GetInstance().Update(delta);
 			if(mCurrentState)
 				mCurrentState->OnUpdate(delta);
 
@@ -293,7 +286,7 @@ namespace Skyrim
 	//--------------------------------------------------------------------------------
 	void SkyrimOnline::SwitchMode()
 	{
-		System::Log::Debug("SwitchMode()");
+		_trace
 		SetMode(!mMode);
 	}
 	//--------------------------------------------------------------------------------

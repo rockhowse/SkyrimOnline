@@ -1,8 +1,8 @@
 #pragma once
 
-void Host(uint16_t pPort);
-void Run();
-void Drop();
+void* Host(uint16_t pPort);
+void Run(void* ptr);
+void Drop(void* ptr);
 
 namespace Skyrim
 {
@@ -18,6 +18,9 @@ namespace Skyrim
 			~MasterServer();
 
 			void Run();
+		private:
+
+			void* mImpl;
 		};
 	}
 }

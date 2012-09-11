@@ -37,6 +37,10 @@ namespace Skyrim
 					{
 						System::Log::Debug(boost::diagnostic_information(e));
 					}
+					catch(std::exception& e)
+					{
+						System::Log::Debug(e.what());
+					}
 				}
 			Write();
 		}

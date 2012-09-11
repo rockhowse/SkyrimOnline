@@ -7,17 +7,19 @@ namespace Skyrim
 	{
 		MasterServer::MasterServer()
 		{
-			Host(27500);
+			_trace
+			mImpl = Host(27500);
 		}
 
 		MasterServer::~MasterServer()
 		{
-			Drop();
+			_trace
+			Drop(mImpl);
 		}
 
 		void MasterServer::Run()
 		{
-			::Run();
+			::Run(mImpl);
 		}
 	}
 }

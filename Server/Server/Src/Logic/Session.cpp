@@ -30,6 +30,7 @@ namespace Skyrim
 		Session::Session(Framework::Network::TcpConnection::pointer pConnection, World* pWorld, uint32_t pId)
 			: mConnection(pConnection), mWorld(pWorld), mId(pId), mRegion()
 		{
+			pConnection->SetStrategy(this);
 			System::Log::Debug("New connection !");
 		}
 		//---------------------------------------------------------------------

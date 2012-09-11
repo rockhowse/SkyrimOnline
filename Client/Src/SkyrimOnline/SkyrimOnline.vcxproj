@@ -41,7 +41,7 @@
       <Optimization>Disabled</Optimization>
       <FunctionLevelLinking>false</FunctionLevelLinking>
       <IntrinsicFunctions>false</IntrinsicFunctions>
-      <PreprocessorDefinitions>WIN32;NDEBUG;_WINDOWS;_USRDLL;NINJATOONLINE_EXPORTS;_WINDLL;DETOURS_32BIT;DETOURS_X86;RUNTIME;RUNTIME_VERSION=0x051A0000;%(PreprocessorDefinitions)</PreprocessorDefinitions>
+      <PreprocessorDefinitions>WIN32;NDEBUG;_WINDOWS;_USRDLL;_WINDLL;%(PreprocessorDefinitions)</PreprocessorDefinitions>
       <AdditionalOptions>/Zm250 %(AdditionalOptions)</AdditionalOptions>
       <AdditionalIncludeDirectories>$(DXSDK_DIR)\Include;..\..\..\..\Dependencies\include\Steamworks;..\..\..\..\Dependencies\include\MyGUI;..\..\..\..\Dependencies\include\Framework;..\..\..\..\EasySteam\EasySteam;..\..\..\..\Dependencies\include;.\Src\common;.\Src\;$(SolutionDir)\..\Common;$(SolutionDir)\Src\Script\Src;$(SolutionDir)\Src\Script\Src\exports;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
       <ObjectFileName>$(IntDir)/%(RelativeDir)/</ObjectFileName>
@@ -77,8 +77,6 @@
     <ClInclude Include="Src\Game\data.h" />
     <ClInclude Include="Src\Engine\InputManager.h" />
     <ClInclude Include="Src\Game\SkyrimFormManager.h" />
-    <ClInclude Include="Src\Game\TimeManager.h" />
-    <ClInclude Include="Src\Game\WeatherManager.h" />
     <ClInclude Include="Src\Game\PlayerWatcher.h" />
     <ClInclude Include="Src\Game\ActorController.h" />
     <ClInclude Include="Src\Game\WorldManager.h" />
@@ -106,8 +104,6 @@
     <ClCompile Include="Src\Game\ControllerManager.cpp" />
     <ClCompile Include="Src\Engine\InputManager.cpp" />
     <ClCompile Include="Src\Game\SkyrimFormManager.cpp" />
-    <ClCompile Include="Src\Game\TimeManager.cpp" />
-    <ClCompile Include="Src\Game\WeatherManager.cpp" />
     <ClCompile Include="Src\Game\WorldManager.cpp" />
     <ClCompile Include="Src\Logic\MasterServer.cpp" />
     <ClCompile Include="Src\Logic\NetEngine.cpp" />

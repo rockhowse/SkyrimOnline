@@ -80,3 +80,5 @@
 #include <FreeScript/FreeScript.hpp>
 
 using namespace Framework;
+
+#define _trace System::Log::Debug(std::string("Call trace : ") + std::string(__FUNCSIG__)); System::Log::Flush();

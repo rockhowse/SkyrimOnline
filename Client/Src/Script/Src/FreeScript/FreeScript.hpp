@@ -10,3 +10,5 @@
 #include "Types.hpp"
 #include "Data.hpp"
 #include "Character.hpp"
+#include "TimeManager.h"
+#include "WeatherManager.h"

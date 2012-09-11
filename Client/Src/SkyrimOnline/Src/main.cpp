@@ -38,9 +38,14 @@ int GenerateDump(EXCEPTION_POINTERS* pExceptionPointers)
 	return EXCEPTION_EXECUTE_HANDLER;
 }
 
+void Init()
+{
+	System::Log::Create("SkyrimOnlineClient.log");
+}
 
 __declspec(dllexport) void main()
 {
+	Init();
 	__try
 	{
 		switch ( *(DWORD *)(0x00DDDC00) ) 

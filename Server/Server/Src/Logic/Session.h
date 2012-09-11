@@ -69,7 +69,7 @@ namespace Skyrim
 			/// Senders
 			void SendIntroduceConnection	();
 			void SendClientInformation		();
-			void SendServiceResponse		(uint32_t pId, const std::string& pData1, const std::string& pData2, const std::string& pSignature);
+			void SendServiceResponse		(const std::string& pSignature);
 			void SendCharacterEnterRegion	(uint32_t pId);
 			void SendSpawnPlayer			(Session::pointer pPlayer);
 			void SendMount					(Session::pointer pPlayer);

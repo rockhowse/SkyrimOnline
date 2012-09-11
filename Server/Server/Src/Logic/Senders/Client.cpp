@@ -12,11 +12,7 @@ namespace Skyrim
 		//---------------------------------------------------------------------
 		void Session::SendIntroduceConnection()
 		{
-			Framework::Network::Packet packet(Opcode::SMSG_SIGNATURE_RESPONSE, 0xFFFFFFFF, 0x00);
-			packet << (uint32_t)0x0000C4AB << "u1832" << "userentrypoint6" << "9cf74d45:1a6cc459:6fa57dc2";
-			packet << (uint64_t)0x0 << "" << "" << (uint64_t)0x0;
-
-			Write(packet);
+			SendServiceResponse("cipher");
 		}
 		//---------------------------------------------------------------------
 		void Session::SendClientInformation()

@@ -4,17 +4,16 @@
 #include <System/Log.h>
 #include <Crypt/RSA.h>
 
-Skyrim::Logic::World::pointer world;
-
-void __declspec(dllexport) Host(uint16_t pPort)
+__declspec(dllexport) void* Host(uint16_t pPort)
 {
-	world = boost::make_shared<Skyrim::Logic::World>(pPort);
+	return (void*)new Skyrim::Logic::World(pPort);
 }
 
-void __declspec(dllexport) Run()
+__declspec(dllexport) void Run(void* ptr)
 {
 	try
 	{
+		Skyrim::Logic::World* world = (Skyrim::Logic::World*)ptr;
 		if(world)
 			world->Run();
 	}
@@ -24,8 +23,9 @@ void __declspec(dllexport) Run()
 	}
 }
 
-void __declspec(dllexport) Drop()
+__declspec(dllexport) void Drop(void* ptr)
 {
-	world.reset();
+	Skyrim::Logic::World* world = (Skyrim::Logic::World*)ptr;
+	delete world; 
 }
 

@@ -21,6 +21,7 @@ namespace Skyrim
 
 				void OnShardlistReply(std::string pReply);
 				void OnShardPick(const std::string& pShard);
+				void OnHost();
 
 				bool IsSwitchingAllowed();
 

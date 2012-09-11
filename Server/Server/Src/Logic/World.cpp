@@ -12,7 +12,10 @@ namespace Skyrim
 		World::World(unsigned short pPort)
 			:mId(0), mServer(pPort)
 		{
+			Framework::Crypt::RSA::Init();
+
 			System::Log::Create("SkyrimOnlineServer.log");
+
 			System::Log::Print("               Skyrim Online        ");
 			System::Log::Print("Memory model : " + std::to_string((unsigned long long)sizeof(void*) * 8) + " bits				   ");
 
@@ -23,7 +26,7 @@ namespace Skyrim
 			mServer.OnConnection.connect(boost::bind(&World::OnConnection, this, _1));
 			mServer.OnUpdate.connect(boost::bind(&World::OnUpdate, this, _1));
 
-			mServer.RunOnce();
+			mServer.Start();
 		}
 		//---------------------------------------------------------------------
 		Game::Map* World::GetMap()

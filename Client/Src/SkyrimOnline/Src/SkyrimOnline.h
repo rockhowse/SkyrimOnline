@@ -2,8 +2,6 @@
 
 #include <Game/PlayerWatcher.h>
 #include <Game/ControllerManager.h>
-#include <Game/TimeManager.h>
-#include <Game/WeatherManager.h>
 #include <Game/AssetManager.h>
 
 #include <Overlay/Interface.h>
@@ -50,8 +48,8 @@ namespace Skyrim
 
 		Game::ControllerManager& GetControllerManager();
 		Overlay::Interface& GetInterface();
-		Game::TimeManager& GetTimeManager();
-		Game::WeatherManager& GetWeatherManager();
+		TimeManager& GetTimeManager();
+		WeatherManager& GetWeatherManager();
 		Game::AssetManager& GetAssetManager();
 		Game::PlayerWatcher& GetPlayerWatcher();
 		Network::IoServicePool& GetIoPool();
@@ -87,8 +85,8 @@ namespace Skyrim
 		//< Alright now start initializing gameplay stuff
 		Game::PlayerWatcher mPlayer;
 		Game::ControllerManager mManager;
-		Game::TimeManager mTimeManager;
-		Game::WeatherManager mWeatherManager;
+		TimeManager mTimeManager;
+		WeatherManager mWeatherManager;
 		Game::AssetManager mAssets;
 
 		//< Data

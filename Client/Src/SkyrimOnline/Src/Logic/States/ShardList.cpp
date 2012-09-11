@@ -41,6 +41,7 @@ namespace Skyrim
 			{
 				::Game::DisablePlayerControls(true,true,true,true,true,true,true,true,1);
 				::Game::SetInChargen(true, true, false);
+
 				mShardList->Update(0.0);
 				SkyrimOnline::GetInstance().GetInterface().SetCursor(true);
 			}
@@ -70,12 +71,21 @@ namespace Skyrim
 				SkyrimOnline::GetInstance().GetInterface().GetMessage()->Hide();
 				mShardList->Show();
 				mShardList->OnShardPick.connect(boost::bind(&ShardList::OnShardPick, this, _1));
+				mShardList->OnHost.connect(boost::bind(&ShardList::OnHost, this));
 			}
 			//--------------------------------------------------------------------------------
 			void ShardList::OnShardPick(const std::string& pShard)
 			{
 				System::Log::Debug(std::string("Shard picked : ") + pShard);
 				SkyrimOnline::GetInstance().OnShardPick(pShard);
+			}
+			//--------------------------------------------------------------------------------
+			void ShardList::OnHost()
+			{
+				System::Log::Debug("Hosting a server...");
+				SkyrimOnline::GetInstance().GetInterface().GetMessage()->Show();
+				SkyrimOnline::GetInstance().GetInterface().GetMessage()->SetCaption("Starting the server...");
+				NetEngine::Host();
 			}
 			//--------------------------------------------------------------------------------
 			bool ShardList::IsSwitchingAllowed()

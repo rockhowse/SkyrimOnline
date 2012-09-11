@@ -53,6 +53,12 @@ namespace Skyrim
 			void Handle_Click(MyGUI::WidgetPtr _widget);
 
 			//--------------------------------------------------------------------------------
+			/// @brief Handles an edit box accept event.
+			/// @param _widget The widget firing the event.
+			//--------------------------------------------------------------------------------
+			void Handle_HostClick(MyGUI::WidgetPtr _widget);
+
+			//--------------------------------------------------------------------------------
 			/// @brief Constructor, do not call
 			//--------------------------------------------------------------------------------
 			ShardList(MyGUI::Gui*);
@@ -69,6 +75,7 @@ namespace Skyrim
 			void	Log(const MyGUI::UString& str, const std::string& pIp);
 
 			boost::signal<void(const std::string&)> OnShardPick;
+			boost::signal<void()>					OnHost;
 
 		private:
 
@@ -83,6 +90,7 @@ namespace Skyrim
 			MyGUI::ListPtr				mList;
 			MyGUI::StaticTextPtr		mText;
 			MyGUI::ButtonPtr			mButton;
+			MyGUI::ButtonPtr			mHostButton;
 			std::vector<std::string>	mIps;
 			std::list<MyGUI::UString>	mMessages;
 			boost::mutex				mMessagesMutex;

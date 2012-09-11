@@ -10,7 +10,7 @@ namespace Skyrim
 		InputManager::InputManager(InputManager::Listener& pListener)
 			:mListener(pListener), mRun(true), mReset(true)
 		{
-			System::Log::Debug("InputManager::ctor()");
+			_trace
 
 			Init();
 
@@ -114,7 +114,8 @@ namespace Skyrim
 			delete mThread;
 			mMouse->Release();
 			mKeyboard->Release();
-			System::Log::Debug("InputManager::~InputManager()");
+
+			_trace
 		}
 		//--------------------------------------------------------------------------------
 		void InputManager::Run()

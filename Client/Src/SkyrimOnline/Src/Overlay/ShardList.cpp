@@ -42,7 +42,17 @@ namespace Skyrim
 				"ShardListButton");
 			mButton->setCaption("Enter");
 
+			mHostButton = mUI->createWidget<MyGUI::Button>("Button",
+				mUI->getViewWidth()*0.50,
+				mUI->getViewHeight()*0.7 + 10,
+				mUI->getViewWidth()*0.10,
+				26,
+				MyGUI::Align::Default, "Overlapped",
+				"ShardListHostButton");
+			mHostButton->setCaption("Host");
+
 			mButton->eventMouseButtonClick = MyGUI::newDelegate(this, &ShardList::Handle_Click);
+			mHostButton->eventMouseButtonClick = MyGUI::newDelegate(this, &ShardList::Handle_HostClick);
 
 			mList->setInheritsAlpha(true);
 		}
@@ -66,6 +76,7 @@ namespace Skyrim
 			mList->setVisible(v);
 			mText->setVisible(v);
 			mButton->setVisible(v);
+			mHostButton->setVisible(v);
 		}
 		//--------------------------------------------------------------------------------
 		bool	ShardList::IsVisible()
@@ -110,6 +121,11 @@ namespace Skyrim
 			{
 				OnShardPick(mIps.at(mList->getIndexSelected()));
 			}
+		}
+		//--------------------------------------------------------------------------------
+		void	ShardList::Handle_HostClick(MyGUI::WidgetPtr _widget)
+		{
+			OnHost();
 		}
 		//--------------------------------------------------------------------------------
 	}

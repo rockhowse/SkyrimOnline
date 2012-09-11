@@ -39,13 +39,12 @@ namespace Skyrim
 					pConnection.disconnect();
 				});
 
-				System::Log::Debug("Session::~Session()");
+				_trace
 			}
 			catch(...)
 			{
 				System::Log::Debug("Session::~Session() error");
 			}
-			System::Log::Debug("alright !");
 		}
 		//--------------------------------------------------------------------------------
 		void Session::Write(Network::Packet& msg)
@@ -66,11 +65,17 @@ namespace Skyrim
 				while(HasPacket())
 				{
 					Network::Packet data = PopPacket();
-					try{
+					try
+					{
 						(this->*mHandlers.at(data.Opcode))(data);
 					}
-					catch(boost::exception&)
+					catch(boost::exception& e)
 					{
+						System::Log::Error(boost::diagnostic_information(e));
+					}
+					catch(std::exception& e)
+					{
+						System::Log::Error(e.what());
 					}
 				}
 		}

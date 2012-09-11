@@ -73,7 +73,7 @@ namespace Skyrim
 				return;
 			}
 
-			SendServiceResponse(responseid, data1, "userentrypoint6", sig);
+			SendServiceResponse(sig);
 		}
 		//---------------------------------------------------------------------
 		void Session::HandleServiceAck(Framework::Network::Packet& pPacket)

@@ -45,7 +45,6 @@ namespace Skyrim
 
 			GetInstance().mEventLinks.clear();
 
-			GetInstance().mServerMode = false;
 			GetInstance().mClient = Session::Create();
 			GetInstance().mClient->Connect(pIp, pPort);
 			GetInstance().mClient->OnChatMessage.connect(boost::bind(&NetEngine::_OnChatMessage, &GetInstance(), _1));
@@ -60,7 +59,7 @@ namespace Skyrim
 
 		void NetEngine::Update(float pDelta)
 		{
-			if(mServerMode && mServer)
+			if(mServer)
 				mServer->Run();
 			
 			if(mClient)

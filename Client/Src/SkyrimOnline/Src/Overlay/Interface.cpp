@@ -29,7 +29,7 @@ namespace Skyrim
 		Interface::Interface()
 			:mPlatform(nullptr),mUI(nullptr)
 		{
-			System::Log::Debug("Interface::ctor()");
+			_trace
 			mPlatform = new MyGUI::DirectXPlatform();
 			mPlatform->initialise(myIDirect3DDevice9::GetInstance()->GetDevice());
 
@@ -48,7 +48,7 @@ namespace Skyrim
 		//--------------------------------------------------------------------------------
 		Interface::~Interface()
 		{
-			System::Log::Debug("Interface::dtor()");
+			_trace
 
 			if(mUI)
 				mUI->shutdown();
@@ -60,7 +60,8 @@ namespace Skyrim
 		//--------------------------------------------------------------------------------
 		void Interface::Setup()
 		{
-			System::Log::Debug("Call to Interface::Setup()");
+			_trace
+
 			MyGUI::xml::Document doc;
 
 			if (!doc.open(std::string("resources.xml")))

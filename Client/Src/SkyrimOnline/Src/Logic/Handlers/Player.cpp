@@ -22,6 +22,10 @@ namespace Skyrim
 			{
 				System::Log::Error(boost::diagnostic_information(e));
 			}
+			catch(std::exception& e)
+			{
+				System::Log::Error(e.what());
+			}
 		}
 		//--------------------------------------------------------------------------------
 		void Session::HandlePlayerSpawn(Packet& data)
@@ -55,6 +59,10 @@ namespace Skyrim
 			{
 				System::Log::Error(boost::diagnostic_information(e));
 			}
+			catch(std::exception& e)
+			{
+				System::Log::Error(e.what());
+			}
 		}
 		//--------------------------------------------------------------------------------
 		void Session::HandlePlayerMoveAndLook(Packet& data)
@@ -79,6 +87,10 @@ namespace Skyrim
 			{
 				System::Log::Error(boost::diagnostic_information(e));
 			}
+			catch(std::exception& e)
+			{
+				System::Log::Error(e.what());
+			}
 		}
 		//--------------------------------------------------------------------------------
 		void Session::HandleMount(Packet& data)
@@ -96,6 +108,10 @@ namespace Skyrim
 			{
 				System::Log::Error(boost::diagnostic_information(e));
 			}
+			catch(std::exception& e)
+			{
+				System::Log::Error(e.what());
+			}
 		}
 		//--------------------------------------------------------------------------------
 		void Session::HandleUnmount(Packet& data)
@@ -110,6 +126,10 @@ namespace Skyrim
 			catch(boost::exception& e)
 			{
 				System::Log::Error(boost::diagnostic_information(e));
+			}
+			catch(std::exception& e)
+			{
+				System::Log::Error(e.what());
 			}
 		}
 		//--------------------------------------------------------------------------------

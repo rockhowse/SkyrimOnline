@@ -46,13 +46,9 @@ namespace Skyrim
 			//--------------------------------------------------------------------------------
 			void InGame::OnUpdate(uint32_t pDelta)
 			{
-				SkyrimOnline::GetInstance().GetTimeManager().Update(pDelta);
-				SkyrimOnline::GetInstance().GetWeatherManager().Update(pDelta);
-
 				if(Logic::NetEngine::IsConnected())
 				{
 					SkyrimOnline::GetInstance().GetPlayerWatcher().Update(pDelta);
-					Logic::NetEngine::GetInstance().Update(pDelta);
 				}
 
 				mChat->Update(pDelta);

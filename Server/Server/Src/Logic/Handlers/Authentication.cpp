@@ -36,8 +36,8 @@ namespace Skyrim
 			pPacket >> salsaEnc >> salsaDec >> salsaEncIV >> salsaDecIV;
 
 			mCipher.reset(new Crypt::Cipher(salsaEnc, salsaDec, salsaEncIV, salsaDecIV));
-			mConnection->Start();
 
+			SendIntroduceConnection();
 			SendChatMessage("Press F3 to use the chat !");
 			SendServiceTimesource(12.f, 1.f, 1.f);
 		}
