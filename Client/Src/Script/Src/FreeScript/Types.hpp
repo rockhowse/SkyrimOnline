@@ -17,7 +17,7 @@ namespace FreeScript
 		{
 			if(pIndex < size)
 				return data[pIndex];
-			throw std::runtime_error("Out of range !");
+			BOOST_THROW_EXCEPTION(std::runtime_error("Out of range !"));
 		}
 	};
 
@@ -48,7 +48,7 @@ namespace FreeScript
 			Iterator& operator++()
 			{
 				if(!mNode)
-					throw std::out_of_range("iterator is end.");
+					BOOST_THROW_EXCEPTION(std::runtime_error("iterator is end."));
 				mNode = mNode->next;
 				return *this;
 			}
@@ -73,7 +73,7 @@ namespace FreeScript
 			item_type* operator*()
 			{
 				if(!mNode)
-					throw std::out_of_range("iterator is end.");
+					BOOST_THROW_EXCEPTION(std::runtime_error("iterator is end."));
 				return mNode->item;
 			}
 

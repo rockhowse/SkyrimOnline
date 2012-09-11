@@ -33,9 +33,9 @@ namespace Skyrim
 							}
 						}
 					}
-					catch(std::exception& e)
+					catch(boost::exception& e)
 					{
-						System::Log::Debug(e.what());
+						System::Log::Debug(boost::diagnostic_information(e));
 					}
 				}
 			Write();

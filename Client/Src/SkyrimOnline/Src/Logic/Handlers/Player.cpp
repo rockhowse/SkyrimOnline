@@ -18,9 +18,9 @@ namespace Skyrim
 				data >> msg;
 				OnChatMessage(msg);
 			}
-			catch(std::exception& e)
+			catch(boost::exception& e)
 			{
-				System::Log::Error(e.what());
+				System::Log::Error(boost::diagnostic_information(e));
 			}
 		}
 		//--------------------------------------------------------------------------------
@@ -51,9 +51,9 @@ namespace Skyrim
 
 				OnSpawn();
 			}
-			catch(std::exception& e)
+			catch(boost::exception& e)
 			{
-				System::Log::Error(e.what());
+				System::Log::Error(boost::diagnostic_information(e));
 			}
 		}
 		//--------------------------------------------------------------------------------
@@ -75,9 +75,9 @@ namespace Skyrim
 				if(player)
 					delete SkyrimOnline::GetInstance().GetControllerManager().Remove(player);
 			}
-			catch(std::exception& e)
+			catch(boost::exception& e)
 			{
-				System::Log::Error(e.what());
+				System::Log::Error(boost::diagnostic_information(e));
 			}
 		}
 		//--------------------------------------------------------------------------------
@@ -92,9 +92,9 @@ namespace Skyrim
 					remote->SetMount(mountId);
 				}
 			}
-			catch(std::exception& e)
+			catch(boost::exception& e)
 			{
-				System::Log::Error(e.what());
+				System::Log::Error(boost::diagnostic_information(e));
 			}
 		}
 		//--------------------------------------------------------------------------------
@@ -107,9 +107,9 @@ namespace Skyrim
 					remote->SetMount(0);
 				}
 			}
-			catch(std::exception& e)
+			catch(boost::exception& e)
 			{
-				System::Log::Error(e.what());
+				System::Log::Error(boost::diagnostic_information(e));
 			}
 		}
 		//--------------------------------------------------------------------------------

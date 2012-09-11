@@ -69,7 +69,7 @@ namespace Skyrim
 					try{
 						(this->*mHandlers.at(data.Opcode))(data);
 					}
-					catch(const std::out_of_range&)
+					catch(boost::exception&)
 					{
 					}
 				}
