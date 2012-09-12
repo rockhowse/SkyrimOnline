@@ -10,29 +10,9 @@ THE LICENSOR GRANTS YOU THE RIGHTS CONTAINED HERE IN CONSIDERATION OF YOUR ACCEP
 
 #pragma once
 
-namespace Skyrim
-{
-	namespace Game
-	{
-		class WeatherManager
-		{
-		public:
+// Including SDKDDKVer.h defines the highest available Windows platform.
 
-			WeatherManager();
+// If you wish to build your application for a previous Windows platform, include WinSDKVer.h and
+// set the _WIN32_WINNT macro to the platform you wish to support before including SDKDDKVer.h.
 
-			void Update(float pElapsed);
-
-			unsigned int GetWeather();
-
-		private:
-
-			struct Weather
-			{
-				int id;
-				char *name;
-			};
-			static Weather Weathers[];
-			unsigned int mWeather;
-		};
-	}
-}
+#include <SDKDDKVer.h>

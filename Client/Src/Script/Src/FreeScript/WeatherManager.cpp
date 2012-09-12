@@ -16,7 +16,7 @@ namespace FreeScript
 	//--------------------------------------------------------------------------------
 	uint32_t WeatherManager::GetWeather() const
 	{
-		return Form::GetFormID((TESForm*)Weather::GetCurrentWeather());
+		return ((TESForm*)Weather::GetCurrentWeather())->formID;
 	}
 	//--------------------------------------------------------------------------------
 

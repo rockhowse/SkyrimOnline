@@ -17,6 +17,16 @@ namespace FreeScript
 			return mData->race.race->formID;
 		}
 
+		TESRace* GetRace()
+		{
+			return mData->race.race;
+		}
+
+		void SetRace(TESRace* pRace)
+		{
+			mData->race.race = pRace;
+		}
+
 		std::string GetDebugName()
 		{			
 			if(mData)

@@ -6,6 +6,8 @@
 namespace FreeScript
 {
 	class TESObjectREFR;
+	class BGSColorForm;
+
 	class TESForm : public ::FreeScript::BaseFormComponent
 	{
 	public:
@@ -92,9 +94,19 @@ namespace FreeScript
 			uint32_t presets[PresetCount];
 		};
 
+		struct HeadContainer
+		{
+			BGSColorForm* color;
+			void* unk;
+		};
+
 		// parents
 		::FreeScript::TESRaceForm		race;	
-		char pad0c8to15c[0x15c - 0xc8];
+		char pad0c8to10c[0x10c - 0xc8];
+		void*							tesClass;
+		HeadContainer*					head;
+
+		char pad114to15c[0x15c - 0x114];
 
 		FaceMorphs	* faceMorph;
 		char pad160to164[0x164 - 0x160];
@@ -118,6 +130,16 @@ namespace FreeScript
 		FreeScript::TESFullName		fullName;
 
 		char pad1cto88[0x88 - 0x1c];
+	};
+
+	class BGSColorForm : public TESForm
+	{
+	public:
+
+		TESFullName fullName;
+
+		uint32_t color;
+		uint32_t pad;
 	};
 
 }

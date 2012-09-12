@@ -12,7 +12,7 @@ namespace Skyrim
 		//--------------------------------------------------------------------------------
 		ControllerManager::~ControllerManager()
 		{
-			System::Log::Debug("ControllerManager::~ControllerManager()");
+			_trace
 			for(auto itor = mCharacters.begin(); itor != mCharacters.end(); ++itor)
 			{
 				delete itor->second;

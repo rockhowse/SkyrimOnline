@@ -4,6 +4,7 @@ Microsoft Visual Studio Solution File, Format Version 11.00
 Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "SkyrimOnline", "Src\SkyrimOnline\SkyrimOnline.vcxproj", "{5BD3DA32-06CE-4029-BF72-2E00B3DF7F4E}"
 	ProjectSection(ProjectDependencies) = postProject
 		{9D810381-77E5-4D4B-9B4D-D4AFB7465097} = {9D810381-77E5-4D4B-9B4D-D4AFB7465097}
+		{ABF0D6C4-DE0D-4AA6-A3EF-71D995169336} = {ABF0D6C4-DE0D-4AA6-A3EF-71D995169336}
 	EndProjectSection
 EndProject
 Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "SkyrimOnlineProxy", "Src\SkyrimOnlineProxy\SkyrimOnlineProxy.vcxproj", "{D8B2564C-4766-4DDF-B7E0-43DB3971B3A3}"
@@ -14,6 +15,8 @@ Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "OffsetDumper", "Src\OffsetD
 	ProjectSection(ProjectDependencies) = postProject
 		{9D810381-77E5-4D4B-9B4D-D4AFB7465097} = {9D810381-77E5-4D4B-9B4D-D4AFB7465097}
 	EndProjectSection
+EndProject
+Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "Server", "Src\Server\Server.vcxproj", "{ABF0D6C4-DE0D-4AA6-A3EF-71D995169336}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -47,6 +50,13 @@ Global
 		{414C2B24-3129-4D9E-B4B3-390D1AC36D8E}.Release|Win32.ActiveCfg = Release|Win32
 		{414C2B24-3129-4D9E-B4B3-390D1AC36D8E}.Release|Win32.Build.0 = Release|Win32
 		{414C2B24-3129-4D9E-B4B3-390D1AC36D8E}.Release|x64.ActiveCfg = Release|Win32
+		{ABF0D6C4-DE0D-4AA6-A3EF-71D995169336}.Debug|Win32.ActiveCfg = Release|x64
+		{ABF0D6C4-DE0D-4AA6-A3EF-71D995169336}.Debug|x64.ActiveCfg = Release|x64
+		{ABF0D6C4-DE0D-4AA6-A3EF-71D995169336}.Debug|x64.Build.0 = Release|x64
+		{ABF0D6C4-DE0D-4AA6-A3EF-71D995169336}.Release|Win32.ActiveCfg = Release|Win32
+		{ABF0D6C4-DE0D-4AA6-A3EF-71D995169336}.Release|Win32.Build.0 = Release|Win32
+		{ABF0D6C4-DE0D-4AA6-A3EF-71D995169336}.Release|x64.ActiveCfg = Release|x64
+		{ABF0D6C4-DE0D-4AA6-A3EF-71D995169336}.Release|x64.Build.0 = Release|x64
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

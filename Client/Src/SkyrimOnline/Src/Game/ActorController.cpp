@@ -32,7 +32,7 @@ namespace Skyrim
 			SkyrimOnline::GetInstance().GetAssetManager().Remove((TESObjectREFR*)mMe->GetActor());
 			SkyrimOnline::GetInstance().GetAssetManager().Remove((TESObjectREFR*)mMaster);
 
-			SkyrimFormManager::GetInstance()->ReleaseForm(ObjectReference::GetBaseObject((TESObjectREFR*)mMe->GetActor()));
+			SkyrimFormManager::GetInstance()->ReleaseForm(mMe->GetActor()->baseForm);
 
 			ObjectReference::Delete((TESObjectREFR*)mMe->GetActor());
 			ObjectReference::Delete((TESObjectREFR*)mMaster);

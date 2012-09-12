@@ -3,6 +3,10 @@
 #include <Logic/World.h>
 #include <System/Log.h>
 #include <Crypt/RSA.h>
+#include <StrSafe.h>
+#include <dbghelp.h>
+#include <shellapi.h>
+#include <shlobj.h>
 
 int GenerateDump(EXCEPTION_POINTERS* pExceptionPointers)
 {
@@ -34,8 +38,6 @@ int GenerateDump(EXCEPTION_POINTERS* pExceptionPointers)
 
 	bMiniDumpSuccessful = MiniDumpWriteDump(GetCurrentProcess(), GetCurrentProcessId(), 
 		hDumpFile, MiniDumpWithDataSegs, &ExpParam, NULL, NULL);
-
-	Debug::ShowMessageBox("Skyrim Online just crashed ! Please send the .dmp file in Data/Online on the crash forums.");
 
 	return EXCEPTION_EXECUTE_HANDLER;
 }

@@ -56,8 +56,8 @@ namespace Skyrim
 
 			uint32_t mId;
 
-			TimeManager		mTimeManager;
-			WeatherManager	mWeatherManager;
+			FreeScript::TimeManager		mTimeManager;
+			FreeScript::WeatherManager	mWeatherManager;
 			Game::Map				mMap;
 		};
 	}

@@ -51,17 +51,17 @@ namespace Skyrim
 		//--------------------------------------------------------------------------------
 		void AssetManager::Add(TESObjectREFR* pAsset)
 		{
-			auto itor = std::find(mAssets.begin(), mAssets.end(), Form::GetFormID((TESForm*)pAsset));
+			auto itor = std::find(mAssets.begin(), mAssets.end(), pAsset->formID);
 			if(itor == mAssets.end())
 			{
-				mAssets.push_back(Form::GetFormID((TESForm*)pAsset));
+				mAssets.push_back(pAsset->formID);
 				Write();
 			}
 		}
 		//--------------------------------------------------------------------------------
 		void AssetManager::Remove(TESObjectREFR* pAsset)
 		{
-			auto itor = std::find(mAssets.begin(), mAssets.end(), Form::GetFormID((TESForm*)pAsset));
+			auto itor = std::find(mAssets.begin(), mAssets.end(), pAsset->formID);
 			if(itor != mAssets.end())
 			{
 				mAssets.erase(itor);

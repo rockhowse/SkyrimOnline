@@ -92,17 +92,25 @@ namespace Skyrim
 					}
 				}
 				TESForm* form = ::Game::GetFormById(mBaseAddr + offset);
-				std::ostringstream os;
+				TESForm* baseForm = ::Game::GetFormById(actorId);
+
+				TESNPC* npc = rtti_cast(form, TESForm, TESNPC);
+				TESNPC* baseNpc = rtti_cast(baseForm, TESForm, TESNPC);
+
+				std::memcpy(npc, baseNpc, sizeof(TESNPC));
+
+				npc->formID = mBaseAddr + offset;
+
 				mUsedOffsets[offset] = true;
 
-				return ::Game::GetFormById(actorId);
+				return form;
 			}
 			return nullptr;
 		}
 		//--------------------------------------------------------------------------------
 		void SkyrimFormManager::ReleaseForm(TESForm* pForm)
 		{
-			uint32_t offset = Form::GetFormID(pForm) - mBaseAddr;
+			uint32_t offset = pForm->formID - mBaseAddr;
 			if(offset < 100)
 				mUsedOffsets[offset] = false;
 		}
