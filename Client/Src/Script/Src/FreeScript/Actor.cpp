@@ -7,7 +7,7 @@ namespace FreeScript
 {
 	void QueueNiNodeUpdate(FreeScript::Actor* ptr)
 	{
-		((void(__thiscall*)(FreeScript::Actor*,bool))0x0072CD80)(ptr,true);
+		((void(__thiscall*)(FreeScript::Actor*,bool))0x00730460)(ptr,true);
 	}
 
 	void SetName(FreeScript::Actor* pActor, const std::string& pName)

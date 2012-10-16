@@ -131,13 +131,12 @@ namespace Updater
             client = new SvnClient();
             client.Notify += onSvnNotify;
             client.Authentication.Clear();
-            client.Authentication.DefaultCredentials = new System.Net.NetworkCredential("public","public");
+            client.Authentication.DefaultCredentials = null;
 
             System.Console.Out.WriteLine(client.GetUriFromWorkingCopy(System.IO.Directory.GetCurrentDirectory()));
 
             Uri rep = client.GetUriFromWorkingCopy(System.IO.Directory.GetCurrentDirectory());
-            Uri rel = new Uri("http://skyrim-online.com:4430/svn/skyrimonline/");
-            //Uri rel = new Uri("http://subversion.assembla.com/svn/skyrimonlinepublic/");
+            Uri rel = new Uri("http://subversion.assembla.com/svn/skyrimonlineupdate/");
 
             if (rep == null || rep != rel)
             {

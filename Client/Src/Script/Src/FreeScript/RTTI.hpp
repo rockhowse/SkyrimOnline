@@ -9,18 +9,18 @@ struct FuncWrapper
 //typedef void *(*dyncast_t)(void* obj, uint32_t __idc0, const void* type, const void* target, uint32_t __idc1);
 
 typedef FuncWrapper<void* (void*, uint32_t, const void*, const void*, uint32_t)>::type dyncast_t;
-static const dyncast_t dyncast_r  = (dyncast_t)0x00F06C5E;
+static const dyncast_t dyncast_r  = (dyncast_t)0x00F510AE;
 
 #define rtti_offset(name, offset) static void* freeRTTI_ ## name = (void*)offset
 
-rtti_offset(TESForm,0x011E3000);
-rtti_offset(TESNPC,0x011E6A2C);
-rtti_offset(BGSBipedObjectForm, 0x011E6E10);
-rtti_offset(TESRace, 0x011E7C70);
-rtti_offset(ExtraContainerChanges, 0x011E5A64);
-rtti_offset(BSExtraData, 0x011E4200);
-rtti_offset(TESObjectREFR, 0x011E50BC);
-rtti_offset(Actor, 0x011E6B04);
+rtti_offset(TESForm,0x0123A000);
+rtti_offset(TESNPC,0x0123DA40);
+rtti_offset(BGSBipedObjectForm, 0x0123DE10);
+rtti_offset(TESRace, 0x0123E1B0);
+rtti_offset(ExtraContainerChanges, 0x0123CA64);
+rtti_offset(BSExtraData, 0x0123B200);
+rtti_offset(TESObjectREFR, 0x0123C0BC);
+rtti_offset(Actor, 0x0123DA2C);
 
 #undef  rtti_offset
 
