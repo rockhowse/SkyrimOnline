@@ -17,7 +17,7 @@ namespace FreeScript
 		{
 			if(pIndex < size)
 				return data[pIndex];
-			BOOST_THROW_EXCEPTION(std::runtime_error("Out of range !"));
+			throw std::runtime_error("Out of range !");
 		}
 	};
 

@@ -1,5 +1,4 @@
 #include "stdafx.h"
-#include <Logic/NetEngine.hpp>
 #include <SkyrimOnline.h>
 
 namespace Skyrim
@@ -7,7 +6,7 @@ namespace Skyrim
 	namespace Logic
 	{
 		//--------------------------------------------------------------------------------
-		void NetEngine::SendCharacterInfo(FreeScript::Character& pCharacter)
+/*		void NetEngine::SendCharacterInfo(FreeScript::Character& pCharacter)
 		{
 			Network::Packet data(Opcode::CMSG_CHARACTER_INFO, 0xFFFFFFFF);
 			data << pCharacter.GetRace() 
@@ -49,5 +48,6 @@ namespace Skyrim
 			Write(region);
 		}
 		//--------------------------------------------------------------------------------
+		*/
 	}
 }

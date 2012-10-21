@@ -18,16 +18,13 @@ namespace Skyrim
 		{
 			gIoPool.Run();
 
-			mHandlers[Opcode::SMSG_PLAYER_SPAWN] = &Session::HandlePlayerSpawn;
-			mHandlers[Opcode::SMSG_PLAYER_MOVE_AND_LOOK] = &Session::HandlePlayerMoveAndLook;
-			mHandlers[Opcode::SMSG_CHARACTER_REMOVE] = &Session::HandlePlayerRemove;
-			mHandlers[Opcode::SMSG_CHAT_MESSAGE] = &Session::HandleChatMessage;
-			mHandlers[Opcode::SMSG_SIGNATURE_RESPONSE] = &Session::HandleServiceResponse;
-			mHandlers[Opcode::SMSG_PLAYER_MOUNT_SPAWN] = &Session::HandleMount;
-			mHandlers[Opcode::SMSG_PLAYER_MOUNT_REMOVE] = &Session::HandleUnmount;
+			::Game::Player::Register(kServerChatMessage, &Session::HandleChatMessage);
+			::Game::Player::Register(kServerServiceResponse, &Session::HandleServiceResponse);
+			::Game::Player::Register(kServerMount, &Session::HandleMount);
+			::Game::Player::Register(kServerUnmount, &Session::HandleUnmount);
 		}
 		//--------------------------------------------------------------------------------
-		Session::Session()
+		Session::Session(unsigned int id, ::Game::GameServer* server) : ::Game::Player(id, server) 
 		{
 		}
 		//--------------------------------------------------------------------------------
@@ -45,53 +42,6 @@ namespace Skyrim
 			{
 				System::Log::Debug("Session::~Session() error");
 			}
-		}
-		//--------------------------------------------------------------------------------
-		void Session::Write(Network::Packet& msg)
-		{
-			mConnection->Write(Serialize(msg));
-		}
-		//--------------------------------------------------------------------------------
-		bool Session::IsOffline()
-		{
-			if(mConnection)
-				return mConnection->IsOffline();
-			return true;
-		}
-		//--------------------------------------------------------------------------------
-		void Session::Update(float pDelta)
-		{
-			if(mConnection)
-				while(HasPacket())
-				{
-					Network::Packet data = PopPacket();
-					try
-					{
-						(this->*mHandlers.at(data.Opcode))(data);
-					}
-					catch(boost::exception& e)
-					{
-						System::Log::Error(boost::diagnostic_information(e));
-					}
-					catch(std::exception& e)
-					{
-						System::Log::Error(e.what());
-					}
-				}
-		}
-		//--------------------------------------------------------------------------------
-		void Session::SetCipher(Crypt::Cipher* pCipher)
-		{
-			mCipher.reset(pCipher);
-			mConnection->Start();
-		}
-		//--------------------------------------------------------------------------------
-		void Session::Connect(const std::string& pAddress, const std::string& pPort)
-		{
-			mConnection.reset(new Network::TcpConnection(gIoPool.GetIoService()));
-			mConnection->OnConnect.connect(boost::bind(&SkyrimOnline::OnConnect, &SkyrimOnline::GetInstance(), _1));
-			mConnection->SetStrategy(this);
-			mConnection->Connect(pAddress, pPort);
 		}
 		//--------------------------------------------------------------------------------
 	}

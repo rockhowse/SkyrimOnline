@@ -43,7 +43,7 @@
       <IntrinsicFunctions>false</IntrinsicFunctions>
       <PreprocessorDefinitions>WIN32;NDEBUG;_WINDOWS;_USRDLL;_WINDLL;%(PreprocessorDefinitions)</PreprocessorDefinitions>
       <AdditionalOptions>/Zm250 %(AdditionalOptions)</AdditionalOptions>
-      <AdditionalIncludeDirectories>$(DXSDK_DIR)\Include;..\..\..\..\Dependencies\include\Steamworks;..\..\..\..\Dependencies\include\MyGUI;..\..\..\..\Dependencies\include\Framework;..\..\..\..\EasySteam\EasySteam;..\..\..\..\Dependencies\include;.\Src\common;.\Src\;$(SolutionDir)\..\Common;$(SolutionDir)\Src\Script\Src;$(SolutionDir)\Src\Script\Src\exports;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+      <AdditionalIncludeDirectories>$(DXSDK_DIR)\Include;$(SolutionDir)\..\..\..\Dependencies\include\Steamworks;$(SolutionDir)\..\..\..\Dependencies\include\MyGUI;$(SolutionDir)\..\..\..\Dependencies\include\Framework;$(SolutionDir)\..\..\EasySteam\EasySteam;$(SolutionDir)\..\..\..\Framework\Src;$(SolutionDir)\..\..\..\Dependencies\include;.\Src\common;.\Src\;$(SolutionDir)\..\Common;$(SolutionDir)\Src\Script\Src;$(SolutionDir)\Src\Script\Src\exports;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
       <ObjectFileName>$(IntDir)/%(RelativeDir)/</ObjectFileName>
       <InlineFunctionExpansion>Default</InlineFunctionExpansion>
       <FavorSizeOrSpeed>Neither</FavorSizeOrSpeed>
@@ -56,7 +56,7 @@
       <EnableCOMDATFolding>true</EnableCOMDATFolding>
       <OptimizeReferences>true</OptimizeReferences>
       <OutputFile>$(OutDir)$(TargetName).asi</OutputFile>
-      <AdditionalLibraryDirectories>$(DXSDK_DIR)\Lib\x86;..\..\..\..\EasySteam\Bin\Release;..\..\..\..\Dependencies\lib;..\..\Bin;%(AdditionalLibraryDirectories)</AdditionalLibraryDirectories>
+      <AdditionalLibraryDirectories>$(DXSDK_DIR)\Lib\x86;$(SolutionDir)..\..\EasySteam\Bin\Release;$(SolutionDir)..\..\..\Dependencies\lib;..\..\Bin;%(AdditionalLibraryDirectories)</AdditionalLibraryDirectories>
       <AdditionalDependencies>Server.lib;SkyrimOnlineProxy.lib;cryptlib.lib;zlib.x86.lib;Framework.lib;d3dx9.lib;MyGUIEngine.lib;dxguid.lib;dinput8.lib;MyGUI.DirectXPlatform.lib;d3d9.lib;dbghelp.lib;FreeScript.lib;EasySteam.lib;%(AdditionalDependencies)</AdditionalDependencies>
       <ModuleDefinitionFile>
       </ModuleDefinitionFile>
@@ -81,8 +81,6 @@
     <ClInclude Include="Src\Game\ActorController.h" />
     <ClInclude Include="Src\Game\WorldManager.h" />
     <ClInclude Include="Src\Logic\GameState.hpp" />
-    <ClInclude Include="Src\Logic\MasterServer.h" />
-    <ClInclude Include="Src\Logic\NetEngine.hpp" />
     <ClInclude Include="Src\Logic\States\InGame.hpp" />
     <ClInclude Include="Src\Logic\States\Login.hpp" />
     <ClInclude Include="Src\Logic\States\ShardList.hpp" />
@@ -105,8 +103,6 @@
     <ClCompile Include="Src\Engine\InputManager.cpp" />
     <ClCompile Include="Src\Game\SkyrimFormManager.cpp" />
     <ClCompile Include="Src\Game\WorldManager.cpp" />
-    <ClCompile Include="Src\Logic\MasterServer.cpp" />
-    <ClCompile Include="Src\Logic\NetEngine.cpp" />
     <ClCompile Include="Src\Logic\Senders\Character.cpp" />
     <ClCompile Include="Src\Logic\Senders\General.cpp" />
     <ClCompile Include="Src\Logic\States\InGame.cpp" />

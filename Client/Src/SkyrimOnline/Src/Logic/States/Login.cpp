@@ -55,8 +55,6 @@ namespace Skyrim
 				os << "/authentication.php?do=login&username=" << Network::UrlEncode(user) << "&pass=" << Network::UrlEncode(pass);
 
 				System::Log::Debug(user + std::string(" | ") + pass);
-
-				Network::HttpClient::AsyncRequest(boost::bind(&Login::OnAuthenticationReply, this, _1), SkyrimOnline::GetInstance().GetIoPool().GetIoService(), "forums.skyrim-online.com", os.str());
 			}
 			//--------------------------------------------------------------------------------
 			void Login::OnAuthenticationReply(std::string pData)

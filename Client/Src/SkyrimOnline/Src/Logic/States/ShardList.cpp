@@ -3,6 +3,8 @@
 #include <SkyrimOnline.h>
 #include <Overlay/Message.h>
 
+#include <Game/MassiveMessageManager.hpp>
+
 namespace Skyrim
 {
 	namespace Logic
@@ -29,7 +31,6 @@ namespace Skyrim
 				SkyrimOnline::GetInstance().GetInterface().GetMessage()->SetCaption("Fetching shardlist.");
 				SkyrimOnline::GetInstance().GetInterface().GetMessage()->SetVisible(true);
 
-				Network::HttpClient::AsyncRequest(boost::bind(&ShardList::OnShardlistReply, this, _1), SkyrimOnline::GetInstance().GetIoPool().GetIoService(), "skyrim-online.com", "/shardlist.php");
 			}
 			//--------------------------------------------------------------------------------
 			void ShardList::OnLeave()
@@ -85,7 +86,8 @@ namespace Skyrim
 				System::Log::Debug("Hosting a server...");
 				SkyrimOnline::GetInstance().GetInterface().GetMessage()->Show();
 				SkyrimOnline::GetInstance().GetInterface().GetMessage()->SetCaption("Starting the server...");
-				NetEngine::Host();
+
+				TheMassiveMessageMgr->BeginMultiplayer(true);
 			}
 			//--------------------------------------------------------------------------------
 			bool ShardList::IsSwitchingAllowed()

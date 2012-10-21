@@ -2,6 +2,8 @@
 #include <Logic/States/InGame.hpp>
 #include <SkyrimOnline.h>
 
+#include <Game/MassiveMessageManager.hpp>
+
 namespace Skyrim
 {
 	namespace Logic
@@ -33,9 +35,6 @@ namespace Skyrim
 				//mFriendList->Show();
 
 				SkyrimOnline::GetInstance().SetMode(true);
-
-				Logic::NetEngine::GetInstance().OnChatMessage.connect(boost::bind(&InGame::OnRemoteChatMessage, this, _1));
-				Logic::NetEngine::GetInstance().      OnSpawn.connect(boost::bind(&InGame::OnRemoteSpawn, this));
 			}
 			//--------------------------------------------------------------------------------
 			void InGame::OnLeave()
@@ -46,7 +45,7 @@ namespace Skyrim
 			//--------------------------------------------------------------------------------
 			void InGame::OnUpdate(uint32_t pDelta)
 			{
-				if(Logic::NetEngine::IsConnected())
+				//if(TheMassiveMessageMgr->IsOnline())
 				{
 					SkyrimOnline::GetInstance().GetPlayerWatcher().Update(pDelta);
 				}
@@ -70,14 +69,12 @@ namespace Skyrim
 			//--------------------------------------------------------------------------------
 			void InGame::OnChatMessage(const std::string& pMessage)
 			{
-				if(Logic::NetEngine::IsConnected())
-				{
-					Logic::NetEngine::GetInstance().SendChatMessage(pMessage);
-				}
-				else
-				{
-					mChat->Log("You are not connected !","#FF0000");
-				}
+				Framework::Network::Packet packet(kClientChatMessage);
+				packet << pMessage;
+				TheMassiveMessageMgr->SendMessageTo(::Game::kPlayerServer, packet);
+
+				//mChat->Log("You are not connected !","#FF0000");
+				
 			}
 			//--------------------------------------------------------------------------------
 			void InGame::OnRemoteChatMessage(const std::string& pMessage)

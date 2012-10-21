@@ -11,15 +11,7 @@
 
 #include <tchar.h>
 
-// Boost
-#include <boost/asio.hpp>
-#include <boost/bind.hpp>
-#include <boost/thread.hpp>
-#include <boost/signal.hpp>
-#include <boost/date_time/posix_time/posix_time.hpp>
-#include <boost/tuple/tuple.hpp>
-#include <boost/timer.hpp>
-#include <boost/tokenizer.hpp>
+#include <cstdint>
 
 // STL
 #include <list>

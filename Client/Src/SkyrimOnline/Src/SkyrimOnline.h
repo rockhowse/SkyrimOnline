@@ -6,7 +6,6 @@
 
 #include <Overlay/Interface.h>
 #include <Engine/InputManager.h>
-#include <Logic/NetEngine.hpp>
 #include <Logic/GameState.hpp>
 
 namespace Skyrim
@@ -52,7 +51,6 @@ namespace Skyrim
 		WeatherManager& GetWeatherManager();
 		Game::AssetManager& GetAssetManager();
 		Game::PlayerWatcher& GetPlayerWatcher();
-		Network::IoServicePool& GetIoPool();
 
 		unsigned int GetRendering();
 		void SetRendering(unsigned int);
@@ -63,14 +61,11 @@ namespace Skyrim
 		void SwitchMode();
 		void SetMode(bool pMode);
 		void SetState(const std::string& pState);
-		/**
-		* @brief Generate random data
-		* @param pSize The size of the data to generate
-		* @return The random data
-		*/
-		static std::string RandomData(uint32_t pSize);
 
 		boost::shared_ptr<Logic::GameState> GetCurrentGameState();
+
+		static ::Game::Player* ConstructPlayer(::Game::Player::KeyType id, ::Game::GameServer* server);
+		static std::vector<::Game::IGOMServer*> ConstructGOMServers(void*);
 
 	private:
 
@@ -93,7 +88,6 @@ namespace Skyrim
 		std::string mUsername;
 
 		//< Common shit
-		Network::IoServicePool mIoPool;
 		boost::timer mTimer;
 
 		//< Game states

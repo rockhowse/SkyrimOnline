@@ -40,7 +40,7 @@
       <FunctionLevelLinking>true</FunctionLevelLinking>
       <IntrinsicFunctions>true</IntrinsicFunctions>
       <PreprocessorDefinitions>WIN32;NDEBUG;_WINDOWS;_USRDLL;NINJATOONLINE_EXPORTS;_WINDLL;DETOURS_32BIT;DETOURS_X86;%(PreprocessorDefinitions)</PreprocessorDefinitions>
-      <AdditionalIncludeDirectories>$(DXSDK_DIR)\Include;..\..\..\..\Dependencies\include;..\..\..\..\Dependencies\include\MyGUI;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+      <AdditionalIncludeDirectories>$(DXSDK_DIR)\Include;$(SolutionDir)\..\..\..\Dependencies\include;$(SolutionDir)\..\..\..\Dependencies\include\MyGUI;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
       <AdditionalOptions>/Zm250 %(AdditionalOptions)</AdditionalOptions>
     </ClCompile>
     <Link>
@@ -49,7 +49,7 @@
       <EnableCOMDATFolding>true</EnableCOMDATFolding>
       <OptimizeReferences>true</OptimizeReferences>
       <OutputFile>$(OutDir)d3d9$(TargetExt)</OutputFile>
-      <AdditionalLibraryDirectories>$(DXSDK_DIR)\Lib\x86;..\..\..\..\Dependencies\lib;..\..\Bin;%(AdditionalLibraryDirectories)</AdditionalLibraryDirectories>
+      <AdditionalLibraryDirectories>$(DXSDK_DIR)\Lib\x86;$(SolutionDir)\..\..\..\Dependencies\lib;..\..\Bin;%(AdditionalLibraryDirectories)</AdditionalLibraryDirectories>
       <AdditionalDependencies>d3d9.lib;%(AdditionalDependencies)</AdditionalDependencies>
       <ModuleDefinitionFile>Src/Directx/proxydll.def</ModuleDefinitionFile>
       <ImportLibrary>..\..\Bin\$(TargetName).lib</ImportLibrary>

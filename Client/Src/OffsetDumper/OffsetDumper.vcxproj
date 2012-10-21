@@ -57,7 +57,7 @@
       <OptimizeReferences>true</OptimizeReferences>
       <OutputFile>$(OutDir)$(TargetName)$(TargetExt)</OutputFile>
       <AdditionalLibraryDirectories>$(DXSDK_DIR)\Lib\x86;..\..\..\..\EasySteam\Bin\Release;..\..\..\..\Dependencies\lib;..\..\Bin;%(AdditionalLibraryDirectories)</AdditionalLibraryDirectories>
-      <AdditionalDependencies>SkyrimOnlineProxy.lib;cryptlib.lib;zlib.x86.lib;Framework.lib;d3dx9.lib;MyGUIEngine.lib;dxguid.lib;dinput8.lib;MyGUI.DirectXPlatform.lib;d3d9.lib;dbghelp.lib;FreeScript.lib;EasySteam.lib;%(AdditionalDependencies)</AdditionalDependencies>
+      <AdditionalDependencies>FreeScript.lib;EasySteam.lib;%(AdditionalDependencies)</AdditionalDependencies>
       <ModuleDefinitionFile>
       </ModuleDefinitionFile>
     </Link>

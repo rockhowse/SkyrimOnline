@@ -2,6 +2,7 @@
 #include "SkyrimOnline.h"
 #include <Overlay/Message.h>
 
+#include <Logic/Session.h>
 #include <Logic/States/InGame.hpp>
 #include <Logic/States/Login.hpp>
 #include <Logic/States/ShardList.hpp>
@@ -12,16 +13,16 @@ namespace Skyrim
 	SkyrimOnline* SkyrimOnline::instance = nullptr;
 	//--------------------------------------------------------------------------------
 	SkyrimOnline::SkyrimOnline()
-		:mUI(Overlay::Interface::GetInstance()), mInput(*this),mMode(true),mIoPool(1)
+		:mUI(Overlay::Interface::GetInstance()), mInput(*this),mMode(true)
 	{
 		_trace
 
 		mUI->Acquire();
 
 		Crypt::RSA::Init();
-		Logic::Session::Init(); // Init callbacks
-
-		mIoPool.Run();
+		TheMassiveMessageMgr->SetPort(kGamePort);
+		TheMassiveMessageMgr->SetGOMServerConstructor(::Game::GameServer::GOMServerConstructor(&SkyrimOnline::ConstructGOMServers));
+		TheMassiveMessageMgr->SetPlayerConstructor(::Game::GameServer::PlayerConstructor(&SkyrimOnline::ConstructPlayer));
 
 		SetUser(EasySteam::Interface::GetInstance().GetUser()->GetPersonaName());
 	}
@@ -65,11 +66,6 @@ namespace Skyrim
 		return *mUI;
 	}
 	//--------------------------------------------------------------------------------
-	Network::IoServicePool& SkyrimOnline::GetIoPool()
-	{
-		return mIoPool;
-	}
-	//--------------------------------------------------------------------------------
 	Game::PlayerWatcher& SkyrimOnline::GetPlayerWatcher()
 	{
 		return mPlayer;
@@ -107,16 +103,6 @@ namespace Skyrim
 		if(pStatus)
 		{
 			mUI->GetMessage()->SetCaption("Negotiating connection with World !");
-			std::string decKey = Skyrim::SkyrimOnline::RandomData(32);
-			std::string encKey = Skyrim::SkyrimOnline::RandomData(32);
-			std::string decIV = Skyrim::SkyrimOnline::RandomData(8);
-			std::string encIV = Skyrim::SkyrimOnline::RandomData(8);
-
-			Network::Packet packet(1, 0, Opcode::CMSG_HANDSHAKE);
-			packet << mUsername << decKey << encKey << decIV << encIV;
-
-			Logic::NetEngine::GetInstance().GetClient()->SetCipher(new Crypt::Cipher(encKey, decKey, encIV, decIV));
-			Logic::NetEngine::GetInstance().GetClient()->Write(packet);
 		}
 		else
 		{
@@ -176,34 +162,9 @@ namespace Skyrim
 		mUI->GetMessage()->SetCaption("Connecting to the World !");
 		mUI->GetMessage()->Show();
 
-		Logic::NetEngine::Join(pAddress, "27500");
-	}
-	//--------------------------------------------------------------------------------
-	std::string SkyrimOnline::RandomData(uint32_t pSize)
-	{
-		std::string output;
-
-		std::normal_distribution<long double> distribution;
-		std::mt19937 engine(time(0));
-
-		while(output.size() < pSize)
-		{
-			std::string data;
-			CryptoPP::MD5 hash;
-
-			byte digest[ CryptoPP::MD5::DIGESTSIZE ];
-			std::string message = std::to_string(distribution(engine));
-
-			hash.CalculateDigest( digest, (const byte*)message.data(), message.length() );
-			CryptoPP::HexEncoder encoder;
-
-			encoder.Attach( new CryptoPP::StringSink( data ) );
-			encoder.Put( digest, sizeof(digest) );
-			encoder.MessageEnd();
-
-			output += data;
-		}
-		return output.substr(0, pSize);
+		TheMassiveMessageMgr->SetAddress("127.0.0.1");
+		TheMassiveMessageMgr->SetPort(kGamePort);
+		TheMassiveMessageMgr->BeginMultiplayer(false);
 	}
 	//--------------------------------------------------------------------------------
 	void SkyrimOnline::Run()
@@ -221,7 +182,7 @@ namespace Skyrim
 
 			mInput.Update();
 
-			Logic::NetEngine::GetInstance().Update(delta);
+			TheMassiveMessageMgr->Update();
 			if(mCurrentState)
 				mCurrentState->OnUpdate(delta);
 
@@ -288,6 +249,16 @@ namespace Skyrim
 	{
 		_trace
 		SetMode(!mMode);
+	}
+	//--------------------------------------------------------------------------------
+	::Game::Player* SkyrimOnline::ConstructPlayer(::Game::Player::KeyType id, ::Game::GameServer* server)
+	{
+		return new Logic::Session(id, server);
+	}
+	//--------------------------------------------------------------------------------
+	std::vector<::Game::IGOMServer*> SkyrimOnline::ConstructGOMServers(void*)
+	{
+		return std::vector<::Game::IGOMServer*>();
 	}
 	//--------------------------------------------------------------------------------
 }

@@ -3,12 +3,7 @@
 #define _WIN32_WINNT 0x0501
 #define DIRECTINPUT_VERSION 0x0800
 
-#include <boost/asio.hpp>
-#include <boost/bind.hpp>
-#include <boost/thread.hpp>
-#include <boost/signal.hpp>
-#include <boost/date_time/posix_time/posix_time.hpp>
-#include <boost/tuple/tuple.hpp>
+#include <boost/signals.hpp>
 
 #include <list>
 #include <vector>
@@ -18,6 +13,7 @@
 #include <concurrent_queue.h>
 #include <unordered_map>
 
+#include <windows.h>
 #include <Winuser.h>
 #include <d3d9.h>
 

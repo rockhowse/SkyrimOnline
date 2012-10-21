@@ -1,8 +1,7 @@
 #pragma once
 
 #include <Game/PlayerWatcher.h>
-
-using boost::asio::ip::tcp;
+#include <Game/Player.hpp>
 
 namespace Skyrim
 {
@@ -10,35 +9,14 @@ namespace Skyrim
 
 	namespace Logic
 	{
-		class Session 
-			: public boost::enable_shared_from_this<Session>,
-			public Network::NinjatoStrategy
+		class Session : public ::Game::Player
 		{
 		public:
 
-			typedef boost::shared_ptr<Session> pointer;
-
-			Session();
+			Session(unsigned int id, ::Game::GameServer* server);
 			~Session();
 
-			void Write(Network::Packet& msg);
-			void Update(float pDelta);
-
 			static void Init();
-			static pointer Create()
-			{
-				return pointer(new Session);
-			}
-
-			bool IsOffline();
-
-			/**
-			 * Sets the cipher
-			 * @param pCipher The cipher to use
-			 */
-			void SetCipher(Crypt::Cipher* pCipher);
-
-			void Connect(const std::string& pAddress, const std::string& pPort);
 
 			boost::signal<void(const std::string&)> OnChatMessage;
 			boost::signal<void()>					OnSpawn;
