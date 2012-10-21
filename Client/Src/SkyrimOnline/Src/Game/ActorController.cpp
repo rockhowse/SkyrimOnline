@@ -79,10 +79,6 @@ namespace Skyrim
 			ObjectReference::SetAngle((TESObjectREFR*)mMaster, rotX,rotY,rotZ);
 		}
 		//--------------------------------------------------------------------------------
-		void ActorController::Update(uint32_t elapsed)
-		{
-		}
-		//--------------------------------------------------------------------------------
 		void ActorController::SetMount(uint32_t pMount)
 		{
 			if(mMount)

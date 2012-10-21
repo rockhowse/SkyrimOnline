@@ -66,7 +66,7 @@ namespace Skyrim
 		return *mUI;
 	}
 	//--------------------------------------------------------------------------------
-	Game::PlayerWatcher& SkyrimOnline::GetPlayerWatcher()
+	Game::PlayerEntry& SkyrimOnline::GetPlayerEntry()
 	{
 		return mPlayer;
 	}

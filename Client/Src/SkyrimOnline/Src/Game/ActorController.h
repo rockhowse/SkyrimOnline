@@ -11,9 +11,9 @@ namespace Skyrim
 			ActorController(unsigned int pId, unsigned int pRace, uint32_t pSex);
 			~ActorController();
 
-			void Update(uint32_t elapsed);
 			void SetPosition(float x, float y, float z);
 			void SetRotation(float x, float y, float z);
+
 			void InterpolateTo(float posX, float posY, float posZ, float rotX, float rotY, float rotZ, uint32_t time);
 			void SetMount(unsigned int pMount);
 

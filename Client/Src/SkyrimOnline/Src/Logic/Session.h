@@ -1,6 +1,6 @@
 #pragma once
 
-#include <Game/PlayerWatcher.h>
+#include <Game/PlayerEntry.h>
 #include <Game/Player.hpp>
 
 namespace Skyrim

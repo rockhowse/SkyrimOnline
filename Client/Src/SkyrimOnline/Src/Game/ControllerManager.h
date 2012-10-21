@@ -15,7 +15,6 @@ namespace Skyrim
 			void Add(ActorController* pPlayer);
 			ActorController* Remove(ActorController* pPlayer);
 			ActorController* Get(uint32_t);
-			void Update(uint32_t);
 
 		private:
 

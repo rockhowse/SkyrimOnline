@@ -38,6 +38,12 @@ namespace FreeScript
 		return ObjectReference::GetPositionZ((TESObjectREFR*)mActor);
 	}
 	//--------------------------------------------------------------------------------
+	Character::Vector3 Character::GetPosition()
+	{
+		Vector3 vec = {GetPosX(), GetPosY(), GetPosZ()};
+		return vec;
+	}
+	//--------------------------------------------------------------------------------
 	float Character::GetRotX()
 	{
 		return ObjectReference::GetAngleX((TESObjectREFR*)mActor);
@@ -51,6 +57,12 @@ namespace FreeScript
 	float Character::GetRotZ()
 	{
 		return ObjectReference::GetAngleZ((TESObjectREFR*)mActor);
+	}
+	//--------------------------------------------------------------------------------
+	Character::Vector3 Character::GetRotation()
+	{
+		Vector3 vec = {GetRotX(), GetRotY(), GetRotZ()};
+		return vec;
 	}
 	//--------------------------------------------------------------------------------
 	void Character::SetPos(float x, float y, float z)

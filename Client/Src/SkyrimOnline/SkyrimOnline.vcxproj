@@ -77,7 +77,7 @@
     <ClInclude Include="Src\Game\data.h" />
     <ClInclude Include="Src\Engine\InputManager.h" />
     <ClInclude Include="Src\Game\SkyrimFormManager.h" />
-    <ClInclude Include="Src\Game\PlayerWatcher.h" />
+    <ClInclude Include="Src\Game\PlayerEntry.h" />
     <ClInclude Include="Src\Game\ActorController.h" />
     <ClInclude Include="Src\Game\WorldManager.h" />
     <ClInclude Include="Src\Logic\GameState.hpp" />
@@ -109,7 +109,7 @@
     <ClCompile Include="Src\Logic\States\Login.cpp" />
     <ClCompile Include="Src\Logic\States\ShardList.cpp" />
     <ClCompile Include="Src\main.cpp" />
-    <ClCompile Include="Src\Game\PlayerWatcher.cpp" />
+    <ClCompile Include="Src\Game\PlayerEntry.cpp" />
     <ClCompile Include="Src\Game\ActorController.cpp" />
     <ClCompile Include="Src\Logic\Handlers\Authentication.cpp" />
     <ClCompile Include="Src\Logic\Handlers\Player.cpp" />

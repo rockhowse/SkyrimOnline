@@ -20,7 +20,6 @@ namespace Skyrim
 				mFriendList->Hide();
 
 				mChat->OnSendChatMessage.connect(boost::bind(&InGame::OnChatMessage, this, _1));
-				SkyrimOnline::GetInstance().GetPlayerWatcher().OnRegion.connect(boost::bind(&InGame::OnEnterRegion, this, _1));
 
 			}
 			//--------------------------------------------------------------------------------
@@ -32,7 +31,6 @@ namespace Skyrim
 			void InGame::OnEnter()
 			{
 				mChat->Show();
-				//mFriendList->Show();
 
 				SkyrimOnline::GetInstance().SetMode(true);
 			}
@@ -45,14 +43,7 @@ namespace Skyrim
 			//--------------------------------------------------------------------------------
 			void InGame::OnUpdate(uint32_t pDelta)
 			{
-				//if(TheMassiveMessageMgr->IsOnline())
-				{
-					SkyrimOnline::GetInstance().GetPlayerWatcher().Update(pDelta);
-				}
-
 				mChat->Update(pDelta);
-
-				SkyrimOnline::GetInstance().GetControllerManager().Update(pDelta);
 			}
 			//--------------------------------------------------------------------------------
 			bool InGame::IsSwitchingAllowed()
@@ -63,7 +54,7 @@ namespace Skyrim
 			void InGame::OnEnterRegion(uint32_t pRegion)
 			{
 				std::ostringstream os;
-				os << "You just entered region 0x" << std::hex << SkyrimOnline::GetInstance().GetPlayerWatcher().GetCharacter().GetLocationId();
+				os << "You just entered region 0x" << std::hex << SkyrimOnline::GetInstance().GetPlayerEntry().GetCharacter().GetLocationId();
 				mChat->Log(os.str());
 			}
 			//--------------------------------------------------------------------------------
@@ -72,9 +63,6 @@ namespace Skyrim
 				Framework::Network::Packet packet(kClientChatMessage);
 				packet << pMessage;
 				TheMassiveMessageMgr->SendMessageTo(::Game::kPlayerServer, packet);
-
-				//mChat->Log("You are not connected !","#FF0000");
-				
 			}
 			//--------------------------------------------------------------------------------
 			void InGame::OnRemoteChatMessage(const std::string& pMessage)

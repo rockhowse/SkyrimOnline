@@ -32,6 +32,7 @@
 #include <Network/TcpConnection.h>
 #include <Game/MassiveMessageManager.hpp>
 #include <Game/GOMServer.hpp>
+#include <Game/GOMVariable.hpp>
 #include <Game/GameServer.hpp>
 
 // STL

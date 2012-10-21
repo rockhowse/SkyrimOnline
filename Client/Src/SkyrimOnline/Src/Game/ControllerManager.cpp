@@ -42,13 +42,5 @@ namespace Skyrim
 			return nullptr;
 		}
 		//--------------------------------------------------------------------------------
-		void ControllerManager::Update(uint32_t elapsed)
-		{
-			for(auto itor = mCharacters.begin(); itor != mCharacters.end(); ++itor)
-			{
-				itor->second->Update(elapsed);
-			}
-		}
-		//--------------------------------------------------------------------------------
 	}
 }

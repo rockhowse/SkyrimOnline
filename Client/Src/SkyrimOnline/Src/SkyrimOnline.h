@@ -1,6 +1,6 @@
 #pragma once
 
-#include <Game/PlayerWatcher.h>
+#include <Game/PlayerEntry.h>
 #include <Game/ControllerManager.h>
 #include <Game/AssetManager.h>
 
@@ -50,7 +50,7 @@ namespace Skyrim
 		TimeManager& GetTimeManager();
 		WeatherManager& GetWeatherManager();
 		Game::AssetManager& GetAssetManager();
-		Game::PlayerWatcher& GetPlayerWatcher();
+		Game::PlayerEntry& GetPlayerEntry();
 
 		unsigned int GetRendering();
 		void SetRendering(unsigned int);
@@ -78,7 +78,7 @@ namespace Skyrim
 		uint32_t mRendering;
 
 		//< Alright now start initializing gameplay stuff
-		Game::PlayerWatcher mPlayer;
+		Game::PlayerEntry mPlayer;
 		Game::ControllerManager mManager;
 		TimeManager mTimeManager;
 		WeatherManager mWeatherManager;

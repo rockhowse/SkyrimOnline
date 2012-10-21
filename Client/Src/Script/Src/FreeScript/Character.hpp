@@ -10,15 +10,29 @@ namespace FreeScript
 	{
 	public:
 
+		struct Vector3{
+			float x,y,z;
+
+			bool operator==(const Vector3& vec){
+				return (vec.x == x && vec.y == y && vec.z == z);
+			}
+
+			bool operator!=(const Vector3& vec){
+				return !(*this == vec);
+			}
+		};
+
 		Character(FreeScript::Actor* pActor);
 
 		float GetPosX();
 		float GetPosY();
 		float GetPosZ();
+		Vector3 GetPosition();
 
 		float GetRotX();
 		float GetRotY();
 		float GetRotZ();
+		Vector3 GetRotation();
 
 		void SetPos(float x, float y, float z);
 		void SetRot(float x, float y, float z);
