@@ -1,14 +1,17 @@
 #pragma once
 
+#include <Game/ActorController.h>
+
 namespace Skyrim
 {
 	namespace Game
 	{
-		class PlayerEntry : public ::Game::GOMEntry<FreeScript::Character>
+		class PlayerGOMEntry : public ::Game::GOMEntry<FreeScript::Character>
 		{
 		public:
 
-			PlayerEntry();
+			PlayerGOMEntry(FreeScript::Character* character);
+			virtual ~PlayerGOMEntry();
 
 			void Update();
 			void Synchronize();
@@ -16,12 +19,12 @@ namespace Skyrim
 			std::string DoSerialize(bool pFull) const;
 			void DoDeserialize(const std::string& plainData);
 
-			bool IsDead();
-			FreeScript::Character& GetCharacter();
+			void SetKey(uint32_t pKey);
+			uint32_t GetKey() const;
 
 		private:
 
-			FreeScript::Character mPlayer;
+			uint32_t mKey;
 			
 			::Game::GOMVariable<uint32_t> region;
 			::Game::GOMVariable<bool> mount;

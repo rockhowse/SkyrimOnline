@@ -8,8 +8,8 @@ namespace Skyrim
 	namespace Game
 	{
 		//--------------------------------------------------------------------------------
-		ActorController::ActorController(uint32_t pId, uint32_t pRace, uint32_t pSex)
-			:mId(pId), mInit(false)
+		ActorController::ActorController(uint32_t pRace, uint32_t pSex)
+			: mInit(false)
 		{
 			TESForm * me = SkyrimFormManager::GetInstance()->GetForm(pRace, pSex);
 
@@ -41,11 +41,6 @@ namespace Skyrim
 		boost::shared_ptr<FreeScript::Character> ActorController::GetCharacter()
 		{
 			return mMe;
-		}
-		//--------------------------------------------------------------------------------
-		uint32_t ActorController::GetId()
-		{
-			return mId;
 		}
 		//--------------------------------------------------------------------------------
 		void ActorController::SetPosition(float x, float y, float z)

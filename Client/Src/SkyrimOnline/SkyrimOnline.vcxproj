@@ -73,11 +73,11 @@
     <ClInclude Include="Src\Directx\myIDirect3D9.h" />
     <ClInclude Include="Src\Directx\myIDirect3DDevice9.h" />
     <ClInclude Include="Src\Game\AssetManager.h" />
-    <ClInclude Include="Src\Game\ControllerManager.h" />
     <ClInclude Include="Src\Game\data.h" />
     <ClInclude Include="Src\Engine\InputManager.h" />
+    <ClInclude Include="Src\Game\PlayerGOMServer.h" />
     <ClInclude Include="Src\Game\SkyrimFormManager.h" />
-    <ClInclude Include="Src\Game\PlayerEntry.h" />
+    <ClInclude Include="Src\Game\PlayerGOMEntry.h" />
     <ClInclude Include="Src\Game\ActorController.h" />
     <ClInclude Include="Src\Game\WorldManager.h" />
     <ClInclude Include="Src\Logic\GameState.hpp" />
@@ -99,8 +99,8 @@
   <ItemGroup>
     <ClCompile Include="Src\Common\plugin.cpp" />
     <ClCompile Include="Src\Game\AssetManager.cpp" />
-    <ClCompile Include="Src\Game\ControllerManager.cpp" />
     <ClCompile Include="Src\Engine\InputManager.cpp" />
+    <ClCompile Include="Src\Game\PlayerGOMServer.cpp" />
     <ClCompile Include="Src\Game\SkyrimFormManager.cpp" />
     <ClCompile Include="Src\Game\WorldManager.cpp" />
     <ClCompile Include="Src\Logic\Senders\Character.cpp" />
@@ -109,7 +109,7 @@
     <ClCompile Include="Src\Logic\States\Login.cpp" />
     <ClCompile Include="Src\Logic\States\ShardList.cpp" />
     <ClCompile Include="Src\main.cpp" />
-    <ClCompile Include="Src\Game\PlayerEntry.cpp" />
+    <ClCompile Include="Src\Game\PlayerGOMEntry.cpp" />
     <ClCompile Include="Src\Game\ActorController.cpp" />
     <ClCompile Include="Src\Logic\Handlers\Authentication.cpp" />
     <ClCompile Include="Src\Logic\Handlers\Player.cpp" />

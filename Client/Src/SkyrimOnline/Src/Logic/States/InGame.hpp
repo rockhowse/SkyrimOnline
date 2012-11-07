@@ -24,7 +24,6 @@ namespace Skyrim
 				// Gameplay
 				void OnEnterRegion(uint32_t pRegion);
 
-				// UI events
 				void OnChatMessage(const std::string& pMessage);
 					
 				// Network

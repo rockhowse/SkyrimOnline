@@ -1,7 +1,6 @@
 #pragma once
 
-#include <Game/PlayerEntry.h>
-#include <Game/ControllerManager.h>
+#include <Game/PlayerGOMEntry.h>
 #include <Game/AssetManager.h>
 
 #include <Overlay/System.h>
@@ -35,10 +34,10 @@ namespace Skyrim
 		void OnConnect(bool);
 		void OnError(const std::string&);
 
-		Game::ControllerManager& GetControllerManager();
 		TimeManager& GetTimeManager();
 		WeatherManager& GetWeatherManager();
 		Game::AssetManager& GetAssetManager();
+		FreeScript::Character& GetPlayerCharacter();
 
 		unsigned int GetRendering();
 		void SetRendering(unsigned int);
@@ -69,13 +68,13 @@ namespace Skyrim
 		uint32_t mRendering;
 
 		//< Alright now start initializing gameplay stuff
-		Game::ControllerManager mManager;
 		TimeManager mTimeManager;
 		WeatherManager mWeatherManager;
 		Game::AssetManager mAssets;
 
 		//< Data
 		std::string mUsername;
+		FreeScript::Character mPlayerCharacter;
 
 		//< Common shit
 		boost::timer mTimer;

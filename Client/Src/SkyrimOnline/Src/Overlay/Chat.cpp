@@ -144,9 +144,7 @@ namespace Skyrim
 			MyGUI::UString& str = mEdit->getOnlyText();
 			if(str.size() != 0)
 			{
-				Framework::Network::Packet packet(kClientChatMessage);
-				packet << str.asUTF8();
-				TheMassiveMessageMgr->SendMessageTo(::Game::kPlayerServer, packet);
+				OnSendChatMessage(str.asUTF8());
 
 				mEdit->setTextSelect(0, mEdit->getTextLength());
 				mEdit->deleteTextSelection();

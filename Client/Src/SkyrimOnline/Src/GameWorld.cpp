@@ -6,6 +6,7 @@
 #include <Logic/States/InGame.hpp>
 #include <Logic/States/Login.hpp>
 #include <Logic/States/ShardList.hpp>
+#include <Game/PlayerGOMServer.h>
 
 namespace Skyrim
 {
@@ -13,7 +14,8 @@ namespace Skyrim
 	GameWorld* TheGameWorld = nullptr;
 	//--------------------------------------------------------------------------------
 	GameWorld::GameWorld()
-		:mMode(true)
+		:mMode(true),
+		 mPlayerCharacter(::Game::GetPlayer())
 	{
 		_trace
 		Overlay::TheSystem = new Overlay::System;
@@ -43,14 +45,14 @@ namespace Skyrim
 		return mAssets;
 	}
 	//--------------------------------------------------------------------------------
-	Game::ControllerManager& GameWorld::GetControllerManager()
-	{
-		return mManager;
-	}
-	//--------------------------------------------------------------------------------
 	boost::shared_ptr<Logic::GameState> GameWorld::GetCurrentGameState()
 	{
 		return mCurrentState;
+	}
+	//--------------------------------------------------------------------------------
+	FreeScript::Character& GameWorld::GetPlayerCharacter()
+	{
+		return mPlayerCharacter;
 	}
 	//--------------------------------------------------------------------------------
 	unsigned int GameWorld::GetRendering()
@@ -259,7 +261,7 @@ namespace Skyrim
 	std::vector<::Game::IGOMServer*> GameWorld::ConstructGOMServers(void*)
 	{
 		std::vector<::Game::IGOMServer*> gomServers;
-
+		gomServers.push_back(new Game::PlayerGOMServer);
 		return gomServers;
 	}
 	//--------------------------------------------------------------------------------

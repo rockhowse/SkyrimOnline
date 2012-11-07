@@ -5,7 +5,8 @@ enum{
 };
 
 enum{
-	kClientChatMessage = 'ccha'
+	kClientChatMessage = 'ccha',
+	kClientInitialData = 'cida'
 };
 
 enum{

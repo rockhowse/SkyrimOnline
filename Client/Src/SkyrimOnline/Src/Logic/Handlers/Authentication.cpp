@@ -11,6 +11,11 @@ namespace Skyrim
 	namespace Logic
 	{
 		//--------------------------------------------------------------------------------
+		void Session::HandleInitialData(Network::Packet& pPacket)
+		{
+			_trace
+			pPacket >> mName;
+		}
 		//--------------------------------------------------------------------------------
 	}
 }

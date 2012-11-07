@@ -1,6 +1,6 @@
 #pragma once
 
-#include <Game/PlayerEntry.h>
+#include <Game/PlayerGOMEntry.h>
 #include <Game/Player.hpp>
 
 namespace Skyrim
@@ -21,7 +21,11 @@ namespace Skyrim
 			boost::signal<void(const std::string&)> OnChatMessage;
 			boost::signal<void()>					OnSpawn;
 
+			std::string GetName();
+
 		protected:
+
+			void OnSynchronize();
 
 			void HandlePlayerSpawn(Network::Packet&);
 			void HandlePlayerMoveAndLook(Network::Packet&);
@@ -30,6 +34,7 @@ namespace Skyrim
 			void HandleServiceResponse(Network::Packet&);
 			void HandleMount(Network::Packet&);
 			void HandleUnmount(Network::Packet&);
+			void HandleInitialData(Network::Packet&);
 
 		private:
 
@@ -37,6 +42,7 @@ namespace Skyrim
 
 		private:
 
+			std::string mName;
 			Network::TcpConnection::pointer mConnection;
 			std::vector<boost::signals::connection> mEventLinks;
 		};

@@ -1,6 +1,8 @@
 #include "stdafx.h"
 #include "Session.h"
 #include <Game/data.h>
+#include <Game/PlayerGOMServer.h>
+#include <GameWorld.h>
 #include <Overlay/Chat.h>
 #include <Overlay/System.h>
 #include <GameWorld.h>
@@ -14,22 +16,26 @@ namespace Skyrim
 		void Session::Init()
 		{
 			::Game::Player::Register(kServerChatMessage, &Session::HandleChatMessage);
-			::Game::Player::Register(kServerServiceResponse, &Session::HandleServiceResponse);
-			::Game::Player::Register(kServerMount, &Session::HandleMount);
-			::Game::Player::Register(kServerUnmount, &Session::HandleUnmount);
 
 			// Server side
 			::Game::Player::Register(kClientChatMessage, &Session::HandleChatMessage);
+			::Game::Player::Register(kClientInitialData, &Session::HandleInitialData);
 			
 		}
 		//--------------------------------------------------------------------------------
 		Session::Session(unsigned int id, ::Game::GameServer* server) : ::Game::Player(id, server) 
 		{
+			if(TheMassiveMessageMgr->Server() && Local())
+			{
+				TheMassiveMessageMgr->GetGOMDatabase()->Get<Game::PlayerGOMServer>()->
+					Add(&TheGameWorld->GetPlayerCharacter(), ::Game::kTransactionFull, id);
+			}
 		}
 		//--------------------------------------------------------------------------------
 		Session::~Session()
 		{
-			try{
+			try
+			{
 				std::for_each(mEventLinks.begin(), mEventLinks.end(), [](boost::signals::connection& pConnection)
 				{
 					pConnection.disconnect();
@@ -41,6 +47,18 @@ namespace Skyrim
 			{
 				System::Log::Debug("Session::~Session() error");
 			}
+		}
+		//--------------------------------------------------------------------------------
+		void Session::OnSynchronize()
+		{
+			Framework::Network::Packet packet(kClientInitialData);
+			packet << TheGameWorld->GetUser();
+			TheMassiveMessageMgr->SendMessageTo(::Game::kPlayerServer, packet);
+		}
+		//--------------------------------------------------------------------------------
+		std::string Session::GetName()
+		{
+			return mName;
 		}
 		//--------------------------------------------------------------------------------
 	}
