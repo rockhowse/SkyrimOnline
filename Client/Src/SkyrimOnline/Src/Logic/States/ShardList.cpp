@@ -1,6 +1,6 @@
 #include <stdafx.h>
 #include <Logic/States/ShardList.hpp>
-#include <SkyrimOnline.h>
+#include <GameWorld.h>
 #include <Overlay/Message.h>
 
 #include <Game/MassiveMessageManager.hpp>
@@ -14,7 +14,7 @@ namespace Skyrim
 			//--------------------------------------------------------------------------------
 			ShardList::ShardList()
 			{
-				mShardList = boost::make_shared<Overlay::ShardList>(SkyrimOnline::GetInstance().GetInterface().GetGui());
+				mShardList = boost::make_shared<Overlay::ShardList>(Overlay::TheSystem->GetGui());
 				mShardList->Hide();
 			}
 			//--------------------------------------------------------------------------------
@@ -25,11 +25,11 @@ namespace Skyrim
 			//--------------------------------------------------------------------------------
 			void ShardList::OnEnter()
 			{
-				SkyrimOnline::GetInstance().SetMode(false);
+				TheGameWorld->SetMode(false);
 				mShardList->Hide();
 
-				SkyrimOnline::GetInstance().GetInterface().GetMessage()->SetCaption("Fetching shardlist.");
-				SkyrimOnline::GetInstance().GetInterface().GetMessage()->SetVisible(true);
+				Overlay::TheMessage->SetCaption("Fetching shardlist.");
+				Overlay::TheMessage->SetVisible(true);
 
 			}
 			//--------------------------------------------------------------------------------
@@ -44,7 +44,7 @@ namespace Skyrim
 				::Game::SetInChargen(true, true, false);
 
 				mShardList->Update(0.0);
-				SkyrimOnline::GetInstance().GetInterface().SetCursor(true);
+				Overlay::TheSystem->SetCursor(true);
 			}
 			//--------------------------------------------------------------------------------
 			void ShardList::OnShardlistReply(std::string pReply)
@@ -69,7 +69,7 @@ namespace Skyrim
 					System::Log::Debug(os.str());
 				}
 
-				SkyrimOnline::GetInstance().GetInterface().GetMessage()->Hide();
+				Overlay::TheMessage->Hide();
 				mShardList->Show();
 				mShardList->OnShardPick.connect(boost::bind(&ShardList::OnShardPick, this, _1));
 				mShardList->OnHost.connect(boost::bind(&ShardList::OnHost, this));
@@ -78,14 +78,14 @@ namespace Skyrim
 			void ShardList::OnShardPick(const std::string& pShard)
 			{
 				System::Log::Debug(std::string("Shard picked : ") + pShard);
-				SkyrimOnline::GetInstance().OnShardPick(pShard);
+				TheGameWorld->OnShardPick(pShard);
 			}
 			//--------------------------------------------------------------------------------
 			void ShardList::OnHost()
 			{
 				System::Log::Debug("Hosting a server...");
-				SkyrimOnline::GetInstance().GetInterface().GetMessage()->Show();
-				SkyrimOnline::GetInstance().GetInterface().GetMessage()->SetCaption("Starting the server...");
+				Overlay::TheMessage->Show();
+				Overlay::TheMessage->SetCaption("Starting the server...");
 
 				TheMassiveMessageMgr->BeginMultiplayer(true);
 			}

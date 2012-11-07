@@ -1,5 +1,5 @@
 #include "stdafx.h"
-#include <SkyrimOnline.h>
+#include <GameWorld.h>
 
 namespace Skyrim
 {

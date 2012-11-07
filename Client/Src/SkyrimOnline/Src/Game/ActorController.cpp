@@ -1,7 +1,7 @@
 #include "stdafx.h"
 #include <Game/SkyrimFormManager.h>
 #include <Game/ActorController.h>
-#include <SkyrimOnline.h>
+#include <GameWorld.h>
 
 namespace Skyrim
 {
@@ -21,16 +21,16 @@ namespace Skyrim
 			::Actor::KeepOffsetFromActor(mMe->GetActor(), mMaster, 0.f, 0.f, 0.f, 0.f, 0.f, 0.f, 20.f, 5.0f);
 			::Actor::SetActorValue(mMe->GetActor(), "Health", 99999999.f);
 
-			SkyrimOnline::GetInstance().GetAssetManager().Add((TESObjectREFR*)mMe->GetActor());
-			SkyrimOnline::GetInstance().GetAssetManager().Add((TESObjectREFR*)mMaster);
+			TheGameWorld->GetAssetManager().Add((TESObjectREFR*)mMe->GetActor());
+			TheGameWorld->GetAssetManager().Add((TESObjectREFR*)mMaster);
 		}
 		//--------------------------------------------------------------------------------
 		ActorController::~ActorController()
 		{
 			SetMount(0);
 			
-			SkyrimOnline::GetInstance().GetAssetManager().Remove((TESObjectREFR*)mMe->GetActor());
-			SkyrimOnline::GetInstance().GetAssetManager().Remove((TESObjectREFR*)mMaster);
+			TheGameWorld->GetAssetManager().Remove((TESObjectREFR*)mMe->GetActor());
+			TheGameWorld->GetAssetManager().Remove((TESObjectREFR*)mMaster);
 
 			SkyrimFormManager::GetInstance()->ReleaseForm(mMe->GetActor()->baseForm);
 
@@ -81,7 +81,7 @@ namespace Skyrim
 		{
 			if(mMount)
 			{
-				SkyrimOnline::GetInstance().GetAssetManager().Remove((TESObjectREFR*)mMount->GetActor());
+				TheGameWorld->GetAssetManager().Remove((TESObjectREFR*)mMount->GetActor());
 				ObjectReference::Delete((TESObjectREFR*)mMount->GetActor());
 				mMount.reset();
 			}
@@ -98,7 +98,7 @@ namespace Skyrim
 				ObjectReference::TetherToHorse((TESObjectREFR*)mMe->GetActor(), (TESObjectREFR*)mMount->GetActor());
 				::Actor::KeepOffsetFromActor(mMount->GetActor(), mMaster, 0.f, 0.f, 0.f, 0.f, 0.f, 0.f, 10.f, 3.f);
 
-				SkyrimOnline::GetInstance().GetAssetManager().Add((TESObjectREFR*)mMount->GetActor());
+				TheGameWorld->GetAssetManager().Add((TESObjectREFR*)mMount->GetActor());
 			}
 		}
 		//--------------------------------------------------------------------------------

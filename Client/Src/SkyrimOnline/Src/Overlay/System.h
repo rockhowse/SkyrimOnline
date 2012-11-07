@@ -8,9 +8,12 @@ namespace Skyrim
 	{
 		class Message;
 
-		class Interface
+		class System
 		{
 		public:
+
+			System();
+			~System();
 
 			void Setup();
 
@@ -24,29 +27,28 @@ namespace Skyrim
 			void OnRender(myIDirect3DDevice9* pDevice);
 			void OnLostDevice(myIDirect3DDevice9* pDevice);
 
-			boost::shared_ptr<Message>		GetMessage();
-
-			static Interface* GetInstance();
+			static System* GetInstance();
 			MyGUI::Gui*	 GetGui();
 
 			void Reset();
 			void Acquire();
 
-		private:
+			template <class T>
+			T* Instantiate()
+			{
+				return new T(mUI);
+			}
 
-			Interface();
-			~Interface();
+		private:
 
 			int x,y;
 			MyGUI::DirectXPlatform* mPlatform;
 			MyGUI::Gui*				mUI;
 			std::string mRootMedia;
 
-			boost::shared_ptr<Message>		mMessageBox;
-
-			static Interface* instance;
-
 			boost::signals::connection mRender,mReset;
 		};
+
+		extern System* TheSystem;
 	}
 }

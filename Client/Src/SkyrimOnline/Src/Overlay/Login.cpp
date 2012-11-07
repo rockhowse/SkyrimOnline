@@ -4,7 +4,7 @@
 
 #include "stdafx.h"
 #include "Login.h"
-#include <SkyrimOnline.h>
+#include <GameWorld.h>
 
 namespace Skyrim
 {

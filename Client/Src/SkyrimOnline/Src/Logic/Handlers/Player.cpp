@@ -3,8 +3,8 @@
 #include <Logic/Session.h>
 #include <Game/data.h>
 #include <Overlay/Chat.h>
-#include <Overlay/Interface.h>
-#include <SkyrimOnline.h>
+#include <Overlay/System.h>
+#include <GameWorld.h>
 
 namespace Skyrim
 {
@@ -47,7 +47,7 @@ namespace Skyrim
 					 >> name;
 
 				Game::ActorController* player = new Game::ActorController(data.ObjectId, race, gender);
-				SkyrimOnline::GetInstance().GetControllerManager().Add(player);
+				TheGameWorld->GetControllerManager().Add(player);
 				
 				player->GetCharacter()->SetFaceMorph(faceMorph);
 				player->GetCharacter()->EquipItems(wornForms);
@@ -67,7 +67,7 @@ namespace Skyrim
 		//--------------------------------------------------------------------------------
 		void Session::HandlePlayerMoveAndLook(Packet& data)
 		{
-			auto player = SkyrimOnline::GetInstance().GetControllerManager().Get(data.ObjectId);
+			auto player = TheGameWorld->GetControllerManager().Get(data.ObjectId);
 			float px, py, pz, rx, ry, rz;
 			uint32_t relapsed;
 			data >> px >> py >> pz >> rx >> ry >> rz >> relapsed;
@@ -79,9 +79,9 @@ namespace Skyrim
 		void Session::HandlePlayerRemove(Packet& data)
 		{
 			try{
-				auto player = SkyrimOnline::GetInstance().GetControllerManager().Get(data.ObjectId);
+				auto player = TheGameWorld->GetControllerManager().Get(data.ObjectId);
 				if(player)
-					delete SkyrimOnline::GetInstance().GetControllerManager().Remove(player);
+					delete TheGameWorld->GetControllerManager().Remove(player);
 			}
 			catch(boost::exception& e)
 			{
@@ -96,7 +96,7 @@ namespace Skyrim
 		void Session::HandleMount(Packet& data)
 		{
 			try{
-				auto remote = SkyrimOnline::GetInstance().GetControllerManager().Get(data.ObjectId);
+				auto remote = TheGameWorld->GetControllerManager().Get(data.ObjectId);
 				if(remote)
 				{
 					uint32_t mountId;
@@ -117,7 +117,7 @@ namespace Skyrim
 		void Session::HandleUnmount(Packet& data)
 		{
 			try{
-				auto remote = SkyrimOnline::GetInstance().GetControllerManager().Get(data.ObjectId);
+				auto remote = TheGameWorld->GetControllerManager().Get(data.ObjectId);
 				if(remote)
 				{
 					remote->SetMount(0);

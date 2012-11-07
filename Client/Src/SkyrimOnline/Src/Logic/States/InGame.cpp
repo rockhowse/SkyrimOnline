@@ -1,6 +1,6 @@
 #include <stdafx.h>
 #include <Logic/States/InGame.hpp>
-#include <SkyrimOnline.h>
+#include <GameWorld.h>
 
 #include <Game/MassiveMessageManager.hpp>
 
@@ -13,10 +13,10 @@ namespace Skyrim
 			//--------------------------------------------------------------------------------
 			InGame::InGame()
 			{
-				mChat = boost::make_shared<Overlay::Chat>(SkyrimOnline::GetInstance().GetInterface().GetGui());
+				mChat = boost::make_shared<Overlay::Chat>(Overlay::TheSystem->GetGui());
 				mChat->Hide();
 
-				mFriendList = boost::make_shared<Overlay::FriendList>(SkyrimOnline::GetInstance().GetInterface().GetGui());
+				mFriendList = boost::make_shared<Overlay::FriendList>(Overlay::TheSystem->GetGui());
 				mFriendList->Hide();
 
 				mChat->OnSendChatMessage.connect(boost::bind(&InGame::OnChatMessage, this, _1));
@@ -32,7 +32,7 @@ namespace Skyrim
 			{
 				mChat->Show();
 
-				SkyrimOnline::GetInstance().SetMode(true);
+				TheGameWorld->SetMode(true);
 			}
 			//--------------------------------------------------------------------------------
 			void InGame::OnLeave()
@@ -54,7 +54,7 @@ namespace Skyrim
 			void InGame::OnEnterRegion(uint32_t pRegion)
 			{
 				std::ostringstream os;
-				os << "You just entered region 0x" << std::hex << SkyrimOnline::GetInstance().GetPlayerEntry().GetCharacter().GetLocationId();
+				os << "You just entered region 0x" << std::hex << TheMassiveMessageMgr->GetLocalPlayer();
 				mChat->Log(os.str());
 			}
 			//--------------------------------------------------------------------------------

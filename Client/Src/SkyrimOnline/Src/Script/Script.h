@@ -1,9 +1,9 @@
 #pragma once
 
-#define SCRIPT_CHECK_NORETURN(x) if(!SkyrimOnline::Exists()) \
+#define SCRIPT_CHECK_NORETURN(x) if(!GameWorld::Exists()) \
 	return;\
 	\
-	auto state = SkyrimOnline::GetInstance().GetCurrentGameState();\
+	auto state = TheGameWorld->GetCurrentGameState();\
 	if(!state){\
 		System::Log::Debug("Skyrim Online hasn't registered any state yet.");\
 		return;\
@@ -14,11 +14,11 @@
 	return;\
 	}
 
-#define SCRIPT_CHECK(x) if(!SkyrimOnline::Exists()){ \
+#define SCRIPT_CHECK(x) if(!GameWorld::Exists()){ \
 		System::Log::Debug("Skyrim Online has not been started yet.");\
 		return 0;\
 	}\
-	auto state = SkyrimOnline::GetInstance().GetCurrentGameState();\
+	auto state = TheGameWorld->GetCurrentGameState();\
 	if(!state){\
 		System::Log::Debug("Skyrim Online hasn't registered any state yet.");\
 		return 0;\

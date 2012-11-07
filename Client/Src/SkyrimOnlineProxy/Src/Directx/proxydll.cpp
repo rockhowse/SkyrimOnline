@@ -68,7 +68,7 @@ std::string GetPath()
 {
 	char buffer[MAX_PATH];
 
-	std::ifstream file("SkyrimOnlineProxy.def");
+	std::ifstream file("GameWorldProxy.def");
 	if(file.is_open()) // if file
 	{
 		std::string name;

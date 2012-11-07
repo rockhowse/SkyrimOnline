@@ -85,4 +85,4 @@
 
 using namespace Framework;
 
-#define _trace System::Log::Debug(std::string("Call trace : ") + std::string(__FUNCSIG__)); System::Log::Flush();
+#define _trace Framework::System::Log::Debug(std::string("Call trace : ") + std::string(__FUNCSIG__)); Framework::System::Log::Flush();

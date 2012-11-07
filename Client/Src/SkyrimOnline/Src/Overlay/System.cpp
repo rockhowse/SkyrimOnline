@@ -1,11 +1,7 @@
 #include "stdafx.h"
-#include "Interface.h"
-#include "Chat.h"
-#include "Login.h"
-#include "FriendList.h"
-#include "ShardList.h"
-#include "Message.h"
-#include <SkyrimOnline.h>
+#include "System.h"
+
+#include <GameWorld.h>
 #include <Directx/myIDirect3D9.h>
 #include <InputConverter.h>
 
@@ -17,16 +13,9 @@ namespace Skyrim
 	namespace Overlay
 	{
 		//--------------------------------------------------------------------------------
-		Interface* Interface::instance = nullptr;
+		System* TheSystem = nullptr;
 		//--------------------------------------------------------------------------------
-		Interface* Interface::GetInstance()
-		{
-			if(instance == nullptr)
-				instance = new Interface;
-			return instance;
-		}
-		//--------------------------------------------------------------------------------
-		Interface::Interface()
+		System::System()
 			:mPlatform(nullptr),mUI(nullptr)
 		{
 			_trace
@@ -46,7 +35,7 @@ namespace Skyrim
 			mUI->initialise("MyGUI_Core.xml");
 		}
 		//--------------------------------------------------------------------------------
-		Interface::~Interface()
+		System::~System()
 		{
 			_trace
 
@@ -58,7 +47,7 @@ namespace Skyrim
 			delete mPlatform;mPlatform = nullptr;
 		}
 		//--------------------------------------------------------------------------------
-		void Interface::Setup()
+		void System::Setup()
 		{
 			_trace
 
@@ -87,26 +76,23 @@ namespace Skyrim
 			}
 		}
 		//--------------------------------------------------------------------------------
-		void Interface::Acquire()
+		void System::Acquire()
 		{
-			mMessageBox = boost::make_shared<Message>(mUI);
-			mMessageBox->Hide();
-
 			// UI needs its own context
 			if(myIDirect3DDevice9::GetInstance())
 			{
-				mRender = myIDirect3DDevice9::GetInstance()->OnPresent.connect(std::bind(&Interface::OnRender, this, std::placeholders::_1));
-				mReset = myIDirect3DDevice9::GetInstance()->OnReset.connect(std::bind(&Interface::OnLostDevice,this,std::placeholders::_1));
+				mRender = myIDirect3DDevice9::GetInstance()->OnPresent.connect(std::bind(&System::OnRender, this, std::placeholders::_1));
+				mReset = myIDirect3DDevice9::GetInstance()->OnReset.connect(std::bind(&System::OnLostDevice,this,std::placeholders::_1));
 			}
 			else
 			{
-				System::Log::Error("Unable to grab directx !");
-				System::Log::Flush();
+				Framework::System::Log::Error("Unable to grab directx !");
+				Framework::System::Log::Flush();
 				exit(-1);
 			}
 		}
 		//--------------------------------------------------------------------------------
-		void Interface::Reset()
+		void System::Reset()
 		{
 			mRender.disconnect();
 			mReset.disconnect();
@@ -114,7 +100,7 @@ namespace Skyrim
 			mUI->destroyAllChildWidget();
 		}
 		//--------------------------------------------------------------------------------
-		void Interface::Inject(BYTE key, bool pressed)
+		void System::Inject(BYTE key, bool pressed)
 		{
 			if(mUI && mPlatform)
 			{
@@ -171,7 +157,7 @@ namespace Skyrim
 			}
 		}
 		//--------------------------------------------------------------------------------
-		void Interface::InjectMouse(BYTE key, bool pressed)
+		void System::InjectMouse(BYTE key, bool pressed)
 		{
 			//Log::GetInstance()->Debug("Interface::InjectMouse() " + std::to_string((long long)key));
 			if(mUI && mPlatform)
@@ -184,7 +170,7 @@ namespace Skyrim
 			}
 		}
 		//--------------------------------------------------------------------------------
-		void Interface::MouseMove(unsigned int px, unsigned int py, unsigned int pz)
+		void System::MouseMove(unsigned int px, unsigned int py, unsigned int pz)
 		{
 			//Log::GetInstance()->Debug("Interface::MouseMove()");
 			if(mUI && mPlatform)
@@ -195,22 +181,22 @@ namespace Skyrim
 			}
 		}
 		//--------------------------------------------------------------------------------
-		void Interface::SetCursor(bool pVisible)
+		void System::SetCursor(bool pVisible)
 		{
 			if(mUI && mPlatform)
 				mUI->setVisiblePointer(pVisible);
 		}
 		//--------------------------------------------------------------------------------
-		bool Interface::IsCursorVisible()
+		bool System::IsCursorVisible()
 		{
 			if(mUI && mPlatform)
 				return mUI->isVisiblePointer();
 			return false;
 		}
 		//--------------------------------------------------------------------------------
-		void Interface::OnRender(myIDirect3DDevice9* pDevice)
+		void System::OnRender(myIDirect3DDevice9* pDevice)
 		{
-			if(clock() - SkyrimOnline::GetInstance().GetRendering() < 400)
+			if(clock() - TheGameWorld->GetRendering() < 400)
 			{
 				IDirect3DStateBlock9* pStateBlock = NULL;
  				pDevice->CreateStateBlock(D3DSBT_ALL, &pStateBlock);
@@ -230,17 +216,12 @@ namespace Skyrim
 			}
 		}
 		//--------------------------------------------------------------------------------
-		void Interface::OnLostDevice(myIDirect3DDevice9* pDevice)
+		void System::OnLostDevice(myIDirect3DDevice9* pDevice)
 		{
 			mPlatform->getRenderManagerPtr()->deviceLost();
 		}
 		//--------------------------------------------------------------------------------
-		boost::shared_ptr<Message> Interface::GetMessage()
-		{
-			return mMessageBox;
-		}
-		//--------------------------------------------------------------------------------
-		MyGUI::Gui* Interface::GetGui()
+		MyGUI::Gui* System::GetGui()
 		{
 			return mUI;
 		}

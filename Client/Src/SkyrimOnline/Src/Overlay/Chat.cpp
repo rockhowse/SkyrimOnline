@@ -5,7 +5,7 @@
 #include "stdafx.h"
 #include "Chat.h"
 #include <Network/Packet.h>
-#include <SkyrimOnline.h>
+#include <GameWorld.h>
 #include <Logic/Session.h>
 
 namespace Skyrim
@@ -67,7 +67,7 @@ namespace Skyrim
 		//--------------------------------------------------------------------------------
 		void	Chat::Log(const MyGUI::UString& str, const MyGUI::UString& color)
 		{
-			System::Log::Debug(std::string("Chat: ") + str.asUTF8());
+			Framework::System::Log::Debug(std::string("Chat: ") + str.asUTF8());
 
 			mMessagesMutex.lock();
 

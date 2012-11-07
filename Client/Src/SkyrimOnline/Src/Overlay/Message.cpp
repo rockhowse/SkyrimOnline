@@ -10,6 +10,8 @@ namespace Skyrim
 	namespace Overlay
 	{
 		//--------------------------------------------------------------------------------
+		Message* TheMessage = nullptr;
+		//--------------------------------------------------------------------------------
 		Message::Message(MyGUI::Gui* pUI)
 			:mUI(pUI)
 		{

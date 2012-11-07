@@ -1,6 +1,6 @@
 #include <stdafx.h>
 #include <Logic/States/Login.hpp>
-#include <SkyrimOnline.h>
+#include <GameWorld.h>
 #include <Overlay/Message.h>
 
 namespace Skyrim
@@ -12,7 +12,7 @@ namespace Skyrim
 			//--------------------------------------------------------------------------------
 			Login::Login()
 			{
-				mLogin = boost::make_shared<Overlay::Login>(SkyrimOnline::GetInstance().GetInterface().GetGui());
+				mLogin = boost::make_shared<Overlay::Login>(Overlay::TheSystem->GetGui());
 				mLogin->OnLogin.connect([this](std::string u, std::string p){this->Authenticate(u,p);});
 			}
 			//--------------------------------------------------------------------------------
@@ -23,10 +23,10 @@ namespace Skyrim
 			//--------------------------------------------------------------------------------
 			void Login::OnEnter()
 			{
-				SkyrimOnline::GetInstance().SetMode(false);
+				TheGameWorld->SetMode(false);
 				::Game::DisablePlayerControls(true,true,true,true,true,true,true,true,1);
 				::Game::SetInChargen(true, true, false);
-				SkyrimOnline::GetInstance().GetInterface().SetCursor(true);
+				Overlay::TheSystem->SetCursor(true);
 				mLogin->Show();
 			}
 			//--------------------------------------------------------------------------------
@@ -46,11 +46,11 @@ namespace Skyrim
 			//--------------------------------------------------------------------------------
 			void Login::Authenticate(const std::string& user, const std::string& pass)
 			{
-				SkyrimOnline::GetInstance().SetUser(user);
-				SkyrimOnline::GetInstance().GetInterface().GetMessage()->Show();
+				TheGameWorld->SetUser(user);
+				Overlay::TheMessage->Show();
 				mLogin->Hide();
 
-				SkyrimOnline::GetInstance().GetInterface().GetMessage()->SetCaption("Connecting...");
+				Overlay::TheMessage->SetCaption("Connecting...");
 				std::ostringstream os;
 				os << "/authentication.php?do=login&username=" << Network::UrlEncode(user) << "&pass=" << Network::UrlEncode(pass);
 
@@ -61,11 +61,11 @@ namespace Skyrim
 			{
 				if(pData[0] == '1')
 				{
-					SkyrimOnline::GetInstance().SetState("ShardList");
+					TheGameWorld->SetState("ShardList");
 				}
 				else
 				{
-					SkyrimOnline::GetInstance().GetInterface().GetMessage()->SetCaption("Authentication failed !\nMessage : " + pData);
+					Overlay::TheMessage->SetCaption("Authentication failed !\nMessage : " + pData);
 					mLogin->Show();
 				}
 			}

@@ -1,5 +1,5 @@
 #include "stdafx.h"
-#include <SkyrimOnline.h>
+#include <GameWorld.h>
 #include <Script/Online.h>
 
 int GenerateDump(EXCEPTION_POINTERS* pExceptionPointers)
@@ -7,7 +7,7 @@ int GenerateDump(EXCEPTION_POINTERS* pExceptionPointers)
 	BOOL bMiniDumpSuccessful;
 	TCHAR szPath[MAX_PATH]; 
 	TCHAR szFileName[MAX_PATH]; 
-	TCHAR* szAppName = "SkyrimOnline";
+	TCHAR* szAppName = "GameWorld";
 	DWORD dwBufferSize = MAX_PATH;
 	HANDLE hDumpFile;
 	SYSTEMTIME stLocalTime;
@@ -40,7 +40,7 @@ int GenerateDump(EXCEPTION_POINTERS* pExceptionPointers)
 
 void Init()
 {
-	System::Log::Create("SkyrimOnlineClient.log");
+	System::Log::Create("GameWorldClient.log");
 }
 
 __declspec(dllexport) void main()
@@ -57,7 +57,7 @@ __declspec(dllexport) void main()
 
 		default :
 			{
-				Debug::ShowMessageBox("You need the game in 1.7.7.0 to play SkyrimOnline.");
+				Debug::ShowMessageBox("You need the game in 1.7.7.0 to play GameWorld.");
 				return;
 			}
 		}
@@ -74,19 +74,19 @@ __declspec(dllexport) void main()
 		PrintNote("To play Skyrim Online, press F3");
 
 		bool onlineMod = false;
-		while(!Skyrim::SkyrimOnline::Exists())
+		while(!Skyrim::TheGameWorld)
 		{
 			if(GetKeyPressed(VK_F3))
 			{
 				onlineMod = true;
-				Skyrim::SkyrimOnline::GetInstance().Setup();
+				Skyrim::TheGameWorld->Setup();
 				break;
 			}
 			Wait(0);
 		}
 
-		if(onlineMod || Skyrim::SkyrimOnline::Exists())
-			Skyrim::SkyrimOnline::GetInstance().Run();
+		if(onlineMod && Skyrim::TheGameWorld)
+			Skyrim::TheGameWorld->Run();
 	}
 	__except(GenerateDump(GetExceptionInformation()))
 	{

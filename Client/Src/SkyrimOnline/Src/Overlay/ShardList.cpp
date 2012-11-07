@@ -4,7 +4,7 @@
 
 #include "stdafx.h"
 #include "ShardList.h"
-#include <SkyrimOnline.h>
+#include <GameWorld.h>
 #include <Logic/Session.h>
 #include <Network/Packet.h>
 

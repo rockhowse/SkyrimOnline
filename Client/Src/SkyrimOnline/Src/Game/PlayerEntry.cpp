@@ -1,6 +1,6 @@
 #include "stdafx.h"
 #include <Game/PlayerEntry.h>
-#include <SkyrimOnline.h>
+#include <GameWorld.h>
 #include <Game/ActorController.h>
 
 namespace Skyrim

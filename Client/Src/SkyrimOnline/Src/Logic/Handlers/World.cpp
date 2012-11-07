@@ -2,10 +2,10 @@
 #include <Logic/Session.h>
 #include <Game/data.h>
 #include <Overlay/Chat.h>
-#include <Overlay/Interface.h>
+#include <Overlay/System.h>
 #include <Overlay/Message.h>
 #include <Overlay/ShardList.h>
-#include <SkyrimOnline.h>
+#include <GameWorld.h>
 
 namespace Skyrim
 {
@@ -22,18 +22,18 @@ namespace Skyrim
 			{
 				TimeManager::Date date;
 				data >> date.Hour >> date.Day >> date.Month;
-				SkyrimOnline::GetInstance().GetTimeManager().SetDate(date);
+				TheGameWorld->GetTimeManager().SetDate(date);
 			}
 			else if(service == "weatherman")
 			{
 				uint32_t weather;
 				data >> weather;
-				SkyrimOnline::GetInstance().GetWeatherManager().SetWeather(weather);
+				TheGameWorld->GetWeatherManager().SetWeather(weather);
 			}
 			else if(service == "cipher")
 			{
-				SkyrimOnline::GetInstance().GetInterface().GetMessage()->Hide();
-				SkyrimOnline::GetInstance().SetState("InGame");
+				Overlay::TheMessage->Hide();
+				TheGameWorld->SetState("InGame");
 			}
 		}
 		//--------------------------------------------------------------------------------

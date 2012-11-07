@@ -74,5 +74,7 @@ namespace Skyrim
 			MyGUI::WindowPtr		mWindow;
 			MyGUI::Gui*				mUI;
 		};
+
+		extern Message* TheMessage;
 	}
 }

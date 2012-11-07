@@ -1,5 +1,5 @@
 #include "stdafx.h"
-#include "SkyrimOnline.h"
+#include "GameWorld.h"
 #include <Overlay/Message.h>
 
 #include <Logic/Session.h>
@@ -10,145 +10,119 @@
 namespace Skyrim
 {
 	//--------------------------------------------------------------------------------
-	SkyrimOnline* SkyrimOnline::instance = nullptr;
+	GameWorld* TheGameWorld = nullptr;
 	//--------------------------------------------------------------------------------
-	SkyrimOnline::SkyrimOnline()
-		:mUI(Overlay::Interface::GetInstance()),mMode(true)
+	GameWorld::GameWorld()
+		:mMode(true)
 	{
 		_trace
+		Overlay::TheSystem = new Overlay::System;
+		Overlay::TheMessage = Overlay::TheSystem->Instantiate<Overlay::Message>();
 
 		InputHook::GetInstance()->SetListener(this);
-		mUI->Acquire();
+		Overlay::TheSystem->Acquire();
 
 		Crypt::RSA::Init();
 		TheMassiveMessageMgr->SetPort(kGamePort);
-		TheMassiveMessageMgr->SetGOMServerConstructor(::Game::GameServer::GOMServerConstructor(&SkyrimOnline::ConstructGOMServers));
-		TheMassiveMessageMgr->SetPlayerConstructor(::Game::GameServer::PlayerConstructor(&SkyrimOnline::ConstructPlayer));
+		TheMassiveMessageMgr->SetGOMServerConstructor(::Game::GameServer::GOMServerConstructor(&GameWorld::ConstructGOMServers));
+		TheMassiveMessageMgr->SetPlayerConstructor(::Game::GameServer::PlayerConstructor(&GameWorld::ConstructPlayer));
 
 		SetUser(EasySteam::Interface::GetInstance().GetUser()->GetPersonaName());
 	}
 	//--------------------------------------------------------------------------------
-	SkyrimOnline::~SkyrimOnline()
+	GameWorld::~GameWorld()
 	{
 		_trace
 
-		mUI->Reset();
+		Overlay::TheSystem->Reset();
 	}
 	//--------------------------------------------------------------------------------
-	bool SkyrimOnline::Exists()
-	{
-		return instance != nullptr;
-	}
-	//--------------------------------------------------------------------------------
-	Game::AssetManager& SkyrimOnline::GetAssetManager()
+	Game::AssetManager& GameWorld::GetAssetManager()
 	{
 		return mAssets;
 	}
 	//--------------------------------------------------------------------------------
-	Game::ControllerManager& SkyrimOnline::GetControllerManager()
+	Game::ControllerManager& GameWorld::GetControllerManager()
 	{
 		return mManager;
 	}
 	//--------------------------------------------------------------------------------
-	boost::shared_ptr<Logic::GameState> SkyrimOnline::GetCurrentGameState()
+	boost::shared_ptr<Logic::GameState> GameWorld::GetCurrentGameState()
 	{
 		return mCurrentState;
 	}
 	//--------------------------------------------------------------------------------
-	SkyrimOnline& SkyrimOnline::GetInstance()
-	{
-		if(instance == nullptr)
-			instance = new SkyrimOnline;
-		return *instance;
-	}
-	//--------------------------------------------------------------------------------
-	Overlay::Interface& SkyrimOnline::GetInterface()
-	{
-		return *mUI;
-	}
-	//--------------------------------------------------------------------------------
-	Game::PlayerEntry& SkyrimOnline::GetPlayerEntry()
-	{
-		return mPlayer;
-	}
-	//--------------------------------------------------------------------------------
-	unsigned int SkyrimOnline::GetRendering()
+	unsigned int GameWorld::GetRendering()
 	{
 		return mRendering;
 	}
 	//--------------------------------------------------------------------------------
-	TimeManager& SkyrimOnline::GetTimeManager()
+	TimeManager& GameWorld::GetTimeManager()
 	{
 		return mTimeManager;
 	}
 	//--------------------------------------------------------------------------------
-	std::string SkyrimOnline::GetUser()
+	std::string GameWorld::GetUser()
 	{
 		return mUsername;
 	}
 	//--------------------------------------------------------------------------------
-	WeatherManager& SkyrimOnline::GetWeatherManager()
+	WeatherManager& GameWorld::GetWeatherManager()
 	{
 		return mWeatherManager;
 	}
 	//--------------------------------------------------------------------------------
-	void SkyrimOnline::Kill()
-	{
-		delete instance;
-		instance = nullptr;
-	}
-	//--------------------------------------------------------------------------------
-	void SkyrimOnline::OnConnect(bool pStatus)
+	void GameWorld::OnConnect(bool pStatus)
 	{
 		_trace
 		if(pStatus)
 		{
-			mUI->GetMessage()->SetCaption("Negotiating connection with World !");
+			Overlay::TheMessage->SetCaption("Negotiating connection with World !");
 		}
 		else
 		{
-			mUI->GetMessage()->SetCaption("The world is unreachable !");
+			Overlay::TheMessage->SetCaption("The world is unreachable !");
 		}
 	}
 	//--------------------------------------------------------------------------------
-	void SkyrimOnline::OnConnectionLost()
+	void GameWorld::OnConnectionLost()
 	{
 	}
 	//--------------------------------------------------------------------------------
-	void SkyrimOnline::OnError(const std::string& pError)
+	void GameWorld::OnError(const std::string& pError)
 	{
 		System::Log::Debug(pError);
 		System::Log::Flush();
 	}
 	//--------------------------------------------------------------------------------
-	void SkyrimOnline::OnMouseMove(unsigned int x, unsigned int y, unsigned int z)
+	void GameWorld::OnMouseMove(unsigned int x, unsigned int y, unsigned int z)
 	{
 		if(!mMode)
-			mUI->MouseMove(x,y,z);
+			Overlay::TheSystem->MouseMove(x,y,z);
 	}
 	//--------------------------------------------------------------------------------
-	void SkyrimOnline::OnMousePress(BYTE code)
+	void GameWorld::OnMousePress(BYTE code)
 	{
 		if(!mMode)
-			mUI->InjectMouse(code,true);
+			Overlay::TheSystem->InjectMouse(code,true);
 	}
 	//--------------------------------------------------------------------------------
-	void SkyrimOnline::OnMouseRelease(BYTE code)
+	void GameWorld::OnMouseRelease(BYTE code)
 	{
 		if(!mMode)
-			mUI->InjectMouse(code,false);
+			Overlay::TheSystem->InjectMouse(code,false);
 	}
 	//--------------------------------------------------------------------------------
-	void SkyrimOnline::OnPress(BYTE code)
+	void GameWorld::OnPress(BYTE code)
 	{
 		if(!mMode)
-			mUI->Inject(code,true);
+			Overlay::TheSystem->Inject(code,true);
 	}
 	//--------------------------------------------------------------------------------
-	void SkyrimOnline::OnRelease(BYTE code)
+	void GameWorld::OnRelease(BYTE code)
 	{
 		if(!mMode)
-			mUI->Inject(code,false);
+			Overlay::TheSystem->Inject(code,false);
 		if(mCurrentState && mCurrentState->IsSwitchingAllowed())
 		{
 			if(code == DIK_F3)
@@ -158,23 +132,23 @@ namespace Skyrim
 		}
 	}
 	//--------------------------------------------------------------------------------
-	void SkyrimOnline::OnShardPick(const std::string& pAddress)
+	void GameWorld::OnShardPick(const std::string& pAddress)
 	{
-		mUI->GetMessage()->SetCaption("Connecting to the World !");
-		mUI->GetMessage()->Show();
+		Overlay::TheMessage->SetCaption("Connecting to the World !");
+		Overlay::TheMessage->Show();
 
 		TheMassiveMessageMgr->SetAddress("127.0.0.1");
 		TheMassiveMessageMgr->SetPort(kGamePort);
 		TheMassiveMessageMgr->BeginMultiplayer(false);
 	}
 	//--------------------------------------------------------------------------------
-	void SkyrimOnline::OnHost()
+	void GameWorld::OnHost()
 	{
 		TheMassiveMessageMgr->SetPort(kGamePort);
 		TheMassiveMessageMgr->BeginMultiplayer(true);
 	}
 	//--------------------------------------------------------------------------------
-	void SkyrimOnline::Run()
+	void GameWorld::Run()
 	{
 		mRun = true;
 		while (mRun)
@@ -195,7 +169,7 @@ namespace Skyrim
 		}
 	}
 	//--------------------------------------------------------------------------------
-	void SkyrimOnline::SetMode(bool pMode)
+	void GameWorld::SetMode(bool pMode)
 	{
 		mMode = pMode;
 		if(mMode)
@@ -203,24 +177,24 @@ namespace Skyrim
 			// In game mode -> enable controls
 			//::Game::EnablePlayerControls(true,true,true,true,true,true,true,true,1);
 			//::Game::SetInChargen(false, false, true);
-			mUI->SetCursor(false);
+			Overlay::TheSystem->SetCursor(false);
 		}
 		else
 		{
 			// In UI mode -> disable controls
 			//::Game::DisablePlayerControls(true,true,true,true,true,true,true,true,1);
-			mUI->SetCursor(true);
+			Overlay::TheSystem->SetCursor(true);
 		}
 
 		InputHook::GetInstance()->SetInputEnabled(mMode);
 	}
 	//--------------------------------------------------------------------------------
-	void SkyrimOnline::SetRendering(unsigned int rendering)
+	void GameWorld::SetRendering(unsigned int rendering)
 	{
 		mRendering = rendering;
 	}
 	//--------------------------------------------------------------------------------
-	void SkyrimOnline::SetState(const std::string& pState)
+	void GameWorld::SetState(const std::string& pState)
 	{
 		if(mCurrentState)
 			mCurrentState->OnLeave();
@@ -232,7 +206,7 @@ namespace Skyrim
 		}
 	}
 	//--------------------------------------------------------------------------------
-	void SkyrimOnline::Setup()
+	void GameWorld::Setup()
 	{
 		mStates["ShardList"].reset(new Logic::State::ShardList);
 		mStates["InGame"].reset(new Logic::State::InGame);
@@ -240,29 +214,23 @@ namespace Skyrim
 		SetState("ShardList");
 	}
 	//--------------------------------------------------------------------------------
-	void SkyrimOnline::SetUser(const std::string& user)
+	void GameWorld::SetUser(const std::string& user)
 	{
 		mUsername = user;
 	}
 	//--------------------------------------------------------------------------------
-	void SkyrimOnline::Stop()
-	{
-		if(instance)
-			instance->mRun = false;
-	}
-	//--------------------------------------------------------------------------------
-	void SkyrimOnline::SwitchMode()
+	void GameWorld::SwitchMode()
 	{
 		_trace
 		SetMode(!mMode);
 	}
 	//--------------------------------------------------------------------------------
-	::Game::Player* SkyrimOnline::ConstructPlayer(::Game::Player::KeyType id, ::Game::GameServer* server)
+	::Game::Player* GameWorld::ConstructPlayer(::Game::Player::KeyType id, ::Game::GameServer* server)
 	{
 		return new Logic::Session(id, server);
 	}
 	//--------------------------------------------------------------------------------
-	std::vector<::Game::IGOMServer*> SkyrimOnline::ConstructGOMServers(void*)
+	std::vector<::Game::IGOMServer*> GameWorld::ConstructGOMServers(void*)
 	{
 		std::vector<::Game::IGOMServer*> gomServers;
 
