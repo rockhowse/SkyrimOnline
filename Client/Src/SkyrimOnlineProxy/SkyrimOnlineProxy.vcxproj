@@ -56,12 +56,14 @@
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup>
+    <ClInclude Include="Src\Dinput\Input.hpp" />
     <ClInclude Include="Src\Directx\myIDirect3D9.h" />
     <ClInclude Include="Src\Directx\myIDirect3DDevice9.h" />
     <ClInclude Include="Src\Directx\proxydll.h" />
     <ClInclude Include="Src\stdafx.h" />
   </ItemGroup>
   <ItemGroup>
+    <ClCompile Include="Src\Dinput\Input.cpp" />
     <ClCompile Include="Src\Directx\myIDirect3D9.cpp" />
     <ClCompile Include="Src\Directx\myIDirect3DDevice9.cpp" />
     <ClCompile Include="Src\Directx\proxydll.cpp" />

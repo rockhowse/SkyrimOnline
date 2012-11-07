@@ -39,8 +39,6 @@ namespace Skyrim
 
 			Network::TcpConnection::pointer mConnection;
 			std::vector<boost::signals::connection> mEventLinks;
-
-			static std::unordered_map<unsigned int, CallBack> mHandlers;
 		};
 	}
 }

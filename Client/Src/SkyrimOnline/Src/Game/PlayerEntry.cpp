@@ -36,7 +36,7 @@ namespace Skyrim
 			rot();
 		}
 		//--------------------------------------------------------------------------------
-		void PlayerEntry::Deserialize(const std::string& plainData)
+		void PlayerEntry::DoDeserialize(const std::string& plainData)
 		{
 			Framework::Network::Packet packet;
 			packet.Initialize(plainData);
@@ -44,7 +44,7 @@ namespace Skyrim
 			uint8_t flag;
 		}
 		//--------------------------------------------------------------------------------
-		std::string PlayerEntry::Serialize(bool pFull) const
+		std::string PlayerEntry::DoSerialize(bool pFull) const
 		{
 			Framework::Network::Packet packet;
 

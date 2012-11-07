@@ -2,53 +2,31 @@
 
 #include <Directx/myIDirect3DDevice9.h>
 
-namespace Skyrim
+struct InputListener
 {
-	namespace Engine
-	{
-		class InputManager
-		{
-		public:
+	virtual void OnPress(BYTE code) = 0;
+	virtual void OnRelease(BYTE code) = 0;
+	virtual void OnMousePress(BYTE code) = 0;
+	virtual void OnMouseRelease(BYTE code) = 0;
+	virtual void OnMouseMove(unsigned int x, unsigned int y, unsigned int z) = 0;
+};
 
-			struct Listener
-			{
-				virtual void OnPress(BYTE code) = 0;
-				virtual void OnRelease(BYTE code) = 0;
-				virtual void OnMousePress(BYTE code) = 0;
-				virtual void OnMouseRelease(BYTE code) = 0;
-				virtual void OnMouseMove(unsigned int x, unsigned int y, unsigned int z) = 0;
-			};
+class __declspec(dllimport) InputHook
+{
+public:
 
-			InputManager(Listener& pListener);
-			~InputManager();
+	static InputHook* GetInstance();
 
-			void Run();
-			void Update();
+	bool IsInputEnabled();
+	void SetInputEnabled(bool input);
 
-		private:
+	InputListener* GetListener();
+	void SetListener(InputListener* listener);
 
-			void Init();
-			void Reset(myIDirect3DDevice9* pDevice);
+private:
 
-			struct Event
-			{
-				bool pressed;
-				bool keyboard;
-				BYTE key;
-				clock_t time;
-			};
+	InputHook();
 
-			bool mReset;
-			bool mRun;
-			int mX, mY;
-			char mKeys[256];
-			LPDIRECTINPUT8 mDirectInput;
-			LPDIRECTINPUTDEVICE8 mKeyboard;
-			LPDIRECTINPUTDEVICE8 mMouse;
-			char mMouseState[4];
-			Listener& mListener;
-			Concurrency::concurrent_queue<Event> mBufferedInputs;
-			boost::thread* mThread;
-		};
-	}
-}
+	bool mEnabled;	
+	InputListener* mListener;
+};

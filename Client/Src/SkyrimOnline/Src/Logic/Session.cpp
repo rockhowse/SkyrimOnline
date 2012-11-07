@@ -11,13 +11,8 @@ namespace Skyrim
 	namespace Logic
 	{
 		//--------------------------------------------------------------------------------
-		static Network::IoServicePool gIoPool(1);
-		std::unordered_map<unsigned int, Session::CallBack> Session::mHandlers;
-		//--------------------------------------------------------------------------------
 		void Session::Init()
 		{
-			gIoPool.Run();
-
 			::Game::Player::Register(kServerChatMessage, &Session::HandleChatMessage);
 			::Game::Player::Register(kServerServiceResponse, &Session::HandleServiceResponse);
 			::Game::Player::Register(kServerMount, &Session::HandleMount);

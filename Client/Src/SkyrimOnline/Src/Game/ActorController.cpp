@@ -71,8 +71,6 @@ namespace Skyrim
 				SetPosition(posX, posY, posZ);
 				SetRotation(rotX, rotY, rotZ);
 
-				System::Log::Debug(std::to_string((long double)ObjectReference::GetDistance((TESObjectREFR*)mMaster, (TESObjectREFR*)mMe->GetActor())));
-
 				mInit = true;
 			}
 			ObjectReference::SetPosition((TESObjectREFR*)mMaster, posX,posY,posZ);

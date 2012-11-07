@@ -3,6 +3,7 @@
 #include "proxydll.h"
 #include "myIDirect3D9.h"
 #include "myIDirect3DDevice9.h"
+#include "../Dinput/Input.hpp"
 
 HINSTANCE           gl_hOriginalDll;
 HINSTANCE           gl_hThisInstance;
@@ -92,7 +93,6 @@ std::string GetPath()
 
 void LoadOriginalDll(void)
 {
-    
 	// try to load the system's d3d9.dll, if pointer empty
 	if (!gl_hOriginalDll) gl_hOriginalDll = ::LoadLibrary(GetPath().c_str());
 
@@ -114,4 +114,32 @@ void ExitInstance()
 		::FreeLibrary(gl_hOriginalDll);
 	    gl_hOriginalDll = NULL;
 	}
+}
+
+BOOL APIENTRY DllMain(HMODULE hModule, DWORD fdwReason, LPVOID lpReserved)
+{
+	switch (fdwReason)
+	{
+	case DLL_PROCESS_ATTACH:
+		{
+			std::string strL;
+			strL.resize(MAX_PATH);
+			GetModuleFileName(NULL, &strL[0], MAX_PATH) ;
+
+			DisableThreadLibraryCalls((HMODULE)hModule);
+
+			if(strL.find("TESV.exe") != std::string::npos)
+			{
+				HookDInput();
+			}
+
+			break;
+		}
+	case DLL_PROCESS_DETACH:
+		{
+			ReleaseDInput();
+			break;
+		}
+	}
+	return TRUE;
 }

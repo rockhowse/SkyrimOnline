@@ -13,8 +13,8 @@ namespace Skyrim
 			void Update();
 			void Synchronize();
 			
-			std::string Serialize(bool pFull) const;
-			void Deserialize(const std::string& plainData);
+			std::string DoSerialize(bool pFull) const;
+			void DoDeserialize(const std::string& plainData);
 
 			bool IsDead();
 			FreeScript::Character& GetCharacter();

@@ -13,10 +13,11 @@ namespace Skyrim
 	SkyrimOnline* SkyrimOnline::instance = nullptr;
 	//--------------------------------------------------------------------------------
 	SkyrimOnline::SkyrimOnline()
-		:mUI(Overlay::Interface::GetInstance()), mInput(*this),mMode(true)
+		:mUI(Overlay::Interface::GetInstance()),mMode(true)
 	{
 		_trace
 
+		InputHook::GetInstance()->SetListener(this);
 		mUI->Acquire();
 
 		Crypt::RSA::Init();
@@ -167,6 +168,12 @@ namespace Skyrim
 		TheMassiveMessageMgr->BeginMultiplayer(false);
 	}
 	//--------------------------------------------------------------------------------
+	void SkyrimOnline::OnHost()
+	{
+		TheMassiveMessageMgr->SetPort(kGamePort);
+		TheMassiveMessageMgr->BeginMultiplayer(true);
+	}
+	//--------------------------------------------------------------------------------
 	void SkyrimOnline::Run()
 	{
 		mRun = true;
@@ -179,8 +186,6 @@ namespace Skyrim
 			SetRendering(clock());
 			uint32_t delta = uint32_t(mTimer.elapsed() * 1000);
 			mTimer.restart();
-
-			mInput.Update();
 
 			TheMassiveMessageMgr->Update();
 			if(mCurrentState)
@@ -196,16 +201,18 @@ namespace Skyrim
 		if(mMode)
 		{
 			// In game mode -> enable controls
-			::Game::EnablePlayerControls(true,true,true,true,true,true,true,true,1);
-			::Game::SetInChargen(false, false, true);
+			//::Game::EnablePlayerControls(true,true,true,true,true,true,true,true,1);
+			//::Game::SetInChargen(false, false, true);
 			mUI->SetCursor(false);
 		}
 		else
 		{
 			// In UI mode -> disable controls
-			::Game::DisablePlayerControls(true,true,true,true,true,true,true,true,1);
+			//::Game::DisablePlayerControls(true,true,true,true,true,true,true,true,1);
 			mUI->SetCursor(true);
 		}
+
+		InputHook::GetInstance()->SetInputEnabled(mMode);
 	}
 	//--------------------------------------------------------------------------------
 	void SkyrimOnline::SetRendering(unsigned int rendering)
@@ -227,7 +234,6 @@ namespace Skyrim
 	//--------------------------------------------------------------------------------
 	void SkyrimOnline::Setup()
 	{
-		//mStates["Login"].reset(new Logic::State::Login);
 		mStates["ShardList"].reset(new Logic::State::ShardList);
 		mStates["InGame"].reset(new Logic::State::InGame);
 
@@ -258,7 +264,9 @@ namespace Skyrim
 	//--------------------------------------------------------------------------------
 	std::vector<::Game::IGOMServer*> SkyrimOnline::ConstructGOMServers(void*)
 	{
-		return std::vector<::Game::IGOMServer*>();
+		std::vector<::Game::IGOMServer*> gomServers;
+
+		return gomServers;
 	}
 	//--------------------------------------------------------------------------------
 }

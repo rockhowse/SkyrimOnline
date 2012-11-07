@@ -11,7 +11,7 @@
 namespace Skyrim
 {
 	class SkyrimOnline
-		: public Engine::InputManager::Listener
+		: public InputListener
 	{
 	public:
 
@@ -37,6 +37,7 @@ namespace Skyrim
 
 		// UI events
 		void OnShardPick(const std::string& pAddress);
+		void OnHost();
 
 		// Singleton
 		static SkyrimOnline& GetInstance();
@@ -71,7 +72,6 @@ namespace Skyrim
 
 		//< Note order is important, gui first !
 		Overlay::Interface* mUI;
-		Engine::InputManager mInput;
 
 		bool mMode;
 		bool mRun;

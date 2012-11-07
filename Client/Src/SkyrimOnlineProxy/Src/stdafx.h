@@ -16,6 +16,8 @@
 #include <windows.h>
 #include <Winuser.h>
 #include <d3d9.h>
+#include <dinput.h>
+#include <detours.h>
 
 #pragma warning( disable : 4251 )
 #pragma warning( disable : 4244 )
