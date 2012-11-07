@@ -1,4 +1,5 @@
 #include <stdafx.h>
+#include <Logic/Session.h>
 #include <Logic/States/InGame.hpp>
 #include <GameWorld.h>
 
@@ -32,6 +33,8 @@ namespace Skyrim
 			{
 				mChat->Show();
 
+				auto session = reinterpret_cast<Logic::Session*>(TheMassiveMessageMgr->GetLocalPlayer());
+				session->OnChatMessage.connect(boost::bind(&InGame::OnRemoteChatMessage, this, _1));
 				TheGameWorld->SetMode(true);
 			}
 			//--------------------------------------------------------------------------------

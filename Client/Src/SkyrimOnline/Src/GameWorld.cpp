@@ -28,7 +28,7 @@ namespace Skyrim
 		TheMassiveMessageMgr->SetGOMServerConstructor(::Game::GameServer::GOMServerConstructor(&GameWorld::ConstructGOMServers));
 		TheMassiveMessageMgr->SetPlayerConstructor(::Game::GameServer::PlayerConstructor(&GameWorld::ConstructPlayer));
 
-		SetUser(EasySteam::Interface::GetInstance().GetUser()->GetPersonaName());
+		SetUser(EasySteam::Interface::GetInstance()->GetUser()->GetPersonaName());
 	}
 	//--------------------------------------------------------------------------------
 	GameWorld::~GameWorld()
@@ -99,37 +99,51 @@ namespace Skyrim
 	void GameWorld::OnMouseMove(unsigned int x, unsigned int y, unsigned int z)
 	{
 		if(!mMode)
-			Overlay::TheSystem->MouseMove(x,y,z);
+		{
+			boost::mutex::scoped_lock _(mInputGuard);
+			mX = x;
+			mY = y;
+			mZ = z;
+		}
 	}
 	//--------------------------------------------------------------------------------
 	void GameWorld::OnMousePress(BYTE code)
 	{
-		if(!mMode)
-			Overlay::TheSystem->InjectMouse(code,true);
+		//if(!mMode)
+		{
+			boost::mutex::scoped_lock _(mInputGuard);
+			ButtonEvent e = {code, true, true};
+			mButtons.push_back(e);
+		}
 	}
 	//--------------------------------------------------------------------------------
 	void GameWorld::OnMouseRelease(BYTE code)
 	{
-		if(!mMode)
-			Overlay::TheSystem->InjectMouse(code,false);
+		//if(!mMode)
+		{
+			boost::mutex::scoped_lock _(mInputGuard);
+			ButtonEvent e = {code, true, false};
+			mButtons.push_back(e);
+		}
 	}
 	//--------------------------------------------------------------------------------
 	void GameWorld::OnPress(BYTE code)
 	{
-		if(!mMode)
-			Overlay::TheSystem->Inject(code,true);
+		//if(!mMode)
+		{
+			boost::mutex::scoped_lock _(mInputGuard);
+			ButtonEvent e = {code, false, true};
+			mButtons.push_back(e);
+		}
 	}
 	//--------------------------------------------------------------------------------
 	void GameWorld::OnRelease(BYTE code)
 	{
-		if(!mMode)
-			Overlay::TheSystem->Inject(code,false);
-		if(mCurrentState && mCurrentState->IsSwitchingAllowed())
+		//if(!mMode)
 		{
-			if(code == DIK_F3)
-			{
-				SwitchMode();
-			}
+			boost::mutex::scoped_lock _(mInputGuard);
+			ButtonEvent e = {code, false, false};
+			mButtons.push_back(e);
 		}
 	}
 	//--------------------------------------------------------------------------------
@@ -145,6 +159,33 @@ namespace Skyrim
 			SetRendering(clock());
 			uint32_t delta = uint32_t(mTimer.elapsed() * 1000);
 			mTimer.restart();
+
+			{
+				boost::mutex::scoped_lock _(mInputGuard);
+				Overlay::TheSystem->MouseMove(mX,mY,mZ);
+				for(auto itor = mButtons.begin(), end = mButtons.end(); itor != end; ++itor)
+				{
+					if(itor->mouse)
+					{
+						if(!mMode)
+							Overlay::TheSystem->InjectMouse(itor->key,itor->pressed);
+					}
+					else
+					{
+						if(mCurrentState && mCurrentState->IsSwitchingAllowed())
+						{
+							if(itor->key == DIK_F3 && itor->pressed == false)
+							{
+								SwitchMode();
+							}
+						}
+						if(!mMode)
+							Overlay::TheSystem->Inject(itor->key, itor->pressed);
+					}
+				}
+				mButtons.clear();
+			}
+			
 
 			TheMassiveMessageMgr->Update();
 			if(mCurrentState)

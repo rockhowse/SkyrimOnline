@@ -55,6 +55,13 @@ namespace Skyrim
 		static ::Game::Player* ConstructPlayer(::Game::Player::KeyType id, ::Game::GameServer* server);
 		static std::vector<::Game::IGOMServer*> ConstructGOMServers(void*);
 
+		struct ButtonEvent
+		{
+			uint8_t key;
+			bool mouse;
+			bool pressed;
+		};
+
 	private:
 
 		bool mMode;
@@ -76,6 +83,10 @@ namespace Skyrim
 		//< Game states
 		boost::shared_ptr<Logic::GameState> mCurrentState;
 		std::map<std::string, boost::shared_ptr<Logic::GameState>> mStates;
+
+		boost::mutex mInputGuard;
+		std::list<ButtonEvent> mButtons;
+		uint32_t mX,mY,mZ;
 	};
 
 	extern GameWorld* TheGameWorld;

@@ -81,7 +81,7 @@ __declspec(dllexport) void main()
 			}
 		}
 
-		if(!EasySteam::Interface::GetInstance().GetUser()->IsLoggedOn())
+		if(!EasySteam::Interface::GetInstance() || !EasySteam::Interface::GetInstance()->GetUser()->IsLoggedOn())
 		{
 			Debug::ShowMessageBox("Unable to retrieve steam.");
 			return;
