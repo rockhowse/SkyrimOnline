@@ -67,6 +67,7 @@ public:
 	myDirectInputDevice(IDirectInputDevice8 * device, bool keyboard)
 		:mRealDevice(device), mKeyboard(keyboard)
 	{
+		memset(mBuffer, 0, 256);
 	}
 
 	HRESULT _stdcall QueryInterface (REFIID riid, LPVOID * ppvObj)
@@ -101,16 +102,16 @@ public:
 
 	HRESULT _stdcall GetDeviceState(DWORD outDataLen, LPVOID outData)
 	{
-
 		if(mKeyboard)
 		{
 			uint8_t	buffer[256] = {0};
 			HRESULT ret = mRealDevice->GetDeviceState(256, buffer);
+			if(ret != DI_OK) 
+				return ret;
 
 			for(auto i = 0 ; i < 256; ++i)
 			{
-				char state = buffer[i];
-				if(state != mBuffer[i])
+				if(buffer[i] != mBuffer[i])
 				{
 					mBuffer[i] = buffer[i];
 					if(buffer[i] & 0x80)
@@ -129,9 +130,6 @@ public:
 			if(InputHook::GetInstance()->IsInputEnabled() == false)
 				memset(buffer, 0, 256);
 
-			if(ret != DI_OK) 
-				return ret;
-
 			memcpy(outData, buffer, outDataLen < 256 ? outDataLen : 256);
 
 			return ret;
@@ -144,6 +142,9 @@ public:
 				InputHook::GetInstance()->GetListener()->OnMouseMove(pos.x,pos.y,0);
 
 			HRESULT ret = mRealDevice->GetDeviceState(outDataLen, outData);
+			if(ret != DI_OK) 
+				return ret;
+
 			DIMOUSESTATE2* mouseState = (DIMOUSESTATE2*)outData;
 			for(auto i = 0; i < 4; ++i)
 			{
@@ -163,26 +164,33 @@ public:
 					}
 				}
 			}
-			if(ret != DI_OK) return ret;
-
 			return ret;
 		}
 	}
 
 	HRESULT _stdcall GetDeviceData(DWORD dataSize, DIDEVICEOBJECTDATA * outData, DWORD * outDataLen, DWORD flags)
 	{
-		if(mKeyboard)
+		HRESULT ret = mRealDevice->GetDeviceData(dataSize, outData, outDataLen, flags);
+		for(auto i = 0 ; i < *outDataLen; ++i)
 		{
-			uint8_t	buffer[256];
-			HRESULT	ret = GetDeviceState(256, buffer);
-
-			if(InputHook::GetInstance()->IsInputEnabled() == false)
-				return ret;
-
-			return mRealDevice->GetDeviceData(dataSize, outData, outDataLen, flags);
+			if(outData[i].dwData & 0x80)
+			{
+				if(InputHook::GetInstance()->GetListener())
+					InputHook::GetInstance()->GetListener()->OnPress(outData[i].dwOfs);
+			}
+			else
+			{
+				if(InputHook::GetInstance()->GetListener())
+					InputHook::GetInstance()->GetListener()->OnRelease(outData[i].dwOfs);
+			}
+		}
+		if(InputHook::GetInstance()->IsInputEnabled() == false)
+		{
+			*outDataLen = 0;
 		}
 
-		return mRealDevice->GetDeviceData(dataSize, outData, outDataLen, flags);
+
+		return ret;
 	}
 
 	HRESULT _stdcall SetDataFormat(const DIDATAFORMAT* a) { return mRealDevice->SetDataFormat(a); }
@@ -296,7 +304,7 @@ void LoadRealLibrary()
 	// Append dll name
 	strcat(buffer,"\\dinput8.dll");
 
-	if(!g_directInput) g_directInput = ::LoadLibraryA(buffer);
+	if(!g_directInput) g_directInput = ::LoadLibraryA("dinput8.dll");
 }
 
 void HookDInput()

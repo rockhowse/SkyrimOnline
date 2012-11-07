@@ -35,10 +35,6 @@ namespace Skyrim
 		void OnConnect(bool);
 		void OnError(const std::string&);
 
-		// UI events
-		void OnShardPick(const std::string& pAddress);
-		void OnHost();
-
 		Game::ControllerManager& GetControllerManager();
 		TimeManager& GetTimeManager();
 		WeatherManager& GetWeatherManager();

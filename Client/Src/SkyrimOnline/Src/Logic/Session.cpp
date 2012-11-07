@@ -17,6 +17,10 @@ namespace Skyrim
 			::Game::Player::Register(kServerServiceResponse, &Session::HandleServiceResponse);
 			::Game::Player::Register(kServerMount, &Session::HandleMount);
 			::Game::Player::Register(kServerUnmount, &Session::HandleUnmount);
+
+			// Server side
+			::Game::Player::Register(kClientChatMessage, &Session::HandleChatMessage);
+			
 		}
 		//--------------------------------------------------------------------------------
 		Session::Session(unsigned int id, ::Game::GameServer* server) : ::Game::Player(id, server) 

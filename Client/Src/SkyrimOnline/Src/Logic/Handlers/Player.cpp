@@ -13,7 +13,15 @@ namespace Skyrim
 		//--------------------------------------------------------------------------------
 		void Session::HandleChatMessage(Packet& data)
 		{
-			try{
+			_trace
+			try
+			{
+				if(data.Opcode == kClientChatMessage)
+				{
+					data.Opcode = kServerChatMessage;
+					TheMassiveMessageMgr->SendMessageAll(data);
+					return;
+				}
 				std::string msg;
 				data >> msg;
 				OnChatMessage(msg);

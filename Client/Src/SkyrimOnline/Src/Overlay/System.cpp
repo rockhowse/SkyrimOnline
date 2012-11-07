@@ -88,7 +88,6 @@ namespace Skyrim
 			{
 				Framework::System::Log::Error("Unable to grab directx !");
 				Framework::System::Log::Flush();
-				exit(-1);
 			}
 		}
 		//--------------------------------------------------------------------------------

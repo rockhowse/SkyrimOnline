@@ -1,6 +1,7 @@
 #include "stdafx.h"
 #include <GameWorld.h>
 #include <Script/Online.h>
+#include <Logic/Session.h>
 
 int GenerateDump(EXCEPTION_POINTERS* pExceptionPointers)
 {
@@ -41,6 +42,19 @@ int GenerateDump(EXCEPTION_POINTERS* pExceptionPointers)
 void Init()
 {
 	System::Log::Create("GameWorldClient.log");
+	Skyrim::Logic::Session::Init();
+}
+
+void ShowVersion()
+{
+	std::ostringstream os;
+	os << "You need the game in 1.8.151.0 to play Skyrim Online. Hash dump : " << std::hex << *(DWORD *)(0x00DDDC00);
+	Debug::ShowMessageBox((char*)os.str().c_str());
+}
+
+void NewInstance()
+{
+	Skyrim::TheGameWorld = new Skyrim::GameWorld;
 }
 
 __declspec(dllexport) void main()
@@ -50,14 +64,19 @@ __declspec(dllexport) void main()
 	{
 		switch ( *(DWORD *)(0x00DDDC00) ) 
 		{
-		case 0x508B018B : // 1.7.7.0 ( 2012)
+		/*case 0x508B018B : // 1.7.7.0 (2012)
+			{
+				break;
+			}
+			*/
+		case 0x5FFFF2DD : // 1.8.151.0 (2012)
 			{
 				break;
 			}
 
 		default :
 			{
-				Debug::ShowMessageBox("You need the game in 1.7.7.0 to play GameWorld.");
+				ShowVersion();
 				return;
 			}
 		}
@@ -79,6 +98,7 @@ __declspec(dllexport) void main()
 			if(GetKeyPressed(VK_F3))
 			{
 				onlineMod = true;
+				NewInstance();
 				Skyrim::TheGameWorld->Setup();
 				break;
 			}

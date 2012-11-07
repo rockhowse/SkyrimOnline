@@ -18,6 +18,7 @@ namespace Skyrim
 		_trace
 		Overlay::TheSystem = new Overlay::System;
 		Overlay::TheMessage = Overlay::TheSystem->Instantiate<Overlay::Message>();
+		Overlay::TheMessage->Hide();
 
 		InputHook::GetInstance()->SetListener(this);
 		Overlay::TheSystem->Acquire();
@@ -132,22 +133,6 @@ namespace Skyrim
 		}
 	}
 	//--------------------------------------------------------------------------------
-	void GameWorld::OnShardPick(const std::string& pAddress)
-	{
-		Overlay::TheMessage->SetCaption("Connecting to the World !");
-		Overlay::TheMessage->Show();
-
-		TheMassiveMessageMgr->SetAddress("127.0.0.1");
-		TheMassiveMessageMgr->SetPort(kGamePort);
-		TheMassiveMessageMgr->BeginMultiplayer(false);
-	}
-	//--------------------------------------------------------------------------------
-	void GameWorld::OnHost()
-	{
-		TheMassiveMessageMgr->SetPort(kGamePort);
-		TheMassiveMessageMgr->BeginMultiplayer(true);
-	}
-	//--------------------------------------------------------------------------------
 	void GameWorld::Run()
 	{
 		mRun = true;
@@ -175,14 +160,14 @@ namespace Skyrim
 		if(mMode)
 		{
 			// In game mode -> enable controls
-			//::Game::EnablePlayerControls(true,true,true,true,true,true,true,true,1);
-			//::Game::SetInChargen(false, false, true);
+			::Game::EnablePlayerControls(true,true,true,true,true,true,true,true,1);
+			::Game::SetInChargen(false, false, true);
 			Overlay::TheSystem->SetCursor(false);
 		}
 		else
 		{
 			// In UI mode -> disable controls
-			//::Game::DisablePlayerControls(true,true,true,true,true,true,true,true,1);
+			::Game::DisablePlayerControls(true,true,true,true,true,true,true,true,1);
 			Overlay::TheSystem->SetCursor(true);
 		}
 
