@@ -52,8 +52,21 @@ namespace Skyrim
 		void Session::OnSynchronize()
 		{
 			Framework::Network::Packet packet(kClientInitialData);
-			packet << TheGameWorld->GetUser();
-			TheMassiveMessageMgr->SendMessageTo(::Game::kPlayerServer, packet);
+
+			packet << TheGameWorld->GetUser()
+				   << TheGameWorld->GetPlayerCharacter().GetAllWornForms()
+				   << TheGameWorld->GetPlayerCharacter().GetFaceMorph()
+				   << TheGameWorld->GetPlayerCharacter().GetRace()
+				   << TheGameWorld->GetPlayerCharacter().GetGender()
+				   << TheGameWorld->GetPlayerCharacter().GetLevel()
+				   << TheGameWorld->GetPlayerCharacter().GetPosX()
+				   << TheGameWorld->GetPlayerCharacter().GetPosY()
+				   << TheGameWorld->GetPlayerCharacter().GetPosZ()
+				   << TheGameWorld->GetPlayerCharacter().GetRotX()
+				   << TheGameWorld->GetPlayerCharacter().GetRotY()
+				   << TheGameWorld->GetPlayerCharacter().GetRotZ();
+
+			//TheMassiveMessageMgr->SendMessageTo(::Game::kPlayerServer, packet);
 		}
 		//--------------------------------------------------------------------------------
 		std::string Session::GetName()

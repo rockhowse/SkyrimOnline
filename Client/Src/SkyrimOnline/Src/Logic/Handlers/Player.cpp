@@ -40,9 +40,6 @@ namespace Skyrim
 		{
 			try
 			{
-				
-
-				OnSpawn();
 			}
 			catch(boost::exception& e)
 			{

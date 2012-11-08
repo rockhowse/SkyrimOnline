@@ -9,7 +9,7 @@ struct FuncWrapper
 //typedef void *(*dyncast_t)(void* obj, uint32_t __idc0, const void* type, const void* target, uint32_t __idc1);
 
 typedef FuncWrapper<void* (void*, uint32_t, const void*, const void*, uint32_t)>::type dyncast_t;
-static const dyncast_t dyncast_r  = (dyncast_t)0x00F510AE;
+static const dyncast_t dyncast_r  = (dyncast_t)0x00F50F7E;
 
 #define rtti_offset(name, offset) static void* freeRTTI_ ## name = (void*)offset
 
@@ -25,5 +25,3 @@ rtti_offset(Actor, 0x0123DA2C);
 #undef  rtti_offset
 
 #define rtti_cast(obj,type,target) (::FreeScript::## target*)dyncast_r((void*)obj, 0, freeRTTI_ ## type, freeRTTI_ ## target, 0)
-
-//#define DYNAMIC_CAST(obj, from, to) ( ## to *) Runtime_DynamicCast((void*)(obj), 0, RTTI_ ## from, RTTI_ ## to, 0)

@@ -5,6 +5,6 @@ namespace FreeScript
 {
 	DataHolder* DataHolder::GetInstance()
 	{
-		return *((DataHolder**)0x0128A348);
+		return *((DataHolder**)0x012E1EB8);
 	}
 }

@@ -48,6 +48,8 @@ namespace FreeScript
 		uint32_t GetRace();
 		uint32_t GetLevel();
 
+		void SetLevel(uint32_t level);
+
 		const std::vector<float>&		GetFaceMorph();
 		void							SetFaceMorph(const std::vector<float>& pFaceMorph);
 

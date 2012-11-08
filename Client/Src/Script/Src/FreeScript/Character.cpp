@@ -92,7 +92,7 @@ namespace FreeScript
 	//--------------------------------------------------------------------------------
 	uint32_t Character::GetGender()
 	{
-		return ActorBase::GetSex(FreeScript::ActorHelper(mActor).GetNpc());
+		return ((uint8_t(__thiscall*)(FreeScript::TESNPC*))0x0055ABD0)(FreeScript::ActorHelper(mActor).GetNpc());
 	}
 	//--------------------------------------------------------------------------------
 	const std::vector<float>& Character::GetFaceMorph()
@@ -106,6 +106,11 @@ namespace FreeScript
 		mFaceMorph = pFaceMorphs;
 		FreeScript::TESNPCHelper(FreeScript::ActorHelper(mActor).GetNpc()).SetFaceMorph(pFaceMorphs);
 		this->QueueNiNodeUpdate();
+	}
+	//--------------------------------------------------------------------------------
+	void Character::SetLevel(uint32_t level)
+	{
+		
 	}
 	//--------------------------------------------------------------------------------
 	void Character::EquipItems(std::vector<uint32_t> wornForms)
