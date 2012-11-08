@@ -43,7 +43,7 @@
       <IntrinsicFunctions>false</IntrinsicFunctions>
       <PreprocessorDefinitions>WIN32;NDEBUG;_WINDOWS;_USRDLL;_WINDLL;%(PreprocessorDefinitions)</PreprocessorDefinitions>
       <AdditionalOptions>/Zm250 %(AdditionalOptions)</AdditionalOptions>
-      <AdditionalIncludeDirectories>$(DXSDK_DIR)\Include;$(SolutionDir)\..\..\..\Dependencies\include\Steamworks;$(SolutionDir)\..\..\..\Dependencies\include\MyGUI;$(SolutionDir)\..\..\..\Dependencies\include\Framework;$(SolutionDir)\..\..\EasySteam\EasySteam;$(SolutionDir)\..\..\..\Framework\Src;$(SolutionDir)\..\..\..\Dependencies\include;.\Src\common;.\Src\;$(SolutionDir)\..\Common;$(SolutionDir)\Src\Script\Src;$(SolutionDir)\Src\Script\Src\exports;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+      <AdditionalIncludeDirectories>$(DXSDK_DIR)\Include;$(SolutionDir)\..\..\..\Dependencies\include\Steamworks;$(SolutionDir)\..\..\..\Dependencies\include\MyGUI;$(SolutionDir)\..\..\EasySteam\EasySteam;$(SolutionDir)\..\..\..\Framework\Src;$(SolutionDir)\..\..\..\Dependencies\include;.\Src\common;.\Src\;$(SolutionDir)\..\Common;$(SolutionDir)\Src\Script\Src;$(SolutionDir)\Src\Script\Src\exports;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
       <ObjectFileName>$(IntDir)/%(RelativeDir)/</ObjectFileName>
       <InlineFunctionExpansion>Default</InlineFunctionExpansion>
       <FavorSizeOrSpeed>Neither</FavorSizeOrSpeed>
