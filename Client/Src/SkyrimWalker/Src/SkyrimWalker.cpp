@@ -3,6 +3,7 @@
 
 using namespace pe_bliss;
 
+
 SkyrimWalker::SkyrimWalker()
 {
 	std::ifstream file("TESV.exe", std::ios::binary);
@@ -11,7 +12,6 @@ SkyrimWalker::SkyrimWalker()
 
 	pe_base image(pe_factory::create_pe(file));
 	auto sections = image.get_image_sections();
-	section dataSection;
 
 	uint64_t imageBase = image.get_image_base_64();
 
@@ -19,13 +19,19 @@ SkyrimWalker::SkyrimWalker()
 	{
 		if((*itor).get_name() == std::string(".data"))
 		{
-			dataSection = *itor;
-			break;
+			mDataContent = itor->get_raw_data();
+			mDataBaseAddr = itor->get_virtual_address() + imageBase;
+		}
+		else if((*itor).get_name() == std::string(".text"))
+		{
+			mTextContent = itor->get_raw_data();
+			mTextBaseAddr = itor->get_virtual_address() + imageBase;
 		}
 	}
-	mContent = dataSection.get_raw_data();
-	mBaseAddr = dataSection.get_virtual_address() + imageBase;
+
+	FindDyncast();
 }
+	
 
 SkyrimWalker::~SkyrimWalker()
 {
@@ -34,11 +40,13 @@ SkyrimWalker::~SkyrimWalker()
 
 std::string SkyrimWalker::WalkRTTI()
 {
-	uint32_t pat = *(uint32_t*)&mContent[0];
+	uint32_t pat = *(uint32_t*)&mDataContent[0];
 	std::string pattern;
 	pattern.append((char*)&pat, 4);
 
 	std::ostringstream os;
+
+	os << std::hex << "static const dyncast_t dyncast_r  = (dyncast_t)0x" << FindDyncast() << ";" << std::endl << std::endl;
 
 	size_t offset = 0;
 	size_t rttiValue = Find(pattern);
@@ -48,15 +56,15 @@ std::string SkyrimWalker::WalkRTTI()
 		size_t del = Find("@@");
 		if(del > symbol)
 		{
-			std::string symbolName = mContent.substr(symbol + 4, del - symbol - 4);
+			std::string symbolName = mDataContent.substr(symbol + 4, del - symbol - 4);
 			if(symbolName[0] != '?' && symbolName.find("@") == std::string::npos)
 			{
-				os <<  "rtti_offset(" << symbolName << ", 0x" << std::hex << rttiValue + offset + mBaseAddr << ");" << std::endl;
+				os <<  "rtti_offset(" << symbolName << ", 0x" << std::hex << rttiValue + offset + mDataBaseAddr << ");" << std::endl;
 			}
 		}
 		
 		offset += del + 3;
-		mContent.erase(0 , del + 3);
+		mDataContent.erase(0 , del + 3);
 
 		rttiValue = Find(pattern);
 		symbol = Find(".?AV");
@@ -66,5 +74,20 @@ std::string SkyrimWalker::WalkRTTI()
 
 size_t SkyrimWalker::Find(const std::string& pPattern)
 {
-	return mContent.find(pPattern);
+	return mDataContent.find(pPattern);
+}
+
+#define XCMP(offset, c) (*(uint8_t*)&mTextContent[i + offset] == c)
+
+size_t SkyrimWalker::FindDyncast()
+{
+	for(auto i = 0; i < mTextContent.size() - 0xF; ++i)
+	{
+		if(XCMP(0, 0x6A) && XCMP(1, 0x18) && XCMP(2, 0x68) && XCMP(7, 0xE8)
+			&& XCMP(0xC, 0x8B) && XCMP(0xD, 0x75)&& XCMP(0xE, 0x08))
+		{
+			return i + mTextBaseAddr;
+		}
+	}
+	return -1;
 }
