@@ -15,7 +15,6 @@ namespace Skyrim
 		//--------------------------------------------------------------------------------
 		void Session::HandleInitialData(Network::Packet& pPacket)
 		{
-			_trace
 			std::vector<float> faceMorphs;
 			std::vector<uint32_t> wornForms;
 			float px, py, pz, rx, ry, rz;
