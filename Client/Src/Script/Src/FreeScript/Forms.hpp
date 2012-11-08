@@ -43,7 +43,9 @@ namespace FreeScript
 			Bosmer
 		};
 
-		char pad014to2bc[0x2bc - 0x14];
+		char pad014to024[0x24 - 0x14];
+		uint8_t gender; // 24
+		char pad025to2bc[0x2bc - 0x25];
 	};
 
 	class TESRaceForm : public ::FreeScript::BaseFormComponent

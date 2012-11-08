@@ -5,11 +5,11 @@
 namespace FreeScript
 {
 	class TESNPC;
-	class DataHolder
+	class TESDataHandler
 	{
 	public:
 
-		static DataHolder* GetInstance();
+		static TESDataHandler* GetInstance();
 
 		char pad00to20c[0x20c];
 		Vector<TESNPC*>	mNpcs;

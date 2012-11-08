@@ -3,8 +3,8 @@
 
 namespace FreeScript
 {
-	DataHolder* DataHolder::GetInstance()
+	TESDataHandler* TESDataHandler::GetInstance()
 	{
-		return *((DataHolder**)0x012E1EB8);
+		return *((TESDataHandler**)0x12e1eb8);
 	}
 }

@@ -16,9 +16,9 @@ void RunActorDump()
 			OUTPUT << std::hex << f->formID << std::endl;
 	}
 
-	for(uint32_t i = 0, size = FreeScript::DataHolder::GetInstance()->mNpcs.size; i != size; ++i)
+	for(uint32_t i = 0, size = FreeScript::TESDataHandler::GetInstance()->mNpcs.size; i != size; ++i)
 	{
-		RUN_TEST(TESNPCHelper(FreeScript::DataHolder::GetInstance()->mNpcs[i]).GetDebugName())
+		RUN_TEST(TESNPCHelper(FreeScript::TESDataHandler::GetInstance()->mNpcs[i]).GetDebugName())
 	}
 
 	for(uint32_t i = 0, size = player->parentCell->childList.size; i != size; ++i)

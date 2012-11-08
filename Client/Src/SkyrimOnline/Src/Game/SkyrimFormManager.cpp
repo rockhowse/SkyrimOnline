@@ -17,9 +17,9 @@ namespace Skyrim
 				mUsedOffsets[i] = false;
 			}
 
-			for(uint32_t i = 0, size = FreeScript::DataHolder::GetInstance()->mNpcs.size; i != size; ++i)
+			for(uint32_t i = 0, size = FreeScript::TESDataHandler::GetInstance()->mNpcs.size; i != size; ++i)
 			{
-				auto npc = FreeScript::DataHolder::GetInstance()->mNpcs[i];
+				auto npc = FreeScript::TESDataHandler::GetInstance()->mNpcs[i];
 				if(FreeScript::TESNPCHelper(npc).GetName().find("GameWorldBaseAddr") != std::string::npos)
 				{
 					mBaseAddr = npc->formID + 1; 

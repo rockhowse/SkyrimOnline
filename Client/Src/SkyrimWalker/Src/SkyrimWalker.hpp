@@ -8,12 +8,13 @@ public:
 	~SkyrimWalker();
 
 	std::string WalkRTTI();
-	
+	std::string WalkSingletons();
 
 protected:
 
 	size_t Find(const std::string& pPattern);
 	size_t FindDyncast();
+	size_t FindDataHandler();
 
 private:
 

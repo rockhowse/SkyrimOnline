@@ -28,14 +28,23 @@ SkyrimWalker::SkyrimWalker()
 			mTextBaseAddr = itor->get_virtual_address() + imageBase;
 		}
 	}
-
-	FindDyncast();
 }
 	
 
 SkyrimWalker::~SkyrimWalker()
 {
 
+}
+
+std::string SkyrimWalker::WalkSingletons()
+{
+	std::ostringstream os;
+	os << "TESDataHandler* TESDataHandler::GetInstance()" << std::endl
+	<< "{\n"
+		<< "\treturn *((TESDataHandler**)0x" << std::hex << FindDataHandler() << ");\n"
+	<< "}";
+
+	return os.str();
 }
 
 std::string SkyrimWalker::WalkRTTI()
@@ -87,6 +96,19 @@ size_t SkyrimWalker::FindDyncast()
 			&& XCMP(0xC, 0x8B) && XCMP(0xD, 0x75)&& XCMP(0xE, 0x08))
 		{
 			return i + mTextBaseAddr;
+		}
+	}
+	return -1;
+}
+
+size_t SkyrimWalker::FindDataHandler()
+{
+	for(auto i = 0; i < mTextContent.size() - 0xF; ++i)
+	{
+		if(XCMP(0, 0X85) && XCMP(1, 0xED) && XCMP(2, 0x74) && XCMP(3, 0x15)
+			&& XCMP(4, 0x8B) && XCMP(5, 0x45)&& XCMP(6, 0x0C)  && XCMP(7, 0x8B)&& XCMP(8, 0xD))
+		{
+			return *(uint32_t*)&mTextContent[i + 9];
 		}
 	}
 	return -1;
