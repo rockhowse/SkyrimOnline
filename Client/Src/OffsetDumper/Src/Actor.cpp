@@ -9,6 +9,8 @@ void RunActorDump()
 	std::vector<float> forms;
 	std::vector<uint32_t> worn;
 
+	FreeScript::QueueNiNodeUpdate(player);
+
 	for(auto i = 0; i < 31; ++i)
 	{
 		auto f = FreeScript::GetWornForm(player, 1 << i);
