@@ -72,6 +72,9 @@ namespace Skyrim
 			boost::signal<void()>					OnHost;
 
 		private:
+
+			void OnResolveIP(const std::string& pData);
+
 			//--------------------------------------------------------------------------------
 			/// @brief The console's list box
 			//--------------------------------------------------------------------------------
@@ -79,6 +82,9 @@ namespace Skyrim
 			MyGUI::StaticTextPtr		mText;
 			MyGUI::ButtonPtr			mButton;
 			MyGUI::ButtonPtr			mHostButton;
+
+			MyGUI::StaticTextPtr		mLocalIP;
+			MyGUI::StaticTextPtr		mPublicIP;
 			//--------------------------------------------------------------------------------
 			/// @brief The console's edit box
 			//--------------------------------------------------------------------------------
