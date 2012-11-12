@@ -67,7 +67,7 @@ namespace Skyrim
 				   << TheGameWorld->GetPlayerCharacter().GetRotY()
 				   << TheGameWorld->GetPlayerCharacter().GetRotZ();
 
-			TheMassiveMessageMgr->SendMessageTo(::Game::kPlayerServer, packet);
+			//TheMassiveMessageMgr->SendMessageTo(::Game::kPlayerServer, packet);
 		}
 		//--------------------------------------------------------------------------------
 		std::string Session::GetName()

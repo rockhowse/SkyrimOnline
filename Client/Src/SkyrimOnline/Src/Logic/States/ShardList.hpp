@@ -18,6 +18,7 @@ namespace Skyrim
 				void OnEnter();
 				void OnLeave();
 				void OnUpdate(uint32_t pDelta);
+				void OnConnect(bool pConnected);
 
 				void OnShardPick(const std::string& pShard);
 				void OnHost();

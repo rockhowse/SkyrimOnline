@@ -18,6 +18,8 @@ namespace Skyrim
 				mShardList->Hide();
 				mShardList->OnHost.connect(boost::bind(&ShardList::OnHost, this));
 				mShardList->OnShardPick.connect(boost::bind(&ShardList::OnShardPick, this, _1));
+
+				TheMassiveMessageMgr->OnConnection.connect(boost::bind(&ShardList::OnConnect, this, _1));
 			}
 			//--------------------------------------------------------------------------------
 			ShardList::~ShardList()
@@ -48,12 +50,17 @@ namespace Skyrim
 			void ShardList::OnShardPick(const std::string& pShard)
 			{
 				System::Log::Debug(std::string("Shard picked : ") + pShard);
-				Overlay::TheMessage->SetCaption("Joining is disabled for now !");
-				Overlay::TheMessage->Show();
+				/*Overlay::TheMessage->SetCaption("Joining is disabled for now !");
+				Overlay::TheMessage->Show();*/
 
-				/*TheMassiveMessageMgr->SetAddress(pShard);
+				mShardList->Hide();
+
+				Overlay::TheMessage->SetCaption("Connecting...");
+				Overlay::TheMessage->SetVisible(true);
+
+				TheMassiveMessageMgr->SetAddress(pShard);
 				TheMassiveMessageMgr->SetPort(kGamePort);
-				TheMassiveMessageMgr->BeginMultiplayer(false);*/
+				TheMassiveMessageMgr->BeginMultiplayer(false);
 			}
 			//--------------------------------------------------------------------------------
 			void ShardList::OnHost()
@@ -64,6 +71,20 @@ namespace Skyrim
 				TheMassiveMessageMgr->BeginMultiplayer(true);
 
 				TheGameWorld->SetState("InGame");
+			}
+			//--------------------------------------------------------------------------------
+			void ShardList::OnConnect(bool pConnected)
+			{
+				if(!pConnected)
+				{
+					Overlay::TheMessage->SetCaption("Failed to connect...");
+					Overlay::TheMessage->SetVisible(true);
+					mShardList->Show();
+				}
+				else
+				{
+					TheGameWorld->SetState("InGame");
+				}
 			}
 			//--------------------------------------------------------------------------------
 			bool ShardList::IsSwitchingAllowed()
