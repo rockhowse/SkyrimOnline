@@ -17,6 +17,8 @@ Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "OffsetDumper", "Src\OffsetD
 EndProject
 Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "SkyrimWalker", "Src\SkyrimWalker\SkyrimWalker.vcxproj", "{B2F2306E-697F-4336-86AF-DF3A1E959626}"
 EndProject
+Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "ClientTest", "Src\ClientTest\ClientTest.vcxproj", "{90337DC7-FFF9-49F4-87A4-AA27EA43E01D}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Release|Win32 = Release|Win32
@@ -38,6 +40,9 @@ Global
 		{B2F2306E-697F-4336-86AF-DF3A1E959626}.Release|Win32.ActiveCfg = Release|Win32
 		{B2F2306E-697F-4336-86AF-DF3A1E959626}.Release|Win32.Build.0 = Release|Win32
 		{B2F2306E-697F-4336-86AF-DF3A1E959626}.Release|x64.ActiveCfg = Release|Win32
+		{90337DC7-FFF9-49F4-87A4-AA27EA43E01D}.Release|Win32.ActiveCfg = Release|Win32
+		{90337DC7-FFF9-49F4-87A4-AA27EA43E01D}.Release|Win32.Build.0 = Release|Win32
+		{90337DC7-FFF9-49F4-87A4-AA27EA43E01D}.Release|x64.ActiveCfg = Release|Win32
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

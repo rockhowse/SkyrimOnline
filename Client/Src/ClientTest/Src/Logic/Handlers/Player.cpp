@@ -2,8 +2,6 @@
 #include "stdafx.h"
 #include <Logic/Session.h>
 #include <Game/data.h>
-#include <Overlay/Chat.h>
-#include <Overlay/System.h>
 #include <GameWorld.h>
 
 namespace Skyrim
@@ -24,7 +22,6 @@ namespace Skyrim
 				}
 				std::string msg;
 				data >> msg;
-				
 				OnChatMessage(msg);
 			}
 			catch(boost::exception& e)

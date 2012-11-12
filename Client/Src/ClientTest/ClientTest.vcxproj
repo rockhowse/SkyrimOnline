@@ -1,0 +1,102 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project DefaultTargets="Build" ToolsVersion="4.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <ItemGroup Label="ProjectConfigurations">
+    <ProjectConfiguration Include="Release|Win32">
+      <Configuration>Release</Configuration>
+      <Platform>Win32</Platform>
+    </ProjectConfiguration>
+  </ItemGroup>
+  <PropertyGroup Label="Globals">
+    <ProjectGuid>{90337DC7-FFF9-49F4-87A4-AA27EA43E01D}</ProjectGuid>
+    <Keyword>Win32Proj</Keyword>
+    <RootNamespace>SkyrimOnline</RootNamespace>
+    <ProjectName>ClientTest</ProjectName>
+  </PropertyGroup>
+  <Import Project="$(VCTargetsPath)\Microsoft.Cpp.Default.props" />
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|Win32'" Label="Configuration">
+    <ConfigurationType>Application</ConfigurationType>
+    <UseDebugLibraries>false</UseDebugLibraries>
+    <WholeProgramOptimization>true</WholeProgramOptimization>
+    <CharacterSet>NotSet</CharacterSet>
+  </PropertyGroup>
+  <Import Project="$(VCTargetsPath)\Microsoft.Cpp.props" />
+  <ImportGroup Label="ExtensionSettings">
+  </ImportGroup>
+  <ImportGroup Label="PropertySheets" Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">
+    <Import Project="$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props" Condition="exists('$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props')" Label="LocalAppDataPlatform" />
+  </ImportGroup>
+  <PropertyGroup Label="UserMacros" />
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">
+    <LinkIncremental>false</LinkIncremental>
+    <IncludePath>$(IncludePath);./Src</IncludePath>
+    <OutDir>..\..\Bin\</OutDir>
+    <IntDir>..\..\Obj\$(Configuration)\$(ProjectName)\</IntDir>
+    <TargetExt>.exe</TargetExt>
+    <GenerateManifest>false</GenerateManifest>
+  </PropertyGroup>
+  <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">
+    <ClCompile>
+      <WarningLevel>Level3</WarningLevel>
+      <PrecompiledHeader>Use</PrecompiledHeader>
+      <Optimization>Disabled</Optimization>
+      <FunctionLevelLinking>false</FunctionLevelLinking>
+      <IntrinsicFunctions>false</IntrinsicFunctions>
+      <PreprocessorDefinitions>WIN32;NDEBUG;_WINDOWS;_USRDLL;_WINDLL;%(PreprocessorDefinitions)</PreprocessorDefinitions>
+      <AdditionalOptions>/Zm250 %(AdditionalOptions)</AdditionalOptions>
+      <AdditionalIncludeDirectories>$(SolutionDir)\..\..\..\Dependencies\include\Steamworks;$(SolutionDir)\..\..\EasySteam\EasySteam;$(SolutionDir)\..\..\..\Framework\Src;$(SolutionDir)\..\..\..\Dependencies\include;.\Src\common;.\Src\;$(SolutionDir)\..\Common;$(SolutionDir)\Src\Script\Src;$(SolutionDir)\Src\Script\Src\exports;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+      <ObjectFileName>$(IntDir)/%(RelativeDir)/</ObjectFileName>
+      <InlineFunctionExpansion>Default</InlineFunctionExpansion>
+      <FavorSizeOrSpeed>Neither</FavorSizeOrSpeed>
+      <WholeProgramOptimization>false</WholeProgramOptimization>
+      <EnableEnhancedInstructionSet>StreamingSIMDExtensions2</EnableEnhancedInstructionSet>
+    </ClCompile>
+    <Link>
+      <SubSystem>Console</SubSystem>
+      <GenerateDebugInformation>true</GenerateDebugInformation>
+      <EnableCOMDATFolding>true</EnableCOMDATFolding>
+      <OptimizeReferences>true</OptimizeReferences>
+      <OutputFile>$(OutDir)$(TargetName).exe</OutputFile>
+      <AdditionalLibraryDirectories>$(DXSDK_DIR)\Lib\x86;$(SolutionDir)..\..\EasySteam\Bin\Release;$(SolutionDir)..\..\..\Dependencies\lib;..\..\Bin;%(AdditionalLibraryDirectories)</AdditionalLibraryDirectories>
+      <AdditionalDependencies>SkyrimOnlineProxy.lib;cryptlib.lib;zlib.x86.lib;Framework.lib;dbghelp.lib;FreeScript.lib;EasySteam.lib;%(AdditionalDependencies)</AdditionalDependencies>
+      <ModuleDefinitionFile>
+      </ModuleDefinitionFile>
+    </Link>
+  </ItemDefinitionGroup>
+  <ItemGroup>
+    <ClInclude Include="Src\Game\AssetManager.h" />
+    <ClInclude Include="Src\Game\data.h" />
+    <ClInclude Include="Src\Game\PlayerGOMServer.h" />
+    <ClInclude Include="Src\Game\SkyrimFormManager.h" />
+    <ClInclude Include="Src\Game\PlayerGOMEntry.h" />
+    <ClInclude Include="Src\Game\ActorController.h" />
+    <ClInclude Include="Src\Game\WorldManager.h" />
+    <ClInclude Include="Src\Logic\Session.h" />
+    <ClInclude Include="Src\Script\Online.h" />
+    <ClInclude Include="Src\Script\Script.h" />
+    <ClInclude Include="Src\GameWorld.h" />
+    <ClInclude Include="Src\stdafx.h" />
+  </ItemGroup>
+  <ItemGroup>
+    <ClCompile Include="Src\Game\AssetManager.cpp" />
+    <ClCompile Include="Src\Game\PlayerGOMServer.cpp" />
+    <ClCompile Include="Src\Game\SkyrimFormManager.cpp" />
+    <ClCompile Include="Src\Game\WorldManager.cpp" />
+    <ClCompile Include="Src\Logic\Senders\Character.cpp" />
+    <ClCompile Include="Src\Logic\Senders\General.cpp" />
+    <ClCompile Include="Src\main.cpp" />
+    <ClCompile Include="Src\Game\PlayerGOMEntry.cpp" />
+    <ClCompile Include="Src\Game\ActorController.cpp" />
+    <ClCompile Include="Src\Logic\Handlers\Authentication.cpp" />
+    <ClCompile Include="Src\Logic\Handlers\Player.cpp" />
+    <ClCompile Include="Src\Logic\Handlers\World.cpp" />
+    <ClCompile Include="Src\Logic\Session.cpp" />
+    <ClCompile Include="Src\Script\Online.cpp" />
+    <ClCompile Include="Src\GameWorld.cpp" />
+    <ClCompile Include="Src\stdafx.cpp">
+      <PrecompiledHeader Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">Create</PrecompiledHeader>
+    </ClCompile>
+  </ItemGroup>
+  <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
+  <ImportGroup Label="ExtensionTargets">
+  </ImportGroup>
+</Project>
