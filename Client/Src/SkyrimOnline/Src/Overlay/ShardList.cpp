@@ -124,6 +124,7 @@ namespace Skyrim
 			mText->setVisible(v);
 			mButton->setVisible(v);
 			mHostButton->setVisible(v);
+
 		}
 		//--------------------------------------------------------------------------------
 		bool	ShardList::IsVisible()
