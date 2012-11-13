@@ -30,8 +30,6 @@ namespace Skyrim
 		// End Input events
 
 		// Network event
-		void OnConnectionLost();
-		void OnConnect(bool);
 		void OnError(const std::string&);
 
 		TimeManager& GetTimeManager();

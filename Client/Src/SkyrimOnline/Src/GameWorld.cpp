@@ -75,23 +75,6 @@ namespace Skyrim
 		return mWeatherManager;
 	}
 	//--------------------------------------------------------------------------------
-	void GameWorld::OnConnect(bool pStatus)
-	{
-		_trace
-		if(pStatus)
-		{
-			Overlay::TheMessage->SetCaption("Negotiating connection with World !");
-		}
-		else
-		{
-			Overlay::TheMessage->SetCaption("The world is unreachable !");
-		}
-	}
-	//--------------------------------------------------------------------------------
-	void GameWorld::OnConnectionLost()
-	{
-	}
-	//--------------------------------------------------------------------------------
 	void GameWorld::OnError(const std::string& pError)
 	{
 		System::Log::Debug(pError);

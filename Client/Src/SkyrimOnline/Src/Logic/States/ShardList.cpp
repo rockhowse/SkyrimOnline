@@ -83,6 +83,7 @@ namespace Skyrim
 				}
 				else
 				{
+					Overlay::TheMessage->SetVisible(false);
 					TheGameWorld->SetState("InGame");
 				}
 			}
