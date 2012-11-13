@@ -1,9 +1,10 @@
 // proxydll.cpp
 #include "stdafx.h"
 #include "proxydll.h"
-#include "myIDirect3D9.h"
-#include "myIDirect3DDevice9.h"
-#include "../Dinput/Input.hpp"
+#include "Directx/myIDirect3D9.h"
+#include "Directx/myIDirect3DDevice9.h"
+#include "Dinput/Input.hpp"
+#include "WinAPI.hpp"
 
 HINSTANCE           gl_hOriginalDll;
 HINSTANCE           gl_hThisInstance;
@@ -131,13 +132,16 @@ BOOL APIENTRY DllMain(HMODULE hModule, DWORD fdwReason, LPVOID lpReserved)
 			if(strL.find("TESV.exe") != std::string::npos)
 			{
 				HookDInput();
+				HookWinAPI();
 			}
 
 			break;
 		}
 	case DLL_PROCESS_DETACH:
 		{
+			ReleaseWinAPI();
 			ReleaseDInput();
+			
 			break;
 		}
 	}

@@ -61,10 +61,10 @@ namespace Skyrim
 						uint32_t race = *(uint32_t*)&serializedData[0];
 						uint32_t gender = *(uint32_t*)&serializedData[4];
 
-						boost::shared_ptr<ActorController> controller = boost::make_shared<ActorController>(race, gender);
-						mControllers[id] = controller;
+						//boost::shared_ptr<ActorController> controller = boost::make_shared<ActorController>(race, gender);
+						//mControllers[id] = controller;
 
-						Add(controller->GetCharacter().get(), state, id);
+						//Add(controller->GetCharacter().get(), state, id);
 						itor = replicationMap[state].find(id);
 					}
 
