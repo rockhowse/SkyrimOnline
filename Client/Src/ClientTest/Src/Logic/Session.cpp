@@ -49,7 +49,7 @@ namespace Skyrim
 		void Session::OnSynchronize()
 		{
 			_trace
-			Framework::Network::Packet packet(kClientInitialData);
+			//Framework::Network::Packet packet(kClientInitialData);
 
 			/*packet << TheGameWorld->GetUser()
 				   << TheGameWorld->GetPlayerCharacter().GetAllWornForms()
@@ -65,6 +65,7 @@ namespace Skyrim
 				   << TheGameWorld->GetPlayerCharacter().GetRotZ();
 
 			TheMassiveMessageMgr->SendMessageTo(::Game::kPlayerServer, packet);*/
+			SendAwareness();
 		}
 		//--------------------------------------------------------------------------------
 		std::string Session::GetName()
