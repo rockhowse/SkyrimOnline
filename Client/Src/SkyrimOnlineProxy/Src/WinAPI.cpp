@@ -6,6 +6,8 @@ typedef HWND (WINAPI *GetActiveWindow_t)(VOID);
 GetActiveWindow_t GetActiveWindow_r;
 WNDPROC WindowProc_r = NULL;
 HWND first = NULL;
+bool active = false;
+std::ofstream file("hook.log", std::ios::trunc);
 
 HINSTANCE g_user32 = 0;
 
@@ -22,6 +24,7 @@ void LoadRealUser32Library()
 
 LRESULT CALLBACK WndProc(HWND hWindow, UINT msg, WPARAM wParam, LPARAM lParam)
 {
+	
 	if(msg == WM_ACTIVATE || msg == WM_KILLFOCUS || msg == WM_ACTIVATEAPP || msg == 641 || msg == 642)
 	{
 		return 0;
@@ -37,12 +40,17 @@ HWND WINAPI GetActiveWindow_c()
 		WindowProc_r = (WNDPROC)SetWindowLong(GetActiveWindow_r(),GWL_WNDPROC,(long)WndProc);
 	}
 	if(first == NULL)
+	{
 		first = GetActiveWindow_r();
+	}
 
 	if(first != GetActiveWindow_r())
-		SetForegroundWindow(first);
+	{
+		//SetActiveWindow(first);
+		active = true;
+	}
 
-	return GetActiveWindow_r();
+	return first;
 }
 
 void HookWinAPI()
