@@ -36,6 +36,19 @@ namespace Skyrim
 
 			ObjectReference::Delete((TESObjectREFR*)mMe->GetActor());
 			ObjectReference::Delete((TESObjectREFR*)mMaster);
+
+			uint32_t id = mMe->GetActor()->formID,
+				id2 = mMaster->formID;
+			FreeScript::TESObjectCELL* cell = mMe->GetActor()->parentCell;
+
+			for(uint32_t i = 0; i != cell->childList.size; ++i)
+			{
+				if(cell->childList[i]->formID == id || cell->childList[i]->formID == id2)
+				{
+					cell->childList.Remove(i);
+					i = 0;
+				}
+			}
 		}
 		//--------------------------------------------------------------------------------
 		boost::shared_ptr<FreeScript::Character> ActorController::GetCharacter()

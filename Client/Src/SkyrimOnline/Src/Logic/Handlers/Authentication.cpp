@@ -35,8 +35,10 @@ namespace Skyrim
 				TheGameWorld->GetPlayerCharacter().GetPosY(), 
 				TheGameWorld->GetPlayerCharacter().GetPosZ(), rx, ry, rz, 0);
 
+			character->SetName(std::to_string((long long)time(NULL)));
+
 			/*character->SetFaceMorph(faceMorphs);
-			character->SetName(mName);
+			
 			character->EquipItems(wornForms);
 			character->SetLevel(level);*/
 

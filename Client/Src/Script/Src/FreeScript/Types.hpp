@@ -19,6 +19,17 @@ namespace FreeScript
 				return data[pIndex];
 			throw std::runtime_error("Out of range !");
 		}
+
+		void Remove(uint32_t pIndex)
+		{
+			if(pIndex > size)
+				return;
+			for(uint32_t i = pIndex; i < size - 1; ++i)
+			{
+				data[i] = data[i + 1];
+			}
+			size -= 1;
+		}
 	};
 
 	template <class T>
