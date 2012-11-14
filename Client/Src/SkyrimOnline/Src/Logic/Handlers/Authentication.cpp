@@ -17,23 +17,25 @@ namespace Skyrim
 		{
 			std::vector<float> faceMorphs;
 			std::vector<uint32_t> wornForms;
-			float px, py, pz, rx, ry, rz;
+			float px, py, pz, rx = 0, ry = 0, rz = 0;
 			uint32_t race, gender, level;
-			pPacket >> mName
+			pPacket /*>> mName
 				>> wornForms
-				>> faceMorphs
+				>> faceMorphs*/
 				>> race
-				>> gender
-				>> level
-				>> px >> py >> pz >> rx >> ry >> rz;
+				>> gender;
+				/*>> level
+				>> px >> py >> pz >> rx >> ry >> rz;*/
 
-			/*Game::ActorController* controller = new Game::ActorController(race, gender);
-			TheMassiveMessageMgr->GetGOMDatabase()->Get<Game::PlayerGOMServer>()->Add(controller->GetCharacter().get(), ::Game::kTransactionFull, GetKey());
+			auto controller = boost::make_shared<Game::ActorController>(race, gender);
+			TheMassiveMessageMgr->GetGOMDatabase()->Get<Game::PlayerGOMServer>()->_Add(controller, ::Game::kTransactionFull, GetKey());
 			auto character = controller->GetCharacter();
 
-			controller->InterpolateTo(px, py, pz, rx, ry, rz, 0);
+			controller->InterpolateTo(TheGameWorld->GetPlayerCharacter().GetPosX(), 
+				TheGameWorld->GetPlayerCharacter().GetPosY(), 
+				TheGameWorld->GetPlayerCharacter().GetPosZ(), rx, ry, rz, 0);
 
-			character->SetFaceMorph(faceMorphs);
+			/*character->SetFaceMorph(faceMorphs);
 			character->SetName(mName);
 			character->EquipItems(wornForms);
 			character->SetLevel(level);*/

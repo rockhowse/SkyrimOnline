@@ -20,7 +20,7 @@ namespace Skyrim
 			for(uint32_t i = 0, size = FreeScript::TESDataHandler::GetInstance()->mNpcs.size; i != size; ++i)
 			{
 				auto npc = FreeScript::TESDataHandler::GetInstance()->mNpcs[i];
-				if(FreeScript::TESNPCHelper(npc).GetName().find("GameWorldBaseAddr") != std::string::npos)
+				if(FreeScript::TESNPCHelper(npc).GetName().find("SkyrimOnlineBaseAddr") != std::string::npos)
 				{
 					mBaseAddr = npc->formID + 1; 
 				}
@@ -28,10 +28,10 @@ namespace Skyrim
 
 			if(mBaseAddr == 0)
 			{
-				System::Log::Debug("Unable to find the base address, enable GameWorld.esp");
+				System::Log::Debug("Unable to find the base address, enable SkyrimOnline.esp");
 				System::Log::Flush();
 
-				Debug::ShowMessageBox("I need GameWorld.esp to run, please restart the game and enable it !");
+				Debug::ShowMessageBox("I need SkyrimOnline.esp to run, please restart the game and enable it !");
 				delete TheGameWorld;
 
 				return;

@@ -26,7 +26,7 @@ namespace Skyrim
 			}
 		}
 
-		void PlayerGOMServer::DoRemove(int32 id, int32 replicationState)
+		void PlayerGOMServer::DoRemove(int32_t id, int32_t replicationState)
 		{
 			if(replicationState >= 0 && replicationState < ::Game::ReplicationStateProperty::kCount)
 			{
@@ -68,7 +68,7 @@ namespace Skyrim
 						itor = replicationMap[state].find(id);
 					}
 
-					itor->second->Deserialize(serializedData);
+					//itor->second->Deserialize(serializedData);
 				}
 			}
 		}

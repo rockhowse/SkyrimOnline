@@ -90,7 +90,7 @@ namespace Skyrim
 	std::vector<::Game::IGOMServer*> GameWorld::ConstructGOMServers(void*)
 	{
 		std::vector<::Game::IGOMServer*> gomServers;
-		//gomServers.push_back(new Game::PlayerGOMServer);
+		gomServers.push_back(new Game::PlayerGOMServer);
 		return gomServers;
 	}
 	//--------------------------------------------------------------------------------

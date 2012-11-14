@@ -92,12 +92,10 @@ __declspec(dllexport) void main()
 		srand((unsigned int)time(NULL));
 		PrintNote("To play Skyrim Online, press F3");
 
-		bool onlineMod = false;
 		while(!Skyrim::TheGameWorld)
 		{
 			if(GetKeyPressed(VK_F3))
 			{
-				onlineMod = true;
 				NewInstance();
 				Skyrim::TheGameWorld->Setup();
 				break;
@@ -105,7 +103,7 @@ __declspec(dllexport) void main()
 			Wait(0);
 		}
 
-		if(onlineMod && Skyrim::TheGameWorld)
+		if(Skyrim::TheGameWorld)
 			Skyrim::TheGameWorld->Run();
 	}
 	__except(GenerateDump(GetExceptionInformation()))

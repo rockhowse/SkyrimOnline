@@ -41,6 +41,8 @@ namespace Skyrim
 					pConnection.disconnect();
 				});
 
+				TheMassiveMessageMgr->GetGOMDatabase()->Get<Game::PlayerGOMServer>()->Remove(::Game::kTransactionFull, GetKey());
+
 				_trace
 			}
 			catch(...)

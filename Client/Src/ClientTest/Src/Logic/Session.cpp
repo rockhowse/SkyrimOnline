@@ -49,8 +49,8 @@ namespace Skyrim
 		void Session::OnSynchronize()
 		{
 			_trace
-			//Framework::Network::Packet packet(kClientInitialData);
-
+			Framework::Network::Packet packet(kClientInitialData);
+			packet << (uint32_t)13740 << (uint32_t)1;
 			/*packet << TheGameWorld->GetUser()
 				   << TheGameWorld->GetPlayerCharacter().GetAllWornForms()
 				   << TheGameWorld->GetPlayerCharacter().GetFaceMorph()
@@ -62,9 +62,9 @@ namespace Skyrim
 				   << TheGameWorld->GetPlayerCharacter().GetPosZ()
 				   << TheGameWorld->GetPlayerCharacter().GetRotX()
 				   << TheGameWorld->GetPlayerCharacter().GetRotY()
-				   << TheGameWorld->GetPlayerCharacter().GetRotZ();
+				   << TheGameWorld->GetPlayerCharacter().GetRotZ();*/
 
-			TheMassiveMessageMgr->SendMessageTo(::Game::kPlayerServer, packet);*/
+			TheMassiveMessageMgr->SendMessageTo(::Game::kPlayerServer, packet);
 			SendAwareness();
 		}
 		//--------------------------------------------------------------------------------

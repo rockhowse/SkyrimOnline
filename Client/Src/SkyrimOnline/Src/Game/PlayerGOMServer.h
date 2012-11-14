@@ -12,10 +12,12 @@ namespace Skyrim
 
 			PlayerGOMServer();
 
+			void _Add(boost::shared_ptr<ActorController> ctrlr, int32 replicationState, int32 id = -1);
+
 		protected:
 
 			void DoAdd(WrappedType*, int32, int32 = -1);
-			void DoRemove(int32, int32);
+			void DoRemove(int32_t, int32_t) override;
 			void DoUpdate();
 
 			void UpdateEntry(int32_t id, int32_t state, const std::string& serializedData);

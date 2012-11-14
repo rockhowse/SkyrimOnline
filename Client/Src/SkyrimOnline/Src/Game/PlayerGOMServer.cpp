@@ -26,7 +26,25 @@ namespace Skyrim
 			}
 		}
 
-		void PlayerGOMServer::DoRemove(int32 id, int32 replicationState)
+		void PlayerGOMServer::_Add(boost::shared_ptr<ActorController> ctrlr, int32 replicationState, int32 id /* = -1 */)
+		{
+			if(id == -1)
+			{
+				id = (++replicationId);
+			}
+			if(replicationState >= 0 && replicationState < ::Game::ReplicationStateProperty::kCount)
+			{
+				if(replicationMap[replicationState].find(id) == replicationMap[replicationState].end())
+				{
+					mControllers[id] = ctrlr;
+					auto entry = std::make_shared<PlayerGOMEntry>(ctrlr->GetCharacter().get());
+					entry->SetKey(id);
+					replicationMap[replicationState].insert(std::make_pair(id, entry));
+				}
+			}
+		}
+
+		void PlayerGOMServer::DoRemove(int32_t replicationState, int32_t id)
 		{
 			if(replicationState >= 0 && replicationState < ::Game::ReplicationStateProperty::kCount)
 			{
@@ -64,7 +82,7 @@ namespace Skyrim
 						boost::shared_ptr<ActorController> controller = boost::make_shared<ActorController>(race, gender);
 						mControllers[id] = controller;
 
-						Add(controller->GetCharacter().get(), state, id);
+						Add((WrappedType*)controller->GetCharacter().get(), state, id);
 						itor = replicationMap[state].find(id);
 					}
 
