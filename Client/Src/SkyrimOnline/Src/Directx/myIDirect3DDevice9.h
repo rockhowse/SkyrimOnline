@@ -137,6 +137,9 @@ public:
 	boost::signal<void(myIDirect3DDevice9*)> OnPresent;
 	boost::signal<void(myIDirect3DDevice9*)> OnReset;
 
+	bool IsNullRenderer();
+	void SetNullRenderer(bool pNullRenderer);
+
 	static myIDirect3DDevice9* GetInstance();
 
 	IDirect3DDevice9 * GetDevice();

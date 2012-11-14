@@ -11,6 +11,7 @@ myIDirect3DDevice9* myIDirect3DDevice9::GetInstance()
 }
 
 myIDirect3DDevice9::myIDirect3DDevice9(IDirect3DDevice9* pOriginal)
+	:mNullRenderer(false)
 {
     mIDirect3DDevice9 = pOriginal; // store the pointer to original object
 }
@@ -210,7 +211,10 @@ HRESULT myIDirect3DDevice9::UpdateSurface(IDirect3DSurface9* pSourceSurface,CONS
 
 HRESULT myIDirect3DDevice9::UpdateTexture(IDirect3DBaseTexture9* pSourceTexture,IDirect3DBaseTexture9* pDestinationTexture)
 {
-    return(mIDirect3DDevice9->UpdateTexture(pSourceTexture,pDestinationTexture));
+	if(IsNullRenderer())
+		return 0; 
+	else
+		return(mIDirect3DDevice9->UpdateTexture(pSourceTexture,pDestinationTexture));
 }
 
 HRESULT myIDirect3DDevice9::GetRenderTargetData(IDirect3DSurface9* pRenderTarget,IDirect3DSurface9* pDestSurface)
@@ -460,27 +464,42 @@ float   myIDirect3DDevice9::GetNPatchMode(void)
 
 HRESULT myIDirect3DDevice9::DrawPrimitive(D3DPRIMITIVETYPE PrimitiveType,UINT StartVertex,UINT PrimitiveCount)
 {
-    return(mIDirect3DDevice9->DrawPrimitive(PrimitiveType,StartVertex,PrimitiveCount));
+	if(IsNullRenderer())
+		return 0; 
+	else
+		return(mIDirect3DDevice9->DrawPrimitive(PrimitiveType,StartVertex,PrimitiveCount));
 }
 
 HRESULT myIDirect3DDevice9::DrawIndexedPrimitive(D3DPRIMITIVETYPE PrimitiveType,INT BaseVertexIndex,UINT MinVertexIndex,UINT NumVertices,UINT startIndex,UINT primCount)
 {
-    return(mIDirect3DDevice9->DrawIndexedPrimitive(PrimitiveType,BaseVertexIndex,MinVertexIndex,NumVertices,startIndex,primCount));
+	if(IsNullRenderer())
+		return 0; 
+	else
+		return(mIDirect3DDevice9->DrawIndexedPrimitive(PrimitiveType,BaseVertexIndex,MinVertexIndex,NumVertices,startIndex,primCount));
 }
 
 HRESULT myIDirect3DDevice9::DrawPrimitiveUP(D3DPRIMITIVETYPE PrimitiveType,UINT PrimitiveCount,CONST void* pVertexStreamZeroData,UINT VertexStreamZeroStride)
 {
-    return(mIDirect3DDevice9->DrawPrimitiveUP(PrimitiveType,PrimitiveCount,pVertexStreamZeroData,VertexStreamZeroStride));
+	if(IsNullRenderer())
+		return 0; 
+	else
+		return(mIDirect3DDevice9->DrawPrimitiveUP(PrimitiveType,PrimitiveCount,pVertexStreamZeroData,VertexStreamZeroStride));
 }
 
 HRESULT myIDirect3DDevice9::DrawIndexedPrimitiveUP(D3DPRIMITIVETYPE PrimitiveType,UINT MinVertexIndex,UINT NumVertices,UINT PrimitiveCount,CONST void* pIndexData,D3DFORMAT IndexDataFormat,CONST void* pVertexStreamZeroData,UINT VertexStreamZeroStride)
 {
-    return(mIDirect3DDevice9->DrawIndexedPrimitiveUP(PrimitiveType,MinVertexIndex,NumVertices,PrimitiveCount, pIndexData, IndexDataFormat, pVertexStreamZeroData,VertexStreamZeroStride));
+	if(IsNullRenderer())
+		return 0; 
+	else
+		return(mIDirect3DDevice9->DrawIndexedPrimitiveUP(PrimitiveType,MinVertexIndex,NumVertices,PrimitiveCount, pIndexData, IndexDataFormat, pVertexStreamZeroData,VertexStreamZeroStride));
 }
 
 HRESULT myIDirect3DDevice9::ProcessVertices(UINT SrcStartIndex,UINT DestIndex,UINT VertexCount,IDirect3DVertexBuffer9* pDestBuffer,IDirect3DVertexDeclaration9* pVertexDecl,DWORD Flags)
 {
-    return(mIDirect3DDevice9->ProcessVertices( SrcStartIndex, DestIndex, VertexCount, pDestBuffer, pVertexDecl, Flags));
+	if(IsNullRenderer())
+		return 0; 
+	else
+		return(mIDirect3DDevice9->ProcessVertices( SrcStartIndex, DestIndex, VertexCount, pDestBuffer, pVertexDecl, Flags));
 }
 
 HRESULT myIDirect3DDevice9::CreateVertexDeclaration(CONST D3DVERTEXELEMENT9* pVertexElements,IDirect3DVertexDeclaration9** ppDecl)
@@ -630,12 +649,18 @@ HRESULT myIDirect3DDevice9::GetPixelShaderConstantB(UINT StartRegister,BOOL* pCo
 
 HRESULT myIDirect3DDevice9::DrawRectPatch(UINT Handle,CONST float* pNumSegs,CONST D3DRECTPATCH_INFO* pRectPatchInfo)
 {
-    return(mIDirect3DDevice9->DrawRectPatch(Handle,pNumSegs, pRectPatchInfo));
+	if(IsNullRenderer())
+		return 0; 
+	else
+		return(mIDirect3DDevice9->DrawRectPatch(Handle,pNumSegs, pRectPatchInfo));
 }
 
 HRESULT myIDirect3DDevice9::DrawTriPatch(UINT Handle,CONST float* pNumSegs,CONST D3DTRIPATCH_INFO* pTriPatchInfo)
 {
-    return(mIDirect3DDevice9->DrawTriPatch(Handle, pNumSegs, pTriPatchInfo));
+	if(IsNullRenderer())
+		return 0; 
+	else
+		return(mIDirect3DDevice9->DrawTriPatch(Handle, pNumSegs, pTriPatchInfo));
 }
 
 HRESULT myIDirect3DDevice9::DeletePatch(UINT Handle)
@@ -671,4 +696,14 @@ RECT myIDirect3DDevice9::GetSize()
 	GetWindowRect(GetWindow(), &rect);
 
 	return rect;
+}
+
+bool myIDirect3DDevice9::IsNullRenderer()
+{
+	return mNullRenderer;
+}
+
+void myIDirect3DDevice9::SetNullRenderer(bool pNullRenderer)
+{
+	mNullRenderer = pNullRenderer;
 }

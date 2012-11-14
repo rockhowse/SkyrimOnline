@@ -138,6 +138,9 @@ public:
 	boost::signal<void(myIDirect3DDevice9*)> OnReset;
 
 	static myIDirect3DDevice9* GetInstance();
+	
+	bool IsNullRenderer();
+	void SetNullRenderer(bool pNullRenderer);
 
 	IDirect3DDevice9 * GetDevice();
 
@@ -145,4 +148,5 @@ public:
 
 private:
     IDirect3DDevice9 *mIDirect3DDevice9;
+	bool mNullRenderer;
 };
