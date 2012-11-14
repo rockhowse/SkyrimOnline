@@ -1,12 +1,7 @@
 #include "stdafx.h"
 #include "Session.h"
-#include <Game/data.h>
 #include <Game/PlayerGOMServer.h>
 #include <GameWorld.h>
-#include <Overlay/Chat.h>
-#include <Overlay/System.h>
-#include <GameWorld.h>
-#include <Network/IoServicePool.h>
 
 namespace Skyrim
 {

@@ -3,8 +3,6 @@
 #include <Logic/States/InGame.hpp>
 #include <GameWorld.h>
 
-#include <Game/MassiveMessageManager.hpp>
-
 namespace Skyrim
 {
 	namespace Logic

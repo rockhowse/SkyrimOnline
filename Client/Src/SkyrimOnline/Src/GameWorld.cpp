@@ -4,7 +4,6 @@
 
 #include <Logic/Session.h>
 #include <Logic/States/InGame.hpp>
-#include <Logic/States/Login.hpp>
 #include <Logic/States/ShardList.hpp>
 #include <Game/PlayerGOMServer.h>
 

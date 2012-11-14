@@ -6,7 +6,6 @@
 #include "ShardList.h"
 #include <GameWorld.h>
 #include <Logic/Session.h>
-#include <Network/Packet.h>
 
 
 namespace Skyrim

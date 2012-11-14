@@ -1,10 +1,5 @@
 #include "stdafx.h"
 #include <Logic/Session.h>
-#include <Game/data.h>
-#include <Overlay/Chat.h>
-#include <Overlay/System.h>
-#include <Overlay/Message.h>
-#include <Overlay/ShardList.h>
 #include <GameWorld.h>
 
 namespace Skyrim
@@ -32,7 +27,6 @@ namespace Skyrim
 			}
 			else if(service == "cipher")
 			{
-				Overlay::TheMessage->Hide();
 				TheGameWorld->SetState("InGame");
 			}
 		}

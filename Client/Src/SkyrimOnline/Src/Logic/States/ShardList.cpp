@@ -3,8 +3,6 @@
 #include <GameWorld.h>
 #include <Overlay/Message.h>
 
-#include <Game/MassiveMessageManager.hpp>
-
 namespace Skyrim
 {
 	namespace Logic
