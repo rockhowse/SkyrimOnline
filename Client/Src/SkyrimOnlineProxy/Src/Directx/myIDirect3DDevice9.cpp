@@ -1,7 +1,6 @@
 #include "StdAfx.h"
 #include "myIDirect3DDevice9.h"
 #include "myIDirect3D9.h"
-#include "myIDirect3DDevice9.h"
 
 myIDirect3DDevice9* myIDirect3DDevice9::instance = nullptr;
 

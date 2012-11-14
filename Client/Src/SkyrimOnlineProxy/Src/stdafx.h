@@ -5,13 +5,7 @@
 
 #include <boost/signals.hpp>
 
-#include <list>
-#include <vector>
-#include <ctime>
 #include <fstream>
-#include <deque>
-#include <concurrent_queue.h>
-#include <unordered_map>
 
 #include <windows.h>
 #include <Winuser.h>
