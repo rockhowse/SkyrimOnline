@@ -13,11 +13,13 @@ namespace Skyrim
 		{
 			std::vector<float> faceMorphs;
 			std::vector<uint32_t> wornForms;
+			std::vector<uint32_t> facePresets;
 			float px, py, pz, rx = 0, ry = 0, rz = 0;
 			uint32_t race, gender, level;
-			pPacket /*>> mName
+			pPacket >> mName
 				>> wornForms
-				>> faceMorphs*/
+				>> faceMorphs
+				>> facePresets
 				>> race
 				>> gender;
 				/*>> level
@@ -31,12 +33,13 @@ namespace Skyrim
 				TheGameWorld->GetPlayerCharacter().GetPosY(), 
 				TheGameWorld->GetPlayerCharacter().GetPosZ(), rx, ry, rz, 0);
 
-			character->SetName(std::to_string((long long)time(NULL)));
+			character->SetName(mName);
 
-			/*character->SetFaceMorph(faceMorphs);
+			//character->SetFaceMorph(faceMorphs);
+			//character->SetFacePresets(facePresets);
 			
 			character->EquipItems(wornForms);
-			character->SetLevel(level);*/
+			//character->SetLevel(level);
 
 			_trace
 		}

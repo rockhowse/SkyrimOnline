@@ -11,6 +11,8 @@ void RunActorDump()
 
 	FreeScript::QueueNiNodeUpdate(player);
 
+	RUN_TEST(FreeScript::FormFactory::GetFactory(61)->GetName())
+
 	for(auto i = 0; i < 31; ++i)
 	{
 		auto f = FreeScript::GetWornForm(player, 1 << i);

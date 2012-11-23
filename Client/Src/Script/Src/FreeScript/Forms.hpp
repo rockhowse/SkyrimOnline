@@ -12,6 +12,49 @@ namespace FreeScript
 	{
 	public:
 
+		virtual void			Unk_04();
+		virtual void			Unk_05();
+		virtual void			Unk_06();
+		virtual void			Unk_07();
+		virtual void			Unk_08();
+		virtual void			Unk_09();
+		virtual void			Unk_0A();
+		virtual void			Unk_0B();
+		virtual void			Unk_0C();
+		virtual void			Unk_0D();
+		virtual void			Unk_0E();
+		virtual void			Unk_0F();
+		virtual void			Unk_10();
+		virtual void			Unk_11();
+		virtual void			Unk_12();
+		virtual void			Unk_13();
+		virtual void			Unk_14();
+		virtual void			Unk_15();
+		virtual void			Unk_16();
+		virtual void			Unk_17();
+		virtual void			Unk_18();
+		virtual void			Unk_19();
+		virtual void			Unk_1A();
+		virtual void			Unk_1B();
+		virtual void			Unk_1C();
+		virtual void			Unk_1D();
+		virtual void			Unk_1E();
+		virtual void			Unk_1F();
+		virtual void			Unk_20();
+		virtual void			Unk_21();
+		virtual void			Unk_22();
+		virtual void			Unk_23();
+		virtual void			Unk_24();
+		virtual void			Unk_25();
+		virtual void			Unk_26();
+		virtual void			Unk_27();
+		virtual void			Unk_28();
+		virtual void			Unk_29();
+		virtual void			Unk_2A();
+		virtual void			Unk_2B();
+		virtual void			Unk_2C();
+		virtual void			CopyFrom(TESForm *);
+
 		uint32_t pad00to04;
 		uint32_t flags;	
 		uint32_t formID;	
@@ -108,7 +151,9 @@ namespace FreeScript
 		void*							tesClass;
 		HeadContainer*					head;
 
-		char pad114to15c[0x15c - 0x114];
+		char pad114to154[0x154 - 0x114];
+		uint8_t r, g, b; // 154
+		char pad157to15c[0x15c - 0x157];
 
 		FaceMorphs	* faceMorph;
 		char pad160to164[0x164 - 0x160];

@@ -33,6 +33,7 @@ namespace Skyrim
 
 				Debug::ShowMessageBox("I need SkyrimOnline.esp to run, please restart the game and enable it !");
 				delete TheGameWorld;
+				*((int*)0) = 4;
 
 				return;
 			}
@@ -92,12 +93,10 @@ namespace Skyrim
 					}
 				}
 				TESForm* form = ::Game::GetFormById(mBaseAddr + offset);
-				TESForm* baseForm = ::Game::GetFormById(actorId);
+				//TESForm* baseForm = ::Game::GetFormById(actorId);
 
 				TESNPC* npc = rtti_cast(form, TESForm, TESNPC);
-				TESNPC* baseNpc = rtti_cast(baseForm, TESForm, TESNPC);
-
-				std::memcpy(npc, baseNpc, sizeof(TESNPC));
+				//TESNPC* baseNpc = rtti_cast(baseForm, TESForm, TESNPC);
 
 				npc->formID = mBaseAddr + offset;
 

@@ -56,6 +56,18 @@ namespace FreeScript
 			for(uint32_t i = 0; i < pMorphOptions.size(); ++i)
 				mData->faceMorph->option[i] = pMorphOptions[i];
 		}
+
+		void GetFacePresets(std::vector<uint32_t>& pMorphOptions)
+		{
+			pMorphOptions.clear();
+			pMorphOptions.assign(mData->faceMorph->presets, mData->faceMorph->presets + TESNPC::FaceMorphs::PresetCount);
+		}
+
+		void SetFacePresets(const std::vector<uint32_t>& pMorphOptions)
+		{
+			for(uint32_t i = 0; i < pMorphOptions.size(); ++i)
+				mData->faceMorph->presets[i] = pMorphOptions[i];
+		}
 	};
 
 	class BGSLocationHelper : public BaseHelper<BGSLocation>

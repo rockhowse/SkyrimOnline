@@ -108,6 +108,19 @@ namespace FreeScript
 		this->QueueNiNodeUpdate();
 	}
 	//--------------------------------------------------------------------------------
+	const std::vector<uint32_t>& Character::GetFacePresets()
+	{
+		FreeScript::TESNPCHelper(FreeScript::ActorHelper(mActor).GetNpc()).GetFacePresets(mFacePresets);
+		return mFacePresets;
+	}
+	//--------------------------------------------------------------------------------
+	void Character::SetFacePresets(const std::vector<uint32_t>& pFacePresets)
+	{
+		mFacePresets = pFacePresets;
+		FreeScript::TESNPCHelper(FreeScript::ActorHelper(mActor).GetNpc()).SetFacePresets(mFacePresets);
+		this->QueueNiNodeUpdate();
+	}
+	//--------------------------------------------------------------------------------
 	void Character::SetLevel(uint32_t level)
 	{
 		

@@ -50,19 +50,44 @@ namespace Skyrim
 		{
 			_trace
 			Framework::Network::Packet packet(kClientInitialData);
-			packet << (uint32_t)13740 << (uint32_t)1;
-			/*packet << TheGameWorld->GetUser()
-				   << TheGameWorld->GetPlayerCharacter().GetAllWornForms()
-				   << TheGameWorld->GetPlayerCharacter().GetFaceMorph()
-				   << TheGameWorld->GetPlayerCharacter().GetRace()
-				   << TheGameWorld->GetPlayerCharacter().GetGender()
-				   << TheGameWorld->GetPlayerCharacter().GetLevel()
-				   << TheGameWorld->GetPlayerCharacter().GetPosX()
-				   << TheGameWorld->GetPlayerCharacter().GetPosY()
-				   << TheGameWorld->GetPlayerCharacter().GetPosZ()
-				   << TheGameWorld->GetPlayerCharacter().GetRotX()
-				   << TheGameWorld->GetPlayerCharacter().GetRotY()
-				   << TheGameWorld->GetPlayerCharacter().GetRotZ();*/
+
+
+			std::vector<uint32_t> wornForms;
+			wornForms.push_back(0x13edb);
+			wornForms.push_back(0xa6d7b);
+			wornForms.push_back(0xa6d7d);
+			wornForms.push_back(0x13ed7);
+			wornForms.push_back(0x13914);
+			wornForms.push_back(0x13edb);
+			std::vector<uint32_t> facePresets;
+			facePresets.push_back(0);
+			std::vector<float> faceMorphs;
+			faceMorphs.push_back(0);
+			faceMorphs.push_back(0);
+			faceMorphs.push_back(1);
+			faceMorphs.push_back(0);
+			faceMorphs.push_back(0);
+			faceMorphs.push_back(0);
+			faceMorphs.push_back(0);
+			faceMorphs.push_back(0);
+			faceMorphs.push_back(0);
+			faceMorphs.push_back(0);
+			faceMorphs.push_back(0);
+			faceMorphs.push_back(0);
+			faceMorphs.push_back(0.18f);
+			faceMorphs.push_back(1);
+			faceMorphs.push_back(0);
+			faceMorphs.push_back(0);
+			faceMorphs.push_back(0);
+			faceMorphs.push_back(0);
+			faceMorphs.push_back(0);
+
+			packet << std::string("Kikoo")
+				   << wornForms
+				   << faceMorphs
+				   << facePresets
+				   << (uint32_t)13745
+				   << (uint32_t)1;
 
 			TheMassiveMessageMgr->SendMessageTo(::Game::kPlayerServer, packet);
 			SendAwareness();

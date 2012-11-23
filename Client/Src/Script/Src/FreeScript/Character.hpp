@@ -52,6 +52,8 @@ namespace FreeScript
 
 		const std::vector<float>&		GetFaceMorph();
 		void							SetFaceMorph(const std::vector<float>& pFaceMorph);
+		const std::vector<uint32_t>&	GetFacePresets();
+		void							SetFacePresets(const std::vector<uint32_t>& pFacePresets);
 
 		TESForm*						GetWornForm(uint32_t mask);
 		const std::vector<uint32_t>&	GetAllWornForms();
@@ -225,6 +227,7 @@ namespace FreeScript
 
 		FreeScript::Actor*					mActor;
 		std::vector<float>		mFaceMorph;
+		std::vector<uint32_t>	mFacePresets;
 		std::vector<uint32_t>	mWornForms;
 	};
 }
