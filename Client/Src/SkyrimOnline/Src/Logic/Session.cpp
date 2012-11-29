@@ -54,6 +54,7 @@ namespace Skyrim
 			packet << TheGameWorld->GetUser()
 				   << TheGameWorld->GetPlayerCharacter().GetAllWornForms()
 				   << TheGameWorld->GetPlayerCharacter().GetFaceMorph()
+				   << TheGameWorld->GetPlayerCharacter().GetFacePresets()
 				   << TheGameWorld->GetPlayerCharacter().GetRace()
 				   << TheGameWorld->GetPlayerCharacter().GetGender()
 				   << TheGameWorld->GetPlayerCharacter().GetLevel()
@@ -64,7 +65,7 @@ namespace Skyrim
 				   << TheGameWorld->GetPlayerCharacter().GetRotY()
 				   << TheGameWorld->GetPlayerCharacter().GetRotZ();
 
-			//TheMassiveMessageMgr->SendMessageTo(::Game::kPlayerServer, packet);
+			TheMassiveMessageMgr->SendMessageTo(::Game::kPlayerServer, packet);
 		}
 		//--------------------------------------------------------------------------------
 		std::string Session::GetName()
