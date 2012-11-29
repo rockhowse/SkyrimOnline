@@ -31,6 +31,8 @@ namespace FreeScript
 		GetGlobalSetting(ID_TESGlobal::GameDay,  &date.Day  );
 		GetGlobalSetting(ID_TESGlobal::GameMonth,&date.Month);
 		GetGlobalSetting(ID_TESGlobal::GameYear, &date.Year );
+
+		return date;
 	}
 	//--------------------------------------------------------------------------------
 }

@@ -17,35 +17,35 @@ namespace FreeScript
 
 	typedef void* (__cdecl* factoryGetter)(uint8_t);
 
-	class FormFactory
+	class IFormFactory
 	{
 	public:
-		FormFactory();
-		virtual ~FormFactory();
+		IFormFactory();
+		virtual ~IFormFactory();
 
 		virtual TESForm* Create() = 0;
 		virtual const char*	GetName() = 0;
 		virtual uint32_t	GetType() = 0;
 
-		const char* name; // 04
+		//const char* name; // 04
 
-		static FormFactory* GetFactory(uint8_t pType)
+		static IFormFactory* GetFactory(uint32_t pType)
 		{
-			FormFactory** factories = (FormFactory**)0x012E49B0;
+			IFormFactory** factories = (IFormFactory**)0x012E49B0;
 			return factories[pType];
 		}
 
 		template <class T>
 		static T* Clone(T* from)
 		{
-			FormFactory* factory = GetFactory(from->formType)
-			T* result = factory->Create();
-			if(result)
+			IFormFactory* factory = GetFactory(from->formType);
+			T* res = (T*)factory->Create();
+			if(res)
 			{
-				result->Init();
-				result->CopyFrom(from);
+				res->Init();
+				res->CopyFrom(from);
 			}
-			return result;
+			return res;
 		}
 	};
 }

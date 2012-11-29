@@ -18,7 +18,7 @@ namespace Skyrim
 			SkyrimFormManager();
 			~SkyrimFormManager();
 
-			bool mUsedOffsets[100];
+			std::list<uint32_t> mUsed;
 			uint32_t mBaseAddr;
 
 			static SkyrimFormManager* mInstance;

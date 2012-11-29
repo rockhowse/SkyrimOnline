@@ -35,8 +35,8 @@ namespace Skyrim
 
 			character->SetName(mName);
 
-			//character->SetFaceMorph(faceMorphs);
-			//character->SetFacePresets(facePresets);
+			character->SetFaceMorph(faceMorphs);
+			character->SetFacePresets(facePresets);
 			
 			character->EquipItems(wornForms);
 			//character->SetLevel(level);

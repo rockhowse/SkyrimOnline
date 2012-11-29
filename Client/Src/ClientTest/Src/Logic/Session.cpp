@@ -82,7 +82,7 @@ namespace Skyrim
 			faceMorphs.push_back(0);
 			faceMorphs.push_back(0);
 
-			packet << std::string("Kikoo")
+			packet << std::string(std::to_string((long long)time(0)))
 				   << wornForms
 				   << faceMorphs
 				   << facePresets

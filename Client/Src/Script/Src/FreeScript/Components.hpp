@@ -11,6 +11,8 @@ namespace FreeScript
 		virtual ~BaseFormComponent();
 
 		virtual void Init();
+		virtual void Unk_02();
+		virtual void Unk_03();
 	};
 
 	class TESFullName : public ::FreeScript::BaseFormComponent
