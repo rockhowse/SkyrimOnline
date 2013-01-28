@@ -15,7 +15,19 @@ namespace FreeScript
 		virtual void Unk_03();
 	};
 
-	class TESFullName : public ::FreeScript::BaseFormComponent
+	class BaseFormComponent_impl : public BaseFormComponent
+	{
+	public:
+
+		BaseFormComponent_impl(){};
+		virtual ~BaseFormComponent_impl(){};
+
+		void Init() override {};
+		void Unk_02() override {};
+		void Unk_03() override {};
+	};
+
+	class TESFullName : public BaseFormComponent
 	{
 	public:
 

@@ -1,6 +1,6 @@
 ﻿
-Microsoft Visual Studio Solution File, Format Version 11.00
-# Visual Studio 2010
+Microsoft Visual Studio Solution File, Format Version 12.00
+# Visual Studio 2012
 Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "SkyrimOnline", "Src\SkyrimOnline\SkyrimOnline.vcxproj", "{5BD3DA32-06CE-4029-BF72-2E00B3DF7F4E}"
 	ProjectSection(ProjectDependencies) = postProject
 		{9D810381-77E5-4D4B-9B4D-D4AFB7465097} = {9D810381-77E5-4D4B-9B4D-D4AFB7465097}
@@ -18,6 +18,8 @@ EndProject
 Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "SkyrimWalker", "Src\SkyrimWalker\SkyrimWalker.vcxproj", "{B2F2306E-697F-4336-86AF-DF3A1E959626}"
 EndProject
 Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "ClientTest", "Src\ClientTest\ClientTest.vcxproj", "{90337DC7-FFF9-49F4-87A4-AA27EA43E01D}"
+EndProject
+Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "Server", "Src\Server\Server.vcxproj", "{130E93D3-800B-4278-87E9-191322AFE625}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -43,6 +45,9 @@ Global
 		{90337DC7-FFF9-49F4-87A4-AA27EA43E01D}.Release|Win32.ActiveCfg = Release|Win32
 		{90337DC7-FFF9-49F4-87A4-AA27EA43E01D}.Release|Win32.Build.0 = Release|Win32
 		{90337DC7-FFF9-49F4-87A4-AA27EA43E01D}.Release|x64.ActiveCfg = Release|Win32
+		{130E93D3-800B-4278-87E9-191322AFE625}.Release|Win32.ActiveCfg = Release|Win32
+		{130E93D3-800B-4278-87E9-191322AFE625}.Release|Win32.Build.0 = Release|Win32
+		{130E93D3-800B-4278-87E9-191322AFE625}.Release|x64.ActiveCfg = Release|Win32
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
