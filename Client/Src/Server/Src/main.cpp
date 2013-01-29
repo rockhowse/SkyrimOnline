@@ -37,12 +37,26 @@ int GenerateDump(EXCEPTION_POINTERS* pExceptionPointers)
 	return EXCEPTION_EXECUTE_HANDLER;
 }
 
+class Test : public BasicSerializable<SwitchedSerializable<int, SwitchedField<1,int>>, int, char>
+{
+public:
 
+	ACCESSOR_1(1, Test);
+};
 
 void Init()
 {
 	System::Log::Create("GameWorldServer.log");
 	Skyrim::Logic::Session::Init();
+
+	Test test;
+
+	std::cout << test.get<0>().get<0>() << std::endl;
+	Framework::Network::Packet p;
+	p << test;
+	Framework::System::PrintBinary((unsigned char*)p.GetBuffer().data(), p.GetBuffer().size());
+	Framework::System::Log::Flush();
+	system("pause");
 }
 
 void NewInstance()

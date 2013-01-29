@@ -1,5 +1,5 @@
 #pragma once
-
+/*
 class PlayerGOMEntryReplication
 	:public BasicSerializable<SwitchedSerializable<uint16_t,
 		SwitchedField<1, BasicVector<float> >,
@@ -24,4 +24,4 @@ public:
 	ACCESSOR_2(0, 7, Name);
 	ACCESSOR_1(1, Test);
 
-};
+};*/
