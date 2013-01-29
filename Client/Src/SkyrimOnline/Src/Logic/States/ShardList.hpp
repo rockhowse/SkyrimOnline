@@ -21,7 +21,7 @@ namespace Skyrim
 				void OnConnect(bool pConnected);
 
 				void OnShardPick(const std::string& pShard);
-				void OnHost();
+				DEPRECATED(void OnHost());
 
 				bool IsSwitchingAllowed();
 

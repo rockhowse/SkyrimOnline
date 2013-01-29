@@ -10,21 +10,11 @@ namespace Skyrim
 		//--------------------------------------------------------------------------------
 		void Session::Init()
 		{
-			::Game::Player::Register(kServerChatMessage, &Session::HandleChatMessage);
-
-			// Server side
-			::Game::Player::Register(kClientChatMessage, &Session::HandleChatMessage);
-			::Game::Player::Register(kClientInitialData, &Session::HandleInitialData);
-			
+			::Game::Player::Register(kServerChatMessage, &Session::HandleChatMessage);			
 		}
 		//--------------------------------------------------------------------------------
 		Session::Session(unsigned int id, ::Game::GameServer* server) : ::Game::Player(id, server) 
 		{
-			if(TheMassiveMessageMgr->Server() && Local())
-			{
-				TheMassiveMessageMgr->GetGOMDatabase()->Get<Game::PlayerGOMServer>()->
-					Add(&TheGameWorld->GetPlayerCharacter(), ::Game::kTransactionFull, id);
-			}
 		}
 		//--------------------------------------------------------------------------------
 		Session::~Session()

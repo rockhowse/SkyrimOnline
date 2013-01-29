@@ -60,27 +60,12 @@ namespace Skyrim
 
 			if(flag & 0xFF)
 			{
-				std::vector<float> faceMorph;
-				std::vector<uint32_t> wornForms;
-
-				packet >> faceMorph 
-			           >> wornForms;
-
-				data->SetFaceMorph(faceMorph);
-				data->EquipItems(wornForms);
+				//data->SetFaceMorph(faceMorph);
+				//data->EquipItems(wornForms);
 			}
 
-			uint32_t level, region;
-			float px,py,pz,rx,ry,rz;
-			bool mount;
-
-			std::string name;
-
-			packet >> level >> region >> mount;
-			packet >> px >> py >> pz >> rx >> ry >> rz;
-
-			PlayerGOMServer* gomServer = TheMassiveMessageMgr->GetGOMDatabase()->Get<PlayerGOMServer>();
-			gomServer->mControllers[GetKey()]->InterpolateTo(px, py, pz, rx, ry, rz, GetDelta() * 1000);
+			//PlayerGOMServer* gomServer = TheMassiveMessageMgr->GetGOMDatabase()->Get<PlayerGOMServer>();
+			//gomServer->mControllers[GetKey()]->InterpolateTo(px, py, pz, rx, ry, rz, GetDelta() * 1000);
 			
 		}
 		//--------------------------------------------------------------------------------

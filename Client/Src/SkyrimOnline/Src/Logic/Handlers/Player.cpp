@@ -13,12 +13,6 @@ namespace Skyrim
 			_trace
 			try
 			{
-				if(data.Opcode == kClientChatMessage)
-				{
-					data.Opcode = kServerChatMessage;
-					TheMassiveMessageMgr->SendMessageAll(data);
-					return;
-				}
 				std::string msg;
 				data >> msg;
 				

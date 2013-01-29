@@ -43,24 +43,6 @@ void Init()
 {
 	System::Log::Create("GameWorldServer.log");
 	Skyrim::Logic::Session::Init();
-
-	PlayerGOMEntryReplication t, t2;
-	Framework::Network::Packet p;
-	t.SetName("test");
-	t.SetMount(true);
-	t.SetLevel(10);
-	p << t;
-	std::cout << t.GetName() << std::endl;
-
-	Framework::System::PrintBinary((uint8_t*)p.GetBuffer().data(), p.GetBuffer().size());
-	Framework::System::Log::Flush();
-
-	p >> t2;
-	std::cout << t2.GetName() << std::endl;
-	std::cout << t2.GetMount() << std::endl;
-	std::cout << t.impl.m0.impl.mFlag << std::endl;
-
-	system("pause");
 }
 
 void NewInstance()
@@ -73,7 +55,6 @@ void main()
 	Init();
 	__try
 	{
-		
 		//NewInstance();
 		//Skyrim::TheGameWorld->Setup();
 

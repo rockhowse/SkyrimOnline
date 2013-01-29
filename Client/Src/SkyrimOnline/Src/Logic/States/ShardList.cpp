@@ -14,7 +14,7 @@ namespace Skyrim
 			{
 				mShardList = boost::make_shared<Overlay::ShardList>(Overlay::TheSystem->GetGui());
 				mShardList->Hide();
-				mShardList->OnHost.connect(boost::bind(&ShardList::OnHost, this));
+				//mShardList->OnHost.connect(boost::bind(&ShardList::OnHost, this));
 				mShardList->OnShardPick.connect(boost::bind(&ShardList::OnShardPick, this, _1));
 
 				TheMassiveMessageMgr->OnConnection.connect(boost::bind(&ShardList::OnConnect, this, _1));

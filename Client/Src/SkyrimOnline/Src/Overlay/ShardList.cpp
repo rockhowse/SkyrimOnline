@@ -19,21 +19,21 @@ namespace Skyrim
 			float halfHeight(mUI->getViewHeight() * 0.5);
 
 			//Public IP
-			mPublicIP = mUI->createWidget<MyGUI::StaticText>("StaticText",
+			/*mPublicIP = mUI->createWidget<MyGUI::StaticText>("StaticText",
 				mUI->getViewWidth() * 0.4, halfHeight - 73,
 				mUI->getViewWidth() * 0.2, 26,
 				MyGUI::Align::Left, "Overlapped",
 				"ShardPublicIPText");
 
-			mPublicIP->setCaption("Public IP : Resolving");
+			mPublicIP->setCaption("Public IP : Resolving");*/
 
-			Framework::Network::HttpClient::AsyncRequest(boost::bind(&ShardList::OnResolveIP, this, _1), TheMassiveMessageMgr->GetIoServicePool().GetIoService(), "automation.whatismyip.com", "/n09230945.asp");
+			//Framework::Network::HttpClient::AsyncRequest(boost::bind(&ShardList::OnResolveIP, this, _1), TheMassiveMessageMgr->GetIoServicePool().GetIoService(), "automation.whatismyip.com", "/n09230945.asp");
 
-			char hostBuf[1024];
-			gethostname(hostBuf, 1024),
+			//char hostBuf[1024];
+			//gethostname(hostBuf, 1024),
 
 			//Local IP
-			mLocalIP = mUI->createWidget<MyGUI::StaticText>("StaticText",
+			/*mLocalIP = mUI->createWidget<MyGUI::StaticText>("StaticText",
 				mUI->getViewWidth() * 0.4, halfHeight - 53,
 				mUI->getViewWidth() * 0.2, 26,
 				MyGUI::Align::Left, "Overlapped",
@@ -63,7 +63,7 @@ namespace Skyrim
 				strAddresses = "127.0.0.1";
 			}
 
-			mLocalIP->setCaption("Local IP Addresses: " + strAddresses);
+			mLocalIP->setCaption("Local IP Addresses: " + strAddresses);*/
 
 			//Server Address
 			mText = mUI->createWidget<MyGUI::StaticText>("StaticText",
@@ -88,15 +88,15 @@ namespace Skyrim
 			mButton->setCaption("Join");
 
 			//Host Button
-			mHostButton = mUI->createWidget<MyGUI::Button>("Button",
+			/*mHostButton = mUI->createWidget<MyGUI::Button>("Button",
 				mUI->getViewWidth()*0.5 + 10, halfHeight + 23,
 				mUI->getViewWidth()*0.10 - 10, 26,
 				MyGUI::Align::Default, "Overlapped",
 				"ShardListHostButton");
-			mHostButton->setCaption("Host");
+			mHostButton->setCaption("Host");*/
 
 			mButton->eventMouseButtonClick = MyGUI::newDelegate(this, &ShardList::Handle_Click);
-			mHostButton->eventMouseButtonClick = MyGUI::newDelegate(this, &ShardList::Handle_HostClick);
+			//mHostButton->eventMouseButtonClick = MyGUI::newDelegate(this, &ShardList::Handle_HostClick);
 
 			mEdit->setInheritsAlpha(true);
 		}
@@ -117,12 +117,12 @@ namespace Skyrim
 		//--------------------------------------------------------------------------------
 		void	ShardList::SetVisible(bool v)
 		{
-			mPublicIP->setVisible(v);
-			mLocalIP->setVisible(v);
+			//mPublicIP->setVisible(v);
+			//mLocalIP->setVisible(v);
 			mEdit->setVisible(v);
 			mText->setVisible(v);
 			mButton->setVisible(v);
-			mHostButton->setVisible(v);
+			//mHostButton->setVisible(v);
 
 		}
 		//--------------------------------------------------------------------------------
@@ -147,7 +147,7 @@ namespace Skyrim
 		//--------------------------------------------------------------------------------
 		void ShardList::OnResolveIP(const std::string& pData)
 		{
-			mPublicIP->setCaption(std::string("Public IP : ") + pData.substr(3));
+			//mPublicIP->setCaption(std::string("Public IP : ") + pData.substr(3));
 		}
 		//--------------------------------------------------------------------------------
 	}

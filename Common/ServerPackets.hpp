@@ -10,7 +10,7 @@ class PlayerGOMEntryReplication
 		SwitchedField<1<<5, BasicArray<3, float>>,
 		SwitchedField<1<<6, bool>,
 		SwitchedField<1<<7, std::string>
-	>>
+	>, uint32_t>
 {
 public:
 
@@ -22,5 +22,6 @@ public:
 	ACCESSOR_2(0, 5, Rotation);
 	ACCESSOR_2(0, 6, Mount);
 	ACCESSOR_2(0, 7, Name);
+	ACCESSOR_1(1, Test);
 
 };
