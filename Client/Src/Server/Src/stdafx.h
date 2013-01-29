@@ -21,6 +21,7 @@
 #include <boost/tokenizer.hpp>
 
 // Framework
+#include <System/Tools.h>
 #include <System/Log.h>
 #include <Crypt/RSA.h>
 #include <Crypt/Cipher.h>
@@ -61,6 +62,9 @@
 
 // Project code
 #include <Opcodes.h>
+#include <ServerPackets.hpp>
+#include <ClientPackets.hpp>
+
 #include <Script/Script.h>
 #include <Game/data.h>
 
