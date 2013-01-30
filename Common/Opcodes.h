@@ -1,7 +1,8 @@
 #pragma once
 
 enum{
-	kGamePort = 14596
+	kGamePort = 14596,
+	kProtocolVersion = 2
 };
 
 enum{

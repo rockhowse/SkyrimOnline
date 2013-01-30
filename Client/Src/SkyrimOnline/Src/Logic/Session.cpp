@@ -40,20 +40,21 @@ namespace Skyrim
 		{
 			_trace
 			Framework::Network::Packet packet(kClientInitialData);
+			ClientInitialTransaction transaction;
 
-			packet << TheGameWorld->GetUser()
-				   << TheGameWorld->GetPlayerCharacter().GetAllWornForms()
-				   << TheGameWorld->GetPlayerCharacter().GetFaceMorph()
-				   << TheGameWorld->GetPlayerCharacter().GetFacePresets()
-				   << TheGameWorld->GetPlayerCharacter().GetRace()
-				   << TheGameWorld->GetPlayerCharacter().GetGender()
-				   << TheGameWorld->GetPlayerCharacter().GetLevel()
-				   << TheGameWorld->GetPlayerCharacter().GetPosX()
-				   << TheGameWorld->GetPlayerCharacter().GetPosY()
-				   << TheGameWorld->GetPlayerCharacter().GetPosZ()
-				   << TheGameWorld->GetPlayerCharacter().GetRotX()
-				   << TheGameWorld->GetPlayerCharacter().GetRotY()
-				   << TheGameWorld->GetPlayerCharacter().GetRotZ();
+			transaction.SetName(TheGameWorld->GetUser());
+			transaction.SetWornForms(TheGameWorld->GetPlayerCharacter().GetAllWornForms());
+			transaction.SetFaceMorphs(TheGameWorld->GetPlayerCharacter().GetFaceMorph());
+			transaction.SetFacePresets(TheGameWorld->GetPlayerCharacter().GetFacePresets());
+			transaction.SetRace(TheGameWorld->GetPlayerCharacter().GetRace());
+			transaction.SetGender(TheGameWorld->GetPlayerCharacter().GetGender());
+			transaction.SetLevel(TheGameWorld->GetPlayerCharacter().GetLevel());
+			transaction.GetPosition()[0] = TheGameWorld->GetPlayerCharacter().GetPosX();
+			transaction.GetPosition()[1] = TheGameWorld->GetPlayerCharacter().GetPosY();
+			transaction.GetPosition()[2] = TheGameWorld->GetPlayerCharacter().GetPosZ();
+			transaction.GetRotation()[0] = TheGameWorld->GetPlayerCharacter().GetRotX();
+			transaction.GetRotation()[1] = TheGameWorld->GetPlayerCharacter().GetRotY();
+			transaction.GetRotation()[2] = TheGameWorld->GetPlayerCharacter().GetRotZ();
 
 			TheMassiveMessageMgr->SendMessageTo(::Game::kPlayerServer, packet);
 			SendAwareness();

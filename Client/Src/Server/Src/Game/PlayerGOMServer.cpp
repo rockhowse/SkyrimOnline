@@ -36,6 +36,9 @@ namespace Skyrim
 			{
 				if(replicationMap[replicationState].find(id) == replicationMap[replicationState].end())
 				{
+					// THIS IS REALLY IMPORTANT
+					newIds.insert(id);
+
 					mControllers[id] = ctrlr;
 					auto entry = std::make_shared<PlayerGOMEntry>(ctrlr->GetCharacter().get());
 					entry->SetKey(id);

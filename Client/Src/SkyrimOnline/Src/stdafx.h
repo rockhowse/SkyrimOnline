@@ -11,6 +11,17 @@
 
 #include <tchar.h>
 
+// STL
+#include <list>
+#include <vector>
+#include <ctime>
+#include <fstream>
+#include <deque>
+#include <set>
+#include <concurrent_queue.h>
+#include <unordered_map>
+#include <random>
+
 // Boost
 #include <boost/asio.hpp>
 #include <boost/bind.hpp>
@@ -34,16 +45,7 @@
 #include <Game/GOMServer.hpp>
 #include <Game/GOMVariable.hpp>
 #include <Game/GameServer.hpp>
-
-// STL
-#include <list>
-#include <vector>
-#include <ctime>
-#include <fstream>
-#include <deque>
-#include <concurrent_queue.h>
-#include <unordered_map>
-#include <random>
+#include <Serialization/Serialization.hpp>
 
 #include <Winuser.h>
 
@@ -71,6 +73,8 @@
 
 // Project code
 #include <Opcodes.h>
+#include <ClientPackets.hpp>
+#include <ServerPackets.hpp>
 #include <Script/Script.h>
 #include <Game/data.h>
 

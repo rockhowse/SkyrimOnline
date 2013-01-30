@@ -16,6 +16,7 @@ namespace Skyrim
 		Crypt::RSA::Init();
 		TheMassiveMessageMgr->SetPort(kGamePort);
 		TheMassiveMessageMgr->SetAddress("127.0.0.1");
+		TheMassiveMessageMgr->SetVersion(kProtocolVersion);
 		TheMassiveMessageMgr->SetGOMServerConstructor(::Game::GameServer::GOMServerConstructor(&GameWorld::ConstructGOMServers));
 		TheMassiveMessageMgr->SetPlayerConstructor(::Game::GameServer::PlayerConstructor(&GameWorld::ConstructPlayer));
 		TheMassiveMessageMgr->BeginMultiplayer(false);

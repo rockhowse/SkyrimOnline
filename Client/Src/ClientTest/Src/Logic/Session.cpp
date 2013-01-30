@@ -22,11 +22,6 @@ namespace Skyrim
 		//--------------------------------------------------------------------------------
 		Session::Session(unsigned int id, ::Game::GameServer* server) : ::Game::Player(id, server) 
 		{
-			if(TheMassiveMessageMgr->Server() && Local())
-			{
-				/*TheMassiveMessageMgr->GetGOMDatabase()->Get<Game::PlayerGOMServer>()->
-					Add(&TheGameWorld->GetPlayerCharacter(), ::Game::kTransactionFull, id);*/
-			}
 		}
 		//--------------------------------------------------------------------------------
 		Session::~Session()
@@ -50,7 +45,7 @@ namespace Skyrim
 		{
 			_trace
 			Framework::Network::Packet packet(kClientInitialData);
-
+			ClientInitialTransaction transaction;
 
 			std::vector<uint32_t> wornForms;
 			wornForms.push_back(0x13edb);
@@ -59,8 +54,10 @@ namespace Skyrim
 			wornForms.push_back(0x13ed7);
 			wornForms.push_back(0x13914);
 			wornForms.push_back(0x13edb);
+
 			std::vector<uint32_t> facePresets;
 			facePresets.push_back(0);
+
 			std::vector<float> faceMorphs;
 			faceMorphs.push_back(0);
 			faceMorphs.push_back(0);
@@ -82,15 +79,21 @@ namespace Skyrim
 			faceMorphs.push_back(0);
 			faceMorphs.push_back(0);
 
-			packet << std::string(std::to_string((long long)time(0)))
-				   << wornForms
-				   << faceMorphs
-				   << facePresets
-				   << (uint32_t)13745
-				   << (uint32_t)1;
+			transaction.SetName(std::string(std::to_string((long long)time(0))));
+			transaction.SetFaceMorphs(faceMorphs);
+			transaction.SetWornForms(wornForms);
+			transaction.SetGender(1);
+			transaction.SetFacePresets(facePresets);
+			transaction.SetLevel(10);
+			transaction.SetRace(13745);
+	
+			packet << transaction;
+
+			// Reverse send order will cause duplications
+			SendAwareness();
 
 			TheMassiveMessageMgr->SendMessageTo(::Game::kPlayerServer, packet);
-			SendAwareness();
+			
 		}
 		//--------------------------------------------------------------------------------
 		std::string Session::GetName()
