@@ -37,11 +37,15 @@ int GenerateDump(EXCEPTION_POINTERS* pExceptionPointers)
 	return EXCEPTION_EXECUTE_HANDLER;
 }
 
-class Test : public BasicSerializable<SwitchedSerializable<int, SwitchedField<1,int>>, int, char>
+class Test : public BasicSerializable<SwitchedSerializable<int, SwitchedField<1,int>, SwitchedField<2,std::string>>, int, char>
 {
 public:
 
 	ACCESSOR_1(1, Test);
+	ACCESSOR_2(0, 0, Test2);
+	ACCESSOR_2(0, 1, Test3);
+	ACCESSOR_1(2, Char);
+
 };
 
 void Init()
@@ -49,13 +53,21 @@ void Init()
 	System::Log::Create("GameWorldServer.log");
 	Skyrim::Logic::Session::Init();
 
-	Test test;
+	Test test, test2;
 
-	std::cout << test.get<0>().get<0>() << std::endl;
+	test.SetTest2(10);
+	test.SetTest3("lol");
+	test.SetChar('b');
+	std::cout << test.IsSetTest3() << std::endl;
+	cout << test.GetTest2() << endl;
 	Framework::Network::Packet p;
 	p << test;
+	
 	Framework::System::PrintBinary((unsigned char*)p.GetBuffer().data(), p.GetBuffer().size());
 	Framework::System::Log::Flush();
+	p >> test2;
+	cout << test2.GetChar() << endl;
+
 	system("pause");
 }
 
