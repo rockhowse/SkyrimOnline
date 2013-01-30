@@ -44,7 +44,6 @@ namespace Skyrim
 		void Session::OnSynchronize()
 		{
 			_trace
-			Framework::Network::Packet packet(kClientInitialData);
 			ClientInitialTransaction transaction;
 
 			std::vector<uint32_t> wornForms;
@@ -86,13 +85,11 @@ namespace Skyrim
 			transaction.SetFacePresets(facePresets);
 			transaction.SetLevel(10);
 			transaction.SetRace(13745);
-	
-			packet << transaction;
 
 			// Reverse send order will cause duplications
 			SendAwareness();
 
-			TheMassiveMessageMgr->SendMessageTo(::Game::kPlayerServer, packet);
+			TheMassiveMessageMgr->SendMessageTo(::Game::kPlayerServer, transaction.ToPacket(kClientInitialData));
 			
 		}
 		//--------------------------------------------------------------------------------

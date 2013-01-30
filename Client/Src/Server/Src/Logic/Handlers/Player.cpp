@@ -21,8 +21,6 @@ namespace Skyrim
 				}
 				std::string msg;
 				data >> msg;
-				
-				OnChatMessage(msg);
 			}
 			catch(boost::exception& e)
 			{
