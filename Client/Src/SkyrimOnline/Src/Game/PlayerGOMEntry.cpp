@@ -53,53 +53,40 @@ namespace Skyrim
 		void PlayerGOMEntry::DoDeserialize(const std::string& plainData)
 		{
 			Framework::Network::Packet packet;
-			packet.Initialize(plainData.substr(8));
+			packet.Initialize(plainData);
 
-			uint8_t flag = 0;
-			packet >> flag;
+			PlayerGOMTransaction transaction;
+			packet >> transaction;
 
-			if(flag & 0xFF)
-			{
-				//data->SetFaceMorph(faceMorph);
-				//data->EquipItems(wornForms);
-			}
-
-			//PlayerGOMServer* gomServer = TheMassiveMessageMgr->GetGOMDatabase()->Get<PlayerGOMServer>();
-			//gomServer->mControllers[GetKey()]->InterpolateTo(px, py, pz, rx, ry, rz, GetDelta() * 1000);
+			PlayerGOMServer* gomServer = TheMassiveMessageMgr->GetGOMDatabase()->Get<PlayerGOMServer>();
+			auto controller = gomServer->mControllers[GetKey()]; 
+			//controller->InterpolateTo(px, py, pz, rx, ry, rz, GetDelta() * 1000);
 			
 		}
 		//--------------------------------------------------------------------------------
 		std::string PlayerGOMEntry::DoSerialize(bool pFull) const
 		{
-			Framework::Network::Packet packet;
+// NOTE THIS CODE SHOULD NEVER BE REACHED
 
-			uint8_t flag = 0;
-			packet << data->GetRace()
-				   << data->GetGender();
+			assert(false);
 
-			packet << flag;
+			PlayerGOMTransaction transaction;
 
 			if(pFull)
+				transaction.SetRace(data->GetRace());
+			if(pFull)
+				transaction.SetGender(data->GetGender());
+			if(pFull)
 			{
-				flag = 0xFF;
-				packet << data->GetFaceMorph()
-					   << data->GetAllWornForms();
+				transaction.SetFaceMorphs(data->GetFaceMorph());
+				transaction.SetWornForms(data->GetAllWornForms());
 			}
+			if(pFull || pos)
+				transaction.SetPosition({{pos.get().x, pos.get().y, pos.get().z}});
+			if(pFull || rot)
+				transaction.SetRotation({{rot.get().x, rot.get().y, rot.get().z}});
 
-			packet << data->GetLevel()
-				   << region.get()
-				   << mount.get()
-				   << pos.get().x
-				   << pos.get().y
-				   << pos.get().z
-				   << rot.get().x
-				   << rot.get().y
-				   << rot.get().z;
-				  
-
-			packet.Write(&flag, 1, 8);
-
-			return packet.GetBuffer();
+			return transaction.ToPacket().GetBuffer();
 		}
 		//--------------------------------------------------------------------------------
 	}

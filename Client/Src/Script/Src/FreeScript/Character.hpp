@@ -13,14 +13,11 @@ namespace FreeScript
 		struct Vector3{
 			float x,y,z;
 
-			bool operator==(const Vector3& vec){
-				return (vec.x == x && vec.y == y && vec.z == z);
-			}
-
-			bool operator!=(const Vector3& vec){
-				return !(*this == vec);
-			}
+			friend bool operator==(const Vector3& vec, const Vector3& vec2);
+			friend bool operator!=(const Vector3& vec, const Vector3& vec2);
 		};
+
+
 
 		Character(FreeScript::Actor* pActor);
 
@@ -230,4 +227,7 @@ namespace FreeScript
 		std::vector<uint32_t>	mFacePresets;
 		std::vector<uint32_t>	mWornForms;
 	};
+
+
+
 }

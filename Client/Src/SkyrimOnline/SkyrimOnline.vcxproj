@@ -67,6 +67,7 @@
     <ClInclude Include="..\..\..\Common\ClientPackets.hpp" />
     <ClInclude Include="..\..\..\Common\Opcodes.h" />
     <ClInclude Include="..\..\..\Common\ServerPackets.hpp" />
+    <ClInclude Include="..\..\..\Common\SharedPackets.hpp" />
     <ClInclude Include="Src\Common\enums.h" />
     <ClInclude Include="Src\Common\invoke.h" />
     <ClInclude Include="Src\Common\obscript.h" />
