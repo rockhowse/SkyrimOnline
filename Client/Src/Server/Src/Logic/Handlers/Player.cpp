@@ -13,14 +13,9 @@ namespace Skyrim
 			_trace
 			try
 			{
-				if(data.Opcode == kClientChatMessage)
-				{
-					data.Opcode = kServerChatMessage;
-					TheMassiveMessageMgr->SendMessageAll(data);
-					return;
-				}
-				std::string msg;
-				data >> msg;
+				ChatMessage message;
+				data >> message;
+				TheMassiveMessageMgr->SendMessageAll(message.ToPacket(kServerChatMessage));
 			}
 			catch(boost::exception& e)
 			{
@@ -32,34 +27,16 @@ namespace Skyrim
 			}
 		}
 		//--------------------------------------------------------------------------------
-		void Session::HandlePlayerSpawn(Packet& data)
+		void Session::HandlePlayerMoveState(Packet& data)
 		{
-			try
-			{
-			}
-			catch(boost::exception& e)
-			{
-				System::Log::Error(boost::diagnostic_information(e));
-			}
-			catch(std::exception& e)
-			{
-				System::Log::Error(e.what());
-			}
+			PlayerMoveState transaction;
+			data >> transaction;
+
+			if(transaction.IsSetHeading())
+				cout << transaction.GetHeading() << endl;
 		}
 		//--------------------------------------------------------------------------------
-		void Session::HandlePlayerMoveAndLook(Packet& data)
-		{
-		}
-		//--------------------------------------------------------------------------------
-		void Session::HandlePlayerRemove(Packet& data)
-		{
-		}
-		//--------------------------------------------------------------------------------
-		void Session::HandleMount(Packet& data)
-		{
-		}
-		//--------------------------------------------------------------------------------
-		void Session::HandleUnmount(Packet& data)
+		void Session::HandleMountState(Packet& data)
 		{
 		}
 		//--------------------------------------------------------------------------------

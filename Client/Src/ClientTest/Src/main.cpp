@@ -60,11 +60,26 @@ void ChatSystem()
 {
 	while(1)
 	{
-		Framework::Network::Packet packet(kClientChatMessage);
 		std::string message;
-		std::cin >> message;
-		packet << message;
-		TheMassiveMessageMgr->SendMessageTo(::Game::kPlayerServer, packet);
+		std::getline(cin, message);
+
+		ChatMessage msg;
+		msg.SetTheMessage(message);
+
+		TheMassiveMessageMgr->SendMessageTo(::Game::kPlayerServer, msg.ToPacket(kClientChatMessage));
+	}
+}
+
+void PositionSystem()
+{
+	PlayerMoveState transaction;
+	while(1)
+	{
+		Sleep(1000);
+
+		transaction.SetHeading(transaction.GetHeading() + 10.f);
+
+		TheMassiveMessageMgr->SendMessageTo(::Game::kPlayerServer, transaction.ToPacket(kClientPlayerMoveState));
 	}
 }
 
@@ -77,5 +92,6 @@ void main()
 	NewInstance();
 	Skyrim::TheGameWorld->Setup();
 	boost::thread t(ChatSystem);
+	boost::thread t2(PositionSystem);
 	Skyrim::TheGameWorld->Run();
 }

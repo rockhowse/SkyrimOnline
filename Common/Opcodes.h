@@ -7,13 +7,13 @@ enum{
 
 enum{
 	kClientChatMessage = 'ccha',
-	kClientInitialData = 'cida'
+	kClientInitialData = 'cida',
+	kClientPlayerMoveState = 'cpmv',
+	kClientMountState = 'cmos'
 };
 
 enum{
 	kServerChatMessage = 'scha',
 	kServerServiceResponse = 'sser',
-	kServerMount = 'smou',
-	kServerUnmount = 'sunm'
 
 };

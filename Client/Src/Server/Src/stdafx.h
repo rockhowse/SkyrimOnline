@@ -65,11 +65,10 @@
 #include <Opcodes.h>
 #include <ServerPackets.hpp>
 #include <ClientPackets.hpp>
+#include <SharedPackets.hpp>
 
 #include <Script/Script.h>
 #include <Game/data.h>
-
-#include <FreeScript/FreeScript.hpp>
 
 using namespace Framework;
 

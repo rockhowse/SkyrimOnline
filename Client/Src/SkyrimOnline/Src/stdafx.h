@@ -75,6 +75,7 @@
 #include <Opcodes.h>
 #include <ClientPackets.hpp>
 #include <ServerPackets.hpp>
+#include <SharedPackets.hpp>
 #include <Script/Script.h>
 #include <Game/data.h>
 

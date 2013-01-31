@@ -13,6 +13,7 @@ namespace Skyrim
 			// Server side
 			::Game::Player::Register(kClientChatMessage, &Session::HandleChatMessage);
 			::Game::Player::Register(kClientInitialData, &Session::HandleInitialData);
+			::Game::Player::Register(kClientPlayerMoveState, &Session::HandlePlayerMoveState);
 			
 		}
 		//--------------------------------------------------------------------------------

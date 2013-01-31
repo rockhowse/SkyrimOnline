@@ -26,3 +26,21 @@ public:
 	ACCESSOR_1(8, Rotation);
 
 };
+
+class PlayerMoveState: public
+	BasicSerializable<
+		SwitchedSerializable<uint32_t,
+			SwitchedField<0x0001, float>,
+			SwitchedField<0x0002, BasicArray<3, float>>,
+			SwitchedField<0x0004, float>,
+			SwitchedField<0x0008, uint64_t>
+			>
+		>
+{
+public:
+
+	ACCESSOR_2(0, 0, Heading);
+	ACCESSOR_2(0, 1, Position);
+	ACCESSOR_2(0, 2, Speed);
+	ACCESSOR_2(0, 3, Time);
+};

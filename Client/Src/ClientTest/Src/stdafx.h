@@ -69,6 +69,7 @@
 #include <ClientPackets.hpp>
 #include <ServerPackets.hpp>
 #include <Script/Script.h>
+#include <SharedPackets.hpp>
 #include <Game/data.h>
 
 

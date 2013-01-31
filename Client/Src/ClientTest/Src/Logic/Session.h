@@ -27,13 +27,8 @@ namespace Skyrim
 
 			void OnSynchronize();
 
-			void HandlePlayerSpawn(Network::Packet&);
-			void HandlePlayerMoveAndLook(Network::Packet&);
-			void HandlePlayerRemove(Network::Packet&);
 			void HandleChatMessage(Network::Packet&);
 			void HandleServiceResponse(Network::Packet&);
-			void HandleMount(Network::Packet&);
-			void HandleUnmount(Network::Packet&);
 			void HandleInitialData(Network::Packet&);
 
 		private:

@@ -19,7 +19,6 @@ namespace Skyrim
 			static void Init();
 
 			boost::signal<void(const std::string&)> OnChatMessage;
-			boost::signal<void()>					OnSpawn;
 
 			std::string GetName();
 
@@ -27,13 +26,10 @@ namespace Skyrim
 
 			void OnSynchronize();
 
-			void HandlePlayerSpawn(Network::Packet&);
-			void HandlePlayerMoveAndLook(Network::Packet&);
-			void HandlePlayerRemove(Network::Packet&);
+			void HandlePlayerMoveState(Network::Packet&);
 			void HandleChatMessage(Network::Packet&);
 			void HandleServiceResponse(Network::Packet&);
-			void HandleMount(Network::Packet&);
-			void HandleUnmount(Network::Packet&);
+			void HandleMountState(Network::Packet&);
 			void HandleInitialData(Network::Packet&);
 
 		private:

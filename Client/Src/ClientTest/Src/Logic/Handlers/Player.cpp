@@ -11,18 +11,14 @@ namespace Skyrim
 		//--------------------------------------------------------------------------------
 		void Session::HandleChatMessage(Packet& data)
 		{
-			_trace
+			//_trace
 			try
 			{
-				if(data.Opcode == kClientChatMessage)
-				{
-					data.Opcode = kServerChatMessage;
-					TheMassiveMessageMgr->SendMessageAll(data);
-					return;
-				}
-				std::string msg;
-				data >> msg;
-				OnChatMessage(msg);
+				ChatMessage message;
+				data >> message;
+
+				OnChatMessage(message.GetTheMessage());
+				Framework::System::Log::Debug(string("Chat message received : ") + message.GetTheMessage());
 			}
 			catch(boost::exception& e)
 			{
@@ -32,37 +28,6 @@ namespace Skyrim
 			{
 				System::Log::Error(e.what());
 			}
-		}
-		//--------------------------------------------------------------------------------
-		void Session::HandlePlayerSpawn(Packet& data)
-		{
-			try
-			{
-			}
-			catch(boost::exception& e)
-			{
-				System::Log::Error(boost::diagnostic_information(e));
-			}
-			catch(std::exception& e)
-			{
-				System::Log::Error(e.what());
-			}
-		}
-		//--------------------------------------------------------------------------------
-		void Session::HandlePlayerMoveAndLook(Packet& data)
-		{
-		}
-		//--------------------------------------------------------------------------------
-		void Session::HandlePlayerRemove(Packet& data)
-		{
-		}
-		//--------------------------------------------------------------------------------
-		void Session::HandleMount(Packet& data)
-		{
-		}
-		//--------------------------------------------------------------------------------
-		void Session::HandleUnmount(Packet& data)
-		{
 		}
 		//--------------------------------------------------------------------------------
 	}
