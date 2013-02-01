@@ -29,7 +29,7 @@ namespace Skyrim
 
 			void HandleChatMessage(Network::Packet&);
 			void HandleServiceResponse(Network::Packet&);
-			void HandleInitialData(Network::Packet&);
+			void HandleWorldState(Network::Packet&);
 
 		private:
 

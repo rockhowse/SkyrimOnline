@@ -11,33 +11,29 @@ namespace Skyrim
 		//--------------------------------------------------------------------------------
 		PlayerGOMEntry::PlayerGOMEntry(Character* character)
 			:
-			::Game::GOMEntry<Character>(character)/*,
+			::Game::GOMEntry<Character>(character),
 			region(std::bind(&Character::GetLocationId, character)),
-			mount(std::bind(&Character::IsRidding, character)),
 			pos(std::bind(&Character::GetPosition, character)),
-			rot(std::bind(&Character::GetRotation, character))*/
+			rot(std::bind(&Character::GetRotation, character))
 		{
 		}
 		//-------------------------------------------------------------------------------
 		PlayerGOMEntry::~PlayerGOMEntry()
 		{
-			//delete data;
 		}
 		//-------------------------------------------------------------------------------
 		void PlayerGOMEntry::Update()
 		{
-			/*region(this);
-			mount(this);
+			region(this);
 			pos(this);
-			rot(this);*/
+			rot(this);
 		}
 		//--------------------------------------------------------------------------------
 		void PlayerGOMEntry::Synchronize()
 		{
-			/*region();
-			mount();
+			region();
 			pos();
-			rot();*/
+			rot();
 		}
 		//--------------------------------------------------------------------------------
 		void PlayerGOMEntry::SetKey(uint32_t pKey)
@@ -52,69 +48,30 @@ namespace Skyrim
 		//--------------------------------------------------------------------------------
 		void PlayerGOMEntry::DoDeserialize(const std::string& plainData)
 		{
-			/*Framework::Network::Packet packet;
-			packet.Initialize(plainData.substr(8));
+			// SHOULD NEVER BE REACHED
 
-			uint8_t flag = 0;
-			packet >> flag;
-
-			if(flag & 0xFF)
-			{
-				std::vector<float> faceMorph;
-				std::vector<uint32_t> wornForms;
-
-				packet >> faceMorph 
-			           >> wornForms;
-
-				data->SetFaceMorph(faceMorph);
-				data->EquipItems(wornForms);
-			}
-
-			uint32_t level, region;
-			float px,py,pz,rx,ry,rz;
-			bool mount;
-
-			std::string name;
-
-			packet >> level >> region >> mount;
-			packet >> px >> py >> pz >> rx >> ry >> rz;
-
-			PlayerGOMServer* gomServer = TheMassiveMessageMgr->GetGOMDatabase()->Get<PlayerGOMServer>();
-			gomServer->mControllers[GetKey()]->InterpolateTo(px, py, pz, rx, ry, rz, GetDelta() * 1000);*/
-			
+			_trace;
 		}
 		//--------------------------------------------------------------------------------
 		std::string PlayerGOMEntry::DoSerialize(bool pFull) const
 		{
-			Framework::Network::Packet packet;
-
-			/*uint8_t flag = 0;
-			packet << data->GetRace()
-				   << data->GetGender();
-
-			packet << flag;
+			PlayerGOMTransaction transaction;
 
 			if(pFull)
+				transaction.SetRace(data->GetRace());
+			if(pFull)
+				transaction.SetGender(data->GetGender());
+			if(pFull)
 			{
-				flag = 0xFF;
-				packet << data->GetFaceMorph()
-					   << data->GetAllWornForms();
+				transaction.SetFaceMorphs(data->GetFaceMorph());
+				transaction.SetWornForms(data->GetAllWornForms());
 			}
+			if(pFull || pos)
+				transaction.SetPosition({{pos.get().x, pos.get().y, pos.get().z}});
+			if(pFull || rot)
+				transaction.SetRotation({{rot.get().x, rot.get().y, rot.get().z}});
 
-			packet << data->GetLevel()
-				   << region.get()
-				   << mount.get()
-				   << pos.get().x
-				   << pos.get().y
-				   << pos.get().z
-				   << rot.get().x
-				   << rot.get().y
-				   << rot.get().z;
-				  
-
-			packet.Write(&flag, 1, 8);*/
-
-			return packet.GetBuffer();
+			return transaction.ToPacket().GetBuffer();
 		}
 		//--------------------------------------------------------------------------------
 	}

@@ -15,5 +15,6 @@ enum{
 enum{
 	kServerChatMessage = 'scha',
 	kServerServiceResponse = 'sser',
+	kServerWorldState = 'swst'
 
 };

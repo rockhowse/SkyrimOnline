@@ -2,8 +2,7 @@
 
 #include <Game/PlayerGOMEntry.h>
 #include <Logic/GameState.hpp>
-#include <Game/TimeManager.hpp>
-#include <Game/WeatherManager.hpp>
+#include <Game/WorldManager.h>
 
 namespace Skyrim
 {
@@ -21,8 +20,7 @@ namespace Skyrim
 		// Network event
 		void OnError(const std::string&);
 
-		Game::TimeManager& GetTimeManager();
-		Game::WeatherManager& GetWeatherManager();
+		Game::WorldManager& GetWorldManager();
 
 		static ::Game::Player* ConstructPlayer(::Game::Player::KeyType id, ::Game::GameServer* server);
 		static std::vector<::Game::IGOMServer*> ConstructGOMServers(void*);
@@ -30,8 +28,7 @@ namespace Skyrim
 	private:
 
 		//< Alright now start initializing gameplay stuff
-		Game::TimeManager mTimeManager;
-		Game::WeatherManager mWeatherManager;
+		Game::WorldManager mWorldMgr;
 
 		//< Common shit
 		boost::timer mTimer;

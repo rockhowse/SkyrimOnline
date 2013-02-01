@@ -14,10 +14,11 @@ namespace Skyrim
 			ClientInitialTransaction transaction;
 			pPacket >> transaction;
 
-			auto controller = boost::make_shared<Game::ActorController>(transaction.GetRace(), transaction.GetGender());
-			TheMassiveMessageMgr->GetGOMDatabase()->Get<Game::PlayerGOMServer>()->_Add(controller, ::Game::kTransactionFull, GetKey());
-			auto character = controller->GetCharacter();
+			mController = boost::make_shared<Game::ActorController>(transaction.GetRace(), transaction.GetGender());
 
+			TheMassiveMessageMgr->GetGOMDatabase()->Get<Game::PlayerGOMServer>()->_Add(mController, ::Game::kTransactionFull, GetKey());
+
+			auto character = mController->GetCharacter();
 			/*controller->InterpolateTo(px, py, pz, rx, ry, rz, 0);
 
 			character->SetName(mName);

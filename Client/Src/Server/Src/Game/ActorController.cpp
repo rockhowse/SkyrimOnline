@@ -8,7 +8,7 @@ namespace Skyrim
 	{
 		//--------------------------------------------------------------------------------
 		ActorController::ActorController(uint32_t pRace, uint32_t pSex)
-			: mInit(false)
+			: mInit(false), mMe(boost::make_shared<Character>())
 		{
 		}
 		//--------------------------------------------------------------------------------
@@ -24,16 +24,12 @@ namespace Skyrim
 		//--------------------------------------------------------------------------------
 		void ActorController::SetPosition(float x, float y, float z)
 		{
-			mPoint.posX = x;
-			mPoint.posY = y;
-			mPoint.posZ = z;
+			mMe->SetPosition(x ,y ,z);
 		}
 		//--------------------------------------------------------------------------------
 		void ActorController::SetRotation(float x, float y, float z)
 		{
-			mPoint.rotX = x;
-			mPoint.rotY = y;
-			mPoint.rotZ = z;
+			mMe->SetRotation(x, y ,z);
 		}
 		//--------------------------------------------------------------------------------
 		void ActorController::InterpolateTo(float posX, float posY, float posZ, float rotX, float rotY, float rotZ, uint32_t time)

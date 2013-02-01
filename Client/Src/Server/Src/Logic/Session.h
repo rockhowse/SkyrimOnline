@@ -25,6 +25,7 @@ namespace Skyrim
 		protected:
 
 			void OnSynchronize();
+			void OnEnterAwareness();
 
 			void HandlePlayerMoveState(Network::Packet&);
 			void HandleChatMessage(Network::Packet&);
@@ -41,6 +42,7 @@ namespace Skyrim
 			std::string mName;
 			Network::TcpConnection::pointer mConnection;
 			std::vector<boost::signals::connection> mEventLinks;
+			boost::shared_ptr<Game::ActorController> mController;
 		};
 	}
 }

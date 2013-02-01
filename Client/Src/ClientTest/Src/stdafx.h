@@ -45,6 +45,10 @@
 #include <Game/GOMVariable.hpp>
 #include <Game/GameServer.hpp>
 #include <Serialization/Serialization.hpp>
+#include <Math/Math.hpp>
+
+using namespace Framework;
+using namespace Framework::Math;
 
 #include <Winuser.h>
 // papyrus common
@@ -80,7 +84,5 @@
 #include <EasySteam/Friend.hpp>
 
 #include <FreeScript/FreeScript.hpp>
-
-using namespace Framework;
 
 #define _trace Framework::System::Log::Debug(std::string("Call trace : ") + std::string(__FUNCSIG__)); Framework::System::Log::Flush();

@@ -33,7 +33,7 @@ namespace Skyrim
 			data >> transaction;
 
 			if(transaction.IsSetHeading())
-				cout << transaction.GetHeading() << endl;
+				mController->GetCharacter()->SetHeading(transaction.GetHeading());
 		}
 		//--------------------------------------------------------------------------------
 		void Session::HandleMountState(Packet& data)

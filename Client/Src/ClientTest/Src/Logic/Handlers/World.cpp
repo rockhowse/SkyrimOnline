@@ -16,5 +16,11 @@ namespace Skyrim
 			System::Log::Debug(std::string("Register service : ") + service);
 		}
 		//--------------------------------------------------------------------------------
+		void Session::HandleWorldState(Network::Packet& data)
+		{
+			WorldState transaction;
+			data >> transaction;
+		}
+		//--------------------------------------------------------------------------------
 	}
 }

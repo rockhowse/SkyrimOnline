@@ -2,6 +2,10 @@
 
 #define DIRECTINPUT_VERSION 0x0800
 
+#include <Math/Vector3.hpp>
+
+using namespace Framework::Math;
+
 #include <list>
 #include <vector>
 #include <ctime>
@@ -14,6 +18,7 @@
 #include <string>
 #include <vector>
 #include <skyscript.h>
+
 
 #pragma warning( disable : 4251 )
 #pragma warning( disable : 4244 )

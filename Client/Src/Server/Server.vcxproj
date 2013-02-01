@@ -81,7 +81,9 @@
     <ClInclude Include="Src\stdafx.h" />
   </ItemGroup>
   <ItemGroup>
+    <ClCompile Include="Src\Game\Character.cpp" />
     <ClCompile Include="Src\Game\PlayerGOMServer.cpp" />
+    <ClCompile Include="Src\Game\WeatherManager.cpp" />
     <ClCompile Include="Src\Game\WorldManager.cpp" />
     <ClCompile Include="Src\Logic\Senders\Character.cpp" />
     <ClCompile Include="Src\Logic\Senders\General.cpp" />

@@ -13,10 +13,7 @@ namespace Skyrim
 		void Session::Init()
 		{
 			::Game::Player::Register(kServerChatMessage, &Session::HandleChatMessage);
-
-			// Server side
-			::Game::Player::Register(kClientChatMessage, &Session::HandleChatMessage);
-			::Game::Player::Register(kClientInitialData, &Session::HandleInitialData);
+			::Game::Player::Register(kServerWorldState,  &Session::HandleWorldState);
 			
 		}
 		//--------------------------------------------------------------------------------
@@ -32,8 +29,6 @@ namespace Skyrim
 				{
 					pConnection.disconnect();
 				});
-
-				_trace
 			}
 			catch(...)
 			{

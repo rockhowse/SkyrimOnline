@@ -25,3 +25,13 @@ public:
 	ACCESSOR_1(1, Test);
 
 };
+
+class WorldState : public
+	BasicSerializable<SwitchedSerializable<uint32_t,
+		SwitchedField<0x00000001, uint32_t>
+	>>
+{
+public:
+
+	ACCESSOR_2(0, 0, Weather);
+};

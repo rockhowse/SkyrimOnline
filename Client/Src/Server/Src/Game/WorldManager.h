@@ -1,5 +1,7 @@
 #pragma once
 
+#include "WeatherManager.hpp"
+
 namespace Skyrim
 {
 	namespace Game
@@ -10,7 +12,14 @@ namespace Skyrim
 
 			WorldManager();
 			~WorldManager();
+
+			void Update(float pDelta);
+
+			WorldState GetWorldState();
+
 		private:
+
+			WeatherManager mWeather;
 		};
 	}
 }

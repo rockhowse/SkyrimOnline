@@ -11,14 +11,17 @@ namespace Skyrim
 	//--------------------------------------------------------------------------------
 	GameWorld::GameWorld()
 	{
-		_trace
-
 		Crypt::RSA::Init();
 		TheMassiveMessageMgr->SetPort(kGamePort);
 		TheMassiveMessageMgr->SetVersion(kProtocolVersion);
 		TheMassiveMessageMgr->SetGOMServerConstructor(::Game::GameServer::GOMServerConstructor(&GameWorld::ConstructGOMServers));
 		TheMassiveMessageMgr->SetPlayerConstructor(::Game::GameServer::PlayerConstructor(&GameWorld::ConstructPlayer));
-		TheMassiveMessageMgr->BeginMultiplayer(true);
+
+		std::ostringstream os;
+		os << "Hosting server with protocol version " << kProtocolVersion << " on port " << kGamePort << endl;
+		Framework::System::Log::Print(os.str());
+
+		TheMassiveMessageMgr->BeginMultiplayer(true);		
 	}
 	//--------------------------------------------------------------------------------
 	GameWorld::~GameWorld()
@@ -26,14 +29,9 @@ namespace Skyrim
 		_trace
 	}
 	//--------------------------------------------------------------------------------
-	Game::TimeManager& GameWorld::GetTimeManager()
+	Game::WorldManager& GameWorld::GetWorldManager()
 	{
-		return mTimeManager;
-	}
-	//--------------------------------------------------------------------------------
-	Game::WeatherManager& GameWorld::GetWeatherManager()
-	{
-		return mWeatherManager;
+		return mWorldMgr;
 	}
 	//--------------------------------------------------------------------------------
 	void GameWorld::OnError(const std::string& pError)

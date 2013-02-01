@@ -31,8 +31,6 @@ namespace Skyrim
 				});
 
 				TheMassiveMessageMgr->GetGOMDatabase()->Get<Game::PlayerGOMServer>()->Remove(::Game::kTransactionFull, GetKey());
-
-				_trace
 			}
 			catch(...)
 			{
@@ -42,7 +40,11 @@ namespace Skyrim
 		//--------------------------------------------------------------------------------
 		void Session::OnSynchronize()
 		{
-			_trace
+		}
+		//--------------------------------------------------------------------------------
+		void Session::OnEnterAwareness()
+		{
+			Write(TheGameWorld->GetWorldManager().GetWorldState().ToPacket(kServerWorldState));
 		}
 		//--------------------------------------------------------------------------------
 		std::string Session::GetName()

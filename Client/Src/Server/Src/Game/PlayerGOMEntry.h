@@ -26,10 +26,9 @@ namespace Skyrim
 
 			uint32_t mKey;
 			
-			/*::Game::GOMVariable<uint32_t> region;
-			::Game::GOMVariable<bool> mount;
-			::Game::GOMVariable<FreeScript::Character::Vector3> pos;
-			::Game::GOMVariable<FreeScript::Character::Vector3> rot;*/
+			::Game::GOMVariable<uint32_t> region;
+			::Game::GOMVariable<Vector3> pos;
+			::Game::GOMVariable<Vector3> rot;
 		};
 	}
 }

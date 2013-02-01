@@ -72,26 +72,9 @@ namespace Skyrim
 
 		void PlayerGOMServer::UpdateEntry(int32_t id, int32_t state, const std::string& serializedData)
 		{
-			if(id != TheMassiveMessageMgr->GetLocalPlayer()->GetKey())
-			{
-				if(state >= 0 && state < ::Game::ReplicationStateProperty::kCount)
-				{
-					auto itor = replicationMap[state].find(id);
-					if(itor == replicationMap[state].end())
-					{
-						uint32_t race = *(uint32_t*)&serializedData[0];
-						uint32_t gender = *(uint32_t*)&serializedData[4];
+			// UNREACHABLE
 
-						boost::shared_ptr<ActorController> controller = boost::make_shared<ActorController>(race, gender);
-						mControllers[id] = controller;
-
-						Add((WrappedType*)controller->GetCharacter().get(), state, id);
-						itor = replicationMap[state].find(id);
-					}
-
-					itor->second->Deserialize(serializedData);
-				}
-			}
+			//assert(false);
 		}
 	}
 }

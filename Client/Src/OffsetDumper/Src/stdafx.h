@@ -13,6 +13,11 @@
 
 #include <cstdint>
 
+#include <Math/Math.hpp>
+
+using namespace Framework;
+using namespace Framework::Math;
+
 // STL
 #include <list>
 #include <vector>
