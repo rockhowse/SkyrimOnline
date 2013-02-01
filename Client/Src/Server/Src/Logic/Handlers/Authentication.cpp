@@ -20,15 +20,14 @@ namespace Skyrim
 
 			auto character = mController->GetCharacter();
 			character->SetName(transaction.GetName());
-			/*controller->InterpolateTo(px, py, pz, rx, ry, rz, 0);
 
-			character->SetName(mName);
+			mController->SetPosition(transaction.GetPosition()[0], transaction.GetPosition()[1], transaction.GetPosition()[2]);
+			mController->SetRotation(transaction.GetRotation()[0], transaction.GetRotation()[1], transaction.GetRotation()[2]);
 
-			character->SetFaceMorph(faceMorphs);
-			character->SetFacePresets(facePresets);
+			character->SetFaceMorph(transaction.GetFaceMorphs());
+			character->SetFacePresets(transaction.GetFacePresets());
 			
-			character->EquipItems(wornForms);
-			//character->SetLevel(level);*/
+			character->EquipItems(transaction.GetWornForms());
 		}
 		//--------------------------------------------------------------------------------
 	}

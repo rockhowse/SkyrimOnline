@@ -58,23 +58,22 @@ namespace Skyrim
 					auto itor = replicationMap[state].find(id);
 					if(itor == replicationMap[state].end())
 					{
+						Framework::System::Log::Debug("New entry !!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!");
 
 						Framework::Network::Packet packet;
 						packet.Initialize(serializedData);
+
 						PlayerGOMTransaction transaction;
 						packet >> transaction;
 
-						if(transaction.IsSetName())
-							cout << "Spawning player with name : " << (string)transaction.GetName() << endl;
+						boost::shared_ptr<ActorController> controller = boost::make_shared<ActorController>(transaction.GetRace(), transaction.GetGender());
+						mControllers[id] = controller;
 
-						//boost::shared_ptr<ActorController> controller = boost::make_shared<ActorController>(race, gender);
-						//mControllers[id] = controller;
-
-						//Add(controller->GetCharacter().get(), state, id);
+						Add(controller->GetCharacter().get(), state, id);
 						itor = replicationMap[state].find(id);
 					}
 
-					//itor->second->Deserialize(serializedData);
+					itor->second->Deserialize(serializedData);
 				}
 			}
 		}

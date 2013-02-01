@@ -67,10 +67,11 @@ namespace Skyrim
 			{
 				transaction.SetFaceMorphs(data->GetFaceMorph());
 				transaction.SetWornForms(data->GetAllWornForms());
+				transaction.SetFacePresets(data->GetFacePresets());
 			}
-			if(pFull || pos)
+			if(pFull || !pos)
 				transaction.SetPosition({{pos.get().x, pos.get().y, pos.get().z}});
-			if(pFull || rot)
+			if(pFull || !rot)
 				transaction.SetRotation({{rot.get().x, rot.get().y, rot.get().z}});
 
 			return transaction.ToPacket().GetBuffer();

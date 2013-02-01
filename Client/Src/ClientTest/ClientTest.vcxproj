@@ -65,6 +65,7 @@
   </ItemDefinitionGroup>
   <ItemGroup>
     <ClInclude Include="Src\Game\AssetManager.h" />
+    <ClInclude Include="Src\Game\Character.hpp" />
     <ClInclude Include="Src\Game\data.h" />
     <ClInclude Include="Src\Game\PlayerGOMServer.h" />
     <ClInclude Include="Src\Game\SkyrimFormManager.h" />
@@ -79,6 +80,7 @@
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="Src\Game\AssetManager.cpp" />
+    <ClCompile Include="Src\Game\Character.cpp" />
     <ClCompile Include="Src\Game\PlayerGOMServer.cpp" />
     <ClCompile Include="Src\Game\SkyrimFormManager.cpp" />
     <ClCompile Include="Src\Game\WorldManager.cpp" />

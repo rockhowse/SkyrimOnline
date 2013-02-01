@@ -33,7 +33,23 @@ namespace Skyrim
 			data >> transaction;
 
 			if(transaction.IsSetHeading())
+			{
 				mController->GetCharacter()->SetHeading(transaction.GetHeading());
+			}
+			if(transaction.IsSetPosition())
+			{
+				BasicArray<3, float> position = transaction.GetPosition();
+				mController->SetPosition(position[0], position[1], position[2]);
+			}
+			if(transaction.IsSetTime())
+			{
+
+			}
+			if(transaction.IsSetSpeed())
+			{
+
+			}
+
 		}
 		//--------------------------------------------------------------------------------
 		void Session::HandleMountState(Packet& data)

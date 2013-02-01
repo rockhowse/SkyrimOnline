@@ -9,13 +9,12 @@ namespace Skyrim
 	namespace Game
 	{
 		//--------------------------------------------------------------------------------
-		PlayerGOMEntry::PlayerGOMEntry(FreeScript::Character* character)
+		PlayerGOMEntry::PlayerGOMEntry(Character* character)
 			:
-			::Game::GOMEntry<FreeScript::Character>(character),
-			region(std::bind(&FreeScript::Character::GetLocationId, character)),
-			mount(std::bind(&FreeScript::Character::IsRidding, character)),
-			pos(std::bind(&FreeScript::Character::GetPosition, character)),
-			rot(std::bind(&FreeScript::Character::GetRotation, character))
+			::Game::GOMEntry<Character>(character),
+			region(std::bind(&Character::GetLocationId, character)),
+			pos(std::bind(&Character::GetPosition, character)),
+			rot(std::bind(&Character::GetRotation, character))
 		{
 		}
 		//-------------------------------------------------------------------------------
@@ -27,7 +26,6 @@ namespace Skyrim
 		void PlayerGOMEntry::Update()
 		{
 			region(this);
-			mount(this);
 			pos(this);
 			rot(this);
 		}
@@ -35,7 +33,6 @@ namespace Skyrim
 		void PlayerGOMEntry::Synchronize()
 		{
 			region();
-			mount();
 			pos();
 			rot();
 		}
@@ -53,68 +50,52 @@ namespace Skyrim
 		void PlayerGOMEntry::DoDeserialize(const std::string& plainData)
 		{
 			Framework::Network::Packet packet;
-			packet.Initialize(plainData.substr(8));
+			packet.Initialize(plainData);
 
-			uint8_t flag = 0;
-			packet >> flag;
-
-			if(flag & 0xFF)
-			{
-				std::vector<float> faceMorph;
-				std::vector<uint32_t> wornForms;
-
-				packet >> faceMorph 
-			           >> wornForms;
-
-				data->SetFaceMorph(faceMorph);
-				data->EquipItems(wornForms);
-			}
-
-			uint32_t level, region;
-			float px,py,pz,rx,ry,rz;
-			bool mount;
-
-			std::string name;
-
-			packet >> level >> region >> mount;
-			packet >> px >> py >> pz >> rx >> ry >> rz;
+			PlayerGOMTransaction transaction;
+			packet >> transaction;
 
 			PlayerGOMServer* gomServer = TheMassiveMessageMgr->GetGOMDatabase()->Get<PlayerGOMServer>();
-			gomServer->mControllers[GetKey()]->InterpolateTo(px, py, pz, rx, ry, rz, GetDelta() * 1000);
-			
+			auto controller = gomServer->mControllers[GetKey()]; 
+
+			if(transaction.IsSetWornForms())
+			{
+				//data->EquipItems(transaction.GetWornForms());
+				Framework::System::Log::Debug("Worn forms is set");
+			}
+			if(transaction.IsSetFaceMorphs())
+			{
+				//data->SetFaceMorph(transaction.GetFaceMorphs());
+				Framework::System::Log::Debug("Face morphs is set");
+			}
+			if(transaction.IsSetName())
+			{
+				//data->SetName(transaction.GetName());
+				Framework::System::Log::Debug("Name is set");
+			}
+			if(transaction.IsSetFacePresets())
+			{
+				//data->SetFacePresets(transaction.GetFacePresets());
+				Framework::System::Log::Debug("Face presets is set");
+			}
+			if(transaction.IsSetRotation())
+			{
+				BasicArray<3, float> rotation = transaction.GetRotation();
+				Framework::System::Log::Debug("Rotation is set");
+			}
+			if(transaction.IsSetPosition())
+			{
+				BasicArray<3, float> position = transaction.GetPosition();
+				Framework::System::Log::Debug("Position is set");
+			}
+					
 		}
 		//--------------------------------------------------------------------------------
 		std::string PlayerGOMEntry::DoSerialize(bool pFull) const
 		{
-			Framework::Network::Packet packet;
+			assert(false);
 
-			uint8_t flag = 0;
-			packet << data->GetRace()
-				   << data->GetGender();
-
-			packet << flag;
-
-			if(pFull)
-			{
-				flag = 0xFF;
-				packet << data->GetFaceMorph()
-					   << data->GetAllWornForms();
-			}
-
-			packet << data->GetLevel()
-				   << region.get()
-				   << mount.get()
-				   << pos.get().x
-				   << pos.get().y
-				   << pos.get().z
-				   << rot.get().x
-				   << rot.get().y
-				   << rot.get().z;
-				  
-
-			packet.Write(&flag, 1, 8);
-
-			return packet.GetBuffer();
+			return "";
 		}
 		//--------------------------------------------------------------------------------
 	}
