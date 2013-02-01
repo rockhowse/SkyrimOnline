@@ -19,6 +19,7 @@ namespace Skyrim
 			TheMassiveMessageMgr->GetGOMDatabase()->Get<Game::PlayerGOMServer>()->_Add(mController, ::Game::kTransactionFull, GetKey());
 
 			auto character = mController->GetCharacter();
+			character->SetName(transaction.GetName());
 			/*controller->InterpolateTo(px, py, pz, rx, ry, rz, 0);
 
 			character->SetName(mName);
@@ -28,8 +29,6 @@ namespace Skyrim
 			
 			character->EquipItems(wornForms);
 			//character->SetLevel(level);*/
-
-			_trace
 		}
 		//--------------------------------------------------------------------------------
 	}

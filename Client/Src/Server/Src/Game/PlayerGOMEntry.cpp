@@ -58,6 +58,8 @@ namespace Skyrim
 			PlayerGOMTransaction transaction;
 
 			if(pFull)
+				transaction.SetName(data->GetName());
+			if(pFull)
 				transaction.SetRace(data->GetRace());
 			if(pFull)
 				transaction.SetGender(data->GetGender());

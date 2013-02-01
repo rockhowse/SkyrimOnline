@@ -15,6 +15,7 @@ namespace Skyrim
 			void SetPosition(float x, float y, float z);
 			void SetRotation(float x, float y, float z);
 			void SetHeading(float heading);
+			void SetName(const std::string& pName);
 
 			uint32_t GetLocationId();
 			const std::string& GetName();
