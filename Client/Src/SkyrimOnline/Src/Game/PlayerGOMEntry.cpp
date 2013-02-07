@@ -11,11 +11,7 @@ namespace Skyrim
 		//--------------------------------------------------------------------------------
 		PlayerGOMEntry::PlayerGOMEntry(FreeScript::Character* character)
 			:
-			::Game::GOMEntry<FreeScript::Character>(character),
-			region(std::bind(&FreeScript::Character::GetLocationId, character)),
-			mount(std::bind(&FreeScript::Character::IsRidding, character)),
-			pos(std::bind(&FreeScript::Character::GetPosition, character)),
-			rot(std::bind(&FreeScript::Character::GetRotation, character))
+			::Game::GOMEntry<FreeScript::Character>(character)
 		{
 		}
 		//-------------------------------------------------------------------------------
@@ -26,18 +22,10 @@ namespace Skyrim
 		//-------------------------------------------------------------------------------
 		void PlayerGOMEntry::Update()
 		{
-			region(this);
-			mount(this);
-			pos(this);
-			rot(this);
 		}
 		//--------------------------------------------------------------------------------
 		void PlayerGOMEntry::Synchronize()
 		{
-			region();
-			mount();
-			pos();
-			rot();
 		}
 		//--------------------------------------------------------------------------------
 		void PlayerGOMEntry::SetKey(uint32_t pKey)
@@ -60,33 +48,45 @@ namespace Skyrim
 
 			PlayerGOMServer* gomServer = TheMassiveMessageMgr->GetGOMDatabase()->Get<PlayerGOMServer>();
 			auto controller = gomServer->mControllers[GetKey()]; 
-			//controller->InterpolateTo(px, py, pz, rx, ry, rz, GetDelta() * 1000);
-			
+
+			if(transaction.IsSetWornForms())
+			{
+				//data->EquipItems(transaction.GetWornForms());
+				Framework::System::Log::Debug("Worn forms is set");
+			}
+			if(transaction.IsSetFaceMorphs())
+			{
+				//data->SetFaceMorph(transaction.GetFaceMorphs());
+				Framework::System::Log::Debug("Face morphs is set");
+			}
+			if(transaction.IsSetName())
+			{
+				//data->SetName(transaction.GetName());
+				Framework::System::Log::Debug("Name is set");
+			}
+			if(transaction.IsSetFacePresets())
+			{
+				//data->SetFacePresets(transaction.GetFacePresets());
+				Framework::System::Log::Debug("Face presets is set");
+			}
+			if(transaction.IsSetRotation())
+			{
+				BasicArray<3, float> rotation = transaction.GetRotation();
+				Framework::System::Log::Debug("Rotation is set");
+			}
+			if(transaction.IsSetPosition())
+			{
+				BasicArray<3, float> position = transaction.GetPosition();
+				Framework::System::Log::Debug("Position is set");
+			}
+
 		}
 		//--------------------------------------------------------------------------------
 		std::string PlayerGOMEntry::DoSerialize(bool pFull) const
 		{
-// NOTE THIS CODE SHOULD NEVER BE REACHED
-
 			assert(false);
 
-			PlayerGOMTransaction transaction;
-
-			if(pFull)
-				transaction.SetRace(data->GetRace());
-			if(pFull)
-				transaction.SetGender(data->GetGender());
-			if(pFull)
-			{
-				transaction.SetFaceMorphs(data->GetFaceMorph());
-				transaction.SetWornForms(data->GetAllWornForms());
-			}
-			if(pFull || pos)
-				transaction.SetPosition({{pos.get().x, pos.get().y, pos.get().z}});
-			if(pFull || rot)
-				transaction.SetRotation({{rot.get().x, rot.get().y, rot.get().z}});
-
-			return transaction.ToPacket().GetBuffer();
+			return "";
 		}
 		//--------------------------------------------------------------------------------
 	}
