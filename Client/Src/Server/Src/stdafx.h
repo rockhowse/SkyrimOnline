@@ -30,6 +30,7 @@
 #include <boost/tuple/tuple.hpp>
 #include <boost/timer.hpp>
 #include <boost/tokenizer.hpp>
+#include <boost/filesystem.hpp>
 
 // Framework
 #include <System/Tools.h>
@@ -73,5 +74,8 @@ using namespace Framework::Math;
 
 #include <Script/Script.h>
 #include <Game/data.h>
+
+#include <angelscript.h>
+#include <Script/scriptstdstring.h>
 
 #define _trace Framework::System::Log::Debug(std::string("Call trace : ") + std::string(__FUNCSIG__)); Framework::System::Log::Flush();
