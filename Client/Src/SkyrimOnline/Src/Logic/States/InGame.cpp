@@ -61,13 +61,13 @@ namespace Skyrim
 			//--------------------------------------------------------------------------------
 			void InGame::OnChatMessage(const std::string& pMessage)
 			{
-				Framework::Network::Packet packet(kClientChatMessage);
-				std::ostringstream os;
+				ChatMessage message;
 
+				std::ostringstream os;
 				os << std::string("[") << TheGameWorld->GetUser() << std::string("] : ") << pMessage;
 
-				packet << os.str();
-				TheMassiveMessageMgr->SendMessageTo(::Game::kPlayerServer, packet);
+				message.SetTheMessage(os.str());
+				TheMassiveMessageMgr->SendMessageTo(::Game::kPlayerServer, message.ToPacket(kClientChatMessage));
 			}
 			//--------------------------------------------------------------------------------
 			void InGame::OnRemoteChatMessage(const std::string& pMessage)

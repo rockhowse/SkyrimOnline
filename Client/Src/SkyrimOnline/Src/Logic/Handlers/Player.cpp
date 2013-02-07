@@ -13,10 +13,10 @@ namespace Skyrim
 			_trace
 			try
 			{
-				std::string msg;
-				data >> msg;
+				ChatMessage message;
+				data >> message;
 				
-				OnChatMessage(msg);
+				OnChatMessage(message.GetTheMessage());
 			}
 			catch(boost::exception& e)
 			{

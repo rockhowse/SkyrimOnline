@@ -51,23 +51,19 @@ namespace Skyrim
 
 			if(transaction.IsSetWornForms())
 			{
-				//data->EquipItems(transaction.GetWornForms());
-				Framework::System::Log::Debug("Worn forms is set");
+				data->EquipItems(transaction.GetWornForms());
 			}
 			if(transaction.IsSetFaceMorphs())
 			{
-				//data->SetFaceMorph(transaction.GetFaceMorphs());
-				Framework::System::Log::Debug("Face morphs is set");
+				data->SetFaceMorph(transaction.GetFaceMorphs());
 			}
 			if(transaction.IsSetName())
 			{
-				//data->SetName(transaction.GetName());
-				Framework::System::Log::Debug("Name is set");
+				data->SetName(transaction.GetName());
 			}
 			if(transaction.IsSetFacePresets())
 			{
-				//data->SetFacePresets(transaction.GetFacePresets());
-				Framework::System::Log::Debug("Face presets is set");
+				data->SetFacePresets(transaction.GetFacePresets());
 			}
 			if(transaction.IsSetRotation())
 			{
