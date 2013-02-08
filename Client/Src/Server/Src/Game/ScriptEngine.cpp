@@ -38,10 +38,12 @@ namespace Skyrim
 			context = engine->CreateContext();
 
 			engine->RegisterObjectType("ScriptEngine", 0, asOBJ_REF | asOBJ_NOCOUNT);
-			engine->RegisterGlobalProperty("ScriptEngine @g_script", this);
+			engine->RegisterGlobalProperty("ScriptEngine g_script", this);
 			engine->RegisterObjectMethod("ScriptEngine", "void RegisterForm(string& in)", asMETHODPR(ScriptEngine, RegisterForm, (string&), void), asCALL_THISCALL);
 
 			ReloadScripts();
+
+			FireEvent("test 2", "void OnDeath(string)", string("test 2"));
 		}
 
 		ScriptEngine::~ScriptEngine()
@@ -106,15 +108,13 @@ namespace Skyrim
 			{
 				Framework::System::Log::Debug(std::string("Built script : ") + name);
 
-				asIScriptFunction* func = mod->GetFunctionByDecl("void RegisterSelf()");
-				context->Prepare(func);
-				context->Execute();
+				Call(name, "void RegisterSelf()");
 			}
 		}
 
 		void ScriptEngine::RegisterForm(string& name)
 		{
-			Framework::System::Log::Debug(name);
+			mBindings[name].push_back(currentModule);
 		}
 	}
 }
