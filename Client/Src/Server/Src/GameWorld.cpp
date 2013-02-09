@@ -49,9 +49,10 @@ namespace Skyrim
 			uint32_t delta = uint32_t(mTimer.elapsed() * 1000);
 			mTimer.restart();			
 
+			mWorldMgr.Update(delta);
 			TheMassiveMessageMgr->Update();
-			if(mCurrentState)
-				mCurrentState->OnUpdate(delta);
+
+			boost::this_thread::yield();
 		}
 	}
 	//--------------------------------------------------------------------------------

@@ -8,9 +8,14 @@ namespace Skyrim
 		{
 		public:
 
+			WeatherManager();
+
 			void Update(float pDelta);
 			
 			uint32_t GetWeatherForArea(uint32_t pArea);
+			void SetWeather(uint32_t pWeather);
+
+			void Register(class ScriptEngine* engine);
 
 			boost::signal<void(uint32_t, uint32_t)> OnWeather;
 

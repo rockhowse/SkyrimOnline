@@ -80,6 +80,7 @@
     <ClInclude Include="Src\Script\Script.h" />
     <ClInclude Include="Src\GameWorld.h" />
     <ClInclude Include="Src\Script\scriptarray.h" />
+    <ClInclude Include="Src\Script\scriptbuilder.h" />
     <ClInclude Include="Src\Script\scriptstdstring.h" />
     <ClInclude Include="Src\stdafx.h" />
   </ItemGroup>
@@ -87,6 +88,7 @@
     <ClCompile Include="Src\Game\Character.cpp" />
     <ClCompile Include="Src\Game\PlayerGOMServer.cpp" />
     <ClCompile Include="Src\Game\ScriptEngine.cpp" />
+    <ClCompile Include="Src\Game\TimeManager.cpp" />
     <ClCompile Include="Src\Game\WeatherManager.cpp" />
     <ClCompile Include="Src\Game\WorldManager.cpp" />
     <ClCompile Include="Src\Logic\Senders\Character.cpp" />
@@ -101,6 +103,7 @@
     <ClCompile Include="Src\Script\Online.cpp" />
     <ClCompile Include="Src\GameWorld.cpp" />
     <ClCompile Include="Src\Script\scriptarray.cpp" />
+    <ClCompile Include="Src\Script\scriptbuilder.cpp" />
     <ClCompile Include="Src\Script\scriptstdstring.cpp" />
     <ClCompile Include="Src\Script\scriptstdstring_utils.cpp" />
     <ClCompile Include="Src\stdafx.cpp">

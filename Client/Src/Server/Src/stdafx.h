@@ -77,5 +77,6 @@ using namespace Framework::Math;
 
 #include <angelscript.h>
 #include <Script/scriptstdstring.h>
+#include <Script/scriptbuilder.h>
 
 #define _trace Framework::System::Log::Debug(std::string("Call trace : ") + std::string(__FUNCSIG__)); Framework::System::Log::Flush();

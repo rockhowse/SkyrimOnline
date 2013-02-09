@@ -33,10 +33,6 @@ namespace Skyrim
 		//< Common shit
 		boost::timer mTimer;
 
-		//< Game states
-		boost::shared_ptr<Logic::GameState> mCurrentState;
-		std::map<std::string, boost::shared_ptr<Logic::GameState>> mStates;
-
 	};
 
 	extern GameWorld* TheGameWorld;

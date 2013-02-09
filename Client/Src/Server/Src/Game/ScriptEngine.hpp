@@ -13,7 +13,41 @@ namespace Skyrim
 
 			void ReloadScripts();
 			void Run();
+
 			void RegisterForm(string& name);
+			void RegisterWorld();
+
+			template <typename T>
+			void RegisterMethod(const string& className, const string& methodName, T method)
+			{
+				engine->RegisterObjectMethod(className.c_str(), methodName.c_str(), method, asCALL_THISCALL);
+			}
+
+			template <typename T>
+			void RegisterGlobal(const string& decl, T obj)
+			{
+				engine->RegisterGlobalProperty(decl.c_str(), obj);
+			}
+
+			void RegisterPODType(const std::string& name, size_t size, int flag = asOBJ_APP_CLASS_CDAK)
+			{
+				engine->RegisterObjectType(name.c_str(), size, asOBJ_VALUE | asOBJ_POD | flag);
+			}
+
+			void RegisterProperty(const std::string& typeName, const string& var, int offset)
+			{
+				engine->RegisterObjectProperty(typeName.c_str(), var.c_str(), offset);
+			}
+
+			void RegisterClassType(const std::string& name)
+			{
+				engine->RegisterObjectType(name.c_str(), 0, asOBJ_REF);
+			}
+
+			void RegisterReferenceClass(const std::string& name)
+			{
+				engine->RegisterObjectType(name.c_str(), 0, asOBJ_REF | asOBJ_NOCOUNT);
+			}
 
 			template <typename... Args>
 			void FireEvent(const string& formName, const string& function, Args... args)

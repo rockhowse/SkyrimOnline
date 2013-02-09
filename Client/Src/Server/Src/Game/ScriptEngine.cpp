@@ -7,6 +7,7 @@ namespace Skyrim
 {
 	namespace Game
 	{
+		//--------------------------------------------------------------------------------
 		void MessageCallback(const asSMessageInfo *msg, void *param)
 		{
 			const char *type = "ERR ";
@@ -19,12 +20,14 @@ namespace Skyrim
 			os << msg->section << "(" << msg->row << ", " <<  msg->col << ") : " <<  type << " : " << msg->message;
 			Framework::System::Log::Debug(os.str());
 		}
-
+		//--------------------------------------------------------------------------------
 		void Print(std::string& pMessage)
 		{
 			Framework::System::Log::Debug(std::string("Script : ") + pMessage);
 		}
+		//--------------------------------------------------------------------------------
 
+		//--------------------------------------------------------------------------------
 		ScriptEngine::ScriptEngine()
 		{
 			engine = asCreateScriptEngine(ANGELSCRIPT_VERSION);
@@ -37,21 +40,20 @@ namespace Skyrim
 
 			context = engine->CreateContext();
 
-			engine->RegisterObjectType("ScriptEngine", 0, asOBJ_REF | asOBJ_NOCOUNT);
-			engine->RegisterGlobalProperty("ScriptEngine g_script", this);
-			engine->RegisterObjectMethod("ScriptEngine", "void RegisterForm(string& in)", asMETHODPR(ScriptEngine, RegisterForm, (string&), void), asCALL_THISCALL);
+			RegisterReferenceClass("ScriptEngine");
+			RegisterGlobal("ScriptEngine Script", this);
 
-			ReloadScripts();
-
-			FireEvent("test 2", "void OnDeath(string)", string("test 2"));
+			RegisterMethod("ScriptEngine", "void RegisterForm(string& in)", asMETHOD(ScriptEngine, RegisterForm));
+			RegisterMethod("ScriptEngine", "void RegisterWorld()", asMETHOD(ScriptEngine, RegisterWorld));
+		
 		}
-
+		//--------------------------------------------------------------------------------
 		ScriptEngine::~ScriptEngine()
 		{
 			context->Release();
 			engine->Release();
 		}
-
+		//--------------------------------------------------------------------------------
 		void ScriptEngine::ReloadScripts()
 		{
 			boost::filesystem::path slash("/");
@@ -76,34 +78,28 @@ namespace Skyrim
 
 			Framework::System::Log::Print("");
 		}
-
+		//--------------------------------------------------------------------------------
 		void ScriptEngine::ParseScript(const path& pPath)
 		{
-			string data;
-
+			CScriptBuilder builder;
+			
 			string name = pPath.filename().string();
 			name = name.substr(0, name.size() - 3);
 
-			std::ifstream file(pPath.string());
-
-			if(file.is_open())
-			{
-				while(!file.eof())
-				{
-					std::string l;
-					std::getline(file, l);
-					data += l;
-					data.push_back('\n');
-				}
-			}
-			file.close();
-
-			asIScriptModule* mod = engine->GetModule(name.c_str(), asGM_ALWAYS_CREATE);
-			mod->AddScriptSection("script", &data[0], data.size());
-			int r = mod->Build();
-
+			builder.StartNewModule(engine, name.c_str());
+			int r = builder.AddSectionFromFile(pPath.string().c_str());
 			if(r < 0)
-				Framework::System::Log::Error(std::string("Failed to build : ") + name);
+			{
+				Framework::System::Log::Error(std::string("Failed to build : ") + name); 
+				return;
+			}
+
+			r = builder.BuildModule();
+			if(r < 0)
+			{
+				Framework::System::Log::Error(std::string("Failed to build : ") + name); 
+				return;
+			}
 			else
 			{
 				Framework::System::Log::Debug(std::string("Built script : ") + name);
@@ -111,10 +107,16 @@ namespace Skyrim
 				Call(name, "void RegisterSelf()");
 			}
 		}
-
+		//--------------------------------------------------------------------------------
 		void ScriptEngine::RegisterForm(string& name)
 		{
 			mBindings[name].push_back(currentModule);
 		}
+		//--------------------------------------------------------------------------------
+		void ScriptEngine::RegisterWorld()
+		{
+			RegisterForm(string("[WORLD]"));
+		}
+		//--------------------------------------------------------------------------------
 	}
 }

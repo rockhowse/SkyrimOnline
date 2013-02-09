@@ -1,6 +1,7 @@
 #pragma once
 
 #include "WeatherManager.hpp"
+#include "TimeManager.hpp"
 #include "ScriptEngine.hpp"
 
 namespace Skyrim
@@ -16,13 +17,17 @@ namespace Skyrim
 
 			void Update(float pDelta);
 
-
 			WorldState GetWorldState();
+			ScriptEngine& GetScriptEngine();
+
+			void Register();
 
 		private:
 
-			WeatherManager mWeather;
 			ScriptEngine mScript;
+			WeatherManager mWeather;
+			TimeManager mTime;
+			
 		};
 	}
 }

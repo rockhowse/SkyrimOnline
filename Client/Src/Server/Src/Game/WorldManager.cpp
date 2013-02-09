@@ -8,6 +8,11 @@ namespace Skyrim
 		//--------------------------------------------------------------------------------
 		WorldManager::WorldManager()
 		{
+			mWeather.Register(&mScript);
+			mTime.Register(&mScript);
+
+			mScript.ReloadScripts();
+			mScript.FireEvent("test 2", "void OnDeath(string)", string("test 2"));
 		}
 		//--------------------------------------------------------------------------------
 		WorldManager::~WorldManager()
@@ -17,6 +22,12 @@ namespace Skyrim
 		void WorldManager::Update(float pDelta)
 		{
 			mWeather.Update(pDelta);
+			mScript.FireEvent("[WORLD]", "void OnUpdate(float)", pDelta);
+		}
+		//--------------------------------------------------------------------------------
+		void WorldManager::Register()
+		{
+			mScript.RegisterClassType("WorldManager");
 		}
 		//--------------------------------------------------------------------------------
 		WorldState WorldManager::GetWorldState()
@@ -24,6 +35,11 @@ namespace Skyrim
 			WorldState state;
 			state.SetWeather(mWeather.GetWeatherForArea(0));
 			return std::move(state);
+		}
+		//--------------------------------------------------------------------------------
+		ScriptEngine& WorldManager::GetScriptEngine()
+		{
+			return mScript;
 		}
 		//--------------------------------------------------------------------------------
 	}
