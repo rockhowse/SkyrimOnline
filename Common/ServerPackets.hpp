@@ -28,10 +28,12 @@ public:
 
 class WorldState : public
 	BasicSerializable<SwitchedSerializable<uint32_t,
-		SwitchedField<0x00000001, uint32_t>
+		SwitchedField<0x00000001, uint32_t>,
+		SwitchedField<0x00000002, BasicArray<4, float>>
 	>>
 {
 public:
 
 	ACCESSOR_2(0, 0, Weather);
+	ACCESSOR_2(0, 1, Date);
 };

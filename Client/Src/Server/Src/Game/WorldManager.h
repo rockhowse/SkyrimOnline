@@ -20,6 +20,8 @@ namespace Skyrim
 			WorldState GetWorldState();
 			ScriptEngine& GetScriptEngine();
 
+			void SendWorldStateUpdate(WorldState& state);
+
 			void Register();
 
 		private:

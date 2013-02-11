@@ -1,7 +1,6 @@
 #pragma once
 
 #include <Game/PlayerGOMEntry.h>
-#include <Game/Player.hpp>
 
 namespace Skyrim
 {

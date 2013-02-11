@@ -40,11 +40,11 @@ namespace Skyrim
 
 			context = engine->CreateContext();
 
-			RegisterReferenceClass("ScriptEngine");
+			RegisterReferenceClass(ScriptEngine);
 			RegisterGlobal("ScriptEngine Script", this);
 
-			RegisterMethod("ScriptEngine", "void RegisterForm(string& in)", asMETHOD(ScriptEngine, RegisterForm));
-			RegisterMethod("ScriptEngine", "void RegisterWorld()", asMETHOD(ScriptEngine, RegisterWorld));
+			RegisterMethod(ScriptEngine, "void RegisterForm(string& in)", asMETHOD(ScriptEngine, RegisterForm));
+			RegisterMethod(ScriptEngine, "void RegisterWorld()", asMETHOD(ScriptEngine, RegisterWorld));
 		
 		}
 		//--------------------------------------------------------------------------------

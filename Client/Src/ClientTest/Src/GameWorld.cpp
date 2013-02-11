@@ -12,7 +12,6 @@ namespace Skyrim
 		:mMode(true),
 		 mPlayerCharacter(nullptr)
 	{
-		_trace
 		Crypt::RSA::Init();
 		TheMassiveMessageMgr->SetPort(kGamePort);
 		TheMassiveMessageMgr->SetAddress("127.0.0.1");
@@ -26,7 +25,6 @@ namespace Skyrim
 	//--------------------------------------------------------------------------------
 	GameWorld::~GameWorld()
 	{
-		_trace
 	}
 	//--------------------------------------------------------------------------------
 	unsigned int GameWorld::GetRendering()

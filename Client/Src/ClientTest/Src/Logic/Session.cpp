@@ -38,7 +38,6 @@ namespace Skyrim
 		//--------------------------------------------------------------------------------
 		void Session::OnSynchronize()
 		{
-			_trace
 			ClientInitialTransaction transaction;
 
 			std::vector<uint32_t> wornForms;

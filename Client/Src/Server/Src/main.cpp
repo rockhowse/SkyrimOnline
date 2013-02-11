@@ -54,8 +54,8 @@ void main()
 	__try
 	{
 		NewInstance();
-		Skyrim::TheGameWorld->Setup();
 
+		Skyrim::TheGameWorld->Setup();
 		Skyrim::TheGameWorld->Run();
 	}
 	__except(GenerateDump(GetExceptionInformation()))

@@ -1,5 +1,8 @@
 #include "stdafx.h"
 #include "WorldManager.h"
+#include "Object.hpp"
+#include "Character.hpp"
+#include "NPC.hpp"
 
 namespace Skyrim
 {
@@ -11,8 +14,15 @@ namespace Skyrim
 			mWeather.Register(&mScript);
 			mTime.Register(&mScript);
 
+			Object::Register(&mScript);
+			Character::Register(&mScript);
+			NPC::Register(&mScript);
+
+			NPC npc;
 			mScript.ReloadScripts();
-			mScript.FireEvent("test 2", "void OnDeath(string)", string("test 2"));
+			
+			//mScript.FireEvent("test 2", "void OnDeath(string)", string("test 2"));
+			mScript.FireEvent("test 2", "void OnNew(NPC@)", &npc);
 		}
 		//--------------------------------------------------------------------------------
 		WorldManager::~WorldManager()
@@ -40,6 +50,11 @@ namespace Skyrim
 		ScriptEngine& WorldManager::GetScriptEngine()
 		{
 			return mScript;
+		}
+		//--------------------------------------------------------------------------------
+		void WorldManager::SendWorldStateUpdate(WorldState& state)
+		{
+			TheMassiveMessageMgr->SendMessageTo(::Game::kPlayerSynchronized, state.ToPacket(kServerWorldState));
 		}
 		//--------------------------------------------------------------------------------
 	}

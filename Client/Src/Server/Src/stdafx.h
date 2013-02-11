@@ -46,6 +46,7 @@
 #include <Game/GOMServer.hpp>
 #include <Game/GOMVariable.hpp>
 #include <Game/GameServer.hpp>
+#include <Game/Player.hpp>
 #include <Serialization/Serialization.hpp>
 #include <Math/Math.hpp>
 

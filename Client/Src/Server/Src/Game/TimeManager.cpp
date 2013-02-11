@@ -1,6 +1,7 @@
 #include "stdafx.h"
 #include "TimeManager.hpp"
 #include "ScriptEngine.hpp"
+#include "GameWorld.h"
 
 namespace Skyrim
 {
@@ -14,7 +15,7 @@ namespace Skyrim
 			engine->RegisterMethod("TimeManager", "void SetTimeSpeed(float)",asMETHOD(TimeManager,SetTimeSpeed));
 
 
-			engine->RegisterPODType("Date", sizeof(Date));
+			engine->RegisterPODType(Date, sizeof(Date));
 			engine->RegisterProperty("Date", "float Hour", asOFFSET(Date, Hour));
 			engine->RegisterProperty("Date", "float Day", asOFFSET(Date, Day));
 			engine->RegisterProperty("Date", "float Month", asOFFSET(Date, Month));
@@ -31,9 +32,9 @@ namespace Skyrim
 		//--------------------------------------------------------------------------------
 		void TimeManager::SetDate(Date& date)
 		{
-			std::ostringstream os;
-			os << "Setting date : " << date.Hour;
-			Framework::System::Log::Debug(os.str());
+			WorldState state;
+			state.SetDate({{date.Hour, date.Day, date.Month, date.Year}});
+			TheGameWorld->GetWorldManager().SendWorldStateUpdate(state);
 		}
 		//--------------------------------------------------------------------------------
 		TimeManager::Date TimeManager::GetDate()

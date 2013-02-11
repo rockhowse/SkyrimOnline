@@ -20,6 +20,20 @@ namespace Skyrim
 		{
 			WorldState transaction;
 			data >> transaction;
+			std::ostringstream os;
+			os << "WorldState -> ";
+			if(transaction.IsSetWeather())
+			{
+				os << " Weather : " << transaction.GetWeather();
+			}
+			if(transaction.IsSetDate())
+			{
+				os << " Hour : " << transaction.GetDate().get<0>()[0]
+				<< " Day : " << transaction.GetDate().get<0>()[1]
+				<< " Month : " << transaction.GetDate().get<0>()[2]
+				<< " Year : " << transaction.GetDate().get<0>()[3];
+			}
+			System::Log::Debug(os.str());
 		}
 		//--------------------------------------------------------------------------------
 	}

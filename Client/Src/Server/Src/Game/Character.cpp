@@ -1,34 +1,21 @@
 #include "stdafx.h"
 #include "Character.hpp"
+#include "ScriptEngine.hpp"
 
 namespace Skyrim
 {
 	namespace Game
 	{
 		//--------------------------------------------------------------------------------
+		void Character::Register(ScriptEngine* engine)
+		{
+			engine->RegisterReferenceClass(Character);
+			engine->RegisterInheritance(Object, Character);
+		}
+		//--------------------------------------------------------------------------------
 		uint32_t Character::GetLocationId()
 		{
 			return mRegion;
-		}
-		//--------------------------------------------------------------------------------
-		const std::string& Character::GetName()
-		{
-			return mName;
-		}
-		//--------------------------------------------------------------------------------
-		Vector3 Character::GetPosition()
-		{
-			return mPosition;
-		}
-		//--------------------------------------------------------------------------------
-		Vector3 Character::GetRotation()
-		{
-			return mRotation;
-		}
-		//--------------------------------------------------------------------------------
-		float Character::GetHeading()
-		{
-			return mRotation.y;
 		}
 		//--------------------------------------------------------------------------------
 		uint32_t Character::GetRace()
@@ -55,31 +42,6 @@ namespace Skyrim
 		{
 			return mWornForms;
 		}
-		//--------------------------------------------------------------------------------
-		void Character::SetPosition(float x, float y, float z)
-		{
-			mPosition.x = x;
-			mPosition.y = y;
-			mPosition.z = z;
-		}
-		//--------------------------------------------------------------------------------
-		void Character::SetRotation(float x, float y, float z)
-		{
-			mRotation.x = x;
-			mRotation.y = y;
-			mRotation.z = z;
-		}
-		//--------------------------------------------------------------------------------
-		void Character::SetHeading(float heading)
-		{
-			mRotation.y = heading;
-		}
-		//--------------------------------------------------------------------------------
-		void Character::SetName(const std::string& pName)
-		{
-			mName = pName;
-		}
-		//--------------------------------------------------------------------------------
 		void Character::SetFaceMorph(const std::vector<float>& faceMorphs)
 		{
 			mFaceMorphs = faceMorphs;

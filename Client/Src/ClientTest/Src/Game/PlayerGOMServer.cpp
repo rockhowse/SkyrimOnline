@@ -58,8 +58,6 @@ namespace Skyrim
 					auto itor = replicationMap[state].find(id);
 					if(itor == replicationMap[state].end())
 					{
-						Framework::System::Log::Debug("New entry !!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!");
-
 						Framework::Network::Packet packet;
 						packet.Initialize(serializedData);
 
