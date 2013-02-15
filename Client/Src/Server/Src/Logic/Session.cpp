@@ -44,7 +44,7 @@ namespace Skyrim
 		//--------------------------------------------------------------------------------
 		void Session::OnEnterAwareness()
 		{
-			Write(TheGameWorld->GetWorldManager().GetWorldState().ToPacket(kServerWorldState));
+			//Write(TheGameWorld->GetWorldManager().GetWorldState().ToPacket(kServerWorldState));
 		}
 		//--------------------------------------------------------------------------------
 		std::string Session::GetName()

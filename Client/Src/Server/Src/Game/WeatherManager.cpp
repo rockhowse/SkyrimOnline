@@ -17,22 +17,21 @@ namespace Skyrim
 
 		}
 		//--------------------------------------------------------------------------------
-		uint32_t WeatherManager::GetWeatherForArea(uint32_t pArea)
+		uint32_t WeatherManager::GetId()
 		{
-			return ID_TESWeather::FXWthrSunlight;
-			//return mWeathers[pArea];
+			return mWeather;
 		}
 		//--------------------------------------------------------------------------------
 		void WeatherManager::SetWeather(uint32_t pWeather)
 		{
-			Framework::System::Log::Debug("Set weather !");
+			mWeather = pWeather;
 		}
 		//--------------------------------------------------------------------------------
 		void WeatherManager::Register(ScriptEngine* engine)
 		{
-			engine->RegisterReferenceClass("WeatherManager");
-			engine->RegisterGlobal("WeatherManager Weather", this);
-			engine->RegisterMethod("WeatherManager", "void SetWeather(uint)", asMETHOD(WeatherManager, SetWeather));
+			engine->RegisterReferenceClass(WeatherManager);
+			engine->RegisterMethod(WeatherManager, "void SetWeather(uint)", SetWeather);
+			engine->RegisterMethod(WeatherManager, "uint GetWeatherForArea()", GetId);
 		}
 		//--------------------------------------------------------------------------------
 	}

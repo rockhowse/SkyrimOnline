@@ -3,6 +3,7 @@
 #include "Object.hpp"
 #include "Character.hpp"
 #include "NPC.hpp"
+#include "Area.hpp"
 
 namespace Skyrim
 {
@@ -11,12 +12,13 @@ namespace Skyrim
 		//--------------------------------------------------------------------------------
 		WorldManager::WorldManager()
 		{
-			mWeather.Register(&mScript);
+			WeatherManager::Register(&mScript);
 			mTime.Register(&mScript);
 
 			Object::Register(&mScript);
 			Character::Register(&mScript);
 			NPC::Register(&mScript);
+			Area::Register(&mScript);
 
 			NPC npc;
 			mScript.ReloadScripts();
@@ -31,19 +33,23 @@ namespace Skyrim
 		//--------------------------------------------------------------------------------
 		void WorldManager::Update(float pDelta)
 		{
-			mWeather.Update(pDelta);
 			mScript.FireEvent("[WORLD]", "void OnUpdate(float)", pDelta);
 		}
 		//--------------------------------------------------------------------------------
 		void WorldManager::Register()
 		{
-			mScript.RegisterClassType("WorldManager");
+			mScript.RegisterClassType(WorldManager);
 		}
 		//--------------------------------------------------------------------------------
-		WorldState WorldManager::GetWorldState()
+		Area* WorldManager::GetArea(const std::string& pArea)
+		{
+			return &mAreas[pArea];
+		}
+		//--------------------------------------------------------------------------------
+		WorldState WorldManager::GetWorldState(const std::string& pArea)
 		{
 			WorldState state;
-			state.SetWeather(mWeather.GetWeatherForArea(0));
+			state.SetWeather(GetArea(pArea)->GetWeather()->GetId());
 			return std::move(state);
 		}
 		//--------------------------------------------------------------------------------

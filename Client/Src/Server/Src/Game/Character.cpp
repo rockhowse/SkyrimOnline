@@ -11,6 +11,10 @@ namespace Skyrim
 		{
 			engine->RegisterReferenceClass(Character);
 			engine->RegisterInheritance(Object, Character);
+
+			engine->RegisterMethod(Character, "uint GetLocationId()", GetLocationId);
+			engine->RegisterMethod(Character, "uint GetRace()", GetRace);
+			engine->RegisterMethod(Character, "uint GetGender()", GetGender);
 		}
 		//--------------------------------------------------------------------------------
 		uint32_t Character::GetLocationId()
@@ -42,6 +46,7 @@ namespace Skyrim
 		{
 			return mWornForms;
 		}
+		//--------------------------------------------------------------------------------
 		void Character::SetFaceMorph(const std::vector<float>& faceMorphs)
 		{
 			mFaceMorphs = faceMorphs;

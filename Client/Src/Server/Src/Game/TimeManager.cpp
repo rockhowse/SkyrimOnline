@@ -10,19 +10,19 @@ namespace Skyrim
 		//--------------------------------------------------------------------------------
 		void TimeManager::Register(ScriptEngine* engine)
 		{
-			engine->RegisterReferenceClass("TimeManager");
+			engine->RegisterReferenceClass(TimeManager);
 			engine->RegisterGlobal("TimeManager Time", this);
-			engine->RegisterMethod("TimeManager", "void SetTimeSpeed(float)",asMETHOD(TimeManager,SetTimeSpeed));
+			engine->RegisterMethod(TimeManager, "void SetTimeSpeed(float)",SetTimeSpeed);
 
 
-			engine->RegisterPODType(Date, sizeof(Date));
-			engine->RegisterProperty("Date", "float Hour", asOFFSET(Date, Hour));
-			engine->RegisterProperty("Date", "float Day", asOFFSET(Date, Day));
-			engine->RegisterProperty("Date", "float Month", asOFFSET(Date, Month));
-			engine->RegisterProperty("Date", "float Year", asOFFSET(Date, Year));
+			engine->RegisterPODType(Date);
+			engine->RegisterProperty(Date, "float Hour", Hour);
+			engine->RegisterProperty(Date, "float Day", Day);
+			engine->RegisterProperty(Date, "float Month", Month);
+			engine->RegisterProperty(Date, "float Year", Year);
 
-			engine->RegisterMethod("TimeManager", "void SetDate(Date &in)", asMETHOD(TimeManager, SetDate));
-			engine->RegisterMethod("TimeManager", "Date GetDate()", asMETHOD(TimeManager, GetDate));
+			engine->RegisterMethod(TimeManager, "void SetDate(Date &in)", SetDate);
+			engine->RegisterMethod(TimeManager, "Date GetDate()", GetDate);
 		}
 		//--------------------------------------------------------------------------------
 		void TimeManager::SetTimeSpeed(float speed)

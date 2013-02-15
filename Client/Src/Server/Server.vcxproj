@@ -65,6 +65,7 @@
   </ItemDefinitionGroup>
   <ItemGroup>
     <ClInclude Include="Src\Common\enums.h" />
+    <ClInclude Include="Src\Game\Area.hpp" />
     <ClInclude Include="Src\Game\Character.hpp" />
     <ClInclude Include="Src\Game\data.h" />
     <ClInclude Include="Src\Game\NPC.hpp" />
@@ -87,6 +88,7 @@
     <ClInclude Include="Src\stdafx.h" />
   </ItemGroup>
   <ItemGroup>
+    <ClCompile Include="Src\Game\Area.cpp" />
     <ClCompile Include="Src\Game\Character.cpp" />
     <ClCompile Include="Src\Game\NPC.cpp" />
     <ClCompile Include="Src\Game\Object.cpp" />

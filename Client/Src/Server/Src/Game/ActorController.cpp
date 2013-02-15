@@ -24,12 +24,14 @@ namespace Skyrim
 		//--------------------------------------------------------------------------------
 		void ActorController::SetPosition(float x, float y, float z)
 		{
-			mMe->SetPosition(x ,y ,z);
+			Vector3 vec = {x,y,z};
+			mMe->SetPosition(vec);
 		}
 		//--------------------------------------------------------------------------------
 		void ActorController::SetRotation(float x, float y, float z)
 		{
-			mMe->SetRotation(x, y ,z);
+			Vector3 vec = {x,y,z};
+			mMe->SetRotation(vec);
 		}
 		//--------------------------------------------------------------------------------
 		void ActorController::InterpolateTo(float posX, float posY, float posZ, float rotX, float rotY, float rotZ, uint32_t time)

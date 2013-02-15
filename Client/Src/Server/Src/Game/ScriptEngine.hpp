@@ -1,10 +1,10 @@
 #pragma once
 
-#define RegisterPODType(name, size) _RegisterPODType(#name, size)
+#define RegisterPODType(name) _RegisterPODType(#name, sizeof(name))
 #define RegisterPODTypeFlags(name, size, flag) _RegisterPODType(#name, size, flag)
-#define RegisterMethod(name, methodName, method) _RegisterMethod(#name, methodName, method)
+#define RegisterMethod(name, methodName, method) _RegisterMethod(#name, methodName, asMETHOD(name,method))
 #define RegisterReferenceClass(name) _RegisterReferenceClass(#name)
-#define RegisterProperty(name, var, offset) _RegisterProperty(#name, var, offset)
+#define RegisterProperty(name, var, offset) _RegisterProperty(#name, var, asOFFSET(name, offset))
 #define RegisterClassType(name) _RegisterClassType(#name)
 #define RegisterInheritance(Base, Derived) _RegisterInheritance<Base, Derived>(#Base, #Derived)
 
@@ -35,8 +35,6 @@ namespace Skyrim
 			void RegisterForm(string& name);
 			void RegisterWorld();
 
-
-
 			template <typename T>
 			void _RegisterMethod(const string& className, const string& methodName, T method)
 			{
@@ -49,28 +47,20 @@ namespace Skyrim
 				engine->RegisterGlobalProperty(decl.c_str(), obj);
 			}
 
-
-
 			void _RegisterPODType(const std::string& name, size_t size, int flag = asOBJ_APP_CLASS_CDAK)
 			{
 				engine->RegisterObjectType(name.c_str(), size, asOBJ_VALUE | asOBJ_POD | flag);
 			}
-
-
 
 			void _RegisterProperty(const std::string& typeName, const string& var, int offset)
 			{
 				engine->RegisterObjectProperty(typeName.c_str(), var.c_str(), offset);
 			}
 
-
-
 			void _RegisterClassType(const std::string& name)
 			{
 				engine->RegisterObjectType(name.c_str(), 0, asOBJ_REF);
 			}
-
-
 
 			template <class Base, class Derived>
 			void _RegisterInheritance(const std::string& base, const std::string& derived)
@@ -78,8 +68,6 @@ namespace Skyrim
 				engine->RegisterObjectBehaviour(base.c_str(), asBEHAVE_REF_CAST, (derived + std::string("@ f()")).c_str(), asFUNCTION((refCast<Base,Derived>)), asCALL_CDECL_OBJLAST);
 				engine->RegisterObjectBehaviour(derived.c_str(), asBEHAVE_IMPLICIT_REF_CAST, (base + std::string("@ f()")).c_str(), asFUNCTION((refCast<Derived,Base>)), asCALL_CDECL_OBJLAST);
 			}
-
-
 
 			void _RegisterReferenceClass(const std::string& name)
 			{

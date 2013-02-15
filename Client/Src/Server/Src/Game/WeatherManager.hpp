@@ -8,22 +8,18 @@ namespace Skyrim
 		{
 		public:
 
+			static void Register(class ScriptEngine* engine);
+
 			WeatherManager();
 
 			void Update(float pDelta);
 			
-			uint32_t GetWeatherForArea(uint32_t pArea);
+			uint32_t GetId();
 			void SetWeather(uint32_t pWeather);
-
-			void Register(class ScriptEngine* engine);
-
-			boost::signal<void(uint32_t, uint32_t)> OnWeather;
 
 		private:
 
-			typedef std::map<uint32_t, uint32_t> AreaWeather;
-
-			AreaWeather mWeathers;
+			uint32_t mWeather;
 
 		};
 	}

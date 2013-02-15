@@ -18,8 +18,8 @@ namespace Skyrim
 			float GetHeading();
 			const std::string& GetName();
 
-			void SetPosition(float x, float y, float z);
-			void SetRotation(float x, float y, float z);
+			void SetPosition(const Vector3& pos);
+			void SetRotation(const Vector3& rot);
 			void SetHeading(float heading);
 			void SetName(const std::string& pName);
 

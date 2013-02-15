@@ -9,9 +9,21 @@ namespace Skyrim
 		//--------------------------------------------------------------------------------
 		void Object::Register(ScriptEngine* engine)
 		{
+			engine->RegisterPODType(Vector3);
+			engine->RegisterProperty(Vector3, "float x", x);
+			engine->RegisterProperty(Vector3, "float y", y);
+			engine->RegisterProperty(Vector3, "float z", z);
+
 			engine->RegisterReferenceClass(Object);
-			engine->RegisterMethod(Object, "const string& GetName()", asMETHOD(Object, GetName));
-			engine->RegisterMethod(Object, "void SetName(const string &in)", asMETHOD(Object, SetName));
+			engine->RegisterMethod(Object, "const string& GetName()", GetName);
+			engine->RegisterMethod(Object, "void SetName(const string &in)", SetName);
+			engine->RegisterMethod(Object, "void SetPosition(const Vector3 &in)", SetPosition);
+			engine->RegisterMethod(Object, "void SetRotation(const Vector3 &in)", SetRotation);
+			engine->RegisterMethod(Object, "void SetHeader(float)", SetHeading);
+			engine->RegisterMethod(Object, "Vector3 GetPosition()", GetPosition);
+			engine->RegisterMethod(Object, "Vector3 GetRotation()", GetRotation);
+			engine->RegisterMethod(Object, "float GetHeading()", GetHeading);
+
 		}
 		//--------------------------------------------------------------------------------
 		Object::Object()
@@ -44,18 +56,18 @@ namespace Skyrim
 			return mRotation.y;
 		}
 		//--------------------------------------------------------------------------------
-		void Object::SetPosition(float x, float y, float z)
+		void Object::SetPosition(const Vector3& pos)
 		{
-			mPosition.x = x;
-			mPosition.y = y;
-			mPosition.z = z;
+			mPosition.x = pos.x;
+			mPosition.y = pos.y;
+			mPosition.z = pos.z;
 		}
 		//--------------------------------------------------------------------------------
-		void Object::SetRotation(float x, float y, float z)
+		void Object::SetRotation(const Vector3& rot)
 		{
-			mRotation.x = x;
-			mRotation.y = y;
-			mRotation.z = z;
+			mRotation.x = rot.x;
+			mRotation.y = rot.y;
+			mRotation.z = rot.z;
 		}
 		//--------------------------------------------------------------------------------
 		void Object::SetHeading(float heading)
