@@ -25,13 +25,16 @@ namespace Skyrim
 		void WeatherManager::SetWeather(uint32_t pWeather)
 		{
 			mWeather = pWeather;
+			std::ostringstream os;
+			os << "Weather set : " << pWeather;
+			Framework::System::Log::Debug(os.str());
 		}
 		//--------------------------------------------------------------------------------
 		void WeatherManager::Register(ScriptEngine* engine)
 		{
 			engine->RegisterReferenceClass(WeatherManager);
 			engine->RegisterMethod(WeatherManager, "void SetWeather(uint)", SetWeather);
-			engine->RegisterMethod(WeatherManager, "uint GetWeatherForArea()", GetId);
+			engine->RegisterMethod(WeatherManager, "uint GetId()", GetId);
 		}
 		//--------------------------------------------------------------------------------
 	}

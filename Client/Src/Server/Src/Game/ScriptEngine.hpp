@@ -33,6 +33,7 @@ namespace Skyrim
 			void Run();
 
 			void RegisterForm(string& name);
+			void LinkESP(string& name);
 			void RegisterWorld();
 
 			template <typename T>
@@ -186,7 +187,9 @@ namespace Skyrim
 			asIScriptContext* context;
 			asIScriptModule* currentModule;
 
-			std::map<std::string, std::vector<asIScriptModule*> > mBindings;
+			std::map<asIScriptModule*, string> mModuleEsp;
+			std::set<string> mEsps;
+			std::map<string, vector<asIScriptModule*> > mBindings;
 		};
 	}
 }

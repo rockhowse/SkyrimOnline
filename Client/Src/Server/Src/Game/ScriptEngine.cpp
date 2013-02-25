@@ -1,5 +1,6 @@
 #include "stdafx.h"
 #include "ScriptEngine.hpp"
+#include <Script/scriptarray.h>
 
 using namespace boost::filesystem;
 
@@ -34,6 +35,7 @@ namespace Skyrim
 
 			engine->SetMessageCallback(asFUNCTION(MessageCallback), 0, asCALL_CDECL);
 
+			RegisterScriptArray(engine, true);
 			RegisterStdString(engine);
 
 			engine->RegisterGlobalFunction("void print(string &in)", asFUNCTION(Print), asCALL_CDECL);
@@ -44,6 +46,7 @@ namespace Skyrim
 			RegisterGlobal("ScriptEngine Script", this);
 
 			RegisterMethod(ScriptEngine, "void RegisterForm(string& in)", RegisterForm);
+			RegisterMethod(ScriptEngine, "void LinkESP(string& in)", LinkESP);
 			RegisterMethod(ScriptEngine, "void RegisterWorld()", RegisterWorld);
 		
 		}
@@ -116,6 +119,12 @@ namespace Skyrim
 		void ScriptEngine::RegisterWorld()
 		{
 			RegisterForm(string("[WORLD]"));
+		}
+		//--------------------------------------------------------------------------------
+		void ScriptEngine::LinkESP(string& name)
+		{
+			mEsps.insert(name);
+			mModuleEsp[currentModule] = name;
 		}
 		//--------------------------------------------------------------------------------
 	}

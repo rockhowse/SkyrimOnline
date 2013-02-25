@@ -19,12 +19,13 @@ namespace Skyrim
 			Character::Register(&mScript);
 			NPC::Register(&mScript);
 			Area::Register(&mScript);
+			Register();
 
 			NPC npc;
 			mScript.ReloadScripts();
 			
-			//mScript.FireEvent("test 2", "void OnDeath(string)", string("test 2"));
 			mScript.FireEvent("test 2", "void OnNew(NPC@)", &npc);
+			mScript.FireEvent("test 2", "void OnDeath(NPC@)", &npc);
 		}
 		//--------------------------------------------------------------------------------
 		WorldManager::~WorldManager()
@@ -38,7 +39,9 @@ namespace Skyrim
 		//--------------------------------------------------------------------------------
 		void WorldManager::Register()
 		{
-			mScript.RegisterClassType(WorldManager);
+			mScript.RegisterReferenceClass(WorldManager);
+			mScript.RegisterGlobal("WorldManager World", this);
+			mScript.RegisterMethod(WorldManager, "Area@ GetArea(string &in)", GetArea);
 		}
 		//--------------------------------------------------------------------------------
 		Area* WorldManager::GetArea(const std::string& pArea)

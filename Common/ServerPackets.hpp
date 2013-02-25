@@ -37,3 +37,22 @@ public:
 	ACCESSOR_2(0, 0, Weather);
 	ACCESSOR_2(0, 1, Date);
 };
+
+class ModEntry : public
+	BasicSerializable<string, bool>
+{
+public:
+
+	ACCESSOR_1(0, Name);
+	ACCESSOR_1(0, Mandatory);
+};
+
+class ModRegistration : public
+	BasicSerializable<
+		BasicVector<ModEntry>
+	>
+{
+public:
+
+	ACCESSOR_1(0, ModEntries);
+};
