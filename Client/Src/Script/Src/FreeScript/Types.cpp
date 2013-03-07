@@ -12,14 +12,14 @@ namespace FreeScript
 	BSString::BSString(const char* d)
 	{
 		length = strlen(d);
-		capacity = length;
-		data = (char*)FormAllocate(capacity);
-		strcpy_s(data, length, d);
+		capacity = length * 2;
+		data = new char[capacity];
+		strcpy(data, d);
 	}
 
 	BSString::~BSString()
 	{
-		FormFree(data);
+		delete[] data;
 		data = nullptr;
 	}
 

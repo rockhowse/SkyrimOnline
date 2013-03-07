@@ -3,6 +3,9 @@
 #include "References.hpp"
 #include "Forms.hpp"
 #include "Actor.hpp"
+#include <Math/Vector3.hpp>
+
+using namespace Framework::Math;
 
 namespace FreeScript
 {

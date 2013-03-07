@@ -4,7 +4,6 @@
 void RunActorDump()
 {
 	FreeScript::Actor* player = Game::GetPlayer();
-	OUTPUT << (void*)player << " " << player->parentCell << std::endl;
 
 	auto npc = FreeScript::ActorHelper(player).GetNpc();
 
@@ -12,6 +11,8 @@ void RunActorDump()
 	std::vector<uint32_t> worn;
 
 	FreeScript::QueueNiNodeUpdate(player);
+
+	OUTPUT << SActor::GetActorValue(player, "Health") << std::endl;
 
 	RUN_TEST(FreeScript::IFormFactory::GetFactory(61)->GetName())
 

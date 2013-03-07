@@ -6,9 +6,25 @@ using namespace boost::filesystem;
 typedef LONG (__thiscall *tVMUpdate)(int pthis, float a2);
 tVMUpdate oVMUpdate;
 
+uint32_t elapsed = 0;
+
 LONG __fastcall VMUpdate(int pthis, int bs, float a2)
 {
-	PluginManager::GetInstance()->Run();
+
+	/*if(FreeScript::Game::GetPlayer() && FreeScript::Game::GetPlayer()->parentCell)
+	{
+		if(elapsed == 0)
+		{
+			elapsed = clock();
+		}
+		if(clock() - elapsed > 10000)*/
+			PluginManager::GetInstance()->Run();
+	/*}
+	else
+	{
+		elapsed = 0;
+	}*/
+	
 	return oVMUpdate(pthis, a2);
 }
 
