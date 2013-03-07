@@ -128,4 +128,21 @@ namespace FreeScript
 
 		String(const char* data);
 	};
+
+	class BSString
+	{
+	public:
+
+		BSString(const char* d);
+		~BSString();
+
+		const char* Get();
+
+	private:
+
+		char* data;
+		uint16_t length;
+		uint16_t capacity;
+
+	};
 }

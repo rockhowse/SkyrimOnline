@@ -10,8 +10,8 @@ namespace Skyrim
 
 			static SkyrimFormManager* GetInstance();
 
-			TESForm* GetForm(uint32_t pRace, uint32_t pGender);
-			void ReleaseForm(TESForm* pForm);
+			FreeScript::TESForm* GetForm(uint32_t pRace, uint32_t pGender);
+			void ReleaseForm(FreeScript::TESForm* pForm);
 
 		private:
 

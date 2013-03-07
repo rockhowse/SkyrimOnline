@@ -2,11 +2,12 @@
 #include "Character.hpp"
 #include "ReferencesHelper.hpp"
 #include "FormsHelper.hpp"
+#include "Invoke.hpp"
 
 namespace FreeScript
 {
 	//--------------------------------------------------------------------------------
-	Character::Character(FreeScript::Actor* pActor)
+	Character::Character(Actor* pActor)
 		:mActor(pActor)
 	{
 		mFaceMorph.reserve(19);
@@ -15,12 +16,12 @@ namespace FreeScript
 	//--------------------------------------------------------------------------------
 	bool Character::IsDead()
 	{
-		return ::Actor::IsDead(mActor);
+		return SActor::IsDead(mActor);
 	}
 	//--------------------------------------------------------------------------------
 	bool Character::IsRidding()
 	{
-		return false; //Obscript::IsRidingHorse((TESObjectREFR*)mActor) == 1.f;
+		return SActor::IsOnMount(mActor);
 	}
 	//--------------------------------------------------------------------------------
 	float Character::GetPosX()
@@ -67,12 +68,12 @@ namespace FreeScript
 	//--------------------------------------------------------------------------------
 	void Character::SetPos(float x, float y, float z)
 	{
-		ObjectReference::SetPosition((TESObjectREFR*)mActor,x,y,z);
+		ObjectReference::SetPosition(mActor,x,y,z);
 	}
 	//--------------------------------------------------------------------------------
 	void Character::SetRot(float x, float y, float z)
 	{
-		ObjectReference::SetAngle((TESObjectREFR*)mActor, x,y,z);
+		ObjectReference::SetAngle(mActor, x,y,z);
 	}
 	//--------------------------------------------------------------------------------
 	void Character::QueueNiNodeUpdate()
@@ -82,42 +83,42 @@ namespace FreeScript
 	//--------------------------------------------------------------------------------
 	uint32_t Character::GetLevel()
 	{
-		return ::Actor::GetLevel(mActor);
+		return SActor::GetLevel(mActor);
 	}
 	//--------------------------------------------------------------------------------
 	uint32_t Character::GetRace()
 	{
-		return FreeScript::TESNPCHelper(FreeScript::ActorHelper(mActor).GetNpc()).GetRaceID();
+		return TESNPCHelper(ActorHelper(mActor).GetNpc()).GetRaceID();
 	}
 	//--------------------------------------------------------------------------------
 	uint32_t Character::GetGender()
 	{
-		return ((uint8_t(__thiscall*)(FreeScript::TESNPC*))0x0055ABD0)(FreeScript::ActorHelper(mActor).GetNpc());
+		return NPC::GetSex(ActorHelper(mActor).GetNpc());
 	}
 	//--------------------------------------------------------------------------------
 	const std::vector<float>& Character::GetFaceMorph()
 	{
-		FreeScript::TESNPCHelper(FreeScript::ActorHelper(mActor).GetNpc()).GetFaceMorph(mFaceMorph);
+		TESNPCHelper(ActorHelper(mActor).GetNpc()).GetFaceMorph(mFaceMorph);
 		return mFaceMorph;
 	}
 	//--------------------------------------------------------------------------------
 	void Character::SetFaceMorph(const std::vector<float>& pFaceMorphs)
 	{
 		mFaceMorph = pFaceMorphs;
-		FreeScript::TESNPCHelper(FreeScript::ActorHelper(mActor).GetNpc()).SetFaceMorph(pFaceMorphs);
+		FreeScript::TESNPCHelper(ActorHelper(mActor).GetNpc()).SetFaceMorph(pFaceMorphs);
 		this->QueueNiNodeUpdate();
 	}
 	//--------------------------------------------------------------------------------
 	const std::vector<uint32_t>& Character::GetFacePresets()
 	{
-		FreeScript::TESNPCHelper(FreeScript::ActorHelper(mActor).GetNpc()).GetFacePresets(mFacePresets);
+		FreeScript::TESNPCHelper(ActorHelper(mActor).GetNpc()).GetFacePresets(mFacePresets);
 		return mFacePresets;
 	}
 	//--------------------------------------------------------------------------------
 	void Character::SetFacePresets(const std::vector<uint32_t>& pFacePresets)
 	{
 		mFacePresets = pFacePresets;
-		FreeScript::TESNPCHelper(FreeScript::ActorHelper(mActor).GetNpc()).SetFacePresets(mFacePresets);
+		FreeScript::TESNPCHelper(ActorHelper(mActor).GetNpc()).SetFacePresets(mFacePresets);
 		this->QueueNiNodeUpdate();
 	}
 	//--------------------------------------------------------------------------------
@@ -128,13 +129,13 @@ namespace FreeScript
 	//--------------------------------------------------------------------------------
 	void Character::EquipItems(std::vector<uint32_t> wornForms)
 	{
-		::Actor::UnequipAll(mActor);
+		SActor::UnequipAll(mActor);
 		for( auto itor = wornForms.begin(); itor != wornForms.end(); ++itor )
 		{
 			if( *itor != 0 )
 			{
-				ObjectReference::AddItem((TESObjectREFR*)dyn_cast(mActor, "CActor", "TESObjectREFR"), ::Game::GetFormById(*itor), 1, true);
-				::Actor::EquipItem(mActor, ::Game::GetFormById(*itor), true, false); 
+				ObjectReference::AddItem(rtti_cast(mActor, Actor, TESObjectREFR), Game::GetForm(*itor), 1, true);
+				SActor::EquipItem(mActor, Game::GetForm(*itor), true, false); 
 			}
 		}
 	}
@@ -165,7 +166,7 @@ namespace FreeScript
 	BGSLocation* Character::GetLocation()
 	{
 		try{
-			return ObjectReference::GetCurrentLocation((TESObjectREFR*)dyn_cast(mActor, "CActor", "TESObjectREFR"));
+			return ObjectReference::GetCurrentLocation(rtti_cast(mActor, Actor, TESObjectREFR));
 		}
 		catch(...)
 		{
@@ -195,21 +196,21 @@ namespace FreeScript
 		FreeScript::SetName(mActor, pName);
 	}
 	//--------------------------------------------------------------------------------
-	CActor* Character::GetActor()
+	Actor* Character::GetActor()
 	{
 		return mActor;
 	}
 	//--------------------------------------------------------------------------------
-	void Character::SetActor(CActor* pActor)
+	void Character::SetActor(Actor* pActor)
 	{
-		mActor = (FreeScript::Actor*)pActor;
+		mActor = pActor;
 	}
 	//--------------------------------------------------------------------------------
 	uint32_t Character::GetMountId()
 	{
 		if (IsRidding())
 		{
-			FreeScript::Actor * lMount = (FreeScript::Actor*)::Game::GetPlayersLastRiddenHorse();
+			Actor * lMount = Game::GetPlayersLastRiddenHorse();
 			if(lMount)
 			{
 				return lMount->baseForm->formID;
@@ -221,762 +222,762 @@ namespace FreeScript
 	//--------------------------------------------------------------------------------
 	float Character::GetCarryWeight()
 	{
-		return ::Actor::GetActorValue(mActor, "CarryWeight");
+		return SActor::GetActorValue(mActor, "CarryWeight");
 	}
 	//--------------------------------------------------------------------------------
 	float Character::GetMood()
 	{
-		return ::Actor::GetActorValue(mActor, "Mood");
+		return SActor::GetActorValue(mActor, "Mood");
 	}
 	//--------------------------------------------------------------------------------
 	float Character::GetAssistance()
 	{
-		return ::Actor::GetActorValue(mActor, "Assistance");
+		return SActor::GetActorValue(mActor, "Assistance");
 	}
 	//--------------------------------------------------------------------------------
 	float Character::GetEnergy()
 	{
-		return ::Actor::GetActorValue(mActor, "Energy");
+		return SActor::GetActorValue(mActor, "Energy");
 	}
 	//--------------------------------------------------------------------------------
 	float Character::GetMorality()
 	{
-		return ::Actor::GetActorValue(mActor, "Morality");
+		return SActor::GetActorValue(mActor, "Morality");
 	}
 	//--------------------------------------------------------------------------------
 	float Character::GetOneHanded()
 	{
-		return ::Actor::GetActorValue(mActor, "OneHanded");
+		return SActor::GetActorValue(mActor, "OneHanded");
 	}
 	//--------------------------------------------------------------------------------
 	float Character::GetTwoHanded()
 	{
-		return ::Actor::GetActorValue(mActor, "TwoHanded");
+		return SActor::GetActorValue(mActor, "TwoHanded");
 	}
 	//--------------------------------------------------------------------------------
 	float Character::GetMarksman()
 	{
-		return ::Actor::GetActorValue(mActor, "Marksman");
+		return SActor::GetActorValue(mActor, "Marksman");
 	}
 	//--------------------------------------------------------------------------------
 	float Character::GetBlock()
 	{
-		return ::Actor::GetActorValue(mActor, "Block");
+		return SActor::GetActorValue(mActor, "Block");
 	}
 	//--------------------------------------------------------------------------------
 	float Character::GetSmithing()
 	{
-		return ::Actor::GetActorValue(mActor, "Smithing");
+		return SActor::GetActorValue(mActor, "Smithing");
 	}
 	//--------------------------------------------------------------------------------
 	float Character::GetHeavyArmor()
 	{
-		return ::Actor::GetActorValue(mActor, "HeavyArmor");
+		return SActor::GetActorValue(mActor, "HeavyArmor");
 	}
 	//--------------------------------------------------------------------------------
 	float Character::GetLightArmor()
 	{
-		return ::Actor::GetActorValue(mActor, "LightArmor");
+		return SActor::GetActorValue(mActor, "LightArmor");
 	}
 	//--------------------------------------------------------------------------------
 	float Character::GetPickpocket()
 	{
-		return ::Actor::GetActorValue(mActor, "Pickpocket");
+		return SActor::GetActorValue(mActor, "Pickpocket");
 	}
 	//--------------------------------------------------------------------------------
 	float Character::GetLockpicking()
 	{
-		return ::Actor::GetActorValue(mActor, "Lockpicking");
+		return SActor::GetActorValue(mActor, "Lockpicking");
 	}
 	//--------------------------------------------------------------------------------
 	float Character::GetSneak()
 	{
-		return ::Actor::GetActorValue(mActor, "Sneak");
+		return SActor::GetActorValue(mActor, "Sneak");
 	}
 	//--------------------------------------------------------------------------------
 	float Character::GetAlchemy()
 	{
-		return ::Actor::GetActorValue(mActor, "Alchemy");
+		return SActor::GetActorValue(mActor, "Alchemy");
 	}
 	//--------------------------------------------------------------------------------
 	float Character::GetSpeechcraft()
 	{
-		return ::Actor::GetActorValue(mActor, "Speechcraft");
+		return SActor::GetActorValue(mActor, "Speechcraft");
 	}
 	//--------------------------------------------------------------------------------
 	float Character::GetAlteration()
 	{
-		return ::Actor::GetActorValue(mActor, "Alteration");
+		return SActor::GetActorValue(mActor, "Alteration");
 	}
 	//--------------------------------------------------------------------------------
 	float Character::GetConjuration()
 	{
-		return ::Actor::GetActorValue(mActor, "Conjuration");
+		return SActor::GetActorValue(mActor, "Conjuration");
 	}
 	//--------------------------------------------------------------------------------
 	float Character::GetDestruction()
 	{
-		return ::Actor::GetActorValue(mActor, "Destruction");
+		return SActor::GetActorValue(mActor, "Destruction");
 	}
 	//--------------------------------------------------------------------------------
 	float Character::GetIllusion()
 	{
-		return ::Actor::GetActorValue(mActor, "Illusion");
+		return SActor::GetActorValue(mActor, "Illusion");
 	}
 	//--------------------------------------------------------------------------------
 	float Character::GetRestoration()
 	{
-		return ::Actor::GetActorValue(mActor, "Restoration");
+		return SActor::GetActorValue(mActor, "Restoration");
 	}
 	//--------------------------------------------------------------------------------
 	float Character::GetEnchanting()
 	{
-		return ::Actor::GetActorValue(mActor, "Enchanting");
+		return SActor::GetActorValue(mActor, "Enchanting");
 	}
 	//--------------------------------------------------------------------------------
 	float Character::GetHealth()
 	{
-		return ::Actor::GetActorValue(mActor, "Health");
+		return SActor::GetActorValue(mActor, "Health");
 	}
 	//--------------------------------------------------------------------------------
 	float Character::GetMagicka()
 	{
-		return ::Actor::GetActorValue(mActor, "Magicka");
+		return SActor::GetActorValue(mActor, "Magicka");
 	}
 	//--------------------------------------------------------------------------------
 	float Character::GetStamina()
 	{
-		return ::Actor::GetActorValue(mActor, "Stamina");
+		return SActor::GetActorValue(mActor, "Stamina");
 	}
 	//--------------------------------------------------------------------------------
 	float Character::GetHealRate()
 	{
-		return ::Actor::GetActorValue(mActor, "HealRate");
+		return SActor::GetActorValue(mActor, "HealRate");
 	}
 	//--------------------------------------------------------------------------------
 	float Character::GetMagickaRate()
 	{
-		return ::Actor::GetActorValue(mActor, "MagickaRate");
+		return SActor::GetActorValue(mActor, "MagickaRate");
 	}
 	//--------------------------------------------------------------------------------
 	float Character::GetStaminaRate()
 	{
-		return ::Actor::GetActorValue(mActor, "StaminaRate");
+		return SActor::GetActorValue(mActor, "StaminaRate");
 	}
 	//--------------------------------------------------------------------------------
 	float Character::GetSpeedMult()
 	{
-		return ::Actor::GetActorValue(mActor, "SpeedMult");
+		return SActor::GetActorValue(mActor, "SpeedMult");
 	}
 	//--------------------------------------------------------------------------------
 	float Character::GetInventoryWeight()
 	{
-		return ::Actor::GetActorValue(mActor, "InventoryWeight");
+		return SActor::GetActorValue(mActor, "InventoryWeight");
 	}
 	//--------------------------------------------------------------------------------
 	float Character::GetDragonRend()
 	{
-		return ::Actor::GetActorValue(mActor, "DragonRend");
+		return SActor::GetActorValue(mActor, "DragonRend");
 	}
 	//--------------------------------------------------------------------------------
 	float Character::GetCritChance()
 	{
-		return ::Actor::GetActorValue(mActor, "CritChance");
+		return SActor::GetActorValue(mActor, "CritChance");
 	}
 	//--------------------------------------------------------------------------------
 	float Character::GetMeleeDamage()
 	{
-		return ::Actor::GetActorValue(mActor, "MeleeDamage");
+		return SActor::GetActorValue(mActor, "MeleeDamage");
 	}
 	//--------------------------------------------------------------------------------
 	float Character::GetUnarmedDamage()
 	{
-		return ::Actor::GetActorValue(mActor, "UnarmedDamage");
+		return SActor::GetActorValue(mActor, "UnarmedDamage");
 	}
 	//--------------------------------------------------------------------------------
 	float Character::GetMass()
 	{
-		return ::Actor::GetActorValue(mActor, "Mass");
+		return SActor::GetActorValue(mActor, "Mass");
 	}
 	//--------------------------------------------------------------------------------
 	float Character::GetVoicePoints()
 	{
-		return ::Actor::GetActorValue(mActor, "VoicePoints");
+		return SActor::GetActorValue(mActor, "VoicePoints");
 	}
 	//--------------------------------------------------------------------------------
 	float Character::GetVoiceRate()
 	{
-		return ::Actor::GetActorValue(mActor, "VoiceRate");
+		return SActor::GetActorValue(mActor, "VoiceRate");
 	}
 	//--------------------------------------------------------------------------------
 	float Character::GetDamageResist()
 	{
-		return ::Actor::GetActorValue(mActor, "DamageResist");
+		return SActor::GetActorValue(mActor, "DamageResist");
 	}
 	//--------------------------------------------------------------------------------
 	float Character::GetPoisonResist()
 	{
-		return ::Actor::GetActorValue(mActor, "PoisonResist");
+		return SActor::GetActorValue(mActor, "PoisonResist");
 	}
 	//--------------------------------------------------------------------------------
 	float Character::GetFireResist()
 	{
-		return ::Actor::GetActorValue(mActor, "FireResist");
+		return SActor::GetActorValue(mActor, "FireResist");
 	}
 	//--------------------------------------------------------------------------------
 	float Character::GetElectricResist()
 	{
-		return ::Actor::GetActorValue(mActor, "ElectricResist");
+		return SActor::GetActorValue(mActor, "ElectricResist");
 	}
 	//--------------------------------------------------------------------------------
 	float Character::GetFrostResist()
 	{
-		return ::Actor::GetActorValue(mActor, "FrostResist");
+		return SActor::GetActorValue(mActor, "FrostResist");
 	}
 	//--------------------------------------------------------------------------------
 	float Character::GetMagicResist()
 	{
-		return ::Actor::GetActorValue(mActor, "MagicResist");
+		return SActor::GetActorValue(mActor, "MagicResist");
 	}
 	//--------------------------------------------------------------------------------
 	float Character::GetDiseaseResist()
 	{
-		return ::Actor::GetActorValue(mActor, "DiseaseResist");
+		return SActor::GetActorValue(mActor, "DiseaseResist");
 	}
 	//--------------------------------------------------------------------------------
 	float Character::GetParalysis()
 	{
-		return ::Actor::GetActorValue(mActor, "Paralysis");
+		return SActor::GetActorValue(mActor, "Paralysis");
 	}
 	//--------------------------------------------------------------------------------
 	float Character::GetInvisibility()
 	{
-		return ::Actor::GetActorValue(mActor, "Invisibility");
+		return SActor::GetActorValue(mActor, "Invisibility");
 	}
 	//--------------------------------------------------------------------------------
 	float Character::GetNightEye()
 	{
-		return ::Actor::GetActorValue(mActor, "NightEye");
+		return SActor::GetActorValue(mActor, "NightEye");
 	}
 	//--------------------------------------------------------------------------------
 	float Character::GetDetectLifeRange()
 	{
-		return ::Actor::GetActorValue(mActor, "DetectLifeRange");
+		return SActor::GetActorValue(mActor, "DetectLifeRange");
 	}
 	//--------------------------------------------------------------------------------
 	float Character::GetWaterBreathing()
 	{
-		return ::Actor::GetActorValue(mActor, "WaterBreathing");
+		return SActor::GetActorValue(mActor, "WaterBreathing");
 	}
 	//--------------------------------------------------------------------------------
 	float Character::GetWaterWalking()
 	{
-		return ::Actor::GetActorValue(mActor, "WaterWalking");
+		return SActor::GetActorValue(mActor, "WaterWalking");
 	}
 	//--------------------------------------------------------------------------------
 	float Character::GetIgnoreCrippledLimbs()
 	{
-		return ::Actor::GetActorValue(mActor, "IgnoreCrippledLimbs");
+		return SActor::GetActorValue(mActor, "IgnoreCrippledLimbs");
 	}
 	//--------------------------------------------------------------------------------
 	float Character::GetFame()
 	{
-		return ::Actor::GetActorValue(mActor, "Fame");
+		return SActor::GetActorValue(mActor, "Fame");
 	}
 	//--------------------------------------------------------------------------------
 	float Character::GetInfamy()
 	{
-		return ::Actor::GetActorValue(mActor, "Infamy");
+		return SActor::GetActorValue(mActor, "Infamy");
 	}
 	//--------------------------------------------------------------------------------
 	float Character::GetJumpingBonus()
 	{
-		return ::Actor::GetActorValue(mActor, "JumpingBonus");
+		return SActor::GetActorValue(mActor, "JumpingBonus");
 	}
 	//--------------------------------------------------------------------------------
 	float Character::GetWardPower()
 	{
-		return ::Actor::GetActorValue(mActor, "WardPower");
+		return SActor::GetActorValue(mActor, "WardPower");
 	}
 	//--------------------------------------------------------------------------------
 	float Character::GetRightItemCharge()
 	{
-		return ::Actor::GetActorValue(mActor, "RightItemCharge");
+		return SActor::GetActorValue(mActor, "RightItemCharge");
 	}
 	//--------------------------------------------------------------------------------
 	float Character::GetLeftItemCharge()
 	{
-		return ::Actor::GetActorValue(mActor, "LeftItemCharge");
+		return SActor::GetActorValue(mActor, "LeftItemCharge");
 	}
 	//--------------------------------------------------------------------------------
 	float Character::GetEquippedItemCharge()
 	{
-		return ::Actor::GetActorValue(mActor, "EquippedItemCharge");
+		return SActor::GetActorValue(mActor, "EquippedItemCharge");
 	}
 	//--------------------------------------------------------------------------------
 	float Character::GetArmorPerks()
 	{
-		return ::Actor::GetActorValue(mActor, "ArmorPerks");
+		return SActor::GetActorValue(mActor, "ArmorPerks");
 	}
 	//--------------------------------------------------------------------------------
 	float Character::GetShieldPerks()
 	{
-		return ::Actor::GetActorValue(mActor, "ShieldPerks");
+		return SActor::GetActorValue(mActor, "ShieldPerks");
 	}
 	//--------------------------------------------------------------------------------
 	float Character::GetFavorActive()
 	{
-		return ::Actor::GetActorValue(mActor, "FavorActive");
+		return SActor::GetActorValue(mActor, "FavorActive");
 	}
 	//--------------------------------------------------------------------------------
 	float Character::GetFavorsPerDay()
 	{
-		return ::Actor::GetActorValue(mActor, "FavorsPerDay");
+		return SActor::GetActorValue(mActor, "FavorsPerDay");
 	}
 	//--------------------------------------------------------------------------------
 	float Character::GetFavorsPerDayTimer()
 	{
-		return ::Actor::GetActorValue(mActor, "FavorsPerDayTimer");
+		return SActor::GetActorValue(mActor, "FavorsPerDayTimer");
 	}
 	//--------------------------------------------------------------------------------
 	float Character::GetEquippedStaffCharge()
 	{
-		return ::Actor::GetActorValue(mActor, "EquippedStaffCharge");
+		return SActor::GetActorValue(mActor, "EquippedStaffCharge");
 	}
 	//--------------------------------------------------------------------------------
 	float Character::GetAbsorbChance()
 	{
-		return ::Actor::GetActorValue(mActor, "AbsorbChance");
+		return SActor::GetActorValue(mActor, "AbsorbChance");
 	}
 	//--------------------------------------------------------------------------------
 	float Character::GetBlindness()
 	{
-		return ::Actor::GetActorValue(mActor, "Blindness");
+		return SActor::GetActorValue(mActor, "Blindness");
 	}
 	//--------------------------------------------------------------------------------
 	float Character::GetWeaponSpeedMult()
 	{
-		return ::Actor::GetActorValue(mActor, "WeaponSpeedMult");
+		return SActor::GetActorValue(mActor, "WeaponSpeedMult");
 	}
 	//--------------------------------------------------------------------------------
 	float Character::GetShoutRecoveryMult()
 	{
-		return ::Actor::GetActorValue(mActor, "ShoutRecoveryMult");
+		return SActor::GetActorValue(mActor, "ShoutRecoveryMult");
 	}
 	//--------------------------------------------------------------------------------
 	float Character::GetBowStaggerBonus()
 	{
-		return ::Actor::GetActorValue(mActor, "BowStaggerBonus");
+		return SActor::GetActorValue(mActor, "BowStaggerBonus");
 	}
 	//--------------------------------------------------------------------------------
 	float Character::GetTelekinesis()
 	{
-		return ::Actor::GetActorValue(mActor, "Telekinesis");
+		return SActor::GetActorValue(mActor, "Telekinesis");
 	}
 	//--------------------------------------------------------------------------------
 	float Character::GetFavorPointsBonus()
 	{
-		return ::Actor::GetActorValue(mActor, "FavorPointsBonus");
+		return SActor::GetActorValue(mActor, "FavorPointsBonus");
 	}
 	//--------------------------------------------------------------------------------
 	float Character::GetLastBribedIntimidated()
 	{
-		return ::Actor::GetActorValue(mActor, "LastBribedIntimidated");
+		return SActor::GetActorValue(mActor, "LastBribedIntimidated");
 	}
 	//--------------------------------------------------------------------------------
 	float Character::GetLastFlattered()
 	{
-		return ::Actor::GetActorValue(mActor, "LastFlattered");
+		return SActor::GetActorValue(mActor, "LastFlattered");
 	}
 	//--------------------------------------------------------------------------------
 	float Character::GetMovementNoiseMult()
 	{
-		return ::Actor::GetActorValue(mActor, "MovementNoiseMult");
+		return SActor::GetActorValue(mActor, "MovementNoiseMult");
 	}
 	//--------------------------------------------------------------------------------
 	float Character::GetBypassVendorStolenCheck()
 	{
-		return ::Actor::GetActorValue(mActor, "BypassVendorStolenCheck");
+		return SActor::GetActorValue(mActor, "BypassVendorStolenCheck");
 	}
 	//--------------------------------------------------------------------------------
 	float Character::GetBypassVendorKeywordCheck()
 	{
-		return ::Actor::GetActorValue(mActor, "BypassVendorKeywordCheck");
+		return SActor::GetActorValue(mActor, "BypassVendorKeywordCheck");
 	}
 	//--------------------------------------------------------------------------------
 	float Character::GetWaitingForPlayer()
 	{
-		return ::Actor::GetActorValue(mActor, "WaitingForPlayer");
+		return SActor::GetActorValue(mActor, "WaitingForPlayer");
 	}
 	//--------------------------------------------------------------------------------
 	float Character::GetOneHandedMod()
 	{
-		return ::Actor::GetActorValue(mActor, "OneHandedMod");
+		return SActor::GetActorValue(mActor, "OneHandedMod");
 	}
 	//--------------------------------------------------------------------------------
 	float Character::GetTwoHandedMod()
 	{
-		return ::Actor::GetActorValue(mActor, "TwoHandedMod");
+		return SActor::GetActorValue(mActor, "TwoHandedMod");
 	}
 	//--------------------------------------------------------------------------------
 	float Character::GetMarksmanMod()
 	{
-		return ::Actor::GetActorValue(mActor, "MarksmanMod");
+		return SActor::GetActorValue(mActor, "MarksmanMod");
 	}
 	//--------------------------------------------------------------------------------
 	float Character::GetBlockMod()
 	{
-		return ::Actor::GetActorValue(mActor, "BlockMod");
+		return SActor::GetActorValue(mActor, "BlockMod");
 	}
 	//--------------------------------------------------------------------------------
 	float Character::GetSmithingMod()
 	{
-		return ::Actor::GetActorValue(mActor, "SmithingMod");
+		return SActor::GetActorValue(mActor, "SmithingMod");
 	}
 	//--------------------------------------------------------------------------------
 	float Character::GetHeavyArmorMod()
 	{
-		return ::Actor::GetActorValue(mActor, "HeavyArmorMod");
+		return SActor::GetActorValue(mActor, "HeavyArmorMod");
 	}
 	//--------------------------------------------------------------------------------
 	float Character::GetLightArmorMod()
 	{
-		return ::Actor::GetActorValue(mActor, "LightArmorMod");
+		return SActor::GetActorValue(mActor, "LightArmorMod");
 	}
 	//--------------------------------------------------------------------------------
 	float Character::GetPickPocketMod()
 	{
-		return ::Actor::GetActorValue(mActor, "PickPocketMod");
+		return SActor::GetActorValue(mActor, "PickPocketMod");
 	}
 	//--------------------------------------------------------------------------------
 	float Character::GetLockpickingMod()
 	{
-		return ::Actor::GetActorValue(mActor, "LockpickingMod");
+		return SActor::GetActorValue(mActor, "LockpickingMod");
 	}
 	//--------------------------------------------------------------------------------
 	float Character::GetSneakMod()
 	{
-		return ::Actor::GetActorValue(mActor, "SneakMod");
+		return SActor::GetActorValue(mActor, "SneakMod");
 	}
 	//--------------------------------------------------------------------------------
 	float Character::GetAlchemyMod()
 	{
-		return ::Actor::GetActorValue(mActor, "AlchemyMod");
+		return SActor::GetActorValue(mActor, "AlchemyMod");
 	}
 	//--------------------------------------------------------------------------------
 	float Character::GetSpeechcraftMod()
 	{
-		return ::Actor::GetActorValue(mActor, "SpeechcraftMod");
+		return SActor::GetActorValue(mActor, "SpeechcraftMod");
 	}
 	//--------------------------------------------------------------------------------
 	float Character::GetAlterationMod()
 	{
-		return ::Actor::GetActorValue(mActor, "AlterationMod");
+		return SActor::GetActorValue(mActor, "AlterationMod");
 	}
 	//--------------------------------------------------------------------------------
 	float Character::GetConjurationMod()
 	{
-		return ::Actor::GetActorValue(mActor, "ConjurationMod");
+		return SActor::GetActorValue(mActor, "ConjurationMod");
 	}
 	//--------------------------------------------------------------------------------
 	float Character::GetDestructionMod()
 	{
-		return ::Actor::GetActorValue(mActor, "DestructionMod");
+		return SActor::GetActorValue(mActor, "DestructionMod");
 	}
 	//--------------------------------------------------------------------------------
 	float Character::GetIllusionMod()
 	{
-		return ::Actor::GetActorValue(mActor, "IllusionMod");
+		return SActor::GetActorValue(mActor, "IllusionMod");
 	}
 	//--------------------------------------------------------------------------------
 	float Character::GetRestorationMod()
 	{
-		return ::Actor::GetActorValue(mActor, "RestorationMod");
+		return SActor::GetActorValue(mActor, "RestorationMod");
 	}
 	//--------------------------------------------------------------------------------
 	float Character::GetEnchantingMod()
 	{
-		return ::Actor::GetActorValue(mActor, "EnchantingMod");
+		return SActor::GetActorValue(mActor, "EnchantingMod");
 	}
 	//--------------------------------------------------------------------------------
 	float Character::GetOneHandedSkillAdvance()
 	{
-		return ::Actor::GetActorValue(mActor, "OneHandedSkillAdvance");
+		return SActor::GetActorValue(mActor, "OneHandedSkillAdvance");
 	}
 	//--------------------------------------------------------------------------------
 	float Character::GetTwoHandedSkillAdvance()
 	{
-		return ::Actor::GetActorValue(mActor, "TwoHandedSkillAdvance");
+		return SActor::GetActorValue(mActor, "TwoHandedSkillAdvance");
 	}
 	//--------------------------------------------------------------------------------
 	float Character::GetMarksmanSkillAdvance()
 	{
-		return ::Actor::GetActorValue(mActor, "MarksmanSkillAdvance");
+		return SActor::GetActorValue(mActor, "MarksmanSkillAdvance");
 	}
 	//--------------------------------------------------------------------------------
 	float Character::GetBlockSkillAdvance()
 	{
-		return ::Actor::GetActorValue(mActor, "BlockSkillAdvance");
+		return SActor::GetActorValue(mActor, "BlockSkillAdvance");
 	}
 	//--------------------------------------------------------------------------------
 	float Character::GetSmithingSkillAdvance()
 	{
-		return ::Actor::GetActorValue(mActor, "SmithingSkillAdvance");
+		return SActor::GetActorValue(mActor, "SmithingSkillAdvance");
 	}
 	//--------------------------------------------------------------------------------
 	float Character::GetHeavyArmorSkillAdvance()
 	{
-		return ::Actor::GetActorValue(mActor, "HeavyArmorSkillAdvance");
+		return SActor::GetActorValue(mActor, "HeavyArmorSkillAdvance");
 	}
 	//--------------------------------------------------------------------------------
 	float Character::GetLightArmorSkillAdvance()
 	{
-		return ::Actor::GetActorValue(mActor, "LightArmorSkillAdvance");
+		return SActor::GetActorValue(mActor, "LightArmorSkillAdvance");
 	}
 	//--------------------------------------------------------------------------------
 	float Character::GetPickPocketSkillAdvance()
 	{
-		return ::Actor::GetActorValue(mActor, "PickPocketSkillAdvance");
+		return SActor::GetActorValue(mActor, "PickPocketSkillAdvance");
 	}
 	//--------------------------------------------------------------------------------
 	float Character::GetLockpickingSkillAdvance()
 	{
-		return ::Actor::GetActorValue(mActor, "LockpickingSkillAdvance");
+		return SActor::GetActorValue(mActor, "LockpickingSkillAdvance");
 	}
 	//--------------------------------------------------------------------------------
 	float Character::GetSneakSkillAdvance()
 	{
-		return ::Actor::GetActorValue(mActor, "SneakSkillAdvance");
+		return SActor::GetActorValue(mActor, "SneakSkillAdvance");
 	}
 	//--------------------------------------------------------------------------------
 	float Character::GetAlchemySkillAdvance()
 	{
-		return ::Actor::GetActorValue(mActor, "AlchemySkillAdvance");
+		return SActor::GetActorValue(mActor, "AlchemySkillAdvance");
 	}
 	//--------------------------------------------------------------------------------
 	float Character::GetSpeechcraftSkillAdvance()
 	{
-		return ::Actor::GetActorValue(mActor, "SpeechcraftSkillAdvance");
+		return SActor::GetActorValue(mActor, "SpeechcraftSkillAdvance");
 	}
 	//--------------------------------------------------------------------------------
 	float Character::GetAlterationSkillAdvance()
 	{
-		return ::Actor::GetActorValue(mActor, "AlterationSkillAdvance");
+		return SActor::GetActorValue(mActor, "AlterationSkillAdvance");
 	}
 	//--------------------------------------------------------------------------------
 	float Character::GetConjurationSkillAdvance()
 	{
-		return ::Actor::GetActorValue(mActor, "ConjurationSkillAdvance");
+		return SActor::GetActorValue(mActor, "ConjurationSkillAdvance");
 	}
 	//--------------------------------------------------------------------------------
 	float Character::GetDestructionSkillAdvance()
 	{
-		return ::Actor::GetActorValue(mActor, "DestructionSkillAdvance");
+		return SActor::GetActorValue(mActor, "DestructionSkillAdvance");
 	}
 	//--------------------------------------------------------------------------------
 	float Character::GetIllusionSkillAdvance()
 	{
-		return ::Actor::GetActorValue(mActor, "IllusionSkillAdvance");
+		return SActor::GetActorValue(mActor, "IllusionSkillAdvance");
 	}
 	//--------------------------------------------------------------------------------
 	float Character::GetRestorationSkillAdvance()
 	{
-		return ::Actor::GetActorValue(mActor, "RestorationSkillAdvance");
+		return SActor::GetActorValue(mActor, "RestorationSkillAdvance");
 	}
 	//--------------------------------------------------------------------------------
 	float Character::GetEnchantingSkillAdvance()
 	{
-		return ::Actor::GetActorValue(mActor, "EnchantingSkillAdvance");
+		return SActor::GetActorValue(mActor, "EnchantingSkillAdvance");
 	}
 	//--------------------------------------------------------------------------------
 	float Character::GetLeftWeaponSpeedMult()
 	{
-		return ::Actor::GetActorValue(mActor, "LeftWeaponSpeedMult");
+		return SActor::GetActorValue(mActor, "LeftWeaponSpeedMult");
 	}
 	//--------------------------------------------------------------------------------
 	float Character::GetDragonSouls()
 	{
-		return ::Actor::GetActorValue(mActor, "DragonSouls");
+		return SActor::GetActorValue(mActor, "DragonSouls");
 	}
 	//--------------------------------------------------------------------------------
 	float Character::GetCombatHealthRegenMult()
 	{
-		return ::Actor::GetActorValue(mActor, "CombatHealthRegenMult");
+		return SActor::GetActorValue(mActor, "CombatHealthRegenMult");
 	}
 	//--------------------------------------------------------------------------------
 	float Character::GetOneHandedPowerMod()
 	{
-		return ::Actor::GetActorValue(mActor, "OneHandedPowerMod");
+		return SActor::GetActorValue(mActor, "OneHandedPowerMod");
 	}
 	//--------------------------------------------------------------------------------
 	float Character::GetTwoHandedPowerMod()
 	{
-		return ::Actor::GetActorValue(mActor, "TwoHandedPowerMod");
+		return SActor::GetActorValue(mActor, "TwoHandedPowerMod");
 	}
 	//--------------------------------------------------------------------------------
 	float Character::GetMarksmanPowerMod()
 	{
-		return ::Actor::GetActorValue(mActor, "MarksmanPowerMod");
+		return SActor::GetActorValue(mActor, "MarksmanPowerMod");
 	}
 	//--------------------------------------------------------------------------------
 	float Character::GetBlockPowerMod()
 	{
-		return ::Actor::GetActorValue(mActor, "BlockPowerMod");
+		return SActor::GetActorValue(mActor, "BlockPowerMod");
 	}
 	//--------------------------------------------------------------------------------
 	float Character::GetSmithingPowerMod()
 	{
-		return ::Actor::GetActorValue(mActor, "SmithingPowerMod");
+		return SActor::GetActorValue(mActor, "SmithingPowerMod");
 	}
 	//--------------------------------------------------------------------------------
 	float Character::GetHeavyArmorPowerMod()
 	{
-		return ::Actor::GetActorValue(mActor, "HeavyArmorPowerMod");
+		return SActor::GetActorValue(mActor, "HeavyArmorPowerMod");
 	}
 	//--------------------------------------------------------------------------------
 	float Character::GetLightArmorPowerMod()
 	{
-		return ::Actor::GetActorValue(mActor, "LightArmorPowerMod");
+		return SActor::GetActorValue(mActor, "LightArmorPowerMod");
 	}
 	//--------------------------------------------------------------------------------
 	float Character::GetPickPocketPowerMod()
 	{
-		return ::Actor::GetActorValue(mActor, "PickPocketPowerMod");
+		return SActor::GetActorValue(mActor, "PickPocketPowerMod");
 	}
 	//--------------------------------------------------------------------------------
 	float Character::GetLockpickingPowerMod()
 	{
-		return ::Actor::GetActorValue(mActor, "LockpickingPowerMod");
+		return SActor::GetActorValue(mActor, "LockpickingPowerMod");
 	}
 	//--------------------------------------------------------------------------------
 	float Character::GetSneakPowerMod()
 	{
-		return ::Actor::GetActorValue(mActor, "SneakPowerMod");
+		return SActor::GetActorValue(mActor, "SneakPowerMod");
 	}
 	//--------------------------------------------------------------------------------
 	float Character::GetAlchemyPowerMod()
 	{
-		return ::Actor::GetActorValue(mActor, "AlchemyPowerMod");
+		return SActor::GetActorValue(mActor, "AlchemyPowerMod");
 	}
 	//--------------------------------------------------------------------------------
 	float Character::GetSpeechcraftPowerMod()
 	{
-		return ::Actor::GetActorValue(mActor, "SpeechcraftPowerMod");
+		return SActor::GetActorValue(mActor, "SpeechcraftPowerMod");
 	}
 	//--------------------------------------------------------------------------------
 	float Character::GetAlterationPowerMod()
 	{
-		return ::Actor::GetActorValue(mActor, "AlterationPowerMod");
+		return SActor::GetActorValue(mActor, "AlterationPowerMod");
 	}
 	//--------------------------------------------------------------------------------
 	float Character::GetConjurationPowerMod()
 	{
-		return ::Actor::GetActorValue(mActor, "ConjurationPowerMod");
+		return SActor::GetActorValue(mActor, "ConjurationPowerMod");
 	}
 	//--------------------------------------------------------------------------------
 	float Character::GetDestructionPowerMod()
 	{
-		return ::Actor::GetActorValue(mActor, "DestructionPowerMod");
+		return SActor::GetActorValue(mActor, "DestructionPowerMod");
 	}
 	//--------------------------------------------------------------------------------
 	float Character::GetIllusionPowerMod()
 	{
-		return ::Actor::GetActorValue(mActor, "IllusionPowerMod");
+		return SActor::GetActorValue(mActor, "IllusionPowerMod");
 	}
 	//--------------------------------------------------------------------------------
 	float Character::GetRestorationPowerMod()
 	{
-		return ::Actor::GetActorValue(mActor, "RestorationPowerMod");
+		return SActor::GetActorValue(mActor, "RestorationPowerMod");
 	}
 	//--------------------------------------------------------------------------------
 	float Character::GetEnchantingPowerMod()
 	{
-		return ::Actor::GetActorValue(mActor, "EnchantingPowerMod");
+		return SActor::GetActorValue(mActor, "EnchantingPowerMod");
 	}
 	//--------------------------------------------------------------------------------
 	float Character::GetAttackDamageMult()
 	{
-		return ::Actor::GetActorValue(mActor, "AttackDamageMult");
+		return SActor::GetActorValue(mActor, "AttackDamageMult");
 	}
 	//--------------------------------------------------------------------------------
 	float Character::GetHealRateMult()
 	{
-		return ::Actor::GetActorValue(mActor, "HealRateMult");
+		return SActor::GetActorValue(mActor, "HealRateMult");
 	}
 	//--------------------------------------------------------------------------------
 	float Character::GetMagickaRateMult()
 	{
-		return ::Actor::GetActorValue(mActor, "MagickaRateMult");
+		return SActor::GetActorValue(mActor, "MagickaRateMult");
 	}
 	//--------------------------------------------------------------------------------
 	float Character::GetStaminaRateMult()
 	{
-		return ::Actor::GetActorValue(mActor, "StaminaRateMult");
+		return SActor::GetActorValue(mActor, "StaminaRateMult");
 	}
 	//--------------------------------------------------------------------------------
 	float Character::GetCombatHealthRegenMultMod()
 	{
-		return ::Actor::GetActorValue(mActor, "CombatHealthRegenMultMod");
+		return SActor::GetActorValue(mActor, "CombatHealthRegenMultMod");
 	}
 	//--------------------------------------------------------------------------------
 	float Character::GetCombatHealthRegenMultPowerMod()
 	{
-		return ::Actor::GetActorValue(mActor, "CombatHealthRegenMultPowerMod");
+		return SActor::GetActorValue(mActor, "CombatHealthRegenMultPowerMod");
 	}
 	//--------------------------------------------------------------------------------
 	float Character::GetHealRatePowerMod()
 	{
-		return ::Actor::GetActorValue(mActor, "HealRatePowerMod");
+		return SActor::GetActorValue(mActor, "HealRatePowerMod");
 	}
 	//--------------------------------------------------------------------------------
 	float Character::GetMagickaRateMod()
 	{
-		return ::Actor::GetActorValue(mActor, "MagickaRateMod");
+		return SActor::GetActorValue(mActor, "MagickaRateMod");
 	}
 	//--------------------------------------------------------------------------------
 	float Character::GetReflectDamage()
 	{
-		return ::Actor::GetActorValue(mActor, "ReflectDamage");
+		return SActor::GetActorValue(mActor, "ReflectDamage");
 	}
 	//--------------------------------------------------------------------------------
 	float Character::GetNormalWeaponsResist()
 	{
-		return ::Actor::GetActorValue(mActor, "NormalWeaponsResist");
+		return SActor::GetActorValue(mActor, "NormalWeaponsResist");
 	}
 	//--------------------------------------------------------------------------------
 	float Character::GetPerceptionCondition()
 	{
-		return ::Actor::GetActorValue(mActor, "PerceptionCondition");
+		return SActor::GetActorValue(mActor, "PerceptionCondition");
 	}
 	//--------------------------------------------------------------------------------
 	float Character::GetEnduranceCondition()
 	{
-		return ::Actor::GetActorValue(mActor, "EnduranceCondition");
+		return SActor::GetActorValue(mActor, "EnduranceCondition");
 	}
 	//--------------------------------------------------------------------------------
 	float Character::GetLeftAttackCondition()
 	{
-		return ::Actor::GetActorValue(mActor, "LeftAttackCondition");
+		return SActor::GetActorValue(mActor, "LeftAttackCondition");
 	}
 	//--------------------------------------------------------------------------------
 	float Character::GetRightAttackCondition()
 	{
-		return ::Actor::GetActorValue(mActor, "RightAttackCondition");
+		return SActor::GetActorValue(mActor, "RightAttackCondition");
 	}
 	//--------------------------------------------------------------------------------
 	float Character::GetLeftMobilityCondition()
 	{
-		return ::Actor::GetActorValue(mActor, "LeftMobilityCondition");
+		return SActor::GetActorValue(mActor, "LeftMobilityCondition");
 	}
 	//--------------------------------------------------------------------------------
 	float Character::GetRightMobilityCondition()
 	{
-		return ::Actor::GetActorValue(mActor, "RightMobilityCondition");
+		return SActor::GetActorValue(mActor, "RightMobilityCondition");
 	}
 	//--------------------------------------------------------------------------------
 	float Character::GetBrainCondition()
 	{
-		return ::Actor::GetActorValue(mActor, "BrainCondition");
+		return SActor::GetActorValue(mActor, "BrainCondition");
 	}
 
 	//--------------------------------------------------------------------------------

@@ -12,3 +12,4 @@
 #include "Character.hpp"
 #include "TimeManager.h"
 #include "WeatherManager.h"
+#include "Invoke.hpp"

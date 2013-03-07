@@ -4,6 +4,7 @@
 #include "Directx/myIDirect3D9.h"
 #include "Directx/myIDirect3DDevice9.h"
 #include "Dinput/Input.hpp"
+#include "Plugins.hpp"
 #include "WinAPI.hpp"
 
 HINSTANCE           gl_hOriginalDll;
@@ -133,6 +134,7 @@ BOOL APIENTRY DllMain(HMODULE hModule, DWORD fdwReason, LPVOID lpReserved)
 			{
 				HookDInput();
 				HookWinAPI();
+				InstallPapyrusHook();
 			}
 
 			break;

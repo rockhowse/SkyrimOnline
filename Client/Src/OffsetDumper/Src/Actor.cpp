@@ -3,7 +3,9 @@
 
 void RunActorDump()
 {
-	FreeScript::Actor* player = (FreeScript::Actor*)Game::GetPlayer();
+	FreeScript::Actor* player = Game::GetPlayer();
+	OUTPUT << (void*)player << " " << player->parentCell << std::endl;
+
 	auto npc = FreeScript::ActorHelper(player).GetNpc();
 
 	std::vector<float> forms;

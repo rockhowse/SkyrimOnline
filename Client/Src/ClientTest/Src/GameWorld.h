@@ -40,8 +40,8 @@ namespace Skyrim
 		uint32_t mRendering;
 
 		//< Alright now start initializing gameplay stuff
-		TimeManager mTimeManager;
-		WeatherManager mWeatherManager;
+		FreeScript::TimeManager mTimeManager;
+		FreeScript::WeatherManager mWeatherManager;
 		Game::AssetManager mAssets;
 
 		//< Data

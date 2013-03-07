@@ -4,6 +4,7 @@
 #define DIRECTINPUT_VERSION 0x0800
 
 #include <boost/signals.hpp>
+#include <boost/filesystem.hpp>
 
 #include <fstream>
 

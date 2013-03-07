@@ -17,7 +17,6 @@ using namespace Framework::Math;
 #include <array>
 #include <string>
 #include <vector>
-#include <skyscript.h>
 
 
 #pragma warning( disable : 4251 )

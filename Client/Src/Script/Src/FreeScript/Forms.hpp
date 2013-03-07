@@ -8,7 +8,7 @@ namespace FreeScript
 	class TESObjectREFR;
 	class BGSColorForm;
 
-	class TESForm : public ::FreeScript::BaseFormComponent
+	class TESForm : public BaseFormComponent
 	{
 	public:
 
@@ -63,12 +63,12 @@ namespace FreeScript
 		uint8_t	__alignement;
 	};
 
-	class TESObject : public ::FreeScript::TESForm
+	class TESObject : public TESForm
 	{
 	public:
 	};
 
-	class TESRace : public ::FreeScript::TESForm
+	class TESRace : public TESForm
 	{
 	public:
 
@@ -91,13 +91,23 @@ namespace FreeScript
 		char pad025to2bc[0x2bc - 0x25];
 	};
 
-	class TESRaceForm : public ::FreeScript::BaseFormComponent
+	class TESWeather : public TESForm
+	{
+
+	};
+
+	class TESGlobal : public TESForm
+	{
+
+	};
+
+	class TESRaceForm : public BaseFormComponent
 	{
 	public:
 		::FreeScript::TESRace	* race;
 	};
 
-	class TESBoundObject : public ::FreeScript::TESObject
+	class TESBoundObject : public TESObject
 	{
 	public:
 		struct Bound
@@ -110,12 +120,12 @@ namespace FreeScript
 		Bound lower, upper;
 	};
 
-	class TESBoundAnimObject : public ::FreeScript::TESBoundObject
+	class TESBoundAnimObject : public TESBoundObject
 	{
 	public:
 	};
 
-	class TESActorBase : public ::FreeScript::TESBoundAnimObject
+	class TESActorBase : public TESBoundAnimObject
 	{
 	public:
 		char				pad00to84[0x84 - 0x20];
@@ -123,7 +133,7 @@ namespace FreeScript
 		char				pad8ctoc0[0xc0 - 0x8c];
 	};
 
-	class TESNPC : public ::FreeScript::TESActorBase
+	class TESNPC : public TESActorBase
 	{
 	public:
 
@@ -159,7 +169,7 @@ namespace FreeScript
 		char pad160to164[0x164 - 0x160];
 	};
 
-	class TESObjectCELL : public FreeScript::TESForm
+	class TESObjectCELL : public TESForm
 	{
 	public:
 
@@ -170,7 +180,7 @@ namespace FreeScript
 		char pad58to8c[0x8c - 0x58];
 	};
 
-	class BGSLocation : public FreeScript::TESForm
+	class BGSLocation : public TESForm
 	{
 	public:
 

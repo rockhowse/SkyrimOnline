@@ -1,13 +1,10 @@
 #include "stdafx.h"
-#include "Test.hpp"
+#include "Plugin.hpp"
 
-std::ofstream out;
-
-__declspec(dllexport) void main()
+extern "C"
 {
-	out.open("FreeScript.log", std::ios::trunc);
-	out << "FreeScript Tests \n\n" << std::endl;
-	RunActorDump();
-	out.flush();
-	out.close();
-}
+	__declspec(dllexport) IRunnable* Initialize()
+	{
+		return new TestPlugin;
+	}
+};

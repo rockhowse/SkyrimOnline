@@ -1,6 +1,7 @@
 #pragma once
 
 #include "Types.hpp"
+#include "Forms.hpp"
 
 namespace FreeScript
 {

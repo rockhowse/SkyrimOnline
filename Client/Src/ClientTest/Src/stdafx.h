@@ -51,13 +51,6 @@ using namespace Framework;
 using namespace Framework::Math;
 
 #include <Winuser.h>
-// papyrus common
-#include <common/skyscript.h>
-#include <common/obscript.h>
-#include <common/types.h>
-#include <common/enums.h>
-#include <common/plugin.h>
-#include <common/Utils.h>
 
 // Crypto++
 #include <cryptopp/md5.h>

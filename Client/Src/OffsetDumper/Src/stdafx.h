@@ -13,7 +13,9 @@
 
 #include <cstdint>
 
+#include <windows.h>
 #include <Math/Math.hpp>
+#include <detours.h>
 
 using namespace Framework;
 using namespace Framework::Math;
@@ -27,15 +29,6 @@ using namespace Framework::Math;
 #include <concurrent_queue.h>
 #include <unordered_map>
 #include <random>
-
-
-// papyrus common
-#include <common/skyscript.h>
-#include <common/obscript.h>
-#include <common/types.h>
-#include <common/enums.h>
-#include <common/plugin.h>
-#include <common/Utils.h>
 
 
 #include <StrSafe.h>

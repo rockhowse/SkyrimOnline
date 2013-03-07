@@ -1,8 +1,7 @@
 #include "stdafx.h"
 #include "TimeManager.h"
-#include "../Common/skyscript.h"
-#include "../Common/Utils.h"
 #include "../Common/enums.h"
+#include "Invoke.hpp"
 
 namespace FreeScript
 {
