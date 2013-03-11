@@ -1,6 +1,7 @@
 #pragma once
 
 void InstallPapyrusHook();
+void UninstallPapyrusHook();
 
 class IRunnable
 {
@@ -33,11 +34,23 @@ public:
 
 	static PluginManager* GetInstance()
 	{
-		return &instance;
+		return instance;
+	}
+
+	static void Create()
+	{
+		Delete();
+		instance = new PluginManager;
+	}
+
+	static void Delete()
+	{
+		delete instance; 
+		instance = nullptr;
 	}
 
 private:
 
 	std::vector<std::shared_ptr<Plugin>> plugins;
-	static PluginManager instance;
+	static PluginManager* instance;
 };

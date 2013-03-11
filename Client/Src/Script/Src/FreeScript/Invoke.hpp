@@ -66,6 +66,12 @@ struct StaticPapyrusFunction<void(Args...)>
 
 namespace FreeScript
 {
+	namespace Debug
+	{
+		void MessageBOX(const char* str);
+		void Notification(const char* str);
+	}
+
 	namespace Game
 	{
 

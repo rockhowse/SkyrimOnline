@@ -33,7 +33,7 @@ int GenerateDump(EXCEPTION_POINTERS* pExceptionPointers)
 	bMiniDumpSuccessful = MiniDumpWriteDump(GetCurrentProcess(), GetCurrentProcessId(), 
 		hDumpFile, MiniDumpWithDataSegs, &ExpParam, NULL, NULL);
 
-	Debug::ShowMessageBox("Skyrim Online just crashed ! Please send the .dmp file in Data/Online on the crash forums.");
+	Debug::MessageBOX("Skyrim Online just crashed ! Please send the .dmp file in Data/Online on the crash forums.");
 
 	return EXCEPTION_EXECUTE_HANDLER;
 }
@@ -48,7 +48,7 @@ void ShowVersion()
 {
 	std::ostringstream os;
 	os << "You need the game in 1.8.151.0 to play Skyrim Online. Hash dump : " << std::hex << *(DWORD *)(0x00DDDC00);
-	Debug::ShowMessageBox((char*)os.str().c_str());
+	Debug::MessageBOX((char*)os.str().c_str());
 }
 
 void NewInstance()

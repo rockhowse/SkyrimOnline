@@ -5,6 +5,24 @@
 
 namespace FreeScript
 {
+	namespace Debug
+	{
+		void* fMessageBox = (void*)0x8ed7c0;
+		void* fNotification = (void*)0x8ed7e0;
+
+		void MessageBOX(const char* str)
+		{
+			BSString bstr(str);
+			StaticPapyrusFunction<void(BSString*)>::Call(fMessageBox, &bstr);
+		}
+
+		void Notification(const char* str)
+		{
+			BSString bstr(str);
+			StaticPapyrusFunction<void(BSString*)>::Call(fNotification, &bstr);
+		}
+	}
+
 	namespace Game
 	{
 		void* fDisablePlayerControls = (void*)0x8f22a0;

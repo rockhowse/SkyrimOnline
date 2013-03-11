@@ -3,6 +3,8 @@
 #include <GameWorld.h>
 
 
+using namespace FreeScript;
+
 namespace Skyrim
 {
 	namespace Game
@@ -32,7 +34,7 @@ namespace Skyrim
 				System::Log::Debug("Unable to find the base address, enable GameWorld.esp");
 				System::Log::Flush();
 
-				Debug::ShowMessageBox("I need GameWorld.esp to run, please restart the game and enable it !");
+				FreeScript::Debug::MessageBOX("I need GameWorld.esp to run, please restart the game and enable it !");
 				delete TheGameWorld;
 
 				return;
@@ -55,7 +57,7 @@ namespace Skyrim
 		//--------------------------------------------------------------------------------
 		TESForm* SkyrimFormManager::GetForm(uint32_t pRace, uint32_t pGender)
 		{
-			uint32_t offset = 0;
+			/*uint32_t offset = 0;
 			for(offset = 0; mUsedOffsets[offset] == true && offset < 100; ++offset);
 
 			if(mUsedOffsets[offset] == false)
@@ -105,7 +107,7 @@ namespace Skyrim
 				mUsedOffsets[offset] = true;
 
 				return form;
-			}
+			}*/
 			return nullptr;
 		}
 		//--------------------------------------------------------------------------------

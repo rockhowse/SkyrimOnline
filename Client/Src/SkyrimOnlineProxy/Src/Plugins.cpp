@@ -30,8 +30,14 @@ LONG __fastcall VMUpdate(int pthis, int bs, float a2)
 
 void InstallPapyrusHook()
 {
+	PluginManager::Create();
 	PluginManager::GetInstance()->Load();
 	oVMUpdate = (tVMUpdate)DetourFunction((PBYTE)0xc51aa0, (PBYTE)VMUpdate);
+}
+
+void UninstallPapyrusHook()
+{
+	PluginManager::Delete();
 }
 
 typedef IRunnable* (*InitFunc)();
@@ -61,7 +67,7 @@ IRunnable* Plugin::GetRunnable()
 	return runnable;
 }
 
-PluginManager PluginManager::instance;
+PluginManager* PluginManager::instance = nullptr;
 
 void PluginManager::Load()
 {	

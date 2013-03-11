@@ -143,6 +143,7 @@ BOOL APIENTRY DllMain(HMODULE hModule, DWORD fdwReason, LPVOID lpReserved)
 		{
 			ReleaseWinAPI();
 			ReleaseDInput();
+			UninstallPapyrusHook();
 			
 			break;
 		}

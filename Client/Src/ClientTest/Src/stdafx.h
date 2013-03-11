@@ -79,3 +79,5 @@ using namespace Framework::Math;
 #include <FreeScript/FreeScript.hpp>
 
 #define _trace Framework::System::Log::Debug(std::string("Call trace : ") + std::string(__FUNCSIG__)); Framework::System::Log::Flush();
+
+using namespace FreeScript;

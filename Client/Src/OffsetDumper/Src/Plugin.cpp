@@ -13,7 +13,7 @@ int __cdecl dGetForm(int constantMaybeLogOrVM, int unk1, int staticFunctionTag, 
 }
 
 TestPlugin::TestPlugin()
-	:ran(false)
+	:ran(false), time(0)
 {
 	out.open("FreeScript.log", std::ios::trunc);
 	out << "FreeScript Tests \n\n" << std::endl;
@@ -30,9 +30,21 @@ TestPlugin::~TestPlugin()
 
 void TestPlugin::Update()
 {
-	if(!ran && Game::GetPlayer()->parentCell)
+	if(Game::GetPlayer()->parentCell)
 	{
-		RunActorDump();
-		ran = true;
+		if(!ran)
+		{
+			RunActorDump();
+			ran = true;
+			Debug::MessageBOX("Actor dump worked !");
+		}
+		if(clock() - time > 10)
+		{
+			std::ostringstream os;
+			os << "Hellou" << clock() - time;
+			FreeScript::Debug::Notification(os.str().c_str());
+
+			time = clock();
+		}
 	}
 }

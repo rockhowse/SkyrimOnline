@@ -18,4 +18,5 @@ public:
 private:
 
 	bool ran;
+	clock_t time;
 };

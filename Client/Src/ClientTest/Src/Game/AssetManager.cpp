@@ -1,6 +1,8 @@
 #include "stdafx.h"
 #include "AssetManager.h"
 
+
+
 namespace Skyrim
 {
 	namespace Game
@@ -21,10 +23,10 @@ namespace Skyrim
 						uint32_t id = std::stoul(line);
 						if(id)
 						{
-							TESForm* form = ::Game::GetFormById(id);
+							TESForm* form = FreeScript::Game::GetForm(id);
 							if(form)
 							{
-								TESObjectREFR* ref = (TESObjectREFR*)dyn_cast(form,"TESForm","TESObjectREFR");
+								TESObjectREFR* ref = rtti_cast(form,TESForm,TESObjectREFR);
 								if(ref)
 								{
 									mAssets.push_back(id);
