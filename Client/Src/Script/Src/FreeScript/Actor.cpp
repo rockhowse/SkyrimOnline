@@ -18,7 +18,7 @@ namespace FreeScript
 		npc->fullName.name = FreeScript::String(pName.c_str());
 	}
 
-	FreeScript::TESForm* GetWornForm(::FreeScript::Actor* ptr, uint32_t mask)
+	FreeScript::TESForm* GetWornForm(FreeScript::Actor* ptr, uint32_t mask)
 	{
 		if(!ptr)
 			return nullptr;

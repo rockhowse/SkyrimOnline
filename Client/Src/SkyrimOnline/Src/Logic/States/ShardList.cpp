@@ -38,8 +38,8 @@ namespace Skyrim
 			//--------------------------------------------------------------------------------
 			void ShardList::OnUpdate(uint32_t pDelta)
 			{
-				::Game::DisablePlayerControls(true,true,true,true,true,true,true,true,1);
-				::Game::SetInChargen(true, true, false);
+				FreeScript::Game::DisablePlayerControls(true,true,true,true,true,true,true,true,1);
+				FreeScript::Game::SetInChargen(true, true, false);
 
 				mShardList->Update(0.0);
 				Overlay::TheSystem->SetCursor(true);

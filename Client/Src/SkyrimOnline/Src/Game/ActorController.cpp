@@ -14,12 +14,12 @@ namespace Skyrim
 			TESForm * me = SkyrimFormManager::GetInstance()->GetForm(pRace, pSex);
 
 			mMe = boost::make_shared<FreeScript::Character>(
-				(CActor*)ObjectReference::PlaceAtMe((TESObjectREFR*)::Game::GetPlayer(), me, 1, true, false));
-			mMaster = (CActor*)ObjectReference::PlaceAtMe((TESObjectREFR*)::Game::GetPlayer(), me, 1, true, true);
+				(Actor*)ObjectReference::PlaceAtMe((TESObjectREFR*)FreeScript::Game::GetPlayer(), me, 1, true, false));
+			mMaster = (Actor*)ObjectReference::PlaceAtMe((TESObjectREFR*)FreeScript::Game::GetPlayer(), me, 1, true, true);
 
-			::Actor::EnableAI(mMe->GetActor(), true);
-			::Actor::KeepOffsetFromActor(mMe->GetActor(), mMaster, 0.f, 0.f, 0.f, 0.f, 0.f, 0.f, 20.f, 5.0f);
-			::Actor::SetActorValue(mMe->GetActor(), "Health", 99999999.f);
+			SActor::EnableAI(mMe->GetActor(), true);
+			SActor::KeepOffsetFromActor(mMe->GetActor(), mMaster, 0.f, 0.f, 0.f, 0.f, 0.f, 0.f, 20.f, 5.0f);
+			SActor::SetActorValue(mMe->GetActor(), "Health", 99999999.f);
 
 			TheGameWorld->GetAssetManager().Add((TESObjectREFR*)mMe->GetActor());
 			TheGameWorld->GetAssetManager().Add((TESObjectREFR*)mMaster);
@@ -77,7 +77,7 @@ namespace Skyrim
 		//--------------------------------------------------------------------------------
 		void ActorController::InterpolateTo(float posX, float posY, float posZ, float rotX, float rotY, float rotZ, uint32_t time)
 		{
-			if(!mInit ||ObjectReference::GetDistance((TESObjectREFR*)mMaster, (TESObjectREFR*)mMe->GetActor()) > 600.f)
+			if(!mInit || ObjectReference::GetDistance((TESObjectREFR*)mMaster, (TESObjectREFR*)mMe->GetActor()) > 600.f)
 			{
 				SetPosition(posX, posY, posZ);
 				SetRotation(rotX, rotY, rotZ);
@@ -98,16 +98,16 @@ namespace Skyrim
 			}
 			if(pMount != 0)
 			{
-				CActor* form =  rtti_cast(ObjectReference::PlaceAtMe((TESObjectREFR*)::Game::GetPlayer(), ::Game::GetFormById(pMount), 1, true, false), TESObjectREFR, Actor);
+				Actor* form =  rtti_cast(ObjectReference::PlaceAtMe((TESObjectREFR*)FreeScript::Game::GetPlayer(), FreeScript::Game::GetForm(pMount), 1, true, false), TESObjectREFR, Actor);
 				mMount = boost::make_shared<FreeScript::Character>(form);
 
 				mMount->SetPos(mMe->GetPosX(), mMe->GetPosY(), mMe->GetPosZ());
 				mMount->SetRot(mMe->GetRotX(), mMe->GetRotY(), mMe->GetRotZ());
 
-				::Actor::EnableAI(mMount->GetActor(), true);
+				SActor::EnableAI(mMount->GetActor(), true);
 
-				ObjectReference::TetherToHorse((TESObjectREFR*)mMe->GetActor(), (TESObjectREFR*)mMount->GetActor());
-				::Actor::KeepOffsetFromActor(mMount->GetActor(), mMaster, 0.f, 0.f, 0.f, 0.f, 0.f, 0.f, 10.f, 3.f);
+//				ObjectReference::TetherToHorse((TESObjectREFR*)mMe->GetActor(), (TESObjectREFR*)mMount->GetActor());
+				SActor::KeepOffsetFromActor(mMount->GetActor(), mMaster, 0.f, 0.f, 0.f, 0.f, 0.f, 0.f, 10.f, 3.f);
 
 				TheGameWorld->GetAssetManager().Add((TESObjectREFR*)mMount->GetActor());
 			}

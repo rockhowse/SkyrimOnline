@@ -81,24 +81,6 @@
     <ClInclude Include="Src\Common\enums.h">
       <Filter>Header Files</Filter>
     </ClInclude>
-    <ClInclude Include="Src\Common\invoke.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
-    <ClInclude Include="Src\Common\obscript.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
-    <ClInclude Include="Src\Common\plugin.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
-    <ClInclude Include="Src\Common\skyscript.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
-    <ClInclude Include="Src\Common\types.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
-    <ClInclude Include="Src\Common\Utils.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
     <ClInclude Include="Src\GameWorld.h">
       <Filter>Header Files</Filter>
     </ClInclude>
@@ -191,9 +173,6 @@
     <ClCompile Include="Src\Game\ActorController.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
-    <ClCompile Include="Src\Common\plugin.cpp">
-      <Filter>Source Files</Filter>
-    </ClCompile>
     <ClCompile Include="Src\GameWorld.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
@@ -206,10 +185,5 @@
     <ClCompile Include="Src\Game\PlayerGOMEntry.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
-  </ItemGroup>
-  <ItemGroup>
-    <None Include="Src\Common\plugin.def">
-      <Filter>Source Files</Filter>
-    </None>
   </ItemGroup>
 </Project>

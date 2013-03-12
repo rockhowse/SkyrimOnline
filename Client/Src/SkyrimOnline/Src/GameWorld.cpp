@@ -14,7 +14,7 @@ namespace Skyrim
 	//--------------------------------------------------------------------------------
 	GameWorld::GameWorld()
 		:mMode(true),
-		 mPlayerCharacter(::Game::GetPlayer())
+		 mPlayerCharacter(FreeScript::Game::GetPlayer())
 	{
 		_trace
 		Overlay::TheSystem = new Overlay::System;
@@ -175,8 +175,6 @@ namespace Skyrim
 			TheMassiveMessageMgr->Update();
 			if(mCurrentState)
 				mCurrentState->OnUpdate(delta);
-
-			Wait(0);
 		}
 	}
 	//--------------------------------------------------------------------------------
@@ -186,14 +184,14 @@ namespace Skyrim
 		if(mMode)
 		{
 			// In game mode -> enable controls
-			::Game::EnablePlayerControls(true,true,true,true,true,true,true,true,1);
-			::Game::SetInChargen(false, false, true);
+			FreeScript::Game::EnablePlayerControls(true,true,true,true,true,true,true,true,1);
+			FreeScript::Game::SetInChargen(false, false, true);
 			Overlay::TheSystem->SetCursor(false);
 		}
 		else
 		{
 			// In UI mode -> disable controls
-			::Game::DisablePlayerControls(true,true,true,true,true,true,true,true,1);
+			FreeScript::Game::DisablePlayerControls(true,true,true,true,true,true,true,true,1);
 			Overlay::TheSystem->SetCursor(true);
 		}
 

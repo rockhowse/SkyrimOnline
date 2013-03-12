@@ -30,7 +30,7 @@ namespace Skyrim
 
 			InterpolationPoint mPrevious, mNext;
 			bool mInit;
-			CActor*	mMaster;
+			Actor*	mMaster;
 			boost::shared_ptr<FreeScript::Character> mMe;
 			boost::shared_ptr<FreeScript::Character> mMount;
 		};

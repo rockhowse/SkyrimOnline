@@ -34,7 +34,7 @@ int GenerateDump(EXCEPTION_POINTERS* pExceptionPointers)
 	bMiniDumpSuccessful = MiniDumpWriteDump(GetCurrentProcess(), GetCurrentProcessId(), 
 		hDumpFile, MiniDumpWithDataSegs, &ExpParam, NULL, NULL);
 
-	Debug::ShowMessageBox("Skyrim Online just crashed ! Please send the .dmp file in Data/Online on the crash forums.");
+	Debug::MessageBOX("Skyrim Online just crashed ! Please send the .dmp file in Data/Online on the crash forums.");
 
 	return EXCEPTION_EXECUTE_HANDLER;
 }
@@ -49,7 +49,7 @@ void ShowVersion()
 {
 	std::ostringstream os;
 	os << "You need the game in 1.8.151.0 to play Skyrim Online. Hash dump : " << std::hex << *(DWORD *)(0x00DDDC00);
-	Debug::ShowMessageBox((char*)os.str().c_str());
+	Debug::Notification((char*)os.str().c_str());
 }
 
 void NewInstance()
@@ -83,24 +83,23 @@ __declspec(dllexport) void main()
 
 		if(!EasySteam::Interface::GetInstance() || !EasySteam::Interface::GetInstance()->GetUser()->IsLoggedOn())
 		{
-			Debug::ShowMessageBox("Unable to retrieve steam.");
+			Debug::MessageBOX("Unable to retrieve steam.");
 			return;
 		}
 
 		Skyrim::RegisterOnlineScript();
 
 		srand((unsigned int)time(NULL));
-		PrintNote("To play Skyrim Online, press F3");
+		Debug::Notification("To play Skyrim Online, press F3");
 
 		while(!Skyrim::TheGameWorld)
 		{
-			if(GetKeyPressed(VK_F3))
+			//if(GetKeyPressed(VK_F3))
 			{
 				NewInstance();
 				Skyrim::TheGameWorld->Setup();
 				break;
 			}
-			Wait(0);
 		}
 
 		if(Skyrim::TheGameWorld)

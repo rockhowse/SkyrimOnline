@@ -24,8 +24,8 @@ namespace Skyrim
 			void Login::OnEnter()
 			{
 				TheGameWorld->SetMode(false);
-				::Game::DisablePlayerControls(true,true,true,true,true,true,true,true,1);
-				::Game::SetInChargen(true, true, false);
+				FreeScript::Game::DisablePlayerControls(true,true,true,true,true,true,true,true,1);
+				FreeScript::Game::SetInChargen(true, true, false);
 				Overlay::TheSystem->SetCursor(true);
 				mLogin->Show();
 			}

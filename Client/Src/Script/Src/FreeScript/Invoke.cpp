@@ -30,6 +30,7 @@ namespace FreeScript
 		void* fGetForm = (void*)0x8EFEB0;
 		void* fGetPlayer = (void*)0x8f01f0;
 		void* fGetPlayersLastRiddenHorse = (void*)0x8f3a40;
+		void* fSetInChargen = (void*)0x8f04b0;
 
 		void DisablePlayerControls(bool abMovement, bool abFighting, bool abCamSwitch, bool abLooking, bool abSneaking, bool abMenu, bool abActivate, bool abJournalTabs, uint32_t aiDisablePOVType) {
 			StaticPapyrusFunction<void(bool, bool, bool, bool, bool, bool, bool, bool, uint32_t)>::
@@ -55,6 +56,11 @@ namespace FreeScript
 		{
 			return PapyrusFunction<Actor*()>::Call(fGetPlayersLastRiddenHorse);
 		}
+
+		void SetInChargen(bool abDisableSaving, bool abDisableWaiting, bool abShowControlsDisabledMessage)
+		{
+			StaticPapyrusFunction<void(bool,bool,bool)>::Call(fSetInChargen, abDisableSaving, abDisableWaiting, abShowControlsDisabledMessage);
+		}
 	}
 
 	namespace ObjectReference
@@ -64,6 +70,8 @@ namespace FreeScript
 		void* fDisable = (void*)0x907b30;
 		void* fEnable = (void*)0x907e60;
 		void* fGetCurrentLocation = (void*)0x901ff0;
+		void* fGetDistance = (void*)0x9019b0;
+		void* fPlaceAtMe = (void*)0x90c5c0;
 		void* fSetAngle = (void*)0x908c20;
 		void* fSetPosition = (void*)0x909230;
 		void* fSetScale = (void*)0x909550;
@@ -91,6 +99,17 @@ namespace FreeScript
 		BGSLocation* GetCurrentLocation(TESObjectREFR * self)
 		{
 			return PapyrusFunction<BGSLocation* (TESObjectREFR*)>::Call(fGetCurrentLocation, self);
+		}
+
+		float GetDistance(TESObjectREFR* a, TESObjectREFR* b)
+		{
+			return PapyrusFunction<float(TESObjectREFR*, TESObjectREFR*)>::Call(fGetDistance, a, b);
+		}
+
+		TESObjectREFR* PlaceAtMe(TESObjectREFR* me, TESForm* formToPlace, int count, bool forcePersist, bool disabled)
+		{
+			return PapyrusFunction<TESObjectREFR*(TESObjectREFR*, TESForm*, int, bool, bool)>::
+				Call(fPlaceAtMe, me, formToPlace, count, forcePersist, disabled);
 		}
 
 		void SetAngle(TESObjectREFR * self, float x, float y, float z)
@@ -206,11 +225,11 @@ namespace FreeScript
 			return false;
 		}
 
-		void KeepOffsetFromActor(Actor* arTarget, float afOffsetX, float afOffsetY, float afOffsetZ, float afOffsetAngleX /* = 0.0 */, float afOffsetAngleY /* = 0.0 */, float afOffsetAngleZ /* = 0.0 */, float afCatchUpRadius /* = 20.0 */, float afFollowRadius /* = 5.0 */)
+		void KeepOffsetFromActor(Actor* self, Actor* arTarget, float afOffsetX, float afOffsetY, float afOffsetZ, float afOffsetAngleX /* = 0.0 */, float afOffsetAngleY /* = 0.0 */, float afOffsetAngleZ /* = 0.0 */, float afCatchUpRadius /* = 20.0 */, float afFollowRadius /* = 5.0 */)
 		{
 			if(arTarget)
-				PapyrusFunction<void(Actor*,float,float,float,float,float,float,float,float)>::
-					Call(fKeepOffsetFromActor, arTarget, afOffsetX, afOffsetY, afOffsetZ, afOffsetAngleX, afOffsetAngleY, afOffsetAngleZ, afCatchUpRadius, afFollowRadius);
+				PapyrusFunction<void(Actor*,Actor*,float,float,float,float,float,float,float,float)>::
+					Call(fKeepOffsetFromActor, self, arTarget, afOffsetX, afOffsetY, afOffsetZ, afOffsetAngleX, afOffsetAngleY, afOffsetAngleZ, afCatchUpRadius, afFollowRadius);
 		}
 
 		char Resurrect(Actor* actor)

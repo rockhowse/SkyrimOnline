@@ -86,7 +86,7 @@ namespace FreeScript
 		Actor* GetPlayer();
 
 		Actor* GetPlayersLastRiddenHorse();
-
+		void SetInChargen(bool abDisableSaving, bool abDisableWaiting, bool abShowControlsDisabledMessage);
 	}
 
 	namespace ObjectReference
@@ -96,6 +96,8 @@ namespace FreeScript
 		void Disable(TESObjectREFR * self, bool fade);
 		void Enable(TESObjectREFR * self, bool abFadeIn);
 		BGSLocation* GetCurrentLocation(TESObjectREFR * self);
+		float GetDistance(TESObjectREFR* a, TESObjectREFR* b);
+		TESObjectREFR* PlaceAtMe(TESObjectREFR* self, TESForm* formToPlace, int count = 1, bool forcePersist = false, bool disabled = false);
 		void SetAngle(TESObjectREFR * self, float x, float y, float z);
 		void SetPosition(TESObjectREFR * self, float afX, float afY, float afZ);
 		void SetScale(TESObjectREFR * self, float scale);
@@ -119,7 +121,7 @@ namespace FreeScript
 		bool IsDead(Actor* actor);
 		bool IsOnMount(Actor* actor);
 
-		void KeepOffsetFromActor(Actor* arTarget, float afOffsetX, float afOffsetY, float afOffsetZ, float afOffsetAngleX = 0.0,
+		void KeepOffsetFromActor(Actor* self, Actor* arTarget, float afOffsetX, float afOffsetY, float afOffsetZ, float afOffsetAngleX = 0.0,
 			float afOffsetAngleY = 0.0,  float afOffsetAngleZ = 0.0, float afCatchUpRadius = 20.0, float afFollowRadius = 5.0);
 
 		char Resurrect(Actor* actor);

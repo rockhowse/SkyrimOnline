@@ -59,12 +59,7 @@ using namespace Framework::Math;
 #include <MyGUI_DirectXPlatform.h>
 
 // papyrus common
-#include <common/skyscript.h>
-#include <common/obscript.h>
-#include <common/types.h>
 #include <common/enums.h>
-#include <common/plugin.h>
-#include <common/Utils.h>
 
 // Crypto++
 #include <cryptopp/md5.h>
@@ -93,3 +88,5 @@ using namespace Framework::Math;
 #include <FreeScript/FreeScript.hpp>
 
 #define _trace Framework::System::Log::Debug(std::string("Call trace : ") + std::string(__FUNCSIG__)); Framework::System::Log::Flush();
+
+using namespace FreeScript;
