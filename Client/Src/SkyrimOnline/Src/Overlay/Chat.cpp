@@ -117,7 +117,7 @@ namespace Skyrim
 				}
 			}
 
-			for (unsigned int i = 0 ; i < lines.size() ; i++)
+			for (uint32_t i = 0 ; i < lines.size() ; i++)
 			{
 				if (i == 0)
 				{

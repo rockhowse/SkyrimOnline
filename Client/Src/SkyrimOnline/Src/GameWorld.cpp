@@ -81,7 +81,7 @@ namespace Skyrim
 		System::Log::Flush();
 	}
 	//--------------------------------------------------------------------------------
-	void GameWorld::OnMouseMove(unsigned int x, unsigned int y, unsigned int z)
+	void GameWorld::OnMouseMove(uint32_t x, uint32_t y, uint32_t z)
 	{
 		if(!mMode)
 		{
@@ -92,7 +92,7 @@ namespace Skyrim
 		}
 	}
 	//--------------------------------------------------------------------------------
-	void GameWorld::OnMousePress(BYTE code)
+	void GameWorld::OnMousePress(uint8_t code)
 	{
 		//if(!mMode)
 		{
@@ -102,7 +102,7 @@ namespace Skyrim
 		}
 	}
 	//--------------------------------------------------------------------------------
-	void GameWorld::OnMouseRelease(BYTE code)
+	void GameWorld::OnMouseRelease(uint8_t code)
 	{
 		//if(!mMode)
 		{
@@ -112,7 +112,7 @@ namespace Skyrim
 		}
 	}
 	//--------------------------------------------------------------------------------
-	void GameWorld::OnPress(BYTE code)
+	void GameWorld::OnPress(uint8_t code)
 	{
 		//if(!mMode)
 		{
@@ -122,7 +122,7 @@ namespace Skyrim
 		}
 	}
 	//--------------------------------------------------------------------------------
-	void GameWorld::OnRelease(BYTE code)
+	void GameWorld::OnRelease(uint8_t code)
 	{
 		//if(!mMode)
 		{
@@ -198,7 +198,7 @@ namespace Skyrim
 		InputHook::GetInstance()->SetInputEnabled(mMode);
 	}
 	//--------------------------------------------------------------------------------
-	void GameWorld::SetRendering(unsigned int rendering)
+	void GameWorld::SetRendering(uint32_t rendering)
 	{
 		mRendering = rendering;
 	}

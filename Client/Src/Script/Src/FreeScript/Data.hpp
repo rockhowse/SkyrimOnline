@@ -32,7 +32,7 @@ namespace FreeScript
 
 		static IFormFactory* GetFactory(uint32_t pType)
 		{
-			IFormFactory** factories = (IFormFactory**)0x012E49B0;
+			IFormFactory** factories = (IFormFactory**)0x12e57b0;
 			return factories[pType];
 		}
 

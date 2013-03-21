@@ -6,7 +6,7 @@ namespace FreeScript
 {
 	String::String(const char* data)
 	{
-		((void(__thiscall*)(String*, const char*))0x00A50830)(this, data);
+		((void(__thiscall*)(String*, const char*))0xa511c0)(this, data);
 	}
 
 	BSString::BSString(const char* d)

@@ -7,7 +7,7 @@ struct FuncWrapper
 };
 
 typedef FuncWrapper<void* (void*, uint32_t, const void*, const void*, uint32_t)>::type dyncast_t;
-static const dyncast_t dyncast_r  = (dyncast_t)0xf50f7e;
+static const dyncast_t dyncast_r  = (dyncast_t)0xf51dae;
 
 
 #define rtti_offset(name, offset) static void* freeRTTI_ ## name = (void*)offset

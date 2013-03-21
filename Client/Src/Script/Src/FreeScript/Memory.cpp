@@ -4,10 +4,10 @@
 typedef void* (__thiscall *tAllocate)(void* pthis, uint32_t, uint32_t, bool);
 typedef void (__thiscall *tFree)(void* pthis, void*, bool);
 
-tAllocate oAllocator = (tAllocate)0xa483d0;
-tFree oFree = (tFree)0xa47e20;
+tAllocate oAllocator = (tAllocate)0xa48d60;
+tFree oFree = (tFree)0xa487b0;
 
-void* heap = (void*)0x1b40ba0;
+void* heap = (void*)0x1b418b0;
 
 void* FormAllocate(uint32_t size)
 {

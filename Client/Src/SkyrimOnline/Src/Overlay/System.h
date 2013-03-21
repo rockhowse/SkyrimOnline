@@ -17,9 +17,9 @@ namespace Skyrim
 
 			void Setup();
 
-			void Inject(BYTE key, bool pressed);
-			void InjectMouse(BYTE key, bool pressed);
-			void MouseMove(unsigned int x, unsigned int y, unsigned int z);
+			void Inject(uint8_t key, bool pressed);
+			void InjectMouse(uint8_t key, bool pressed);
+			void MouseMove(uint32_t x, uint32_t y, uint32_t z);
 
 			void SetCursor(bool pVisible);
 			bool IsCursorVisible();
@@ -41,7 +41,7 @@ namespace Skyrim
 
 		private:
 
-			int x,y;
+			int32_t x,y;
 			MyGUI::DirectXPlatform* mPlatform;
 			MyGUI::Gui*				mUI;
 			std::string mRootMedia;

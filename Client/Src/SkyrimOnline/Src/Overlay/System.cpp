@@ -99,7 +99,7 @@ namespace Skyrim
 			mUI->destroyAllChildWidget();
 		}
 		//--------------------------------------------------------------------------------
-		void System::Inject(BYTE key, bool pressed)
+		void System::Inject(uint8_t key, bool pressed)
 		{
 			if(mUI && mPlatform)
 			{
@@ -156,7 +156,7 @@ namespace Skyrim
 			}
 		}
 		//--------------------------------------------------------------------------------
-		void System::InjectMouse(BYTE key, bool pressed)
+		void System::InjectMouse(uint8_t key, bool pressed)
 		{
 			//Log::GetInstance()->Debug("Interface::InjectMouse() " + std::to_string((long long)key));
 			if(mUI && mPlatform)
@@ -169,13 +169,13 @@ namespace Skyrim
 			}
 		}
 		//--------------------------------------------------------------------------------
-		void System::MouseMove(unsigned int px, unsigned int py, unsigned int pz)
+		void System::MouseMove(uint32_t px, uint32_t py, uint32_t pz)
 		{
 			//Log::GetInstance()->Debug("Interface::MouseMove()");
 			if(mUI && mPlatform)
 			{
-				x = std::min<int>(px, mUI->getViewWidth());
-				y = std::min<int>(py, mUI->getViewHeight());
+				x = std::min<int32_t>(px, mUI->getViewWidth());
+				y = std::min<int32_t>(py, mUI->getViewHeight());
 				MyGUI::InputManager::getInstance().injectMouseMove(x,y,pz);
 			}
 		}

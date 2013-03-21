@@ -22,11 +22,11 @@ namespace Skyrim
 		void Run();
 
 		// Input events
-		void OnPress(BYTE code);
-		void OnRelease(BYTE code);
-		void OnMousePress(BYTE code);
-		void OnMouseRelease(BYTE code);
-		void OnMouseMove(unsigned int x, unsigned int y, unsigned int z);
+		void OnPress(uint8_t code);
+		void OnRelease(uint8_t code);
+		void OnMousePress(uint8_t code);
+		void OnMouseRelease(uint8_t code);
+		void OnMouseMove(uint32_t x, uint32_t y, uint32_t z);
 		// End Input events
 
 		// Network event
@@ -38,7 +38,7 @@ namespace Skyrim
 		FreeScript::Character& GetPlayerCharacter();
 
 		unsigned int GetRendering();
-		void SetRendering(unsigned int);
+		void SetRendering(uint32_t);
 
 		std::string		GetUser();
 		void			SetUser(const std::string& user);	
