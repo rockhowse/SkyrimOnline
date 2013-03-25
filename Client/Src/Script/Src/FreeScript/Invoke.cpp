@@ -7,8 +7,8 @@ namespace FreeScript
 {
 	namespace Debug
 	{
-		void* fMessageBox = (void*)0x8ed7c0;
-		void* fNotification = (void*)0x8ed7e0;
+		void* fMessageBox = (void*)0x8ee530;
+		void* fNotification = (void*)0x8ee550;
 
 		void MessageBOX(const char* str)
 		{
@@ -25,12 +25,12 @@ namespace FreeScript
 
 	namespace Game
 	{
-		void* fDisablePlayerControls = (void*)0x8f22a0;
-		void* fEnablePlayerControls = (void*)0x8f2350;
-		void* fGetForm = (void*)0x8EFEB0;
-		void* fGetPlayer = (void*)0x8f01f0;
-		void* fGetPlayersLastRiddenHorse = (void*)0x8f3a40;
-		void* fSetInChargen = (void*)0x8f04b0;
+		void* fDisablePlayerControls = (void*)0x8f2ff0;
+		void* fEnablePlayerControls = (void*)0x8f30a0;
+		void* fGetForm = (void*)0x8f0c10;
+		void* fGetPlayer = (void*)0x8f46d0;
+		void* fGetPlayersLastRiddenHorse = (void*)0x8f4740;
+		void* fSetInChargen = (void*)0x8f1200;
 
 		void DisablePlayerControls(bool abMovement, bool abFighting, bool abCamSwitch, bool abLooking, bool abSneaking, bool abMenu, bool abActivate, bool abJournalTabs, uint32_t aiDisablePOVType) {
 			StaticPapyrusFunction<void(bool, bool, bool, bool, bool, bool, bool, bool, uint32_t)>::
@@ -65,16 +65,17 @@ namespace FreeScript
 
 	namespace ObjectReference
 	{
-		void* fAddItem = (void*)0x9074c0;
-		void* fDelete = (void*)0x907840;
-		void* fDisable = (void*)0x907b30;
-		void* fEnable = (void*)0x907e60;
-		void* fGetCurrentLocation = (void*)0x901ff0;
-		void* fGetDistance = (void*)0x9019b0;
-		void* fPlaceAtMe = (void*)0x90c5c0;
-		void* fSetAngle = (void*)0x908c20;
-		void* fSetPosition = (void*)0x909230;
-		void* fSetScale = (void*)0x909550;
+		void* fAddItem = (void*)0x908120;
+		void* fDelete = (void*)0x9084a0;
+		void* fDisable = (void*)0x908790;
+		void* fEnable = (void*)0x908ac0;
+		void* fGetCurrentLocation = (void*)0x902d30;
+		void* fGetDistance = (void*)0x9026e0;
+		void* fPlaceAtMe = (void*)0x90d1d0;
+		void* fSetAngle = (void*)0x909880;
+		void* fSetScale = (void*)0x90a210;
+		void* fSetPosition = (void*)0x909e40;
+		
 
 		void AddItem(TESObjectREFR* self, TESForm* form, uint32_t count, bool silent)
 		{
@@ -117,20 +118,20 @@ namespace FreeScript
 			PapyrusFunction<void(TESObjectREFR*,float, float, float)>::Call(fSetAngle, self, x, y ,z);
 		}
 
-		void SetPosition(TESObjectREFR * self, float afX, float afY, float afZ)
-		{
-			PapyrusFunction<void(TESObjectREFR*,float,float,float)>::Call(fSetPosition, self, afX, afY, afZ);
-		}
-
 		void SetScale(TESObjectREFR * self, float scale)
 		{
 			PapyrusFunction<void(TESObjectREFR*,float)>::Call(fSetScale, self, scale);
 		}
+
+		void SetPosition(TESObjectREFR * self, float afX, float afY, float afZ)
+		{
+			PapyrusFunction<void(TESObjectREFR*,float,float,float)>::Call(fSetPosition, self, afX, afY, afZ);
+		}		
 	}
 
 	namespace NPC
 	{
-		void* fGetSex = (void*)0x8fef20;
+		void* fGetSex = (void*)0x8ffb80;
 
 		int GetSex(TESNPC* npc)
 		{
@@ -142,20 +143,20 @@ namespace FreeScript
 
 	namespace SActor
 	{
-		void* fDismount = (void*)0x8da600;
-		void* fDrawWeapon = (void*)0x8da5a0;
-		void* fEnableAI = (void*)0x8da640;
-		void* fEquipItem = (void*)0x8dcca0;
-		void* fForceActorValue = (void*)0x8dcfa0;
-		void* fGetActorValue = (void*)0x8dab90;
-		void* fGetBaseActorValue = (void*)0x8d9e80;
-		void* fGetLevel = (void*)0x8da6c0;
-		void* fIsDead = (void*)0x8d9f90;
-		void* fIsOnMount = (void*)0x8dc2a0;
-		void* fKeepOffsetFromActor = (void*)0x8d9fb0;
-		void* fResurrect = (void*)0x8dd390;
-		void* fSetActorValue = (void*)0x8dd560;
-		void* fUnequipAll = (void*)0x8dda50;
+		void* fDismount = (void*)0x8daea0;
+		void* fDrawWeapon = (void*)0x8da5a0; //TODO
+		void* fEnableAI = (void*)0x8daee0;
+		void* fEquipItem = (void*)0x8dd460;
+		void* fForceActorValue = (void*)0x8dd5a0;
+		void* fGetActorValue = (void*)0x8db430;
+		void* fGetBaseActorValue = (void*)0x8da720;
+		void* fGetLevel = (void*)0x8daf60;
+		void* fIsDead = (void*)0x8da830;
+		void* fIsOnMount = (void*)0x8dcb40;
+		void* fKeepOffsetFromActor = (void*)0x8da850;
+		void* fResurrect = (void*)0x8dd990;
+		void* fSetActorValue = (void*)0x8e1490;
+		void* fUnequipAll = (void*)0x8ddef0;
 		
 		void Dismount(Actor* actor)
 		{
@@ -256,8 +257,8 @@ namespace FreeScript
 
 	namespace Weather
 	{
-		void* fForceActive = (void*)0x917820;
-		void* fGetCurrentWeather = (void*)0x9178d0;
+		void* fForceActive = (void*)0x917fe0;
+		void* fGetCurrentWeather = (void*)0x918090;
 
 		void ForceActive(TESWeather* self, bool Override)
 		{
@@ -273,8 +274,8 @@ namespace FreeScript
 
 	namespace GlobalVariable
 	{
-		void* fGetValue = (void*)0x8fd640;
-		void* fSetValue = (void*)0x8fd650;
+		void* fGetValue = (void*)0x8fe2a0;
+		void* fSetValue = (void*)0x8fe2b0;
 
 		float GetValue(TESGlobal * self)
 		{

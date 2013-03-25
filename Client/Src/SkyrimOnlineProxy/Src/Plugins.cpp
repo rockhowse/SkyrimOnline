@@ -32,7 +32,7 @@ void InstallPapyrusHook()
 {
 	PluginManager::Create();
 	PluginManager::GetInstance()->Load();
-	oVMUpdate = (tVMUpdate)DetourFunction((PBYTE)0xc51aa0, (PBYTE)VMUpdate);
+	oVMUpdate = (tVMUpdate)DetourFunction((PBYTE)0xc52840, (PBYTE)VMUpdate);
 }
 
 void UninstallPapyrusHook()
