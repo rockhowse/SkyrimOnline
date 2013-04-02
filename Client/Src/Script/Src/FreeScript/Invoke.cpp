@@ -28,7 +28,7 @@ namespace FreeScript
 		void* fDisablePlayerControls = (void*)0x8f2ff0;
 		void* fEnablePlayerControls = (void*)0x8f30a0;
 		void* fGetForm = (void*)0x8f0c10;
-		void* fGetPlayer = (void*)0x8f46d0;
+		void* fGetPlayer = (void*)0x8f0f40;
 		void* fGetPlayersLastRiddenHorse = (void*)0x8f4740;
 		void* fSetInChargen = (void*)0x8f1200;
 

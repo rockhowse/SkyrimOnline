@@ -48,8 +48,8 @@ namespace Skyrim
 			void ShardList::OnShardPick(const std::string& pShard)
 			{
 				System::Log::Debug(std::string("Shard picked : ") + pShard);
-				/*Overlay::TheMessage->SetCaption("Joining is disabled for now !");
-				Overlay::TheMessage->Show();*/
+				Overlay::TheMessage->SetCaption("Joining is disabled for now !");
+				Overlay::TheMessage->Show();
 
 				mShardList->Hide();
 

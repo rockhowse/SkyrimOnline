@@ -3,6 +3,13 @@
 #include <Script/Online.h>
 #include <Logic/Session.h>
 
+void ShowVersion()
+{
+	std::ostringstream os;
+	os << "You need the game in 1.9.32.0 to play Skyrim Online. Hash dump : " << std::hex << *(DWORD *)(0x00DDDC00);
+	Debug::Notification((char*)os.str().c_str());
+}
+
 int GenerateDump(EXCEPTION_POINTERS* pExceptionPointers)
 {
 	BOOL bMiniDumpSuccessful;
@@ -39,37 +46,33 @@ int GenerateDump(EXCEPTION_POINTERS* pExceptionPointers)
 	return EXCEPTION_EXECUTE_HANDLER;
 }
 
-void Init()
+class IRunnable
 {
-	System::Log::Create("GameWorldClient.log");
-	Skyrim::Logic::Session::Init();
-}
+public:
+	virtual ~IRunnable(){};
+	virtual void Update() = 0;
+};
 
-void ShowVersion()
+class SkyrimOnlinePlugin : public IRunnable
 {
-	std::ostringstream os;
-	os << "You need the game in 1.8.151.0 to play Skyrim Online. Hash dump : " << std::hex << *(DWORD *)(0x00DDDC00);
-	Debug::Notification((char*)os.str().c_str());
-}
+public:
 
-void NewInstance()
-{
-	Skyrim::TheGameWorld = new Skyrim::GameWorld;
-}
+	SkyrimOnlinePlugin()
+	{
+		System::Log::Create("GameWorldClient.log");
+		Skyrim::Logic::Session::Init();
+	}
 
-__declspec(dllexport) void main()
-{
-	Init();
-	__try
+	~SkyrimOnlinePlugin()
+	{
+
+	}
+
+	void Init()
 	{
 		switch ( *(DWORD *)(0x00DDDC00) ) 
 		{
-		/*case 0x508B018B : // 1.7.7.0 (2012)
-			{
-				break;
-			}
-			*/
-		case 0x5FFFF2DD : // 1.8.151.0 (2012)
+		case 0x468b0cc4 : // 1.9.32.0
 			{
 				break;
 			}
@@ -80,6 +83,11 @@ __declspec(dllexport) void main()
 				return;
 			}
 		}
+
+		std::ostringstream os;
+		os << "Version : " << std::hex << *(DWORD *)(0x00DDDC00);
+		System::Log::Debug(os.str());
+		System::Log::Flush();
 
 		if(!EasySteam::Interface::GetInstance() || !EasySteam::Interface::GetInstance()->GetUser()->IsLoggedOn())
 		{
@@ -92,21 +100,32 @@ __declspec(dllexport) void main()
 		srand((unsigned int)time(NULL));
 		Debug::Notification("To play Skyrim Online, press F3");
 
-		while(!Skyrim::TheGameWorld)
+		Skyrim::TheGameWorld = new Skyrim::GameWorld;
+		Skyrim::TheGameWorld->Setup();
+	}
+
+	void Update()
+	{
+		if(FreeScript::Game::GetPlayer()->parentCell)
 		{
-			//if(GetKeyPressed(VK_F3))
+			if(Skyrim::TheGameWorld)
 			{
-				NewInstance();
-				Skyrim::TheGameWorld->Setup();
-				break;
+				Skyrim::TheGameWorld->Run();
+			}
+			else
+			{
+				Init();
 			}
 		}
-
-		if(Skyrim::TheGameWorld)
-			Skyrim::TheGameWorld->Run();
 	}
-	__except(GenerateDump(GetExceptionInformation()))
+
+private:
+};
+
+extern "C"
+{
+	__declspec(dllexport) IRunnable* Initialize()
 	{
-
+		return new SkyrimOnlinePlugin;
 	}
-}
+};

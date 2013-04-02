@@ -32,7 +32,7 @@
     <IncludePath>$(IncludePath);./Src</IncludePath>
     <OutDir>..\..\Bin\</OutDir>
     <IntDir>..\..\Obj\$(Configuration)\$(ProjectName)\</IntDir>
-    <TargetExt>.asi</TargetExt>
+    <TargetExt>.dll</TargetExt>
     <GenerateManifest>false</GenerateManifest>
   </PropertyGroup>
   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">

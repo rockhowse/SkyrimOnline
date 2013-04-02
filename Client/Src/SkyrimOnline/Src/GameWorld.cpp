@@ -134,48 +134,44 @@ namespace Skyrim
 	//--------------------------------------------------------------------------------
 	void GameWorld::Run()
 	{
-		mRun = true;
-		while (mRun)
+		System::Log::Flush();
+
+		EasySteam::Interface::Run();
+
+		SetRendering(clock());
+		uint32_t delta = uint32_t(mTimer.elapsed() * 1000);
+		mTimer.restart();
+
 		{
-			System::Log::Flush();
-
-			EasySteam::Interface::Run();
-
-			SetRendering(clock());
-			uint32_t delta = uint32_t(mTimer.elapsed() * 1000);
-			mTimer.restart();
-
+			boost::mutex::scoped_lock _(mInputGuard);
+			Overlay::TheSystem->MouseMove(mX,mY,mZ);
+			for(auto itor = mButtons.begin(), end = mButtons.end(); itor != end; ++itor)
 			{
-				boost::mutex::scoped_lock _(mInputGuard);
-				Overlay::TheSystem->MouseMove(mX,mY,mZ);
-				for(auto itor = mButtons.begin(), end = mButtons.end(); itor != end; ++itor)
+				if(itor->mouse)
 				{
-					if(itor->mouse)
-					{
-						if(!mMode)
-							Overlay::TheSystem->InjectMouse(itor->key,itor->pressed);
-					}
-					else
-					{
-						if(mCurrentState && mCurrentState->IsSwitchingAllowed())
-						{
-							if(itor->key == DIK_F3 && itor->pressed == false)
-							{
-								SwitchMode();
-							}
-						}
-						if(!mMode)
-							Overlay::TheSystem->Inject(itor->key, itor->pressed);
-					}
+					if(!mMode)
+						Overlay::TheSystem->InjectMouse(itor->key,itor->pressed);
 				}
-				mButtons.clear();
+				else
+				{
+					if(mCurrentState && mCurrentState->IsSwitchingAllowed())
+					{
+						if(itor->key == DIK_F3 && itor->pressed == false)
+						{
+							SwitchMode();
+						}
+					}
+					if(!mMode)
+						Overlay::TheSystem->Inject(itor->key, itor->pressed);
+				}
 			}
-			
-
-			TheMassiveMessageMgr->Update();
-			if(mCurrentState)
-				mCurrentState->OnUpdate(delta);
+			mButtons.clear();
 		}
+
+
+		TheMassiveMessageMgr->Update();
+		if(mCurrentState)
+			mCurrentState->OnUpdate(delta);
 	}
 	//--------------------------------------------------------------------------------
 	void GameWorld::SetMode(bool pMode)
