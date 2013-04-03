@@ -134,7 +134,6 @@ BOOL APIENTRY DllMain(HMODULE hModule, DWORD fdwReason, LPVOID lpReserved)
 			{
 				HookDInput();
 				HookWinAPI();
-				InstallPapyrusHook();
 			}
 
 			break;

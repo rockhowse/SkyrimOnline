@@ -1,4 +1,5 @@
 #include "stdafx.h"
+#include "Plugins.hpp"
 
 #define IMPL_DEFINE_GUID(name, l, w1, w2, b1, b2, b3, b4, b5, b6, b7, b8) \
 	EXTERN_C const GUID name \
@@ -285,6 +286,8 @@ private:
 
 static HRESULT _stdcall DirectInput8Create_c(HINSTANCE instance, DWORD version, REFIID iid, void * out, IUnknown * outer)
 {
+	InstallPapyrusHook();
+
 	IDirectInput8A	* dinput;
 	HRESULT hr = DirectInput8Create_r(instance, version, iid, &dinput, outer);
 	if(hr != DI_OK) return hr;

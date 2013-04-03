@@ -53,11 +53,17 @@ public:
 	virtual void Update() = 0;
 };
 
+bool GetKeyPressed(BYTE key)
+{
+	return (GetKeyState(key) & 0x80000000) > 0;
+}
+
 class SkyrimOnlinePlugin : public IRunnable
 {
 public:
 
 	SkyrimOnlinePlugin()
+		:mElapsed(0)
 	{
 		System::Log::Create("GameWorldClient.log");
 		Skyrim::Logic::Session::Init();
@@ -112,20 +118,35 @@ public:
 			{
 				Skyrim::TheGameWorld->Run();
 			}
-			else
+			else if(GetKeyPressed(VK_F3) && !Skyrim::TheGameWorld)
 			{
 				Init();
 			}
+			else
+			{
+				/*mElapsed = clock() - mElapsed;
+				//if( > 10000)
+				{
+					Debug::Notification("To play Skyrim Online, press F3");
+					System::Log::Debug("Debug");
+					mElapsed = clock();
+				}*/
+				
+			}
 		}
+		System::Log::Flush();
 	}
 
 private:
+
+	uint32_t mElapsed;
 };
 
 extern "C"
 {
 	__declspec(dllexport) IRunnable* Initialize()
 	{
+		System::Log::Create("GameWorldClient.log");
 		return new SkyrimOnlinePlugin;
 	}
 };

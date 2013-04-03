@@ -30,9 +30,13 @@ LONG __fastcall VMUpdate(void* pthis, void* fastcall, float a2)
 
 void InstallPapyrusHook()
 {
-	PluginManager::Create();
-	PluginManager::GetInstance()->Load();
-	oVMUpdate = (tVMUpdate)DetourFunction((PBYTE)0xc52840, (PBYTE)VMUpdate);
+	if(!PluginManager::GetInstance())
+	{
+		PluginManager::Create();
+		PluginManager::GetInstance()->Load();
+		oVMUpdate = (tVMUpdate)DetourFunction((PBYTE)0xc52840, (PBYTE)VMUpdate);
+	}
+	
 }
 
 void UninstallPapyrusHook()

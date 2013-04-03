@@ -134,8 +134,6 @@ namespace Skyrim
 	//--------------------------------------------------------------------------------
 	void GameWorld::Run()
 	{
-		System::Log::Flush();
-
 		EasySteam::Interface::Run();
 
 		SetRendering(clock());
