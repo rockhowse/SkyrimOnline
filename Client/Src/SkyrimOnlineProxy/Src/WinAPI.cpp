@@ -7,7 +7,6 @@ GetActiveWindow_t GetActiveWindow_r;
 WNDPROC WindowProc_r = NULL;
 HWND hwnd = NULL, previous = NULL;
 bool active = false;
-std::ofstream file("hook.log", std::ios::trunc);
 
 HINSTANCE g_user32 = 0;
 

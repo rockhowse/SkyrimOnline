@@ -13,3 +13,4 @@
 #include "TimeManager.h"
 #include "WeatherManager.h"
 #include "Invoke.hpp"
+#include "VM.hpp"

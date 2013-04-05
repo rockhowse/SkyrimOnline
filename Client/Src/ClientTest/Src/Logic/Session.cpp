@@ -41,12 +41,8 @@ namespace Skyrim
 			ClientInitialTransaction transaction;
 
 			std::vector<uint32_t> wornForms;
-			wornForms.push_back(0x13edb);
-			wornForms.push_back(0xa6d7b);
-			wornForms.push_back(0xa6d7d);
+			wornForms.push_back(0x13ed9);
 			wornForms.push_back(0x13ed7);
-			wornForms.push_back(0x13914);
-			wornForms.push_back(0x13edb);
 
 			std::vector<uint32_t> facePresets;
 			facePresets.push_back(0);

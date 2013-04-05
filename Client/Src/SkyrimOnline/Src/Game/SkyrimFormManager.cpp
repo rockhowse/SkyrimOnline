@@ -27,7 +27,7 @@ namespace Skyrim
 				System::Log::Debug("Unable to find the base address, enable SkyrimOnline.esp");
 				System::Log::Flush();
 
-				Debug::MessageBOX("I need SkyrimOnline.esp to run, please restart the game and enable it !");
+				::Debug::ShowMessageBox("I need SkyrimOnline.esp to run, please restart the game and enable it !");
 				delete TheGameWorld;
 				*((int*)0) = 4;
 

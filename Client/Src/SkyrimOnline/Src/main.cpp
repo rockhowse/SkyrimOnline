@@ -3,11 +3,12 @@
 #include <Script/Online.h>
 #include <Logic/Session.h>
 
+
 void ShowVersion()
 {
 	std::ostringstream os;
 	os << "You need the game in 1.9.32.0 to play Skyrim Online. Hash dump : " << std::hex << *(DWORD *)(0x00DDDC00);
-	Debug::Notification((char*)os.str().c_str());
+	::Debug::Notification((char*)os.str().c_str());
 }
 
 int GenerateDump(EXCEPTION_POINTERS* pExceptionPointers)
@@ -41,7 +42,7 @@ int GenerateDump(EXCEPTION_POINTERS* pExceptionPointers)
 	bMiniDumpSuccessful = MiniDumpWriteDump(GetCurrentProcess(), GetCurrentProcessId(), 
 		hDumpFile, MiniDumpWithDataSegs, &ExpParam, NULL, NULL);
 
-	Debug::MessageBOX("Skyrim Online just crashed ! Please send the .dmp file in Data/Online on the crash forums.");
+	::Debug::ShowMessageBox("Skyrim Online just crashed ! Please send the .dmp file in Data/Online on the crash forums.");
 
 	return EXCEPTION_EXECUTE_HANDLER;
 }
@@ -76,6 +77,9 @@ public:
 
 	void Init()
 	{
+		DragonPluginInit();
+		FreeScript::ObjectReference::AddItem = ::ObjectReference::AddItem;
+
 		switch ( *(DWORD *)(0x00DDDC00) ) 
 		{
 		case 0x468b0cc4 : // 1.9.32.0
@@ -85,7 +89,7 @@ public:
 
 		default :
 			{
-				ShowVersion();
+				MessageBox(0, "You must use version 1.9.32.0 to play Skyrim Online.", "Error", 0);
 				return;
 			}
 		}
@@ -97,14 +101,14 @@ public:
 
 		if(!EasySteam::Interface::GetInstance() || !EasySteam::Interface::GetInstance()->GetUser()->IsLoggedOn())
 		{
-			Debug::MessageBOX("Unable to retrieve steam.");
+			::Debug::ShowMessageBox("Unable to retrieve steam.");
 			return;
 		}
 
 		Skyrim::RegisterOnlineScript();
 
 		srand((unsigned int)time(NULL));
-		Debug::Notification("To play Skyrim Online, press F3");
+		::Debug::Notification("To play Skyrim Online, press F3");
 
 		Skyrim::TheGameWorld = new Skyrim::GameWorld;
 		Skyrim::TheGameWorld->Setup();
@@ -112,29 +116,36 @@ public:
 
 	void Update()
 	{
-		if(FreeScript::Game::GetPlayer()->parentCell)
+		__try
 		{
-			if(Skyrim::TheGameWorld)
+			if(FreeScript::Game::GetPlayer()->parentCell)
 			{
-				Skyrim::TheGameWorld->Run();
-			}
-			else if(GetKeyPressed(VK_F3) && !Skyrim::TheGameWorld)
-			{
-				Init();
-			}
-			else
-			{
-				/*mElapsed = clock() - mElapsed;
-				//if( > 10000)
+				if(Skyrim::TheGameWorld)
 				{
-					Debug::Notification("To play Skyrim Online, press F3");
-					System::Log::Debug("Debug");
-					mElapsed = clock();
-				}*/
+					Skyrim::TheGameWorld->Run();
+				}
+				else if(GetKeyPressed(VK_F3) && !Skyrim::TheGameWorld)
+				{
+					Init();
+				}
+				else
+				{
+					/*mElapsed = clock() - mElapsed;
+					//if( > 10000)
+					{
+						Debug::Notification("To play Skyrim Online, press F3");
+						System::Log::Debug("Debug");
+						mElapsed = clock();
+					}*/
 				
+				}
 			}
+			System::Log::Flush();
 		}
-		System::Log::Flush();
+		__except(GenerateDump(GetExceptionInformation()))
+		{
+
+		}
 	}
 
 private:

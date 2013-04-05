@@ -3,6 +3,10 @@
 #include "ReferencesHelper.hpp"
 #include "FormsHelper.hpp"
 #include "Invoke.hpp"
+#include <windows.h>
+
+#undef GetForm
+
 
 namespace FreeScript
 {
@@ -129,13 +133,16 @@ namespace FreeScript
 	//--------------------------------------------------------------------------------
 	void Character::EquipItems(std::vector<uint32_t> wornForms)
 	{
+		std::ofstream f("Equip.log", std::ios::app);
 		SActor::UnequipAll(mActor);
+		f << GetCurrentThreadId() << std::endl;
 		for( auto itor = wornForms.begin(); itor != wornForms.end(); ++itor )
 		{
 			if( *itor != 0 )
 			{
-				ObjectReference::AddItem(rtti_cast(mActor, Actor, TESObjectREFR), Game::GetForm(*itor), 1, true);
-				SActor::EquipItem(mActor, Game::GetForm(*itor), true, false); 
+				f << std::hex << mActor << " " << Game::GetForm(*itor) << std::endl;
+				f << "AddItem" << ObjectReference::AddItem(rtti_cast(mActor, Actor, TESObjectREFR), Game::GetForm(*itor), 1, true) << std::endl;
+				//SActor::EquipItem(mActor, Game::GetForm(*itor), true, false); 
 			}
 		}
 	}

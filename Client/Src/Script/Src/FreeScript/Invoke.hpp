@@ -3,6 +3,7 @@
 #include "Actor.hpp"
 #include "References.hpp"
 #include "RTTI.hpp"
+#include "VM.hpp"
 
 enum 
 {
@@ -15,24 +16,24 @@ struct PapyrusFunction{};
 template <class Ret, class... Args>
 struct PapyrusFunction<Ret(Args...)>
 {
-	typedef Ret(*FuncPtr)(int,int,Args...);
+	typedef Ret(*FuncPtr)(VMClassRegistry*,int,Args...);
 
 	static Ret Call(void* addr, Args... args)
 	{
-		int a = 0x107709F0, b = 0; // a probably is the stack and b the stack size
-		return (*(FuncPtr)addr)(a,b,args...);
+		int b = 0; 
+		return (*(FuncPtr)addr)(SkyrimVM::GetInstance()->registry,b,args...);
 	}
 };
 
 template <class... Args>
 struct PapyrusFunction<void(Args...)>
 {
-	typedef void(*FuncPtr)(int,int,Args...);
+	typedef void(*FuncPtr)(VMClassRegistry*,int,Args...);
 
 	static void Call(void* addr, Args... args)
 	{
-		int a = 0x107709F0, b = 0; // a probably is the context and b someflag
-		(*(FuncPtr)addr)(a,b,args...);
+		int b = 0; // a probably is the context and b someflag
+		(*(FuncPtr)addr)(SkyrimVM::GetInstance()->registry,b,args...);
 	}
 };
 
@@ -42,24 +43,24 @@ struct StaticPapyrusFunction{};
 template <class Ret, class... Args>
 struct StaticPapyrusFunction<Ret(Args...)>
 {
-	typedef Ret(*FuncPtr)(int,int, int, Args...);
+	typedef Ret(*FuncPtr)(VMClassRegistry*,int, int, Args...);
 
 	static Ret Call(void* addr, Args... args)
 	{
-		int a = 0x107709F0, b = 0; // a probably is the stack and b the stack size
-		return (*(FuncPtr)addr)(a,b, kStaticFunctionTag, args...);
+		int b = 0; // a probably is the stack and b the stack size
+		return (*(FuncPtr)addr)(SkyrimVM::GetInstance()->registry,b, kStaticFunctionTag, args...);
 	}
 };
 
 template <class... Args>
 struct StaticPapyrusFunction<void(Args...)>
 {
-	typedef void(*FuncPtr)(int, int, int, Args...);
+	typedef void(*FuncPtr)(VMClassRegistry*, int, int, Args...);
 
 	static void Call(void* addr, Args... args)
 	{
-		int a = 0x107709F0, b = 0; // a probably is the context and b someflag
-		(*(FuncPtr)addr)(a,b, kStaticFunctionTag, args...);
+		int b = 0; // a probably is the context and b someflag
+		(*(FuncPtr)addr)(SkyrimVM::GetInstance()->registry, b, kStaticFunctionTag, args...);
 	}
 };
 
@@ -91,7 +92,7 @@ namespace FreeScript
 
 	namespace ObjectReference
 	{
-		void AddItem(TESObjectREFR* self, TESForm* form, uint32_t count = 1, bool silent = false);
+		extern bool (*AddItem)(TESObjectREFR* self, TESForm* form, uint32_t count, bool silent);
 		void Delete(TESObjectREFR * self);
 		void Disable(TESObjectREFR * self, bool fade);
 		void Enable(TESObjectREFR * self, bool abFadeIn);

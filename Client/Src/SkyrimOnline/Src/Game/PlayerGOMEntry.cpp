@@ -53,7 +53,7 @@ namespace Skyrim
 			{
 				data->EquipItems(transaction.GetWornForms());
 			}
-			if(transaction.IsSetFaceMorphs())
+			/*if(transaction.IsSetFaceMorphs())
 			{
 				data->SetFaceMorph(transaction.GetFaceMorphs());
 			}
@@ -64,7 +64,7 @@ namespace Skyrim
 			if(transaction.IsSetFacePresets())
 			{
 				data->SetFacePresets(transaction.GetFacePresets());
-			}
+			}*/
 			if(transaction.IsSetRotation())
 			{
 				BasicArray<3, float> rotation = transaction.GetRotation();

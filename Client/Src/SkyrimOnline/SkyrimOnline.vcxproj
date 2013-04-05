@@ -69,6 +69,11 @@
     <ClInclude Include="..\..\..\Common\ServerPackets.hpp" />
     <ClInclude Include="..\..\..\Common\SharedPackets.hpp" />
     <ClInclude Include="Src\Common\enums.h" />
+    <ClInclude Include="Src\Common\invoke.h" />
+    <ClInclude Include="Src\Common\obscript.h" />
+    <ClInclude Include="Src\Common\plugin.h" />
+    <ClInclude Include="Src\Common\skyscript.h" />
+    <ClInclude Include="Src\Common\types.h" />
     <ClInclude Include="Src\Directx\myIDirect3D9.h" />
     <ClInclude Include="Src\Directx\myIDirect3DDevice9.h" />
     <ClInclude Include="Src\Game\AssetManager.h" />
@@ -96,6 +101,7 @@
     <ClInclude Include="Src\stdafx.h" />
   </ItemGroup>
   <ItemGroup>
+    <ClCompile Include="Src\Common\plugin.cpp" />
     <ClCompile Include="Src\Game\AssetManager.cpp" />
     <ClCompile Include="Src\Engine\InputManager.cpp" />
     <ClCompile Include="Src\Game\PlayerGOMServer.cpp" />
@@ -124,6 +130,9 @@
     <ClCompile Include="Src\stdafx.cpp">
       <PrecompiledHeader Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">Create</PrecompiledHeader>
     </ClCompile>
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Src\Common\plugin.def" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">

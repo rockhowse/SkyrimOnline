@@ -76,11 +76,13 @@ namespace FreeScript
 		void* fSetScale = (void*)0x90a210;
 		void* fSetPosition = (void*)0x909e40;
 		
-
-		void AddItem(TESObjectREFR* self, TESForm* form, uint32_t count, bool silent)
+		/*bool AddItem(TESObjectREFR* self, TESForm* form, uint32_t count, bool silent)
 		{
-			PapyrusFunction<void(TESObjectREFR*, TESForm*, uint32_t, bool)>::Call(fAddItem, self, form, count, silent);
-		}
+			return PapyrusFunction<bool(TESObjectREFR*, TESForm*, uint32_t, bool)>::Call(fAddItem, self, form, count, silent);
+		}*/
+
+		// For now point this to Papyrus as it's a latent function...
+		bool (*AddItem)(TESObjectREFR* self, TESForm* form, uint32_t count, bool silent) = 0;
 
 		void Delete(TESObjectREFR * self)
 		{

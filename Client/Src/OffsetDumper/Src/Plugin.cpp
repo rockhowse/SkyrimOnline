@@ -38,7 +38,7 @@ void TestPlugin::Update()
 			ran = true;
 			Debug::MessageBOX("Actor dump worked !");
 		}
-		if(clock() - time > 10)
+		else if(clock() - time > 10)
 		{
 			std::ostringstream os;
 			os << "Hellou" << clock() - time;

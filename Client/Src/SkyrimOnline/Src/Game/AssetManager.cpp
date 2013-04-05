@@ -28,7 +28,7 @@ namespace Skyrim
 								if(ref)
 								{
 									mAssets.push_back(id);
-									ObjectReference::Delete(ref);
+									FreeScript::ObjectReference::Delete(ref);
 								}
 							}
 						}
