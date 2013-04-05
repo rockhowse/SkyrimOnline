@@ -1,21 +1,71 @@
 #pragma once
 
+#include "Types.hpp"
+
 class IFunction
 {
+public:
 	IFunction();
 	virtual ~IFunction();
 
-	virtual void Unk01();
-	virtual void Unk02();
-	virtual void Unk03();
+	virtual FreeScript::BSFixedString* GetName();
+	virtual FreeScript::BSFixedString* GetClassName();
+	virtual FreeScript::BSFixedString* GetSomething();
 	virtual void Unk04();
 	virtual void Unk05();
 	virtual void Unk06();
-	virtual void Unk07();
 	virtual bool IsNative();
 	virtual void Unk08();
 	virtual void Unk09();
 };
+
+
+struct VMValue
+{
+	uint32_t type;
+	union
+	{
+		int32_t i;
+		uint32_t u;
+		float f;
+		bool b;
+		void* p;
+		void* arr;
+		void* id;
+		const char* str;
+	} 
+	data;			// 0x04
+};
+
+class VMState
+{
+public:
+	VMState();
+	~VMState();
+
+	void* Unk00;	// 00
+	uint32_t stack_[4];	// 04
+	VMValue* baseValue; // 14
+	uint32_t stackb; //18
+	uint32_t numArgs; // 1C
+	uint32_t stack[32];
+};
+
+class VMStack
+{
+public:
+
+	VMStack();
+	~VMStack();
+
+	char pad00to14[0x14];
+	void* Unk00; // 0x14
+	char pad18to30[0x30 - 0x18];
+	VMState* state; // 0x30
+	char pad34to44[0x44 - 0x34];
+	uint32_t ArgRun02; // 0x44
+};
+
 
 class VMClassRegistry
 {
@@ -46,7 +96,7 @@ public:
 	virtual void Unk14();
 	virtual void Unk15();
 	virtual void Unk16();
-	virtual void RegisterFunction(void*);
+	virtual void RegisterFunction(IFunction*);
 
 	// void ** vtbl; 04
 	char pad04to68[0x68 - 0x04];

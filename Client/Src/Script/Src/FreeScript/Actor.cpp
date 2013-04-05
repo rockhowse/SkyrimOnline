@@ -15,7 +15,7 @@ namespace FreeScript
 		if(!pActor) return;
 		FreeScript::TESNPC* npc = rtti_cast(pActor->baseForm, TESForm, TESNPC);
 		if(!npc) return;
-		npc->fullName.name = FreeScript::String(pName.c_str());
+		npc->fullName.name = FreeScript::BSFixedString(pName.c_str());
 	}
 
 	FreeScript::TESForm* GetWornForm(FreeScript::Actor* ptr, uint32_t mask)

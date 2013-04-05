@@ -31,7 +31,7 @@ namespace FreeScript
 	{
 	public:
 
-		String name;
+		BSFixedString name;
 	};
 
 	class BGSBipedObjectForm : public BaseFormComponent

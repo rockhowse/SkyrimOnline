@@ -42,5 +42,3 @@ std::string GetKeyName(BYTE key);
 void PrintNote(char *pattern, ...);
 void PrintDebug(char *pattern, ...);
 int IniReadInt(char *inifile, char *section, char *param, int def);
-
-void DragonPluginInit();

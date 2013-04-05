@@ -118,6 +118,26 @@ void ExitInstance()
 	}
 }
 
+typedef HANDLE (WINAPI *tCreateThread)(LPSECURITY_ATTRIBUTES,SIZE_T,LPTHREAD_START_ROUTINE,LPVOID,DWORD,PDWORD);
+tCreateThread oCreateThread;
+
+HANDLE WINAPI FakeCreateThread(
+	LPSECURITY_ATTRIBUTES lpThreadAttributes,
+	SIZE_T dwStackSize,
+	LPTHREAD_START_ROUTINE lpStartAddress,
+	LPVOID lpParameter,
+	DWORD dwCreationFlags,
+	PDWORD lpThreadId
+	)
+{
+	if(*(uint32_t*)lpParameter == 0x010CDD60) // VMInitThread::vftable
+	{
+		InstallPapyrusHook();
+	}
+	return oCreateThread(lpThreadAttributes, dwStackSize,lpStartAddress,lpParameter,dwCreationFlags,lpThreadId);
+}
+
+
 BOOL APIENTRY DllMain(HMODULE hModule, DWORD fdwReason, LPVOID lpReserved)
 {
 	switch (fdwReason)
@@ -132,6 +152,8 @@ BOOL APIENTRY DllMain(HMODULE hModule, DWORD fdwReason, LPVOID lpReserved)
 
 			if(strL.find("TESV.exe") != std::string::npos)
 			{
+				HMODULE kernel = GetModuleHandle("Kernel32.dll");
+				oCreateThread = (tCreateThread)DetourFunction((PBYTE)GetProcAddress(kernel, "CreateThread"), (PBYTE)FakeCreateThread);
 				HookDInput();
 				HookWinAPI();
 			}

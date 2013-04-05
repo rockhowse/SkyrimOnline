@@ -4,9 +4,9 @@
 
 namespace FreeScript
 {
-	String::String(const char* data)
+	BSFixedString::BSFixedString(const char* data)
 	{
-		((void(__thiscall*)(String*, const char*))0xa511c0)(this, data);
+		((void(__thiscall*)(BSFixedString*, const char*))0xa511c0)(this, data);
 	}
 
 	BSString::BSString(const char* d)

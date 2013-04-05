@@ -96,7 +96,7 @@ void PrintNote(char *pattern, ...)
 
 #define SCRIPT_DRAGON "ScriptDragon.dll" 
 
-void DragonPluginInit()
+void DragonPluginInit(HMODULE hModule)
 {
 	HMODULE hDragon = LoadLibraryA(SCRIPT_DRAGON);
 	/* 
@@ -110,6 +110,7 @@ void DragonPluginInit()
 	ExecuteConsoleCommand = (TExecuteConsoleCommand)GetProcAddress(hDragon, "ExecuteConsoleCommand");
 	GetConsoleSelectedRef = (TGetConsoleSelectedRef)GetProcAddress(hDragon, "GetConsoleSelectedRef");
 	dyn_cast = (Tdyn_cast)GetProcAddress(hDragon, "dyn_cast");
+	RegisterPlugin = (TRegisterPlugin)GetProcAddress(hDragon, "RegisterPlugin");
 	Wait = (TWait)GetProcAddress(hDragon, "WaitMs");
 	BSString_Create = (TBSString_Create)GetProcAddress(hDragon, "BSString_Create");
 	BSString_Free = (TBSString_Free)GetProcAddress(hDragon, "BSString_Free");
@@ -120,4 +121,24 @@ void DragonPluginInit()
 	{
 		Error("ScriptDragon engine dll `%s` has not all needed functions inside, exiting", SCRIPT_DRAGON);
 	}
+
+	RegisterPlugin(hModule);
+}
+
+BOOL APIENTRY DllMain(HMODULE hModule, DWORD fdwReason, LPVOID lpReserved)
+{
+	switch (fdwReason)
+	{
+	case DLL_PROCESS_ATTACH: 
+		{
+			g_hModule = hModule;
+			DragonPluginInit(hModule);
+			break;
+		}
+	case DLL_PROCESS_DETACH:
+		{
+			break;
+		}
+	}
+	return TRUE;
 }

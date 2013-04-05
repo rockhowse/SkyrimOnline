@@ -120,13 +120,13 @@ namespace FreeScript
 		}
 	};
 
-	class String
+	class BSFixedString
 	{
 	public:
 
 		const char* data;
 
-		String(const char* data);
+		BSFixedString(const char* data);
 	};
 
 	class BSString

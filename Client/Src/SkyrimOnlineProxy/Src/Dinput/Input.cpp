@@ -286,8 +286,6 @@ private:
 
 static HRESULT _stdcall DirectInput8Create_c(HINSTANCE instance, DWORD version, REFIID iid, void * out, IUnknown * outer)
 {
-	InstallPapyrusHook();
-
 	IDirectInput8A	* dinput;
 	HRESULT hr = DirectInput8Create_r(instance, version, iid, &dinput, outer);
 	if(hr != DI_OK) return hr;

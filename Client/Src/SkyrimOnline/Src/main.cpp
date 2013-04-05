@@ -66,7 +66,6 @@ public:
 	SkyrimOnlinePlugin()
 		:mElapsed(0)
 	{
-		System::Log::Create("GameWorldClient.log");
 		Skyrim::Logic::Session::Init();
 	}
 
@@ -77,7 +76,6 @@ public:
 
 	void Init()
 	{
-		DragonPluginInit();
 		FreeScript::ObjectReference::AddItem = ::ObjectReference::AddItem;
 
 		switch ( *(DWORD *)(0x00DDDC00) ) 
@@ -94,6 +92,8 @@ public:
 			}
 		}
 
+		FreeScript::Debug::Notification("To play Skyrim Online, press F3");
+
 		std::ostringstream os;
 		os << "Version : " << std::hex << *(DWORD *)(0x00DDDC00);
 		System::Log::Debug(os.str());
@@ -108,13 +108,17 @@ public:
 		Skyrim::RegisterOnlineScript();
 
 		srand((unsigned int)time(NULL));
-		::Debug::Notification("To play Skyrim Online, press F3");
 
 		Skyrim::TheGameWorld = new Skyrim::GameWorld;
 		Skyrim::TheGameWorld->Setup();
 	}
 
 	void Update()
+	{
+
+	}
+
+	void DoUpdate()
 	{
 		__try
 		{
@@ -153,11 +157,26 @@ private:
 	uint32_t mElapsed;
 };
 
+SkyrimOnlinePlugin* TheSkyrimOnlinePlugin = nullptr;
+
 extern "C"
 {
 	__declspec(dllexport) IRunnable* Initialize()
 	{
 		System::Log::Create("GameWorldClient.log");
-		return new SkyrimOnlinePlugin;
+		if(!TheSkyrimOnlinePlugin)
+		{
+			TheSkyrimOnlinePlugin = new SkyrimOnlinePlugin;
+		}
+		return TheSkyrimOnlinePlugin;
+	}
+
+	__declspec(dllexport) void main()
+	{
+		while(1)
+		{
+			TheSkyrimOnlinePlugin->DoUpdate();
+			Wait(0);
+		}
 	}
 };
