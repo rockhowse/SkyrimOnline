@@ -3,6 +3,7 @@
 #include "Forms.hpp"
 #include "Common.hpp"
 #include <sstream>
+#include <vector>
 
 namespace FreeScript
 {

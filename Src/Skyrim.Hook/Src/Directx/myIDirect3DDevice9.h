@@ -3,7 +3,7 @@
 #pragma unmanaged
 #include <d3d9.h>
 #include <windows.h>
-#include <boost/signal.hpp>
+#include <Hook/Function.hpp>
 
 class __declspec(dllexport) myIDirect3DDevice9 : public IDirect3DDevice9
 {
@@ -137,10 +137,10 @@ public:
 	HWND GetWindow();
 	RECT GetSize();
 
-	boost::signal<void(myIDirect3DDevice9*)> OnRenderEnd;
-	boost::signal<void(myIDirect3DDevice9*)> OnRenderBegin;
-	boost::signal<void(myIDirect3DDevice9*)> OnPresent;
-	boost::signal<void(myIDirect3DDevice9*)> OnReset;
+	Signal<void(myIDirect3DDevice9*)> OnRenderEnd;
+	Signal<void(myIDirect3DDevice9*)> OnRenderBegin;
+	Signal<void(myIDirect3DDevice9*)> OnPresent;
+	Signal<void(myIDirect3DDevice9*)> OnReset;
 
 	static myIDirect3DDevice9* GetInstance();
 	

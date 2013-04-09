@@ -27,7 +27,6 @@ Server/SampleManaged/obj/*
 Server/SOScriptManaged/bin/*
 Server/SOScriptManaged/obj/*
 /Server/SOScriptNet/obj/*
-Dependencies/*
 Client/Bin/*
 Client/Src/Script/Src/skse
 Client/Bin/dinput8.dll

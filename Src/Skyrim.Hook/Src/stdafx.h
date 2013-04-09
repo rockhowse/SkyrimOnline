@@ -2,9 +2,6 @@
 #define _WIN32_WINNT 0x0501
 #define DIRECTINPUT_VERSION 0x0800
 
-#include <boost/signals.hpp>
-#include <boost/filesystem.hpp>
-
 #include <fstream>
 
 #include <windows.h>
