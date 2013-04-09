@@ -4,8 +4,9 @@
 #include "Directx/myIDirect3D9.h"
 #include "Directx/myIDirect3DDevice9.h"
 #include "Dinput/Input.hpp"
-#include "Plugins.hpp"
+#include "Papyrus.hpp"
 #include "WinAPI.hpp"
+#include "Plugins.hpp"
 
 #pragma unmanaged
 
@@ -155,8 +156,12 @@ BOOL APIENTRY DllMain(HMODULE hModule, DWORD fdwReason, LPVOID lpReserved)
 
 			if(strL.find("TESV.exe") != std::string::npos)
 			{
+				Create();
+				GetInstance()->Load();
+
 				HMODULE kernel = GetModuleHandle("Kernel32.dll");
 				oCreateThread = (tCreateThread)DetourFunction((PBYTE)GetProcAddress(kernel, "CreateThread"), (PBYTE)FakeCreateThread);
+				
 				/*HookDInput();
 				HookWinAPI();*/
 			}
