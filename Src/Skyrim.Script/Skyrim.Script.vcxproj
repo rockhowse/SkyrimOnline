@@ -1,0 +1,133 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project DefaultTargets="Build" ToolsVersion="4.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <ItemGroup Label="ProjectConfigurations">
+    <ProjectConfiguration Include="Debug|Win32">
+      <Configuration>Debug</Configuration>
+      <Platform>Win32</Platform>
+    </ProjectConfiguration>
+    <ProjectConfiguration Include="Release|Win32">
+      <Configuration>Release</Configuration>
+      <Platform>Win32</Platform>
+    </ProjectConfiguration>
+  </ItemGroup>
+  <PropertyGroup Label="Globals">
+    <ProjectGuid>{8691E70D-6EA8-44BD-91EA-DB69D61E0F10}</ProjectGuid>
+    <TargetFrameworkVersion>v4.5</TargetFrameworkVersion>
+    <Keyword>ManagedCProj</Keyword>
+    <RootNamespace>SkyrimScript</RootNamespace>
+  </PropertyGroup>
+  <Import Project="$(VCTargetsPath)\Microsoft.Cpp.Default.props" />
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'" Label="Configuration">
+    <ConfigurationType>DynamicLibrary</ConfigurationType>
+    <UseDebugLibraries>true</UseDebugLibraries>
+    <PlatformToolset>v110</PlatformToolset>
+    <CLRSupport>true</CLRSupport>
+    <CharacterSet>Unicode</CharacterSet>
+  </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|Win32'" Label="Configuration">
+    <ConfigurationType>DynamicLibrary</ConfigurationType>
+    <UseDebugLibraries>false</UseDebugLibraries>
+    <PlatformToolset>v120_CTP_Nov2012</PlatformToolset>
+    <CLRSupport>true</CLRSupport>
+    <CharacterSet>Unicode</CharacterSet>
+  </PropertyGroup>
+  <Import Project="$(VCTargetsPath)\Microsoft.Cpp.props" />
+  <ImportGroup Label="ExtensionSettings">
+  </ImportGroup>
+  <ImportGroup Label="PropertySheets" Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">
+    <Import Project="$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props" Condition="exists('$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props')" Label="LocalAppDataPlatform" />
+  </ImportGroup>
+  <ImportGroup Label="PropertySheets" Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">
+    <Import Project="$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props" Condition="exists('$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props')" Label="LocalAppDataPlatform" />
+  </ImportGroup>
+  <PropertyGroup Label="UserMacros" />
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">
+    <LinkIncremental>true</LinkIncremental>
+  </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">
+    <LinkIncremental>false</LinkIncremental>
+    <OutDir>$(SolutionDir)\Bin</OutDir>
+    <IntDir>$(SolutionDir)\Obj\$(Configuration)\$(ProjectName)\</IntDir>
+  </PropertyGroup>
+  <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">
+    <ClCompile>
+      <WarningLevel>Level3</WarningLevel>
+      <Optimization>Disabled</Optimization>
+      <PreprocessorDefinitions>WIN32;_DEBUG;%(PreprocessorDefinitions)</PreprocessorDefinitions>
+      <PrecompiledHeader>Use</PrecompiledHeader>
+    </ClCompile>
+    <Link>
+      <GenerateDebugInformation>true</GenerateDebugInformation>
+      <AdditionalDependencies />
+    </Link>
+  </ItemDefinitionGroup>
+  <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">
+    <ClCompile>
+      <WarningLevel>Level3</WarningLevel>
+      <PreprocessorDefinitions>WIN32;NDEBUG;%(PreprocessorDefinitions)</PreprocessorDefinitions>
+      <PrecompiledHeader>Use</PrecompiledHeader>
+      <AdditionalIncludeDirectories>.</AdditionalIncludeDirectories>
+    </ClCompile>
+    <Link>
+      <GenerateDebugInformation>true</GenerateDebugInformation>
+      <AdditionalDependencies />
+      <ImportLibrary>FreeScript.lib</ImportLibrary>
+    </Link>
+  </ItemDefinitionGroup>
+  <ItemGroup>
+    <Reference Include="System" />
+    <Reference Include="System.Data" />
+    <Reference Include="System.Xml" />
+  </ItemGroup>
+  <ItemGroup>
+    <ClInclude Include="common\enums.h" />
+    <ClInclude Include="FreeScript\Actor.hpp" />
+    <ClInclude Include="FreeScript\Character.hpp" />
+    <ClInclude Include="FreeScript\Common.hpp" />
+    <ClInclude Include="FreeScript\Components.hpp" />
+    <ClInclude Include="FreeScript\Data.hpp" />
+    <ClInclude Include="FreeScript\ExtraData.hpp" />
+    <ClInclude Include="FreeScript\Forms.hpp" />
+    <ClInclude Include="FreeScript\FormsHelper.hpp" />
+    <ClInclude Include="FreeScript\FreeScript.hpp" />
+    <ClInclude Include="FreeScript\Invoke.hpp" />
+    <ClInclude Include="FreeScript\Memory.hpp" />
+    <ClInclude Include="FreeScript\References.hpp" />
+    <ClInclude Include="FreeScript\ReferencesHelper.hpp" />
+    <ClInclude Include="FreeScript\RTTI.hpp" />
+    <ClInclude Include="FreeScript\TimeManager.h" />
+    <ClInclude Include="FreeScript\Types.hpp" />
+    <ClInclude Include="FreeScript\VM.hpp" />
+    <ClInclude Include="FreeScript\WeatherManager.h" />
+    <ClInclude Include="Math\Vector3.hpp" />
+    <ClInclude Include="resource.h" />
+    <ClInclude Include="Skyrim.Script.h" />
+    <ClInclude Include="Stdafx.h" />
+    <ClInclude Include="Vector3D.h" />
+  </ItemGroup>
+  <ItemGroup>
+    <ClCompile Include="AssemblyInfo.cpp" />
+    <ClCompile Include="FreeScript\Actor.cpp" />
+    <ClCompile Include="FreeScript\Character.cpp" />
+    <ClCompile Include="FreeScript\Data.cpp" />
+    <ClCompile Include="FreeScript\ExtraData.cpp" />
+    <ClCompile Include="FreeScript\Forms.cpp" />
+    <ClCompile Include="FreeScript\FreeScript.cpp" />
+    <ClCompile Include="FreeScript\Invoke.cpp" />
+    <ClCompile Include="FreeScript\Memory.cpp" />
+    <ClCompile Include="FreeScript\RTTI.cpp" />
+    <ClCompile Include="FreeScript\TimeManager.cpp" />
+    <ClCompile Include="FreeScript\Types.cpp" />
+    <ClCompile Include="FreeScript\VM.cpp" />
+    <ClCompile Include="FreeScript\WeatherManager.cpp" />
+    <ClCompile Include="Skyrim.Script.cpp" />
+    <ClCompile Include="Stdafx.cpp">
+      <PrecompiledHeader Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">Create</PrecompiledHeader>
+      <PrecompiledHeader Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">Create</PrecompiledHeader>
+    </ClCompile>
+    <ClCompile Include="Vector3D.cpp" />
+  </ItemGroup>
+  <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
+  <ImportGroup Label="ExtensionTargets">
+  </ImportGroup>
+</Project>

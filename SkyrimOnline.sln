@@ -1,0 +1,21 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 12.00
+# Visual Studio 2012
+Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "Skyrim.Script", "Src\Skyrim.Script\Skyrim.Script.vcxproj", "{8691E70D-6EA8-44BD-91EA-DB69D61E0F10}"
+EndProject
+Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "Skyrim.Hook", "Src\Skyrim.Hook\SkyrimOnlineProxy.vcxproj", "{D8B2564C-4766-4DDF-B7E0-43DB3971B3A3}"
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Release|Win32 = Release|Win32
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{8691E70D-6EA8-44BD-91EA-DB69D61E0F10}.Release|Win32.ActiveCfg = Release|Win32
+		{8691E70D-6EA8-44BD-91EA-DB69D61E0F10}.Release|Win32.Build.0 = Release|Win32
+		{D8B2564C-4766-4DDF-B7E0-43DB3971B3A3}.Release|Win32.ActiveCfg = Release|Win32
+		{D8B2564C-4766-4DDF-B7E0-43DB3971B3A3}.Release|Win32.Build.0 = Release|Win32
+	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
+	EndGlobalSection
+EndGlobal

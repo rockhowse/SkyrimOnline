@@ -38,3 +38,5 @@ Updater/bin/*
 Client/Src/Obj/*
 setup.exe
 *.csproj.user
+Bin/
+Obj/

@@ -1,10 +1,11 @@
 #include "stdafx.h"
 #include "Plugins.hpp"
+#include <Hook/Function.hpp>
 #include <FreeScript/Memory.hpp>
 
 using namespace boost::filesystem;
 
-typedef LONG (__thiscall *tVMUpdate)(void* pthis, float a2);
+typedef long (__thiscall *tVMUpdate)(void* pthis, float a2);
 typedef signed int (__thiscall *tInvoke)(void *, VMStack **, int , VMClassRegistry* , int );
 typedef void (__cdecl *tsub_C395D0)(VMStack* stack, const char *Src, int a3, char *DstBuf, rsize_t SizeInBytes);
 typedef char (__thiscall *tRegister)(VMClassRegistry**, IFunction* func);
@@ -16,8 +17,7 @@ tsub_C395D0 sub_C395D0 = (tsub_C395D0)0xC395D0;
 
 uint32_t elapsed = 0;
 
-
-int __fastcall Invoke(void *_this, void* fastcall, VMStack **stack, int a3, VMClassRegistry* registry, int a5)
+int __fastcall Invoke(THISCALLVOID, VMStack **stack, int a3, VMClassRegistry* registry, int a5)
 {
 	char buff[0x400] = "Invoke : ";
 	char dest[0x400] = {0};
@@ -37,14 +37,9 @@ int __fastcall Invoke(void *_this, void* fastcall, VMStack **stack, int a3, VMCl
 	return oInvoke(_this, stack, a3, registry, a5);
 }
 
-void test()
+long __fastcall VMUpdate(THISCALLVOID, float a2)
 {
-	SkyrimVM::GetInstance()->registry->registrationMap;
-}
-
-LONG __fastcall VMUpdate(void* pthis, void* fastcall, float a2)
-{
-	LONG ret = oVMUpdate(pthis, a2);
+	LONG ret = oVMUpdate(_this, a2);
 
 	if(FreeScript::Game::GetPlayer() && FreeScript::Game::GetPlayer()->parentCell)
 	{
@@ -63,26 +58,30 @@ LONG __fastcall VMUpdate(void* pthis, void* fastcall, float a2)
 	return ret;
 }
 
-char __fastcall FakeRegister(VMClassRegistry** _this, void* fc, IFunction* f)
+char __fastcall Register(THISCALL(VMClassRegistry*), IFunction* f)
 {
 	file << "Register : " << f->GetClassName()->data << "::" << f->GetName()->data << std::endl;
 	return oRegister(_this, f);
 }
 
-void InstallPapyrusHook()
+/*NAKED_JUMP(Invoke);
+NAKED_JUMP(VMUpdate);
+NAKED_JUMP(Register);*/
+
+void __stdcall InstallPapyrusHook()
 {
 	if(!PluginManager::GetInstance())
 	{
 		PluginManager::Create();
 		PluginManager::GetInstance()->Load();
 
-		oVMUpdate = (tVMUpdate)DetourFunction((PBYTE)/*0xc52840*/0x8D40D0, (PBYTE)VMUpdate);
+		oVMUpdate = (tVMUpdate)DetourFunction((PBYTE)0x8D40D0, (PBYTE)VMUpdate);
 		oInvoke = (tInvoke)DetourFunction((PBYTE)0xC46CB0, (PBYTE)Invoke);
-		oRegister = (tRegister)DetourFunction((PBYTE)0xC4D420 ,(PBYTE)FakeRegister);
+		oRegister = (tRegister)DetourFunction((PBYTE)0xC4D420 ,(PBYTE)Register);
 	}
 }
 
-void UninstallPapyrusHook()
+void __stdcall UninstallPapyrusHook()
 {
 	PluginManager::Delete();
 }
