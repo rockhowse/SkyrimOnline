@@ -105,7 +105,6 @@
     <ClInclude Include="FreeScript\WeatherManager.h" />
     <ClInclude Include="Math\Vector3.hpp" />
     <ClInclude Include="resource.h" />
-    <ClInclude Include="Skyrim.Script.h" />
     <ClInclude Include="Stdafx.h" />
     <ClInclude Include="Vector3D.h" />
     <ClInclude Include="Wrapper\Debug.h" />
@@ -129,7 +128,6 @@
     <ClCompile Include="FreeScript\Types.cpp" />
     <ClCompile Include="FreeScript\VM.cpp" />
     <ClCompile Include="FreeScript\WeatherManager.cpp" />
-    <ClCompile Include="Skyrim.Script.cpp" />
     <ClCompile Include="Stdafx.cpp">
       <PrecompiledHeader Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">Create</PrecompiledHeader>
       <PrecompiledHeader Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">Create</PrecompiledHeader>
