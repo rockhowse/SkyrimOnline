@@ -1,0 +1,25 @@
+<?xml version="1.0"?>
+<package xmlns="http://schemas.microsoft.com/packaging/2011/08/nuspec.xsd">
+  <metadata>
+    <id>SteamKit2</id>
+    <version>1.3.1</version>
+    <title>SteamKit2</title>
+    <authors>voided</authors>
+    <owners>voided</owners>
+    <licenseUrl>https://bitbucket.org/VoiDeD/steamre/src/tip/SteamKit2/SteamKit2/license.txt</licenseUrl>
+    <projectUrl>https://bitbucket.org/VoiDeD/steamre</projectUrl>
+    <iconUrl>https://bitbucket.org/VoiDeD/steamre/raw/07010510ec01f78ae37f404ca4bd1100b0324a4c/Resources/Misc/steamkit_logo_128.png</iconUrl>
+    <requireLicenseAcceptance>false</requireLicenseAcceptance>
+    <description>.NET library that aims to interoperate with the Steam network.</description>
+    <releaseNotes>Release notes are available at https://bitbucket.org/VoiDeD/steamre/src/07010510ec01/SteamKit2/SteamKit2/changes.txt?at=default</releaseNotes>
+    <copyright />
+    <language />
+    <tags>steam networking</tags>
+    <dependencies>
+      <dependency id="protobuf-net" version="2.0.0.621" />
+    </dependencies>
+    <references>
+      <reference file="SteamKit2.dll" />
+    </references>
+  </metadata>
+</package>
