@@ -145,7 +145,7 @@ void ExitInstance()
 	}
 }
 
-/*typedef HANDLE (WINAPI *tCreateThread)(LPSECURITY_ATTRIBUTES,SIZE_T,LPTHREAD_START_ROUTINE,LPVOID,DWORD,PDWORD);
+typedef HANDLE (WINAPI *tCreateThread)(LPSECURITY_ATTRIBUTES,SIZE_T,LPTHREAD_START_ROUTINE,LPVOID,DWORD,PDWORD);
 tCreateThread oCreateThread;
 
 HANDLE WINAPI FakeCreateThread(
@@ -159,10 +159,13 @@ HANDLE WINAPI FakeCreateThread(
 {
 	if(*(uint32_t*)lpParameter == 0x010CDD60) // VMInitThread::vftable
 	{
-		InstallPapyrusHook();
+		LoadLibraryA("Skyrim.Script.dll");
+
+		DragonPluginInit(gl_hThisInstance);
+		//InstallPapyrusHook();
 	}
 	return oCreateThread(lpThreadAttributes, dwStackSize,lpStartAddress,lpParameter,dwCreationFlags,lpThreadId);
-}*/
+}
 
 #pragma unmanaged
 
@@ -180,14 +183,16 @@ BOOL APIENTRY DllMain(HMODULE hModule, DWORD fdwReason, LPVOID lpReserved)
 
 			if(strL.find("TESV.exe") != std::string::npos)
 			{
+				gl_hThisInstance = hModule;
+
 				Create();
 				GetInstance()->Load();
 
-				DragonPluginInit(hModule);
-
-				LoadLibraryA("Skyrim.Script.dll");
-				/*HMODULE kernel = GetModuleHandle("Kernel32.dll");
-				oCreateThread = (tCreateThread)DetourFunction((PBYTE)GetProcAddress(kernel, "CreateThread"), (PBYTE)FakeCreateThread);*/
+				/*
+				 * Hook CreateThread and Load scriptdragon once we are sure that the unpacker is finished AKA once VMInitThread is created
+				 */
+				HMODULE kernel = GetModuleHandle("Kernel32.dll");
+				oCreateThread = (tCreateThread)DetourFunction((PBYTE)GetProcAddress(kernel, "CreateThread"), (PBYTE)FakeCreateThread);
 				
 				HookDInput();
 				HookWinAPI();

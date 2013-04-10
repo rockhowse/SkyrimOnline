@@ -1,30 +1,30 @@
 ﻿using RGiesecke.DllExport;
-using System;
-using System.Collections.Generic;
-using System.IO;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using System.Diagnostics;
 using Skyrim.Script.Wrapper;
 
 namespace Skyrim.Game
 {
     public class Entry
     {
+        private static IWorld instance = null;
+
         [DllExport]
-        public static void Initialize()
+        private static void Initialize()
         {
-            // Called upon creation
+            if (instance == null)
+                instance = new World();
         }
 
         [DllExport]
-        public static void Update()
+        private static void Update()
         {
             Actor player = Skyrim.Script.Papyrus.Game.GetPlayer();
 
             Skyrim.Script.Papyrus.Debug.Notification("Form ID : " + player.FormID);
+        }
 
+        IWorld World
+        {
+            get { return instance; }
         }
     }
 }
