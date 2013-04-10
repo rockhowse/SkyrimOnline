@@ -1,6 +1,8 @@
 #pragma once
 
-namespace SkyrimScript
+namespace Skyrim
+{
+namespace Script
 {
 	ref class Vector3
 	{
@@ -10,6 +12,7 @@ namespace SkyrimScript
 
 	private:
 	};
+}
 }
 
 

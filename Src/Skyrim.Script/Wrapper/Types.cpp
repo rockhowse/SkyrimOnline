@@ -6,24 +6,19 @@
 #include "Types.h"
 
 using namespace System;
+using namespace Skyrim::Script;
 
-namespace SkyrimScript
+Wrapper::BSFixedString::BSFixedString(FreeScript::BSFixedString* ptr) : ptr((void*)ptr)
 {
-	namespace Wrapper
-	{
-		BSFixedString::BSFixedString(FreeScript::BSFixedString* ptr) : ptr((void*)ptr)
-		{
 
-		}
+}
 
-		BSFixedString::~BSFixedString()
-		{
+Wrapper::BSFixedString::~BSFixedString()
+{
 
-		}
+}
 
-		System::String^ BSFixedString::ToString()
-		{
-			return gcnew System::String(((FreeScript::BSFixedString*)ptr)->data);
-		}
-	}
+System::String^ Wrapper::BSFixedString::ToString()
+{
+	return gcnew System::String(((FreeScript::BSFixedString*)ptr)->data);
 }

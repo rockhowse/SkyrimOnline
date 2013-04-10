@@ -2,33 +2,36 @@
 
 #include "Types.h"
 
-namespace SkyrimScript
+namespace Skyrim
 {
-	namespace Wrapper
+	namespace Script
 	{
-		public ref class BaseFormComponent
+		namespace Wrapper
 		{
-		protected:
-
-			void* ptr;
-
-		public:
-
-			BaseFormComponent(void* ptr);
-			virtual ~BaseFormComponent();
-		};
-
-		public ref class TESFullName : public Wrapper::BaseFormComponent
-		{
-		public:
-
-			TESFullName(void* ptr);
-			~TESFullName();
-
-			property Wrapper::BSFixedString^ Name
+			public ref class BaseFormComponent
 			{
-				Wrapper::BSFixedString^ get();
-			}
-		};
+			protected:
+
+				void* ptr;
+
+			public:
+
+				BaseFormComponent(void* ptr);
+				virtual ~BaseFormComponent();
+			};
+
+			public ref class TESFullName : public Wrapper::BaseFormComponent
+			{
+			public:
+
+				TESFullName(void* ptr);
+				~TESFullName();
+
+				property Wrapper::BSFixedString^ Name
+				{
+					Wrapper::BSFixedString^ get();
+				}
+			};
+		}
 	}
 }

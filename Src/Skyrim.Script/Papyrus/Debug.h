@@ -1,14 +1,17 @@
 #pragma once
 
-namespace SkyrimScript
+namespace Skyrim
 {
-	namespace Papyrus
+	namespace Script
 	{
-		public ref class Debug
+		namespace Papyrus
 		{
-		public:
+			public ref class Debug
+			{
+			public:
 
-			static void Notification(System::String^ str);
-		};
+				static void Notification(System::String^ str);
+			};
+		}
 	}
 }

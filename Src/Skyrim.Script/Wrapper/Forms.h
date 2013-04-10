@@ -2,40 +2,43 @@
 
 #include "Components.h"
 
-namespace SkyrimScript
+namespace Skyrim
 {
-	namespace Wrapper
+	namespace Script
 	{
-		public ref class TESForm : public Wrapper::BaseFormComponent
+		namespace Wrapper
 		{
-		public:
-
-			TESForm(void* ptr);
-			~TESForm();
-
-			property int FormID
+			public ref class TESForm : public Wrapper::BaseFormComponent
 			{
-				int get();
-			}
+			public:
 
-			property int FormType
+				TESForm(void* ptr);
+				~TESForm();
+
+				property int FormID
+				{
+					int get();
+				}
+
+				property int FormType
+				{
+					int get();
+				}
+
+				property int Flags
+				{
+					int get();
+				}
+			};
+
+			public ref class TESObjectCELL : public Wrapper::TESForm
 			{
-				int get();
-			}
+			public:
 
-			property int Flags
-			{
-				int get();
-			}
-		};
+				TESObjectCELL(void* ptr);
+				~TESObjectCELL();
 
-		public ref class TESObjectCELL : public Wrapper::TESForm
-		{
-		public:
-
-			TESObjectCELL(void* ptr);
-			~TESObjectCELL();
-
-		};
+			};
+		}
 	}
 }

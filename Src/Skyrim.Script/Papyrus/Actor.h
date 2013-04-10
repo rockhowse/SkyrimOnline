@@ -1,12 +1,15 @@
 #pragma once
 
-namespace SkyrimScript
+namespace Skyrim
 {
-	namespace Papyrus
+	namespace Script
 	{
-		public ref class Actor
+		namespace Papyrus
 		{
-		public:
-		};
+			public ref class Actor
+			{
+			public:
+			};
+		}
 	}
 }

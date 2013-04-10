@@ -4,23 +4,26 @@
 #include <FreeScript/Types.hpp>
 #pragma managed
 
-namespace SkyrimScript
+namespace Skyrim
 {
-	namespace Wrapper
+	namespace Script
 	{
-		public ref class BSFixedString
+		namespace Wrapper
 		{
-		private:
+			public ref class BSFixedString
+			{
+			private:
 
-			void* ptr;
+				void* ptr;
 
-		public:
+			public:
 
-			BSFixedString(FreeScript::BSFixedString* ptr);
-			~BSFixedString();
+				BSFixedString(FreeScript::BSFixedString* ptr);
+				~BSFixedString();
 
-			virtual System::String^ ToString() override;
+				virtual System::String^ ToString() override;
 
-		};
+			};
+		}
 	}
 }

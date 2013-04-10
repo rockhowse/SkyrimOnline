@@ -6,7 +6,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using System.Diagnostics;
-using SkyrimScript.Wrapper;
+using Skyrim.Script.Wrapper;
 
 namespace Skyrim.Game
 {
@@ -21,10 +21,9 @@ namespace Skyrim.Game
         [DllExport]
         public static void Update()
         {
-            
-            Actor player = SkyrimScript.Papyrus.Game.GetPlayer();
+            Actor player = Skyrim.Script.Papyrus.Game.GetPlayer();
 
-            SkyrimScript.Papyrus.Debug.Notification("Form ID : " + player.FormID);
+            Skyrim.Script.Papyrus.Debug.Notification("Form ID : " + player.FormID);
 
         }
     }

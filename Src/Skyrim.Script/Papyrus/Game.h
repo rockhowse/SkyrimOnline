@@ -2,15 +2,18 @@
 
 #include "../Wrapper/References.h"
 
-namespace SkyrimScript
+namespace Skyrim
 {
-	namespace Papyrus
+	namespace Script
 	{
-		public ref class Game
+		namespace Papyrus
 		{
-		public:
+			public ref class Game
+			{
+			public:
 
-			static Wrapper::Actor^ GetPlayer();
-		};
+				static Wrapper::Actor^ GetPlayer();
+			};
+		}
 	}
 }

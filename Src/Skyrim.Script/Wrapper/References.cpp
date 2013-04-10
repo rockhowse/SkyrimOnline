@@ -7,34 +7,31 @@
 #include "References.h"
 
 using namespace System;
+using namespace Skyrim::Script;
 
-namespace SkyrimScript
+
+Wrapper::TESObjectREFR::TESObjectREFR(void* ptr) : Wrapper::TESForm(ptr)
 {
-	namespace Wrapper
-	{
-		TESObjectREFR::TESObjectREFR(void* ptr) : Wrapper::TESForm(ptr)
-		{
 
-		}
-
-		TESObjectREFR::~TESObjectREFR()
-		{
-
-		}
-
-		Wrapper::TESForm^ TESObjectREFR::BaseForm::get()
-		{
-			return gcnew Wrapper::TESForm(((FreeScript::TESObjectREFR*)ptr)->baseForm);
-		}
-
-		Actor::Actor(void* ptr) : Wrapper::TESObjectREFR(ptr)
-		{
-
-		}
-
-		Actor::~Actor()
-		{
-
-		}
-	}
 }
+
+Wrapper::TESObjectREFR::~TESObjectREFR()
+{
+
+}
+
+Wrapper::TESForm^ Wrapper::TESObjectREFR::BaseForm::get()
+{
+	return gcnew Wrapper::TESForm(((FreeScript::TESObjectREFR*)ptr)->baseForm);
+}
+
+Wrapper::Actor::Actor(void* ptr) : Wrapper::TESObjectREFR(ptr)
+{
+
+}
+
+Wrapper::Actor::~Actor()
+{
+
+}
+

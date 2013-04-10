@@ -7,7 +7,7 @@
 using namespace System;
 
 
-void SkyrimScript::Papyrus::Debug::Notification(System::String^ pstr)
+void Skyrim::Script::Papyrus::Debug::Notification(System::String^ pstr)
 {
 	char* str = (char*)(void*)
 		Runtime::InteropServices::Marshal::StringToHGlobalAnsi(pstr);

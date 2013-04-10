@@ -2,30 +2,33 @@
 
 #include "Forms.h"
 
-namespace SkyrimScript
+namespace Skyrim
 {
-	namespace Wrapper
+	namespace Script
 	{
-		public ref class TESObjectREFR : public Wrapper::TESForm
+		namespace Wrapper
 		{
-		public:
-
-			TESObjectREFR(void* ptr);
-			~TESObjectREFR();
-
-			property Wrapper::TESForm^ BaseForm
+			public ref class TESObjectREFR : public Wrapper::TESForm
 			{
-				Wrapper::TESForm^ get();
-			}
+			public:
 
-		};
+				TESObjectREFR(void* ptr);
+				~TESObjectREFR();
 
-		public ref class Actor : public Wrapper::TESObjectREFR
-		{
-		public:
+				property Wrapper::TESForm^ BaseForm
+				{
+					Wrapper::TESForm^ get();
+				}
 
-			Actor(void* ptr);
-			~Actor();
-		};
+			};
+
+			public ref class Actor : public Wrapper::TESObjectREFR
+			{
+			public:
+
+				Actor(void* ptr);
+				~Actor();
+			};
+		}
 	}
 }
