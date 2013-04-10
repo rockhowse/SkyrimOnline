@@ -39,3 +39,4 @@ setup.exe
 *.csproj.user
 Bin/
 Obj/
+Src/Skyrim.Script/FreeScript.lib

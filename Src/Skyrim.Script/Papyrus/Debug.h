@@ -2,7 +2,7 @@
 
 namespace SkyrimScript
 {
-	namespace Wrapper
+	namespace Papyrus
 	{
 		public ref class Debug
 		{
