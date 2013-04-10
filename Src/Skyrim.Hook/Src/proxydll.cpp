@@ -7,11 +7,35 @@
 #include "Papyrus.hpp"
 #include "WinAPI.hpp"
 #include "Plugins.hpp"
+#include "common/plugin.h"
 
 #pragma unmanaged
 
 HINSTANCE           gl_hOriginalDll;
 HINSTANCE           gl_hThisInstance;
+
+TRegisterPlugin RegisterPlugin;		
+
+#define SCRIPT_DRAGON "ScriptDragon.dll" 
+
+void DragonPluginInit(HMODULE hModule)
+{
+	HMODULE hDragon = LoadLibraryA(SCRIPT_DRAGON);
+	/* 
+	In order to provide NORMAL support i need a plugins to be distributed without the DragonScript.dll engine 
+	cuz user always must have the latest version which cud be found ONLY on my web page
+	*/
+	if (!hDragon) return;
+
+	RegisterPlugin = (TRegisterPlugin)GetProcAddress(hDragon, "RegisterPlugin");
+
+	if(!RegisterPlugin)
+	{
+		return;
+	}
+
+	RegisterPlugin(hModule);
+}
 
 void WINAPI D3DPERF_SetOptions( DWORD dwOptions )
 {
@@ -121,7 +145,7 @@ void ExitInstance()
 	}
 }
 
-typedef HANDLE (WINAPI *tCreateThread)(LPSECURITY_ATTRIBUTES,SIZE_T,LPTHREAD_START_ROUTINE,LPVOID,DWORD,PDWORD);
+/*typedef HANDLE (WINAPI *tCreateThread)(LPSECURITY_ATTRIBUTES,SIZE_T,LPTHREAD_START_ROUTINE,LPVOID,DWORD,PDWORD);
 tCreateThread oCreateThread;
 
 HANDLE WINAPI FakeCreateThread(
@@ -138,7 +162,7 @@ HANDLE WINAPI FakeCreateThread(
 		InstallPapyrusHook();
 	}
 	return oCreateThread(lpThreadAttributes, dwStackSize,lpStartAddress,lpParameter,dwCreationFlags,lpThreadId);
-}
+}*/
 
 #pragma unmanaged
 
@@ -159,20 +183,23 @@ BOOL APIENTRY DllMain(HMODULE hModule, DWORD fdwReason, LPVOID lpReserved)
 				Create();
 				GetInstance()->Load();
 
-				HMODULE kernel = GetModuleHandle("Kernel32.dll");
-				oCreateThread = (tCreateThread)DetourFunction((PBYTE)GetProcAddress(kernel, "CreateThread"), (PBYTE)FakeCreateThread);
-				
-				/*HookDInput();
-				HookWinAPI();*/
-			}
+				DragonPluginInit(hModule);
 
+				LoadLibraryA("Skyrim.Script.dll");
+				/*HMODULE kernel = GetModuleHandle("Kernel32.dll");
+				oCreateThread = (tCreateThread)DetourFunction((PBYTE)GetProcAddress(kernel, "CreateThread"), (PBYTE)FakeCreateThread);*/
+				
+				HookDInput();
+				HookWinAPI();
+			}
+			
 			break;
 		}
 	case DLL_PROCESS_DETACH:
 		{
 			ReleaseWinAPI();
 			ReleaseDInput();
-			UninstallPapyrusHook();
+			//UninstallPapyrusHook();
 			
 			break;
 		}

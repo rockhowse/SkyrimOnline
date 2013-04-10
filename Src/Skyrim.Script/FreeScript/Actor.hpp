@@ -2,6 +2,7 @@
 
 #include "Forms.hpp"
 #include "References.hpp"
+#include <string>
 
 namespace FreeScript
 {

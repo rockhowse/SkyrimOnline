@@ -5,6 +5,7 @@ using System.IO;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using System.Diagnostics;
 
 namespace Skyrim.Game
 {
@@ -19,7 +20,7 @@ namespace Skyrim.Game
         [DllExport]
         public static void Update()
         {
-            // Called everytime SkyrimVM's is updated
+            SkyrimScript.Wrapper.Debug.Notification("TEST " + Stopwatch.GetTimestamp());
         }
     }
 }

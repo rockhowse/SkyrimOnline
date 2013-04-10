@@ -3,6 +3,7 @@
 #include <algorithm>
 #include <stack>
 #include "Hook/Function.hpp"
+#include "common/plugin.h"
 
 class Plugin
 {
@@ -146,5 +147,21 @@ void PluginManager::Run()
 	for(auto p : mPlugins)
 	{
 		p->Run();
+	}
+}
+
+#pragma managed
+
+typedef void (__stdcall *TWait)(int);
+TWait Wait;
+
+extern "C" __declspec(dllexport) void main()
+{
+	auto mod = GetModuleHandle("Skyrim.Script.dll");
+	Wait = (TWait)GetProcAddress(mod, "DoWait");
+	while(Wait)
+	{
+		GetInstance()->Run();
+		Wait(0);
 	}
 }

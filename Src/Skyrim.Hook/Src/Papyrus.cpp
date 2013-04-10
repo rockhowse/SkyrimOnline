@@ -57,9 +57,9 @@ NAKED_JUMP(Register);*/
 
 void __stdcall InstallPapyrusHook()
 {
-	oVMUpdate = (tVMUpdate)DetourFunction((PBYTE)0x8D40D0, (PBYTE)VMUpdate);
+	/*oVMUpdate = (tVMUpdate)DetourFunction((PBYTE)0x8D40D0, (PBYTE)VMUpdate);
 	oInvoke = (tInvoke)DetourFunction((PBYTE)0xC46CB0, (PBYTE)Invoke);
-	oRegister = (tRegister)DetourFunction((PBYTE)0xC4D420 ,(PBYTE)Register);
+	oRegister = (tRegister)DetourFunction((PBYTE)0xC4D420 ,(PBYTE)Register);*/
 }
 
 void __stdcall UninstallPapyrusHook()
