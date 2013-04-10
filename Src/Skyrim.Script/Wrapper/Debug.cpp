@@ -13,7 +13,6 @@ void SkyrimScript::Wrapper::Debug::Notification(System::String^ pstr)
 		Runtime::InteropServices::Marshal::StringToHGlobalAnsi(pstr);
 
 	::Debug::Notification(str);
-	::Debug::Notification("toto");
 
 	Runtime::InteropServices::Marshal::FreeHGlobal(IntPtr(str));
 }
