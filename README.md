@@ -1,21 +1,13 @@
 # Skyrim Online
 * by Maxime Griot
 
-	Copyright (c) 2011-2012, Maxime Griot
+	Copyright (c) 2011-2013, Maxime Griot
 
 ### NOTICE
 
-Some third party libraries are used and must NOT be commited or pushed as it would go against the license used.
+Check out LICENSE to know more about the license used.
 
+### Compiling with Visual Studio 2012
 
-### Compiling with Visual Studio 2010
-
-The suggested folder structure is the follwing :
-
-Clone in : SkyrimOnline/Src/
-
-Then download the dependencies here : https://github.com/downloads/yamashi/SkyrimOnline/Dependencies.rar
-
-Which you will have to unrar in : SkyrimOnline/Dependencies
-
-Also download the Directx SDK.
+You will need the november CTP compiler in order to be able to build the project.
+You also need the Directx SDK.
