@@ -8,22 +8,19 @@ namespace Skyrim
 {
 	namespace Script
 	{
-		namespace Wrapper
+		public ref class BSFixedString
 		{
-			public ref class BSFixedString
-			{
-			private:
+		private:
 
-				void* ptr;
+			void* ptr;
 
-			public:
+		public:
 
-				BSFixedString(FreeScript::BSFixedString* ptr);
-				~BSFixedString();
+			BSFixedString(FreeScript::BSFixedString* ptr);
+			~BSFixedString();
 
-				virtual System::String^ ToString() override;
+			virtual System::String^ ToString() override;
 
-			};
-		}
+		};
 	}
 }

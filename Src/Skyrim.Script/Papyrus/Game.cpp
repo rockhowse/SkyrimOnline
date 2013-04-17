@@ -6,7 +6,7 @@
 #pragma managed
 using namespace System;
 
-Skyrim::Script::Wrapper::Actor^ Skyrim::Script::Papyrus::Game::GetPlayer()
+Skyrim::Script::Actor^ Skyrim::Script::Papyrus::Game::GetPlayer()
 {
-	return gcnew Skyrim::Script::Wrapper::Actor(::Game::GetPlayer());
+	return gcnew Skyrim::Script::Actor(::Game::GetPlayer());
 }

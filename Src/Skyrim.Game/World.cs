@@ -9,5 +9,9 @@ namespace Skyrim.Game
 {
     class World : IWorld
     {
+        public void Update()
+        {
+
+        }
     }
 }

@@ -8,5 +8,6 @@ namespace Skyrim.API
 {
     public interface IWorld
     {
+        void Update();
     }
 }

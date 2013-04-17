@@ -8,39 +8,38 @@
 
 using namespace System;
 
-using namespace Skyrim::Script;
+using namespace Skyrim;
 
-Wrapper::TESForm::TESForm(void* ptr) : BaseFormComponent(ptr)
+Script::TESForm::TESForm(void* ptr) : Script::BaseFormComponent(ptr)
+{
+
+}
+Script::TESForm::~TESForm()
 {
 
 }
 
-Wrapper::TESForm::~TESForm()
-{
-
-}
-
-int Wrapper::TESForm::FormID::get()
+int Script::TESForm::FormID::get()
 {
 	return ((FreeScript::TESForm*)ptr)->formID;
 }
 
-int Wrapper::TESForm::FormType::get()
+int Script::TESForm::FormType::get()
 {
 	return ((FreeScript::TESForm*)ptr)->formType;
 }
 
-int Wrapper::TESForm::Flags::get()
+int Script::TESForm::Flags::get()
 {
 	return ((FreeScript::TESForm*)ptr)->flags;
 }
 
-Wrapper::TESObjectCELL::TESObjectCELL(void* ptr) : Wrapper::TESForm(ptr)
+Script::TESObjectCELL::TESObjectCELL(void* ptr) : Script::TESForm(ptr)
 {
 
 }
 
-Wrapper::TESObjectCELL::~TESObjectCELL()
+Script::TESObjectCELL::~TESObjectCELL()
 {
 
 }

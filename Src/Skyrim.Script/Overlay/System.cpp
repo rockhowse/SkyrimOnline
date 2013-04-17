@@ -6,7 +6,6 @@
 
 #define MAP(a,b) if(vk == a) return b;
 
-
 namespace Skyrim
 {
 	namespace Overlay
@@ -72,22 +71,10 @@ namespace Skyrim
 		//--------------------------------------------------------------------------------
 		void System::Acquire()
 		{
-			// UI needs its own context
-			//if(myIDirect3DDevice9::GetInstance())
-			{
-				//mRender = myIDirect3DDevice9::GetInstance()->OnPresent.connect(std::bind(&System::OnRender, this, std::placeholders::_1));
-				//mReset = myIDirect3DDevice9::GetInstance()->OnReset.connect(std::bind(&System::OnLostDevice,this,std::placeholders::_1));
-			}
-			//else
-			{
-			}
 		}
 		//--------------------------------------------------------------------------------
 		void System::Reset()
 		{
-			//mRender.disconnect();
-			//mReset.disconnect();
-
 			mUI->destroyAllChildWidget();
 		}
 		//--------------------------------------------------------------------------------

@@ -1,6 +1,6 @@
 #pragma once
 
-#include "../Wrapper/References.h"
+#include <Wrapper/References.h>
 
 namespace Skyrim
 {
@@ -12,7 +12,7 @@ namespace Skyrim
 			{
 			public:
 
-				static Wrapper::Actor^ GetPlayer();
+				static Script::Actor^ GetPlayer();
 			};
 		}
 	}

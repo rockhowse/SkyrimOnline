@@ -6,29 +6,26 @@ namespace Skyrim
 {
 	namespace Script
 	{
-		namespace Wrapper
+		public ref class TESObjectREFR : public Script::TESForm
 		{
-			public ref class TESObjectREFR : public Wrapper::TESForm
+		public:
+
+			TESObjectREFR(void* ptr);
+			~TESObjectREFR();
+
+			property Script::TESForm^ BaseForm
 			{
-			public:
+				Script::TESForm^ get();
+			}
 
-				TESObjectREFR(void* ptr);
-				~TESObjectREFR();
+		};
 
-				property Wrapper::TESForm^ BaseForm
-				{
-					Wrapper::TESForm^ get();
-				}
+		public ref class Actor : public TESObjectREFR
+		{
+		public:
 
-			};
-
-			public ref class Actor : public Wrapper::TESObjectREFR
-			{
-			public:
-
-				Actor(void* ptr);
-				~Actor();
-			};
-		}
+			Actor(void* ptr);
+			~Actor();
+		};
 	}
 }

@@ -21,9 +21,6 @@
     <ClInclude Include="resource.h">
       <Filter>Header Files</Filter>
     </ClInclude>
-    <ClInclude Include="Vector3D.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
     <ClInclude Include="FreeScript\Actor.hpp">
       <Filter>Header Files</Filter>
     </ClInclude>
@@ -132,15 +129,18 @@
     <ClInclude Include="Hook\Function.hpp">
       <Filter>Header Files</Filter>
     </ClInclude>
+    <ClInclude Include="Wrapper\Input.hpp">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="Wrapper\Overlay\System.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="AssemblyInfo.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
     <ClCompile Include="Stdafx.cpp">
-      <Filter>Source Files</Filter>
-    </ClCompile>
-    <ClCompile Include="Vector3D.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
     <ClCompile Include="FreeScript\Actor.cpp">
@@ -216,6 +216,12 @@
       <Filter>Source Files</Filter>
     </ClCompile>
     <ClCompile Include="Engine\Data.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="Wrapper\Input.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="Wrapper\Overlay\System.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
   </ItemGroup>

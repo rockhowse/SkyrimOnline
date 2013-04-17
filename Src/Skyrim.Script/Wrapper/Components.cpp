@@ -7,31 +7,31 @@
 #include "Components.h"
 
 using namespace System;
-using namespace Skyrim::Script;
+using namespace Skyrim;
 
 
-Wrapper::BaseFormComponent::BaseFormComponent(void* ptr) : ptr(ptr)
+Script::BaseFormComponent::BaseFormComponent(void* ptr) : ptr(ptr)
 {
 
 }
 
-Wrapper::BaseFormComponent::~BaseFormComponent()
+Script::BaseFormComponent::~BaseFormComponent()
 {
 
 }
 
-Wrapper::TESFullName::TESFullName(void* ptr) : BaseFormComponent(ptr)
+Script::TESFullName::TESFullName(void* ptr) : Script::BaseFormComponent(ptr)
 {
 
 }
 
-Wrapper::TESFullName::~TESFullName()
+Script::TESFullName::~TESFullName()
 {
 
 }
 
-Wrapper::BSFixedString^ Wrapper::TESFullName::Name::get()
+Script::BSFixedString^ Script::TESFullName::Name::get()
 {
-	return gcnew Wrapper::BSFixedString(&((FreeScript::TESFullName*)ptr)->name);
+	return gcnew Script::BSFixedString(&((FreeScript::TESFullName*)ptr)->name);
 }
 

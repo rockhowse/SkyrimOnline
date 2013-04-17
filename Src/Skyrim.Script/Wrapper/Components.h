@@ -6,32 +6,29 @@ namespace Skyrim
 {
 	namespace Script
 	{
-		namespace Wrapper
+		public ref class BaseFormComponent
 		{
-			public ref class BaseFormComponent
+		protected:
+
+			void* ptr;
+
+		public:
+
+			BaseFormComponent(void* ptr);
+			virtual ~BaseFormComponent();
+		};
+
+		public ref class TESFullName : public Script::BaseFormComponent
+		{
+		public:
+
+			TESFullName(void* ptr);
+			~TESFullName();
+
+			property Script::BSFixedString^ Name
 			{
-			protected:
-
-				void* ptr;
-
-			public:
-
-				BaseFormComponent(void* ptr);
-				virtual ~BaseFormComponent();
-			};
-
-			public ref class TESFullName : public Wrapper::BaseFormComponent
-			{
-			public:
-
-				TESFullName(void* ptr);
-				~TESFullName();
-
-				property Wrapper::BSFixedString^ Name
-				{
-					Wrapper::BSFixedString^ get();
-				}
-			};
-		}
+				Script::BSFixedString^ get();
+			}
+		};
 	}
 }
