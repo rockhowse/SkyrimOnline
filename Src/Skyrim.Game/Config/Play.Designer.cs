@@ -28,22 +28,25 @@
         /// </summary>
         private void InitializeComponent()
         {
-            System.Windows.Forms.ListViewItem listViewItem1 = new System.Windows.Forms.ListViewItem(new string[] {
-            "Jesus",
-            "8"}, -1);
-            System.Windows.Forms.ListViewItem listViewItem2 = new System.Windows.Forms.ListViewItem(new string[] {
-            "Lol",
-            "10"}, -1);
             System.Windows.Forms.ColumnHeader columnHeader3;
             System.Windows.Forms.ColumnHeader columnHeader2;
             this.disableButton = new System.Windows.Forms.Button();
             this.playButton = new System.Windows.Forms.Button();
             this.listView1 = new System.Windows.Forms.ListView();
-            this.label1 = new System.Windows.Forms.Label();
             this.columnHeader1 = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
+            this.label1 = new System.Windows.Forms.Label();
             columnHeader3 = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
             columnHeader2 = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
             this.SuspendLayout();
+            // 
+            // columnHeader3
+            // 
+            columnHeader3.Text = "Population";
+            columnHeader3.Width = 70;
+            // 
+            // columnHeader2
+            // 
+            columnHeader2.Text = "Maximum";
             // 
             // disableButton
             // 
@@ -75,9 +78,6 @@
             columnHeader2});
             this.listView1.FullRowSelect = true;
             this.listView1.GridLines = true;
-            this.listView1.Items.AddRange(new System.Windows.Forms.ListViewItem[] {
-            listViewItem1,
-            listViewItem2});
             this.listView1.Location = new System.Drawing.Point(12, 40);
             this.listView1.Name = "listView1";
             this.listView1.Size = new System.Drawing.Size(341, 308);
@@ -85,6 +85,11 @@
             this.listView1.UseCompatibleStateImageBehavior = false;
             this.listView1.View = System.Windows.Forms.View.Details;
             this.listView1.ColumnClick += new System.Windows.Forms.ColumnClickEventHandler(this.listView1_ColumnClick);
+            // 
+            // columnHeader1
+            // 
+            this.columnHeader1.Text = "Name";
+            this.columnHeader1.Width = 207;
             // 
             // label1
             // 
@@ -94,20 +99,6 @@
             this.label1.Size = new System.Drawing.Size(59, 13);
             this.label1.TabIndex = 3;
             this.label1.Text = "Server list :";
-            // 
-            // columnHeader1
-            // 
-            this.columnHeader1.Text = "Name";
-            this.columnHeader1.Width = 207;
-            // 
-            // columnHeader3
-            // 
-            columnHeader3.Text = "Population";
-            columnHeader3.Width = 70;
-            // 
-            // columnHeader2
-            // 
-            columnHeader2.Text = "Maximum";
             // 
             // Play
             // 

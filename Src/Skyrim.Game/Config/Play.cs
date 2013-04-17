@@ -14,11 +14,20 @@ namespace Skyrim.Game.Config
     {
         private ListViewColumnSorter sorter = new ListViewColumnSorter();
 
+        public ListView List
+        {
+            get { return listView1; }
+        }
+
         public Play()
         {
             InitializeComponent();
 
+            Entry.Client = new IO.MasterClient();
+            Entry.Client.GetServerList("127.0.0.1");
+
             listView1.ListViewItemSorter = sorter;
+            Application.Idle += new EventHandler(AppIdle);
         }
 
         private void disableButton_Click(object sender, EventArgs e)
@@ -57,6 +66,11 @@ namespace Skyrim.Game.Config
 
             // Procéder au tri avec les nouvelles options.
             this.listView1.Sort();
+        }
+
+        static void AppIdle(object sender, EventArgs e)
+        {
+            Entry.Client.Update();
         }
     }
 }

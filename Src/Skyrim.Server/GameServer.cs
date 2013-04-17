@@ -11,8 +11,9 @@ namespace Skyrim.Server
     {
         private NetServer server;
 
-        public GameServer()
+        public GameServer(string pName)
         {
+            Name = pName;
             NetPeerConfiguration config = new NetPeerConfiguration("game");
             config.Port = 14242;
 
@@ -40,6 +41,12 @@ namespace Skyrim.Server
         public NetServer Server
         {
             get { return server; }
+        }
+
+        public string Name
+        {
+            get;
+            set;
         }
     }
 }

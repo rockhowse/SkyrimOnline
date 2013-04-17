@@ -13,9 +13,9 @@ namespace Skyrim.Server.Internals
     {
         IPEndPoint masterServerEndpoint;
         float lastRegistered = -60.0f;
-        NetServer server = null;
+        GameServer server = null;
 
-        public MasterServer(NetServer pServer)
+        public MasterServer(GameServer pServer)
         {
             server = pServer;
             masterServerEndpoint = NetUtility.Resolve("localhost", Skyrim.API.MasterServer.MasterServerPort);
@@ -25,14 +25,17 @@ namespace Skyrim.Server.Internals
         {
             if (NetTime.Now > lastRegistered + 60)
             {
-                NetOutgoingMessage regMsg = server.CreateMessage();
+                NetOutgoingMessage regMsg = server.Server.CreateMessage();
                 regMsg.Write((byte)MasterServerMessageType.RegisterHost);
                 IPAddress mask;
                 IPAddress adr = NetUtility.GetMyAddress(out mask);
-                regMsg.Write(server.UniqueIdentifier);
+                regMsg.Write(server.Server.UniqueIdentifier);
+                regMsg.Write(server.Name);
+                regMsg.Write((UInt16)server.Server.ConnectionsCount);
+                regMsg.Write((UInt16)32);
                 regMsg.Write(new IPEndPoint(adr, 14242));
                 Console.WriteLine("Sending registration to master server");
-                server.SendUnconnectedMessage(regMsg, masterServerEndpoint);
+                server.Server.SendUnconnectedMessage(regMsg, masterServerEndpoint);
                 lastRegistered = (float)NetTime.Now;
             }
         }

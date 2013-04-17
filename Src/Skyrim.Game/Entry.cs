@@ -1,5 +1,6 @@
 ﻿using RGiesecke.DllExport;
 using Skyrim.API;
+using Skyrim.Game.IO;
 using Skyrim.Script;
 using System.Windows.Forms;
 
@@ -19,7 +20,10 @@ namespace Skyrim.Game
         private static void Initialize()
         {
             Application.EnableVisualStyles();
-            Application.Run(new Config.Play());
+
+            View = new Config.Play();
+
+            Application.Run(View);
 
             if (Enabled)
             {
@@ -43,6 +47,18 @@ namespace Skyrim.Game
         }
 
         static public bool Enabled
+        {
+            get;
+            set;
+        }
+
+        static public Config.Play View
+        {
+            get;
+            set;
+        }
+
+        static public IO.MasterClient Client
         {
             get;
             set;

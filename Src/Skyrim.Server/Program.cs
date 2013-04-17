@@ -11,8 +11,8 @@ namespace Skyrim.Server
     {
         static void Main(string[] args)
         {
-            GameServer server = new GameServer();
-            MasterServer masterServer = new MasterServer(server.Server);
+            GameServer server = new GameServer("Test test");
+            MasterServer masterServer = new MasterServer(server);
 
             while (Console.KeyAvailable == false || Console.ReadKey().Key != ConsoleKey.Escape)
             {
