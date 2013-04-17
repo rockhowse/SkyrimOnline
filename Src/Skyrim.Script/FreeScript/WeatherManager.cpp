@@ -1,6 +1,6 @@
 #include "stdafx.h"
 #include "WeatherManager.h"
-#include "Invoke.hpp"
+#include <common/skyscript.h>
 
 namespace FreeScript
 {
@@ -12,7 +12,7 @@ namespace FreeScript
 	//--------------------------------------------------------------------------------
 	void WeatherManager::SetWeather(uint32_t pWeather)
 	{
-		Weather::ForceActive((TESWeather*)Game::GetForm(pWeather), true);
+		Weather::ForceActive((TESWeather*)Game::GetFormById(pWeather), true);
 	}
 	//--------------------------------------------------------------------------------
 	uint32_t WeatherManager::GetWeather() const

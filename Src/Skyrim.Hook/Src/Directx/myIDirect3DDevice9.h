@@ -137,10 +137,8 @@ public:
 	HWND GetWindow();
 	RECT GetSize();
 
-	Signal<void(myIDirect3DDevice9*)> OnRenderEnd;
-	Signal<void(myIDirect3DDevice9*)> OnRenderBegin;
-	Signal<void(myIDirect3DDevice9*)> OnPresent;
-	Signal<void(myIDirect3DDevice9*)> OnReset;
+	Signal<void(IDirect3DDevice9*)> OnPresent;
+	Signal<void(IDirect3DDevice9*)> OnReset;
 
 	static myIDirect3DDevice9* GetInstance();
 	

@@ -126,7 +126,9 @@ namespace FreeScript
 	class TESActorBase : public TESBoundAnimObject
 	{
 	public:
-		char				pad00to84[0x84 - 0x20];
+		char				pad20to24[0x24 - 0x20];
+		char				gender; // 0x25
+		char				pad25to84[0x84 - 0x25];
 		TESFullName			fullName;
 		char				pad8ctoc0[0xc0 - 0x8c];
 	};

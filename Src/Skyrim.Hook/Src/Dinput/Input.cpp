@@ -1,4 +1,5 @@
 #include "Plugins.hpp"
+#include "Input.hpp"
 
 #pragma unmanaged
 #include <dinput.h>
@@ -16,27 +17,19 @@ IMPL_DEFINE_GUID(GUID_SysKeyboard,0x6F1D2B61,0xD5A0,0x11CF,0xBF,0xC7,0x44,0x45,0
 typedef HRESULT (_stdcall * DirectInput8Create_t)(HINSTANCE, DWORD, REFIID, LPVOID, LPUNKNOWN);
 static DirectInput8Create_t	DirectInput8Create_r;
 
-struct InputListener
-{
-	virtual void OnPress(BYTE code) = 0;
-	virtual void OnRelease(BYTE code) = 0;
-	virtual void OnMousePress(BYTE code) = 0;
-	virtual void OnMouseRelease(BYTE code) = 0;
-	virtual void OnMouseMove(unsigned int x, unsigned int y, unsigned int z) = 0;
-};
+IInputHook* TheIInputHook = nullptr;
 
-class __declspec(dllexport) InputHook
+class InputHook : public IInputHook
 {
 public:
 
 	static InputHook* GetInstance()
 	{
-		static InputHook* hook = nullptr;
-		if(hook == nullptr)
+		if(TheIInputHook == nullptr)
 		{
-			hook = new InputHook;
+			TheIInputHook = new InputHook;
 		}
-		return hook;
+		return (InputHook*)TheIInputHook;
 	}
 
 	bool IsInputEnabled()

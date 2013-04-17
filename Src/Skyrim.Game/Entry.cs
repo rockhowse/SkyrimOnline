@@ -1,4 +1,5 @@
 ﻿using RGiesecke.DllExport;
+using Skyrim.API;
 using Skyrim.Script.Wrapper;
 
 namespace Skyrim.Game

@@ -15,6 +15,7 @@ HINSTANCE           gl_hOriginalDll;
 HINSTANCE           gl_hThisInstance;
 
 TRegisterPlugin RegisterPlugin;		
+TWait Wait;
 
 #define SCRIPT_DRAGON "ScriptDragon.dll" 
 
@@ -28,6 +29,7 @@ void DragonPluginInit(HMODULE hModule)
 	if (!hDragon) return;
 
 	RegisterPlugin = (TRegisterPlugin)GetProcAddress(hDragon, "RegisterPlugin");
+	Wait = (TWait)GetProcAddress(hDragon, "WaitMs");
 
 	if(!RegisterPlugin)
 	{
@@ -79,18 +81,6 @@ IDirect3D9* WINAPI Direct3DCreate9(UINT SDKVersion)
 
 	// Return pointer to hooking Object instead of "real one"
 	return (myIDirect3D9::instance );
-}
-
-void InitInstance(HANDLE hModule)
-{
-	OutputDebugString("PROXYDLL: InitInstance called.\r\n");
-
-	// Initialisation
-	gl_hOriginalDll        = NULL;
-	gl_hThisInstance       = NULL;
-
-	// Storing Instance handle into global var
-	gl_hThisInstance = (HINSTANCE)  hModule;
 }
 
 std::string GetPath()
@@ -159,7 +149,7 @@ HANDLE WINAPI FakeCreateThread(
 {
 	if(*(uint32_t*)lpParameter == 0x010CDD60) // VMInitThread::vftable
 	{
-		LoadLibraryA("Skyrim.Script.dll");
+		auto h = LoadLibraryA("Skyrim.Script.dll");
 
 		DragonPluginInit(gl_hThisInstance);
 		//InstallPapyrusHook();
@@ -185,7 +175,10 @@ BOOL APIENTRY DllMain(HMODULE hModule, DWORD fdwReason, LPVOID lpReserved)
 			{
 				gl_hThisInstance = hModule;
 
+				// This block MUST run BEFORE any hook, CLR won't run otherwise.
+				// Create the PluginManager
 				Create();
+				// Load all the plugins
 				GetInstance()->Load();
 
 				/*
@@ -204,6 +197,7 @@ BOOL APIENTRY DllMain(HMODULE hModule, DWORD fdwReason, LPVOID lpReserved)
 		{
 			ReleaseWinAPI();
 			ReleaseDInput();
+			ExitInstance();
 			//UninstallPapyrusHook();
 			
 			break;

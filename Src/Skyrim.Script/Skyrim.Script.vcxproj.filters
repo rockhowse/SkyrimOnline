@@ -51,9 +51,6 @@
     <ClInclude Include="FreeScript\FreeScript.hpp">
       <Filter>Header Files</Filter>
     </ClInclude>
-    <ClInclude Include="FreeScript\Invoke.hpp">
-      <Filter>Header Files</Filter>
-    </ClInclude>
     <ClInclude Include="FreeScript\Memory.hpp">
       <Filter>Header Files</Filter>
     </ClInclude>
@@ -117,6 +114,24 @@
     <ClInclude Include="Papyrus\Game.h">
       <Filter>Header Files</Filter>
     </ClInclude>
+    <ClInclude Include="Engine\InputManager.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="Overlay\Chat.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="Overlay\Message.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="Overlay\System.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="Engine\Data.hpp">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="Hook\Function.hpp">
+      <Filter>Header Files</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="AssemblyInfo.cpp">
@@ -144,9 +159,6 @@
       <Filter>Source Files</Filter>
     </ClCompile>
     <ClCompile Include="FreeScript\FreeScript.cpp">
-      <Filter>Source Files</Filter>
-    </ClCompile>
-    <ClCompile Include="FreeScript\Invoke.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
     <ClCompile Include="FreeScript\Memory.cpp">
@@ -189,6 +201,21 @@
       <Filter>Source Files</Filter>
     </ClCompile>
     <ClCompile Include="Papyrus\Game.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="Engine\InputManager.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="Overlay\Chat.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="Overlay\Message.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="Overlay\System.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="Engine\Data.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
   </ItemGroup>

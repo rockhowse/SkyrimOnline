@@ -14,6 +14,9 @@
 #include <array>
 #include <string>
 #include <vector>
+#include <sstream>
+
+#include <d3d9.h>
 
 
 #pragma warning( disable : 4251 )

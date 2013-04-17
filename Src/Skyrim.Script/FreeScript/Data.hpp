@@ -5,6 +5,9 @@
 
 namespace FreeScript
 {
+	bool GetGlobalSetting(int formIDSetting, float *fSetting);
+	bool SetGlobalSetting(int formIDSetting, float fSetting);
+
 	class TESNPC;
 	class TESDataHandler
 	{

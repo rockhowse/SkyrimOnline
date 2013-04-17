@@ -112,11 +112,6 @@ void DragonPluginInit(HMODULE hModule)
 
 #pragma unmanaged
 
-extern "C" __declspec(dllexport) void DoWait(int t)
-{
-	Wait(t);
-}
-
 extern "C" __declspec(dllexport) void main()
 {
 	while(1)

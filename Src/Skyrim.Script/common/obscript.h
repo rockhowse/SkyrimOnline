@@ -17,7 +17,6 @@
 	  that param type shud be id u must pass the class handle of this id instead of id itself .
 */
 
-#include "types.h"
 #include "invoke.h"
 
 namespace Obscript

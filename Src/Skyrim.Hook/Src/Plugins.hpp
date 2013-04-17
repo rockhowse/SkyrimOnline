@@ -1,9 +1,8 @@
 #pragma once
 
-#include <vector>
 #include <xmemory>
 #include <windows.h>
-#include <memory>
+#include <cstdint>
 
 class IRunnable
 {

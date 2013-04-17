@@ -4,6 +4,9 @@
 #include <stack>
 #include "Hook/Function.hpp"
 #include "common/plugin.h"
+#include "Dinput/Input.hpp"
+#include "Directx/myIDirect3D9.h"
+#include "Directx/myIDirect3DDevice9.h"
 
 class Plugin
 {
@@ -150,15 +153,20 @@ void PluginManager::Run()
 	}
 }
 
-#pragma managed
-
-typedef void (__stdcall *TWait)(int);
-TWait Wait;
+typedef void (*tSetVariables)(IDirect3DDevice9* pDevice, IDirect3D9* pDirect, IInputHook* pInput,Signal<void(IDirect3DDevice9*)>*,Signal<void(IDirect3DDevice9*)>*);
+tSetVariables SetVariables;
 
 extern "C" __declspec(dllexport) void main()
 {
 	auto mod = GetModuleHandle("Skyrim.Script.dll");
-	Wait = (TWait)GetProcAddress(mod, "DoWait");
+	SetVariables = (tSetVariables)GetProcAddress(mod, "SetVariables");
+
+	IDirect3D9* pDevice;
+	myIDirect3DDevice9::GetInstance()->GetDirect3D(&pDevice);
+	SetVariables(myIDirect3DDevice9::GetInstance()->GetDevice(), pDevice, TheIInputHook, 
+		&myIDirect3DDevice9::GetInstance()->OnPresent,
+		&myIDirect3DDevice9::GetInstance()->OnReset);
+
 	while(Wait)
 	{
 		GetInstance()->Run();

@@ -11,6 +11,8 @@
 
 #include <detours.h>
 
+#include <MyGUI/MyGUI.h>
+
 #include <FreeScript/FreeScript.hpp>
 
 #pragma warning( disable : 4251 )

@@ -53,7 +53,7 @@
       <OptimizeReferences>true</OptimizeReferences>
       <OutputFile>$(OutDir)d3d9$(TargetExt)</OutputFile>
       <AdditionalLibraryDirectories>$(DXSDK_DIR)\Lib\x86;$(SolutionDir)\Dependencies\lib;$(SolutionDir)\Bin;%(AdditionalLibraryDirectories)</AdditionalLibraryDirectories>
-      <AdditionalDependencies>d3d9.lib;%(AdditionalDependencies)</AdditionalDependencies>
+      <AdditionalDependencies>d3d9.lib;D3dx9.lib;MyGUI.DirectXPlatform.lib;MyGUIEngine.lib;%(AdditionalDependencies)</AdditionalDependencies>
       <ModuleDefinitionFile>Src/proxydll.def</ModuleDefinitionFile>
       <ImportLibrary>..\..\Bin\$(TargetName).lib</ImportLibrary>
       <ImageHasSafeExceptionHandlers>false</ImageHasSafeExceptionHandlers>
@@ -64,7 +64,6 @@
     <ClInclude Include="Src\Dinput\Input.hpp" />
     <ClInclude Include="Src\Directx\myIDirect3D9.h" />
     <ClInclude Include="Src\Directx\myIDirect3DDevice9.h" />
-    <ClInclude Include="Src\Hook\Function.hpp" />
     <ClInclude Include="Src\Papyrus.hpp" />
     <ClInclude Include="Src\Plugins.hpp" />
     <ClInclude Include="Src\proxydll.h" />
