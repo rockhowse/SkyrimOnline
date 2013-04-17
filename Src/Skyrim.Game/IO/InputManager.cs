@@ -9,6 +9,8 @@ namespace Skyrim.Game.IO
 {
     public class InputManager
     {
+        private bool mUIEnabled;
+
         public InputManager()
         {
             UIEnabled = false;
@@ -70,8 +72,15 @@ namespace Skyrim.Game.IO
 
         public bool UIEnabled
         {
-            get;
-            set;
+            get
+            {
+                return mUIEnabled;
+            }
+            set
+            {
+                Skyrim.Script.Overlay.System.CursorVisible = value;
+                mUIEnabled = value;
+            }
         }
     }
 }

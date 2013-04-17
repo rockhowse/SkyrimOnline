@@ -17,6 +17,7 @@ class IPluginManager
 public:
 
 	virtual void Load() = 0;
+	virtual void Initialize() = 0;
 	virtual void Run() = 0;
 };
 

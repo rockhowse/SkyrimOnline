@@ -15,12 +15,14 @@ public:
 	~Plugin();
 
 	void Run();
+	void Initialize();
 
 private:
 
 	HMODULE module;
 	void (__stdcall *mInitProc)();
 	void (__stdcall *mUpdateProc)();
+	void (__stdcall *mLoadProc)();
 };
 
 class PluginManager : public IPluginManager
@@ -28,6 +30,7 @@ class PluginManager : public IPluginManager
 public:
 
 	void Load();
+	void Initialize();
 	void Run();
 
 	static PluginManager* instance;
@@ -66,16 +69,21 @@ Plugin::Plugin(const std::string& pName)
 	{
 		mInitProc = (decltype(mInitProc))GetProcAddress(module, "Initialize");
 		mUpdateProc = (decltype(mUpdateProc))GetProcAddress(module, "Update");
+		mLoadProc = (decltype(mLoadProc))GetProcAddress(module, "Load");
 		file << "Initialize : " << mInitProc << " | Run : " << mUpdateProc << std::endl;
-		if(mInitProc && mUpdateProc)
-		{
-			mInitProc();
-		}
+		if(mLoadProc)
+			mLoadProc();
 	}
 }
 
 Plugin::~Plugin()
 {
+}
+
+void Plugin::Initialize()
+{
+	if(mInitProc && mUpdateProc)
+		mInitProc();
 }
 
 void Plugin::Run()
@@ -143,6 +151,14 @@ void PluginManager::Load()
 	for(auto f : files)
 		mPlugins.push_back(std::make_shared<Plugin>(f));
 
+}
+
+void PluginManager::Initialize()
+{
+	for(auto p : mPlugins)
+	{
+		p->Initialize();
+	}
 }
 
 void PluginManager::Run()

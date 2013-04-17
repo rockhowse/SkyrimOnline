@@ -135,8 +135,12 @@ void ExitInstance()
 	}
 }
 
+#pragma unmanaged
+
+typedef HWND (WINAPI* tCreateWindowExA)(DWORD dwExStyle, LPCSTR lpClassName, LPCSTR lpWindowName, DWORD dwStyle, int X, int Y, int nWidth, int nHeight, HWND hWndParent, HMENU hMenu, HINSTANCE hInstance, LPVOID lpParam);
 typedef HANDLE (WINAPI *tCreateThread)(LPSECURITY_ATTRIBUTES,SIZE_T,LPTHREAD_START_ROUTINE,LPVOID,DWORD,PDWORD);
 tCreateThread oCreateThread;
+tCreateWindowExA oCreateWindowExA;
 
 HANDLE WINAPI FakeCreateThread(
 	LPSECURITY_ATTRIBUTES lpThreadAttributes,
@@ -149,15 +153,23 @@ HANDLE WINAPI FakeCreateThread(
 {
 	if(*(uint32_t*)lpParameter == 0x010CDD60) // VMInitThread::vftable
 	{
-		auto h = LoadLibraryA("Skyrim.Script.dll");
-
 		DragonPluginInit(gl_hThisInstance);
 		//InstallPapyrusHook();
 	}
 	return oCreateThread(lpThreadAttributes, dwStackSize,lpStartAddress,lpParameter,dwCreationFlags,lpThreadId);
 }
 
-#pragma unmanaged
+HWND WINAPI FakeCreateWindowExA(DWORD dwExStyle, LPCSTR lpClassName, LPCSTR lpWindowName, DWORD dwStyle, int X, int Y, int nWidth, int nHeight, HWND hWndParent, HMENU hMenu, HINSTANCE hInstance, LPVOID lpParam)
+{
+	static bool init = true;
+	if(init)
+	{
+		init = false;
+		GetInstance()->Initialize();
+	}
+	
+	return oCreateWindowExA(dwExStyle, lpClassName, lpWindowName, dwStyle, X, Y, nWidth, nHeight, hWndParent, hMenu, hInstance, lpParam);
+}
 
 BOOL APIENTRY DllMain(HMODULE hModule, DWORD fdwReason, LPVOID lpReserved)
 {
@@ -174,7 +186,7 @@ BOOL APIENTRY DllMain(HMODULE hModule, DWORD fdwReason, LPVOID lpReserved)
 			if(strL.find("TESV.exe") != std::string::npos)
 			{
 				gl_hThisInstance = hModule;
-
+				
 				// This block MUST run BEFORE any hook, CLR won't run otherwise.
 				// Create the PluginManager
 				Create();
@@ -187,6 +199,9 @@ BOOL APIENTRY DllMain(HMODULE hModule, DWORD fdwReason, LPVOID lpReserved)
 				HMODULE kernel = GetModuleHandle("Kernel32.dll");
 				oCreateThread = (tCreateThread)DetourFunction((PBYTE)GetProcAddress(kernel, "CreateThread"), (PBYTE)FakeCreateThread);
 				
+				HMODULE user32 = GetModuleHandle("User32.dll");
+				oCreateWindowExA = (tCreateWindowExA)DetourFunction((PBYTE)GetProcAddress(user32, "CreateWindowExA"), (PBYTE)FakeCreateWindowExA);
+
 				HookDInput();
 				HookWinAPI();
 			}

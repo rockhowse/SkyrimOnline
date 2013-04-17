@@ -1,6 +1,7 @@
 ﻿using RGiesecke.DllExport;
 using Skyrim.API;
 using Skyrim.Script;
+using System.Windows.Forms;
 
 namespace Skyrim.Game
 {
@@ -10,12 +11,23 @@ namespace Skyrim.Game
         private static IO.InputManager inputManager = null;
 
         [DllExport]
+        private static void Load()
+        {
+        }
+
+        [DllExport]
         private static void Initialize()
         {
-            if (instance == null)
-                instance = new World();
-            if (inputManager == null)
-                inputManager = new IO.InputManager();
+            Application.EnableVisualStyles();
+            Application.Run(new Config.Play());
+
+            if (Enabled)
+            {
+                if (instance == null)
+                    instance = new World();
+                if (inputManager == null)
+                    inputManager = new IO.InputManager();
+            }
         }
 
         [DllExport]
@@ -28,6 +40,12 @@ namespace Skyrim.Game
         static public IWorld World
         {
             get { return instance; }
+        }
+
+        static public bool Enabled
+        {
+            get;
+            set;
         }
     }
 }
