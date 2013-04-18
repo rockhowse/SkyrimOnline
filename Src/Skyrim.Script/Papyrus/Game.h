@@ -13,6 +13,10 @@ namespace Skyrim
 			public:
 
 				static Script::Actor^ GetPlayer();
+				static property Script::TESForm^ Forms[UInt32]
+				{
+					Script::TESForm^ get(UInt32 aiFormID);
+				}
 			};
 		}
 	}
