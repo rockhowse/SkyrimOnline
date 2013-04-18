@@ -93,14 +93,14 @@ UInt32 Script::Actor::Level::get()
 	return SActor::GetLevel((FreeScript::Actor*)NativeHandle);
 }
 
-Script::TESForm^ Script::Actor::WornForms::get(UInt32 id)
+Script::TESForm^ Script::Actor::GetWornForm(UInt32 id)
 {
 	if(id > 14)
 		throw gcnew Exception("The worn forms are in the following range [0, 14]");
 	return gcnew Script::TESForm((void*)FreeScript::GetWornForm((FreeScript::Actor*)NativeHandle, 1 << id));
 }
 
-void Script::Actor::WornForms::set(UInt32 id, Script::TESForm^ form)
+void Script::Actor::EquipItem(Script::TESForm^ form)
 {
 	::ObjectReference::AddItem(rtti_cast(ptr, Actor, TESObjectREFR), (FreeScript::TESForm*)form->NativeHandle, 1, true);
 	SActor::EquipItem((FreeScript::Actor*)ptr, (FreeScript::TESForm*)form->NativeHandle, true, false);

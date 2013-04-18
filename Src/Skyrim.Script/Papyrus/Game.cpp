@@ -13,7 +13,7 @@ Script::Actor^ Script::Papyrus::Game::GetPlayer()
 	return gcnew Skyrim::Script::Actor(::Game::GetPlayer());
 }
 
-Script::TESForm^ Script::Papyrus::Game::Forms::get(UInt32 aiFormID)
+Script::TESForm^ Script::Papyrus::Game::GetFormById(UInt32 aiFormID)
 {
 	return gcnew Script::TESForm(::Game::GetFormById(aiFormID));
 }
