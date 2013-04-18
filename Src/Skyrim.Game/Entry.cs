@@ -21,9 +21,7 @@ namespace Skyrim.Game
         {
             Application.EnableVisualStyles();
 
-            View = new Config.Play();
-
-            Application.Run(View);
+            Application.Run(new Config.Play());
 
             if (Enabled)
             {
@@ -47,18 +45,6 @@ namespace Skyrim.Game
         }
 
         static public bool Enabled
-        {
-            get;
-            set;
-        }
-
-        static public Config.Play View
-        {
-            get;
-            set;
-        }
-
-        static public IO.MasterClient Client
         {
             get;
             set;

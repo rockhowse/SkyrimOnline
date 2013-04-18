@@ -1,9 +1,11 @@
-﻿using System;
+﻿using Skyrim.Game.IO;
+using System;
 using System.Collections.Generic;
 using System.ComponentModel;
 using System.Data;
 using System.Drawing;
 using System.Linq;
+using System.Runtime.InteropServices;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
@@ -13,20 +15,18 @@ namespace Skyrim.Game.Config
     public partial class Play : Form
     {
         private ListViewColumnSorter sorter = new ListViewColumnSorter();
-
-        public ListView List
-        {
-            get { return listView1; }
-        }
+        private MasterClient client = null;
+        private static string MASTER_SERVER_ADDRESS = "127.0.0.1";
 
         public Play()
         {
             InitializeComponent();
 
-            Entry.Client = new IO.MasterClient();
-            Entry.Client.GetServerList("127.0.0.1");
+            client = new IO.MasterClient();
 
-            listView1.ListViewItemSorter = sorter;
+            LoadServerList();
+
+            serverList.ListViewItemSorter = sorter;
             Application.Idle += new EventHandler(AppIdle);
         }
 
@@ -42,12 +42,10 @@ namespace Skyrim.Game.Config
             this.Close();
         }
 
-        private void listView1_ColumnClick(object sender, ColumnClickEventArgs e)
+        private void serverList_ColumnClick(object sender, ColumnClickEventArgs e)
         {
-            // Déterminer si la colonne sélectionnée est déjà la colonne triée.
             if (e.Column == sorter.SortColumn)
             {
-                // Inverser le sens de tri en cours pour cette colonne.
                 if (sorter.Order == SortOrder.Ascending)
                 {
                     sorter.Order = SortOrder.Descending;
@@ -59,18 +57,56 @@ namespace Skyrim.Game.Config
             }
             else
             {
-                // Définir le numéro de colonne à trier ; par défaut sur croissant.
                 sorter.SortColumn = e.Column;
                 sorter.Order = SortOrder.Ascending;
             }
 
-            // Procéder au tri avec les nouvelles options.
-            this.listView1.Sort();
+            this.serverList.Sort();
         }
 
-        static void AppIdle(object sender, EventArgs e)
+        private void HandleServer(string name, string population, string maxPopulation, string id)
         {
-            Entry.Client.Update();
+            var item = serverList.Items.Add(name);
+            item.SubItems.Add(population.ToString());
+            item.SubItems.Add(maxPopulation.ToString());
+            item.SubItems.Add(id.ToString());
+        }
+
+        private void LoadServerList()
+        {
+            serverList.Clear();
+            client.GetServerList(MASTER_SERVER_ADDRESS);
+        }
+
+       
+        [StructLayout(LayoutKind.Sequential)]
+        public struct PeekMsg
+        {
+            public IntPtr hWnd;
+            public Message msg;
+            public IntPtr wParam;
+            public IntPtr lParam;
+            public uint time;
+            public System.Drawing.Point p;
+        }
+
+        [System.Security.SuppressUnmanagedCodeSecurity]
+        [DllImport("User32.dll", CharSet = CharSet.Auto)]
+        public static extern bool PeekMessage(out PeekMsg msg, IntPtr hWnd, uint messageFilterMin, uint messageFilterMax, uint flags);
+
+        public bool AppStillIdle
+        {
+            get
+            {
+                PeekMsg msg;
+                return !PeekMessage(out msg, IntPtr.Zero, 0, 0, 0);
+            }
+        }
+
+        void AppIdle(object sender, EventArgs e)
+        {
+            while(AppStillIdle)
+                client.Update();
         }
     }
 }

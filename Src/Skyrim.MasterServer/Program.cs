@@ -22,7 +22,6 @@ namespace Skyrim.MasterServer
             NetPeer peer = new NetPeer(config);
             peer.Start();
 
-            // keep going until ESCAPE is pressed
             Console.WriteLine("Press ESC to quit");
             while (!Console.KeyAvailable || Console.ReadKey().Key != ConsoleKey.Escape)
             {
@@ -32,13 +31,11 @@ namespace Skyrim.MasterServer
                     switch (msg.MessageType)
                     {
                         case NetIncomingMessageType.UnconnectedData:
-                            // by design, the first byte always indicates action
                             switch ((MasterServerMessageType)msg.ReadByte())
                             {
                                 case MasterServerMessageType.RegisterHost:
 
-                                    // It's a host wanting to register its presence
-                                    var id = msg.ReadInt64(); // server unique identifier
+                                    var id = msg.ReadInt64();
                                     var name = msg.ReadString();
                                     var population = msg.ReadUInt16();
                                     var maxPopulation = msg.ReadUInt16();
@@ -46,8 +43,8 @@ namespace Skyrim.MasterServer
                                     Console.WriteLine("Got registration for host " + id);
                                     registeredHosts[id] = new Object[]
 									{
-										msg.ReadIPEndPoint(), // internal
-										msg.SenderEndPoint, // external
+										msg.ReadIPEndPoint(),
+										msg.SenderEndPoint,
                                         name,
                                         population,
                                         maxPopulation,
@@ -56,7 +53,6 @@ namespace Skyrim.MasterServer
                                     break;
 
                                 case MasterServerMessageType.RequestHostList:
-                                    // It's a client wanting a list of registered hosts
                                     Console.WriteLine("Sending list of " + registeredHosts.Count + " hosts to client " + msg.SenderEndPoint);
                                     List<long> toRemove = new List<long>();
                                     foreach (var kvp in registeredHosts)
@@ -66,7 +62,6 @@ namespace Skyrim.MasterServer
                                             toRemove.Add(kvp.Key);
                                             continue;
                                         }
-                                        // send registered host to client
                                         NetOutgoingMessage om = peer.CreateMessage();
                                         om.Write(kvp.Key);
                                         om.Write((string)kvp.Value[2]);
@@ -82,25 +77,20 @@ namespace Skyrim.MasterServer
 
                                     break;
                                 case MasterServerMessageType.RequestIntroduction:
-                                    // It's a client wanting to connect to a specific (external) host
+
                                     IPEndPoint clientInternal = msg.ReadIPEndPoint();
                                     long hostId = msg.ReadInt64();
                                     string token = msg.ReadString();
 
-                                    Console.WriteLine(msg.SenderEndPoint + " requesting introduction to " + hostId + " (token " + token + ")");
-
-                                    // find in list
                                     Object[] elist;
                                     if (registeredHosts.TryGetValue(hostId, out elist))
                                     {
-                                        // found in list - introduce client and host to eachother
-                                        Console.WriteLine("Sending introduction...");
                                         peer.Introduce(
-                                            (IPEndPoint)elist[0], // host internal
-                                            (IPEndPoint)elist[1], // host external
-                                            clientInternal, // client internal
-                                            msg.SenderEndPoint, // client external
-                                            token // request token
+                                            (IPEndPoint)elist[0],
+                                            (IPEndPoint)elist[1],
+                                            clientInternal,
+                                            msg.SenderEndPoint, 
+                                            token 
                                         );
                                     }
                                     else

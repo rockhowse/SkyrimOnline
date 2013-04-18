@@ -51,6 +51,7 @@
       <DependentUpon>Play.cs</DependentUpon>
     </Compile>
     <Compile Include="Entry.cs" />
+    <Compile Include="IO\GameClient.cs" />
     <Compile Include="IO\InputManager.cs" />
     <Compile Include="IO\MasterClient.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />

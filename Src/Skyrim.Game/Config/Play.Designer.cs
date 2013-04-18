@@ -32,7 +32,7 @@
             System.Windows.Forms.ColumnHeader columnHeader2;
             this.disableButton = new System.Windows.Forms.Button();
             this.playButton = new System.Windows.Forms.Button();
-            this.listView1 = new System.Windows.Forms.ListView();
+            this.serverList = new System.Windows.Forms.ListView();
             this.columnHeader1 = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
             this.label1 = new System.Windows.Forms.Label();
             columnHeader3 = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
@@ -70,21 +70,21 @@
             // 
             // listView1
             // 
-            this.listView1.Alignment = System.Windows.Forms.ListViewAlignment.Default;
-            this.listView1.AutoArrange = false;
-            this.listView1.Columns.AddRange(new System.Windows.Forms.ColumnHeader[] {
+            this.serverList.Alignment = System.Windows.Forms.ListViewAlignment.Default;
+            this.serverList.AutoArrange = false;
+            this.serverList.Columns.AddRange(new System.Windows.Forms.ColumnHeader[] {
             this.columnHeader1,
             columnHeader3,
             columnHeader2});
-            this.listView1.FullRowSelect = true;
-            this.listView1.GridLines = true;
-            this.listView1.Location = new System.Drawing.Point(12, 40);
-            this.listView1.Name = "listView1";
-            this.listView1.Size = new System.Drawing.Size(341, 308);
-            this.listView1.TabIndex = 2;
-            this.listView1.UseCompatibleStateImageBehavior = false;
-            this.listView1.View = System.Windows.Forms.View.Details;
-            this.listView1.ColumnClick += new System.Windows.Forms.ColumnClickEventHandler(this.listView1_ColumnClick);
+            this.serverList.FullRowSelect = true;
+            this.serverList.GridLines = true;
+            this.serverList.Location = new System.Drawing.Point(12, 40);
+            this.serverList.Name = "listView1";
+            this.serverList.Size = new System.Drawing.Size(341, 308);
+            this.serverList.TabIndex = 2;
+            this.serverList.UseCompatibleStateImageBehavior = false;
+            this.serverList.View = System.Windows.Forms.View.Details;
+            this.serverList.ColumnClick += new System.Windows.Forms.ColumnClickEventHandler(this.serverList_ColumnClick);
             // 
             // columnHeader1
             // 
@@ -107,7 +107,7 @@
             this.ClientSize = new System.Drawing.Size(518, 360);
             this.ControlBox = false;
             this.Controls.Add(this.label1);
-            this.Controls.Add(this.listView1);
+            this.Controls.Add(this.serverList);
             this.Controls.Add(this.playButton);
             this.Controls.Add(this.disableButton);
             this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.FixedSingle;
@@ -125,7 +125,7 @@
 
         private System.Windows.Forms.Button disableButton;
         private System.Windows.Forms.Button playButton;
-        private System.Windows.Forms.ListView listView1;
+        private System.Windows.Forms.ListView serverList;
         private System.Windows.Forms.Label label1;
         private System.Windows.Forms.ColumnHeader columnHeader1;
     }

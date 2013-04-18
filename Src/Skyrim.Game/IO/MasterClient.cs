@@ -11,9 +11,11 @@ namespace Skyrim.Game.IO
 {
     public class MasterClient
     {
-
         private static NetClient m_client;
 		private static IPEndPoint m_masterServer;
+
+        public delegate void ServerHandler(string name, string population, string maxPopulation, string id);
+        public event ServerHandler OnServer;
 
         public MasterClient()
         {
@@ -39,17 +41,12 @@ namespace Skyrim.Game.IO
                     case NetIncomingMessageType.UnconnectedData:
                         if (inc.SenderEndPoint.Equals(m_masterServer))
                         {
-                            // it's from the master server - must be a host
                             var id = inc.ReadInt64();
                             var name = inc.ReadString();
                             var population = inc.ReadUInt16();
                             var maxPopulation = inc.ReadUInt16();
 
-                            var item = Entry.View.List.Items.Add(name);
-                            item.SubItems.Add(population.ToString());
-                            item.SubItems.Add(maxPopulation.ToString());
-                            item.SubItems.Add(id.ToString());
-
+                            OnServer(name, population.ToString(), maxPopulation.ToString(), id.ToString());
                         }
                         break;
                     case NetIncomingMessageType.NatIntroductionSuccess:
@@ -84,11 +81,9 @@ namespace Skyrim.Game.IO
             IPAddress mask;
             om.Write(new IPEndPoint(NetUtility.GetMyAddress(out mask), m_client.Port));
 
-            // write requested host id
             om.Write(hostid);
 
-            // write token
-            om.Write("mytoken");
+            om.Write(Guid.NewGuid().ToString());
 
             m_client.SendUnconnectedMessage(om, m_masterServer);
         }
