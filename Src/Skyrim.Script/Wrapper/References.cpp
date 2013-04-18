@@ -22,7 +22,7 @@ Script::TESObjectREFR::~TESObjectREFR()
 
 Script::TESForm^ Script::TESObjectREFR::BaseForm::get()
 {
-	return gcnew Script::TESForm(((FreeScript::TESObjectREFR*)ptr)->baseForm);
+	return gcnew Script::TESForm(((FreeScript::TESObjectREFR*)NativeHandle)->baseForm);
 }
 
 Script::Vector3 Script::TESObjectREFR::Position::get()
@@ -70,34 +70,34 @@ Script::Actor::~Actor()
 
 void Script::Actor::QueueNiNodeUpdate()
 {
-	FreeScript::QueueNiNodeUpdate((FreeScript::Actor*)ptr);
+	FreeScript::QueueNiNodeUpdate((FreeScript::Actor*)NativeHandle);
 }
 
 void Script::Actor::UnequipAll()
 {
-	SActor::UnequipAll((FreeScript::Actor*)ptr);
+	SActor::UnequipAll((FreeScript::Actor*)NativeHandle);
 }
 
 Script::TESNPC^ Script::Actor::BaseNpc::get()
 {
-	return gcnew Script::TESNPC(FreeScript::ActorHelper((FreeScript::Actor*)ptr).GetNpc());
+	return gcnew Script::TESNPC(FreeScript::ActorHelper((FreeScript::Actor*)NativeHandle).GetNpc());
 }
 
 bool Script::Actor::Dead::get()
 {
-	return SActor::IsDead((FreeScript::Actor*)ptr);
+	return SActor::IsDead((FreeScript::Actor*)NativeHandle);
 }
 
 UInt32 Script::Actor::Level::get()
 {
-	return SActor::GetLevel((FreeScript::Actor*)ptr);
+	return SActor::GetLevel((FreeScript::Actor*)NativeHandle);
 }
 
 Script::TESForm^ Script::Actor::WornForms::get(UInt32 id)
 {
 	if(id > 14)
 		throw gcnew Exception("The worn forms are in the following range [0, 14]");
-	return gcnew Script::TESForm((void*)FreeScript::GetWornForm((FreeScript::Actor*)ptr, 1 << id));
+	return gcnew Script::TESForm((void*)FreeScript::GetWornForm((FreeScript::Actor*)NativeHandle, 1 << id));
 }
 
 void Script::Actor::WornForms::set(UInt32 id, Script::TESForm^ form)

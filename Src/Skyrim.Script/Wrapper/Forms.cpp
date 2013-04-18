@@ -20,17 +20,17 @@ Script::TESForm::~TESForm()
 
 int Script::TESForm::FormID::get()
 {
-	return ((FreeScript::TESForm*)ptr)->formID;
+	return ((FreeScript::TESForm*)NativeHandle)->formID;
 }
 
 int Script::TESForm::FormType::get()
 {
-	return ((FreeScript::TESForm*)ptr)->formType;
+	return ((FreeScript::TESForm*)NativeHandle)->formType;
 }
 
 int Script::TESForm::Flags::get()
 {
-	return ((FreeScript::TESForm*)ptr)->flags;
+	return ((FreeScript::TESForm*)NativeHandle)->flags;
 }
 
 Script::TESObjectCELL::TESObjectCELL(void* ptr) : Script::TESForm(ptr)
@@ -98,13 +98,13 @@ Script::TESNPC::~TESNPC()
 
 Script::TESRace^ Script::TESNPC::Race::get()
 {
-	auto npc = FreeScript::ActorHelper((FreeScript::Actor*)ptr).GetNpc();
+	auto npc = FreeScript::ActorHelper((FreeScript::Actor*)NativeHandle).GetNpc();
 	return gcnew Script::TESRace(npc->race.race);
 }
 
 UInt32 Script::TESNPC::Gender::get()
 {
-	auto npc = FreeScript::ActorHelper((FreeScript::Actor*)ptr).GetNpc();
+	auto npc = FreeScript::ActorHelper((FreeScript::Actor*)NativeHandle).GetNpc();
 	return npc->gender;
 }
 
@@ -113,7 +113,7 @@ array<float>^ Script::TESNPC::FaceMorphs::get()
 	array<float>^ arr = gcnew array<float>(19);
 
 	std::vector<float> fmorphs(19);
-	auto npc = FreeScript::ActorHelper((FreeScript::Actor*)ptr).GetNpc();
+	auto npc = FreeScript::ActorHelper((FreeScript::Actor*)NativeHandle).GetNpc();
 	FreeScript::TESNPCHelper(npc).GetFaceMorph(fmorphs);
 
 	for(UInt32 i = 0; i < 19; ++i)
@@ -135,7 +135,7 @@ void Script::TESNPC::FaceMorphs::set(array<float>^ val)
 		fmorphs[i] = val[i];
 	}
 
-	auto npc = FreeScript::ActorHelper((FreeScript::Actor*)ptr).GetNpc();
+	auto npc = FreeScript::ActorHelper((FreeScript::Actor*)NativeHandle).GetNpc();
 	FreeScript::TESNPCHelper(npc).SetFaceMorph(fmorphs);
 }
 

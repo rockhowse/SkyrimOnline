@@ -37,6 +37,6 @@ Script::TESFullName::~TESFullName()
 
 Script::BSFixedString^ Script::TESFullName::Name::get()
 {
-	return gcnew Script::BSFixedString(&((FreeScript::TESFullName*)ptr)->name);
+	return gcnew Script::BSFixedString(&((FreeScript::TESFullName*)NativeHandle)->name);
 }
 
