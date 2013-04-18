@@ -33,13 +33,16 @@ namespace Skyrim.Game.Config
 
         private void clientUpdated(object sender, EventArgs e)
         {
-            serverList.Items.Clear();
-            foreach (var kvp in client.m_registeredHosts)
-            {
-                var item = serverList.Items.Add(kvp.Key.ToString());
-                item.SubItems.Add(kvp.Value[0].ToString());
-                item.SubItems.Add(kvp.Value[1].ToString());
-            }
+            //Pop the incoming server object from the queue
+            var server = client.m_serverQueue.Dequeue();
+
+            //If a listview item with the same id/key as the incoming server exists already, remove it
+            serverList.Items.RemoveByKey(server.GetValue(0).ToString());
+
+            //Add the new server to the listview, using the id as the key
+            var item = serverList.Items.Add(server.GetValue(0).ToString(), server.GetValue(1).ToString(), "");
+            item.SubItems.Add(server.GetValue(2).ToString());
+            item.SubItems.Add(server.GetValue(3).ToString());
         }
 
         private void disableButton_Click(object sender, EventArgs e)

@@ -15,14 +15,14 @@ namespace Skyrim.Game.IO
 		private static IPEndPoint m_masterServer;
 
         public Dictionary<long, Object[]> m_registeredHosts;
+        public Queue<Object[]> m_serverQueue;
 
-        //public delegate void ServerHandler(string name, string population, string maxPopulation, string id);
-        //public event ServerHandler OnServer;
         public event EventHandler Updated;
 
         public MasterClient()
         {
             m_registeredHosts = new Dictionary<long, Object[]>();
+            m_serverQueue = new Queue<Object[]>();
 
             NetPeerConfiguration config = new NetPeerConfiguration("game");
             config.EnableMessageType(NetIncomingMessageType.UnconnectedData);
@@ -52,7 +52,7 @@ namespace Skyrim.Game.IO
                             var maxPopulation = inc.ReadUInt16();
 
                             m_registeredHosts[id] = new Object[] { name, population, maxPopulation };
-                            //OnServer(name, population.ToString(), maxPopulation.ToString(), id.ToString());
+                            m_serverQueue.Enqueue(new Object[] { id, name, population, maxPopulation });
                             OnUpdated(EventArgs.Empty);
                         }
                         break;
