@@ -26,6 +26,11 @@ namespace Skyrim
 
 			Actor(void* ptr);
 			~Actor();
+
+			property Script::TESNPC^ BaseNpc
+			{
+				Script::TESNPC^ get();
+			}
 		};
 	}
 }
