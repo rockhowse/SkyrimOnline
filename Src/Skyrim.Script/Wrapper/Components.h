@@ -16,6 +16,11 @@ namespace Skyrim
 
 			BaseFormComponent(void* ptr);
 			virtual ~BaseFormComponent();
+
+			property void* NativeHandle
+			{
+				void* get();
+			}
 		};
 
 		public ref class TESFullName : public Script::BaseFormComponent

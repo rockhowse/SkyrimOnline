@@ -114,6 +114,7 @@ namespace Skyrim
 			property array<float>^ FaceMorphs
 			{
 				array<float>^ get();
+				void set(array<float>^ val);
 			}
 
 		};		

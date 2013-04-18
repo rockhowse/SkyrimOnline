@@ -124,6 +124,21 @@ array<float>^ Script::TESNPC::FaceMorphs::get()
 	return arr;
 }
 
+void Script::TESNPC::FaceMorphs::set(array<float>^ val)
+{
+	if(val->Length != 19)
+		throw gcnew Exception("FaceMorphs must contain 19 values.");
+
+	std::vector<float> fmorphs(19);
+	for(UInt32 i = 0; i < 19; ++i)
+	{
+		fmorphs[i] = val[i];
+	}
+
+	auto npc = FreeScript::ActorHelper((FreeScript::Actor*)ptr).GetNpc();
+	FreeScript::TESNPCHelper(npc).SetFaceMorph(fmorphs);
+}
+
 Script::TESRace::TESRace(void* ptr) : Script::TESForm(ptr)
 {
 

@@ -20,6 +20,11 @@ Script::BaseFormComponent::~BaseFormComponent()
 
 }
 
+void* Script::BaseFormComponent::NativeHandle::get()
+{
+	return ptr;
+}
+
 Script::TESFullName::TESFullName(void* ptr) : Script::BaseFormComponent(ptr)
 {
 
