@@ -27,7 +27,19 @@ namespace Skyrim.Game.Config
             LoadServerList();
 
             serverList.ListViewItemSorter = sorter;
+            client.Updated += new EventHandler(clientUpdated);
             Application.Idle += new EventHandler(AppIdle);
+        }
+
+        private void clientUpdated(object sender, EventArgs e)
+        {
+            serverList.Items.Clear();
+            foreach (var kvp in client.m_registeredHosts)
+            {
+                var item = serverList.Items.Add(kvp.Key.ToString());
+                item.SubItems.Add(kvp.Value[0].ToString());
+                item.SubItems.Add(kvp.Value[1].ToString());
+            }
         }
 
         private void disableButton_Click(object sender, EventArgs e)
@@ -74,7 +86,7 @@ namespace Skyrim.Game.Config
 
         private void LoadServerList()
         {
-            serverList.Clear();
+            serverList.Items.Clear();
             client.GetServerList(MASTER_SERVER_ADDRESS);
         }
 
@@ -107,6 +119,17 @@ namespace Skyrim.Game.Config
         {
             while(AppStillIdle)
                 client.Update();
+        }
+
+        private void serverList_SelectedIndexChanged(object sender, EventArgs e)
+        {
+            ListView.SelectedListViewItemCollection selectedServers = serverList.SelectedItems;
+            foreach (ListViewItem server in selectedServers)
+            {
+                if (server != null)
+                    playButton.Enabled = true;
+                break;
+            }
         }
     }
 }

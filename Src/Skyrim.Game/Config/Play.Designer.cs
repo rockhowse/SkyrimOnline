@@ -28,25 +28,28 @@
         /// </summary>
         private void InitializeComponent()
         {
-            System.Windows.Forms.ColumnHeader columnHeader3;
-            System.Windows.Forms.ColumnHeader columnHeader2;
+            System.Windows.Forms.ColumnHeader populationHeader;
+            System.Windows.Forms.ColumnHeader maximumHeader;
             this.disableButton = new System.Windows.Forms.Button();
             this.playButton = new System.Windows.Forms.Button();
             this.serverList = new System.Windows.Forms.ListView();
-            this.columnHeader1 = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
+            this.nameHeader = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
             this.label1 = new System.Windows.Forms.Label();
-            columnHeader3 = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
-            columnHeader2 = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
+            populationHeader = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
+            maximumHeader = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
             this.SuspendLayout();
             // 
-            // columnHeader3
+            // populationHeader
             // 
-            columnHeader3.Text = "Population";
-            columnHeader3.Width = 70;
+            populationHeader.Tag = "populationHeader";
+            populationHeader.Text = "Population";
+            populationHeader.Width = 78;
             // 
-            // columnHeader2
+            // maximumHeader
             // 
-            columnHeader2.Text = "Maximum";
+            maximumHeader.Tag = "maximumHeader";
+            maximumHeader.Text = "Maximum";
+            maximumHeader.Width = 66;
             // 
             // disableButton
             // 
@@ -60,6 +63,7 @@
             // 
             // playButton
             // 
+            this.playButton.Enabled = false;
             this.playButton.Location = new System.Drawing.Point(359, 325);
             this.playButton.Name = "playButton";
             this.playButton.Size = new System.Drawing.Size(147, 23);
@@ -68,28 +72,31 @@
             this.playButton.UseVisualStyleBackColor = true;
             this.playButton.Click += new System.EventHandler(this.playButton_Click);
             // 
-            // listView1
+            // serverList
             // 
             this.serverList.Alignment = System.Windows.Forms.ListViewAlignment.Default;
             this.serverList.AutoArrange = false;
             this.serverList.Columns.AddRange(new System.Windows.Forms.ColumnHeader[] {
-            this.columnHeader1,
-            columnHeader3,
-            columnHeader2});
+            this.nameHeader,
+            populationHeader,
+            maximumHeader});
             this.serverList.FullRowSelect = true;
             this.serverList.GridLines = true;
             this.serverList.Location = new System.Drawing.Point(12, 40);
-            this.serverList.Name = "listView1";
+            this.serverList.MultiSelect = false;
+            this.serverList.Name = "serverList";
             this.serverList.Size = new System.Drawing.Size(341, 308);
             this.serverList.TabIndex = 2;
             this.serverList.UseCompatibleStateImageBehavior = false;
             this.serverList.View = System.Windows.Forms.View.Details;
             this.serverList.ColumnClick += new System.Windows.Forms.ColumnClickEventHandler(this.serverList_ColumnClick);
+            this.serverList.SelectedIndexChanged += new System.EventHandler(this.serverList_SelectedIndexChanged);
             // 
-            // columnHeader1
+            // nameHeader
             // 
-            this.columnHeader1.Text = "Name";
-            this.columnHeader1.Width = 207;
+            this.nameHeader.Tag = "nameHeader";
+            this.nameHeader.Text = "Name";
+            this.nameHeader.Width = 193;
             // 
             // label1
             // 
@@ -127,6 +134,6 @@
         private System.Windows.Forms.Button playButton;
         private System.Windows.Forms.ListView serverList;
         private System.Windows.Forms.Label label1;
-        private System.Windows.Forms.ColumnHeader columnHeader1;
+        private System.Windows.Forms.ColumnHeader nameHeader;
     }
 }

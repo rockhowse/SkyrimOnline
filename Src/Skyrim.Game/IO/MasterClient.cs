@@ -14,11 +14,16 @@ namespace Skyrim.Game.IO
         private static NetClient m_client;
 		private static IPEndPoint m_masterServer;
 
-        public delegate void ServerHandler(string name, string population, string maxPopulation, string id);
-        public event ServerHandler OnServer;
+        public Dictionary<long, Object[]> m_registeredHosts;
+
+        //public delegate void ServerHandler(string name, string population, string maxPopulation, string id);
+        //public event ServerHandler OnServer;
+        public event EventHandler Updated;
 
         public MasterClient()
         {
+            m_registeredHosts = new Dictionary<long, Object[]>();
+
             NetPeerConfiguration config = new NetPeerConfiguration("game");
             config.EnableMessageType(NetIncomingMessageType.UnconnectedData);
             config.EnableMessageType(NetIncomingMessageType.NatIntroductionSuccess);
@@ -46,7 +51,9 @@ namespace Skyrim.Game.IO
                             var population = inc.ReadUInt16();
                             var maxPopulation = inc.ReadUInt16();
 
-                            OnServer(name, population.ToString(), maxPopulation.ToString(), id.ToString());
+                            m_registeredHosts[id] = new Object[] { name, population, maxPopulation };
+                            //OnServer(name, population.ToString(), maxPopulation.ToString(), id.ToString());
+                            OnUpdated(EventArgs.Empty);
                         }
                         break;
                     case NetIncomingMessageType.NatIntroductionSuccess:
@@ -54,6 +61,12 @@ namespace Skyrim.Game.IO
                         break;
                 }
             }
+        }
+
+        protected virtual void OnUpdated(EventArgs e)
+        {
+            if (Updated != null)
+                Updated(this, e);
         }
 
         public void GetServerList(string masterServerAddress)
