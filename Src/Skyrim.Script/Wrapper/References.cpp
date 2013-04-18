@@ -35,3 +35,7 @@ Script::Actor::~Actor()
 
 }
 
+Script::TESNPC^ Script::Actor::BaseNpc::get()
+{
+	return gcnew Script::TESNPC(FreeScript::ActorHelper((FreeScript::Actor*)ptr).GetNpc());
+}
