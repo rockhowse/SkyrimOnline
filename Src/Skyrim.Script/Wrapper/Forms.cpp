@@ -96,6 +96,34 @@ Script::TESNPC::~TESNPC()
 
 }
 
+Script::TESRace^ Script::TESNPC::Race::get()
+{
+	auto npc = FreeScript::ActorHelper((FreeScript::Actor*)ptr).GetNpc();
+	return gcnew Script::TESRace(npc->race.race);
+}
+
+UInt32 Script::TESNPC::Gender::get()
+{
+	auto npc = FreeScript::ActorHelper((FreeScript::Actor*)ptr).GetNpc();
+	return npc->gender;
+}
+
+array<float>^ Script::TESNPC::FaceMorphs::get()
+{
+	array<float>^ arr = gcnew array<float>(19);
+
+	std::vector<float> fmorphs(19);
+	auto npc = FreeScript::ActorHelper((FreeScript::Actor*)ptr).GetNpc();
+	FreeScript::TESNPCHelper(npc).GetFaceMorph(fmorphs);
+
+	for(UInt32 i = 0; i < 19; ++i)
+	{
+		arr[i] = fmorphs[i];
+	}
+
+	return arr;
+}
+
 Script::TESRace::TESRace(void* ptr) : Script::TESForm(ptr)
 {
 
@@ -105,4 +133,5 @@ Script::TESRace::~TESRace()
 {
 
 }
+
 

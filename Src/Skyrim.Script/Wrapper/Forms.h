@@ -2,6 +2,8 @@
 
 #include "Components.h"
 
+using namespace System;
+
 namespace Skyrim
 {
 	namespace Script
@@ -70,15 +72,6 @@ namespace Skyrim
 			~TESActorBase();
 		};
 
-		public ref class TESNPC : public TESActorBase
-		{
-		public:
-
-			TESNPC(void* ptr);
-			~TESNPC();
-
-		};
-
 		public enum class RaceIds
 		{
 			Argorian = 13740,
@@ -99,8 +92,30 @@ namespace Skyrim
 
 			TESRace(void* ptr);
 			~TESRace();
-
-			
 		};
+
+		public ref class TESNPC : public TESActorBase
+		{
+		public:
+
+			TESNPC(void* ptr);
+			~TESNPC();
+
+			property Script::TESRace^ Race
+			{
+				Script::TESRace^ get();
+			}
+
+			property UInt32 Gender
+			{
+				UInt32 get();
+			}
+
+			property array<float>^ FaceMorphs
+			{
+				array<float>^ get();
+			}
+
+		};		
 	}
 }
