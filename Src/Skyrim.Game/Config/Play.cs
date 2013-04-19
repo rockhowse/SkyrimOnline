@@ -134,5 +134,13 @@ namespace Skyrim.Game.Config
                 break;
             }
         }
+
+        private void playerNameBox_TextChanged(object sender, EventArgs e)
+        {
+            if (playerNameBox.Text != String.Empty && serverList.SelectedItems != null)
+            {
+                playButton.Enabled = true;
+            }
+        }
     }
 }
