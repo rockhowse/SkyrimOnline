@@ -49,9 +49,10 @@ namespace Skyrim.Game.IO
                             var name = inc.ReadString();
                             var population = inc.ReadUInt16();
                             var maxPopulation = inc.ReadUInt16();
+                            var ipEndPoint = inc.ReadIPEndPoint();
 
-                            m_registeredHosts[id] = new Object[] { name, population, maxPopulation };
-                            Updated(new Object[] { id, name, population, maxPopulation });
+                            m_registeredHosts[id] = new Object[] { name, population, maxPopulation, ipEndPoint };
+                            Updated(new Object[] { id, name, population, maxPopulation, ipEndPoint });
                         }
                         break;
                     case NetIncomingMessageType.NatIntroductionSuccess:

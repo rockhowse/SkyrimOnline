@@ -13,7 +13,6 @@ namespace Skyrim.Game.IO
     {
         public String playerName;
         public bool isLoaded;
-        private Skyrim.Script.Actor actor;
 
         public Player(String pPlayerName)
         {
@@ -29,6 +28,18 @@ namespace Skyrim.Game.IO
         private static IPEndPoint g_gameServer;
 
         public static Dictionary<long, Player> g_playerList;
+
+        public GameClient(IPEndPoint gameServer)
+        {
+            NetPeerConfiguration config = new NetPeerConfiguration("game");
+            config.EnableMessageType(NetIncomingMessageType.UnconnectedData);
+            config.EnableMessageType(NetIncomingMessageType.NatIntroductionSuccess);
+
+            g_client = new NetClient(config);
+            g_client.Start();
+
+            g_gameServer = gameServer;
+        }
 
     }
 }

@@ -67,6 +67,7 @@ namespace Skyrim.MasterServer
                                         om.Write((string)kvp.Value[2]);
                                         om.Write((UInt16)kvp.Value[3]);
                                         om.Write((UInt16)kvp.Value[4]);
+                                        om.Write((IPEndPoint)kvp.Value[1]);
                                         peer.SendUnconnectedMessage(om, msg.SenderEndPoint);
                                     }
 
