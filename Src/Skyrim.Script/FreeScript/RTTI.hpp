@@ -1,5 +1,7 @@
 #pragma once
 
+#pragma unmanaged
+
 template <class T>
 struct FuncWrapper
 {

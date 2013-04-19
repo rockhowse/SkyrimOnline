@@ -1,5 +1,7 @@
 #pragma once
 
+#pragma unmanaged
+
 #include <cstdint>
 #include <iterator>
 

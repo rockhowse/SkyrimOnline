@@ -3,6 +3,8 @@
 #include "Types.hpp"
 #include "Forms.hpp"
 
+#pragma unmanaged
+
 namespace FreeScript
 {
 	bool GetGlobalSetting(int formIDSetting, float *fSetting);

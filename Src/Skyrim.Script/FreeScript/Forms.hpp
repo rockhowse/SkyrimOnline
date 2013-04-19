@@ -3,6 +3,8 @@
 #include "Components.hpp"
 #include "Types.hpp"
 
+#pragma unmanaged
+
 namespace FreeScript
 {
 	class TESObjectREFR;

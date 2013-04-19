@@ -2,6 +2,8 @@
 
 #include "Types.hpp"
 
+#pragma unmanaged
+
 namespace FreeScript
 {
 	class TESForm;
