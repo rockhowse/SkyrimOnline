@@ -27,14 +27,12 @@ namespace Skyrim.Game.Config
             LoadServerList();
 
             serverList.ListViewItemSorter = sorter;
-            client.Updated += new EventHandler(clientUpdated);
+            client.Updated += clientUpdated;
             Application.Idle += new EventHandler(AppIdle);
         }
 
-        private void clientUpdated(object sender, EventArgs e)
+        private void clientUpdated(object[] server)
         {
-            //Pop the incoming server object from the queue
-            var server = client.m_serverQueue.Dequeue();
 
             //If a listview item with the same id/key as the incoming server exists already, remove it
             serverList.Items.RemoveByKey(server.GetValue(0).ToString());
@@ -131,6 +129,8 @@ namespace Skyrim.Game.Config
             {
                 if (server != null)
                     playButton.Enabled = true;
+                else
+                    playButton.Enabled = false;
                 break;
             }
         }

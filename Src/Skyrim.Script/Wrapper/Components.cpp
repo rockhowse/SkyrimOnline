@@ -20,6 +20,11 @@ Script::BaseFormComponent::~BaseFormComponent()
 
 }
 
+void* Script::BaseFormComponent::NativeHandle::get()
+{
+	return ptr;
+}
+
 Script::TESFullName::TESFullName(void* ptr) : Script::BaseFormComponent(ptr)
 {
 
@@ -32,6 +37,6 @@ Script::TESFullName::~TESFullName()
 
 Script::BSFixedString^ Script::TESFullName::Name::get()
 {
-	return gcnew Script::BSFixedString(&((FreeScript::TESFullName*)ptr)->name);
+	return gcnew Script::BSFixedString(&((FreeScript::TESFullName*)NativeHandle)->name);
 }
 
