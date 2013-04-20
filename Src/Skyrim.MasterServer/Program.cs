@@ -13,7 +13,7 @@ namespace Skyrim.MasterServer
     {
         static void Main(string[] args)
         {
-            Dictionary<long, Object[]> registeredHosts = new Dictionary<long, Object[]>();
+            Dictionary<Int64, Object[]> registeredHosts = new Dictionary<Int64, Object[]>();
 
             NetPeerConfiguration config = new NetPeerConfiguration("masterserver");
             config.SetMessageTypeEnabled(NetIncomingMessageType.UnconnectedData, true);
@@ -54,7 +54,7 @@ namespace Skyrim.MasterServer
 
                                 case MasterServerMessageType.RequestHostList:
                                     Console.WriteLine("Sending list of " + registeredHosts.Count + " hosts to client " + msg.SenderEndPoint);
-                                    List<long> toRemove = new List<long>();
+                                    List<Int64> toRemove = new List<Int64>();
                                     foreach (var kvp in registeredHosts)
                                     {
                                         if ((double)kvp.Value[5] + 130.0 < NetTime.Now)

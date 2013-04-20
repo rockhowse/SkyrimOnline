@@ -112,7 +112,7 @@
             // 
             // playerNameBox
             // 
-            this.playerNameBox.Location = new System.Drawing.Point(359, 56);
+            this.playerNameBox.Location = new System.Drawing.Point(359, 65);
             this.playerNameBox.MaxLength = 100;
             this.playerNameBox.Name = "playerNameBox";
             this.playerNameBox.Size = new System.Drawing.Size(147, 20);
@@ -121,7 +121,7 @@
             // playerNameLabel
             // 
             this.playerNameLabel.AutoSize = true;
-            this.playerNameLabel.Location = new System.Drawing.Point(360, 40);
+            this.playerNameLabel.Location = new System.Drawing.Point(359, 40);
             this.playerNameLabel.Name = "playerNameLabel";
             this.playerNameLabel.Size = new System.Drawing.Size(100, 13);
             this.playerNameLabel.TabIndex = 5;

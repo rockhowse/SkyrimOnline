@@ -43,14 +43,6 @@ namespace Skyrim.Game.Config
             item.SubItems.Add(server.GetValue(3).ToString());
         }
 
-        private void HandleServer(string name, string population, string maxPopulation, string id)
-        {
-            var item = serverList.Items.Add(name);
-            item.SubItems.Add(population.ToString());
-            item.SubItems.Add(maxPopulation.ToString());
-            item.SubItems.Add(id.ToString());
-        }
-
         private void LoadServerList()
         {
             serverList.Items.Clear();
