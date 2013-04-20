@@ -35,6 +35,9 @@
             this.serverList = new System.Windows.Forms.ListView();
             this.nameHeader = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
             this.label1 = new System.Windows.Forms.Label();
+            this.playerNameBox = new System.Windows.Forms.TextBox();
+            this.playerNameLabel = new System.Windows.Forms.Label();
+            this.selectedServerKey = new System.Windows.Forms.Label();
             populationHeader = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
             maximumHeader = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
             this.SuspendLayout();
@@ -107,12 +110,40 @@
             this.label1.TabIndex = 3;
             this.label1.Text = "Server list :";
             // 
+            // playerNameBox
+            // 
+            this.playerNameBox.Location = new System.Drawing.Point(359, 56);
+            this.playerNameBox.MaxLength = 100;
+            this.playerNameBox.Name = "playerNameBox";
+            this.playerNameBox.Size = new System.Drawing.Size(147, 20);
+            this.playerNameBox.TabIndex = 4;
+            // 
+            // playerNameLabel
+            // 
+            this.playerNameLabel.AutoSize = true;
+            this.playerNameLabel.Location = new System.Drawing.Point(360, 40);
+            this.playerNameLabel.Name = "playerNameLabel";
+            this.playerNameLabel.Size = new System.Drawing.Size(100, 13);
+            this.playerNameLabel.TabIndex = 5;
+            this.playerNameLabel.Text = "Input Player Name :";
+            // 
+            // selectedServerKey
+            // 
+            this.selectedServerKey.AutoSize = true;
+            this.selectedServerKey.Location = new System.Drawing.Point(79, 12);
+            this.selectedServerKey.Name = "selectedServerKey";
+            this.selectedServerKey.Size = new System.Drawing.Size(0, 13);
+            this.selectedServerKey.TabIndex = 6;
+            // 
             // Play
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(518, 360);
             this.ControlBox = false;
+            this.Controls.Add(this.selectedServerKey);
+            this.Controls.Add(this.playerNameLabel);
+            this.Controls.Add(this.playerNameBox);
             this.Controls.Add(this.label1);
             this.Controls.Add(this.serverList);
             this.Controls.Add(this.playButton);
@@ -135,5 +166,8 @@
         private System.Windows.Forms.ListView serverList;
         private System.Windows.Forms.Label label1;
         private System.Windows.Forms.ColumnHeader nameHeader;
+        private System.Windows.Forms.TextBox playerNameBox;
+        private System.Windows.Forms.Label playerNameLabel;
+        private System.Windows.Forms.Label selectedServerKey;
     }
 }
