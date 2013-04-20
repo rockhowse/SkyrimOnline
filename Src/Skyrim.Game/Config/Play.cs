@@ -7,6 +7,7 @@ using System.Drawing;
 using System.Linq;
 using System.Runtime.InteropServices;
 using System.Text;
+using System.Net;
 using System.Threading.Tasks;
 using System.Windows.Forms;
 
@@ -17,6 +18,7 @@ namespace Skyrim.Game.Config
         private ListViewColumnSorter sorter = new ListViewColumnSorter();
         private MasterClient client = null;
         private static string MASTER_SERVER_ADDRESS = "127.0.0.1";
+        private static long GAME_SERVER_ID = 0;
 
         public Play()
         {
@@ -39,6 +41,8 @@ namespace Skyrim.Game.Config
 
             //Add the new server to the listview, using the id as the key
             var item = serverList.Items.Add(server.GetValue(0).ToString(), server.GetValue(1).ToString(), "");
+            item.Tag = server.GetValue(0);
+
             item.SubItems.Add(server.GetValue(2).ToString());
             item.SubItems.Add(server.GetValue(3).ToString());
         }
@@ -52,6 +56,14 @@ namespace Skyrim.Game.Config
         private void playButton_Click(object sender, EventArgs e)
         {
             Entry.Enabled = true;
+            if (GAME_SERVER_ID != 0)
+            {
+                IPEndPoint gameServerIp = client.GetServerIPByKey(GAME_SERVER_ID);
+                if (gameServerIp != null)
+                {
+                    Entry.gameClient = new GameClient(gameServerIp);
+                }
+            }
             this.Close();
         }
 
@@ -128,7 +140,12 @@ namespace Skyrim.Game.Config
             foreach (ListViewItem server in selectedServers)
             {
                 if (server != null)
+                {
+                    GAME_SERVER_ID = (long)server.Tag;
+                    IPEndPoint gameServerIp = client.GetServerIPByKey(GAME_SERVER_ID);
+                    selectedServerKey.Text = gameServerIp.ToString();
                     playButton.Enabled = true;
+                }
                 else
                     playButton.Enabled = false;
                 break;

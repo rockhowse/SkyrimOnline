@@ -11,6 +11,8 @@ namespace Skyrim.Game
         private static IWorld instance = null;
         private static IO.InputManager inputManager = null;
 
+        public static IO.GameClient gameClient = null;
+
         [DllExport]
         private static void Load()
         {
@@ -25,10 +27,12 @@ namespace Skyrim.Game
 
             if (Enabled)
             {
+                gameClient.Connect();
+
                 if (instance == null)
                     instance = new World();
-                if (inputManager == null)
-                    inputManager = new IO.InputManager();
+                //if (inputManager == null)
+                //    inputManager = new IO.InputManager();
             }
         }
 
@@ -37,6 +41,8 @@ namespace Skyrim.Game
         {
             inputManager.Update();   
             instance.Update();
+            if (gameClient.connected == true)
+                gameClient.Update();
         }
 
         static public IWorld World

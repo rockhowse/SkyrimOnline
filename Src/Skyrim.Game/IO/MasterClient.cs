@@ -51,7 +51,7 @@ namespace Skyrim.Game.IO
                             var maxPopulation = inc.ReadUInt16();
                             var ipEndPoint = inc.ReadIPEndPoint();
 
-                            m_registeredHosts[id] = new Object[] { name, population, maxPopulation, ipEndPoint };
+                            m_registeredHosts.Add(id, new Object[] { name, population, maxPopulation, ipEndPoint }); 
                             Updated(new Object[] { id, name, population, maxPopulation, ipEndPoint });
                         }
                         break;
@@ -60,6 +60,17 @@ namespace Skyrim.Game.IO
                         break;
                 }
             }
+        }
+
+        public IPEndPoint GetServerIPByKey(long gameServerKey)
+        {
+            Object[] gameServer;
+            if (m_registeredHosts.TryGetValue(gameServerKey, out gameServer))
+            {
+                return (IPEndPoint) gameServer.GetValue(3);
+            }
+
+            return null;
         }
 
         public void GetServerList(string masterServerAddress)

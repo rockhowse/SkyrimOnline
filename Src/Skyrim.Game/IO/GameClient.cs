@@ -26,11 +26,14 @@ namespace Skyrim.Game.IO
     {
         private static NetClient g_client;
         private static IPEndPoint g_gameServer;
+        public bool connected;
 
-        public static Dictionary<long, Player> g_playerList;
+        //public static Dictionary<long, Player> g_playerList;
 
         public GameClient(IPEndPoint gameServer)
         {
+            connected = false;
+
             NetPeerConfiguration config = new NetPeerConfiguration("game");
             config.EnableMessageType(NetIncomingMessageType.UnconnectedData);
             config.EnableMessageType(NetIncomingMessageType.NatIntroductionSuccess);
@@ -39,6 +42,50 @@ namespace Skyrim.Game.IO
             g_client.Start();
 
             g_gameServer = gameServer;
+        }
+
+        public void Connect()
+        {
+            if (g_gameServer != null)
+            {
+                connected = true;
+
+                //Attempt to connect to the remote server
+                g_client.Connect(g_gameServer);
+            }
+        }
+
+        public void Update()
+        {
+            NetIncomingMessage inc;
+            while ((inc = g_client.ReadMessage()) != null)
+            {
+                switch (inc.MessageType)
+                {
+                    //Report changes in connection status
+                    case NetIncomingMessageType.StatusChanged:
+                        NetConnectionStatus status = (NetConnectionStatus)inc.ReadByte();
+                        switch (status)
+                        {
+                            case NetConnectionStatus.Connected:
+                            case NetConnectionStatus.Disconnected:
+                            case NetConnectionStatus.Disconnecting:
+                            case NetConnectionStatus.InitiatedConnect:
+                            case NetConnectionStatus.ReceivedInitiation:
+                            case NetConnectionStatus.RespondedAwaitingApproval:
+                            case NetConnectionStatus.RespondedConnect:
+                                Console.WriteLine(status.ToString());
+                                break;
+                        }
+                        break;
+                    case NetIncomingMessageType.VerboseDebugMessage:
+                    case NetIncomingMessageType.DebugMessage:
+                    case NetIncomingMessageType.WarningMessage:
+                    case NetIncomingMessageType.ErrorMessage:
+                        Console.WriteLine(inc.ReadString());
+                        break;
+                }
+            }
         }
 
     }
