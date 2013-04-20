@@ -35,8 +35,11 @@ namespace Skyrim.Game
         [DllExport]
         private static void Update()
         {
-            inputManager.Update();   
-            instance.Update();
+            if (Enabled)
+            {
+                inputManager.Update();
+                instance.Update();
+            }
         }
 
         static public IWorld World

@@ -43,7 +43,58 @@ namespace Skyrim.Game.Config
             item.SubItems.Add(server.GetValue(3).ToString());
         }
 
-        private void disableButton_Click(object sender, EventArgs e)
+        private void HandleServer(string name, string population, string maxPopulation, string id)
+        {
+            var item = serverList.Items.Add(name);
+            item.SubItems.Add(population.ToString());
+            item.SubItems.Add(maxPopulation.ToString());
+            item.SubItems.Add(id.ToString());
+        }
+
+        private void LoadServerList()
+        {
+            serverList.Items.Clear();
+            client.GetServerList(MASTER_SERVER_ADDRESS);
+        }
+
+
+        #region Idle
+
+        [StructLayout(LayoutKind.Sequential)]
+        public struct PeekMsg
+        {
+            public IntPtr hWnd;
+            public Message msg;
+            public IntPtr wParam;
+            public IntPtr lParam;
+            public uint time;
+            public System.Drawing.Point p;
+        }
+
+        [System.Security.SuppressUnmanagedCodeSecurity]
+        [DllImport("User32.dll", CharSet = CharSet.Auto)]
+        public static extern bool PeekMessage(out PeekMsg msg, IntPtr hWnd, uint messageFilterMin, uint messageFilterMax, uint flags);
+
+        public bool AppStillIdle
+        {
+            get
+            {
+                PeekMsg msg;
+                return !PeekMessage(out msg, IntPtr.Zero, 0, 0, 0);
+            }
+        }
+
+        void AppIdle(object sender, EventArgs e)
+        {
+            while(AppStillIdle)
+                client.Update();
+        }
+
+        #endregion
+
+        #region UIEvents
+
+        private void singlePlayerButton_Click(object sender, EventArgs e)
         {
             Entry.Enabled = false;
             this.Close();
@@ -77,51 +128,6 @@ namespace Skyrim.Game.Config
             this.serverList.Sort();
         }
 
-        private void HandleServer(string name, string population, string maxPopulation, string id)
-        {
-            var item = serverList.Items.Add(name);
-            item.SubItems.Add(population.ToString());
-            item.SubItems.Add(maxPopulation.ToString());
-            item.SubItems.Add(id.ToString());
-        }
-
-        private void LoadServerList()
-        {
-            serverList.Items.Clear();
-            client.GetServerList(MASTER_SERVER_ADDRESS);
-        }
-
-       
-        [StructLayout(LayoutKind.Sequential)]
-        public struct PeekMsg
-        {
-            public IntPtr hWnd;
-            public Message msg;
-            public IntPtr wParam;
-            public IntPtr lParam;
-            public uint time;
-            public System.Drawing.Point p;
-        }
-
-        [System.Security.SuppressUnmanagedCodeSecurity]
-        [DllImport("User32.dll", CharSet = CharSet.Auto)]
-        public static extern bool PeekMessage(out PeekMsg msg, IntPtr hWnd, uint messageFilterMin, uint messageFilterMax, uint flags);
-
-        public bool AppStillIdle
-        {
-            get
-            {
-                PeekMsg msg;
-                return !PeekMessage(out msg, IntPtr.Zero, 0, 0, 0);
-            }
-        }
-
-        void AppIdle(object sender, EventArgs e)
-        {
-            while(AppStillIdle)
-                client.Update();
-        }
-
         private void serverList_SelectedIndexChanged(object sender, EventArgs e)
         {
             ListView.SelectedListViewItemCollection selectedServers = serverList.SelectedItems;
@@ -134,5 +140,7 @@ namespace Skyrim.Game.Config
                 break;
             }
         }
+
+        #endregion
     }
 }

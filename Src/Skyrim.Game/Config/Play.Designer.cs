@@ -30,7 +30,7 @@
         {
             System.Windows.Forms.ColumnHeader populationHeader;
             System.Windows.Forms.ColumnHeader maximumHeader;
-            this.disableButton = new System.Windows.Forms.Button();
+            this.singlePlayerButton = new System.Windows.Forms.Button();
             this.playButton = new System.Windows.Forms.Button();
             this.serverList = new System.Windows.Forms.ListView();
             this.nameHeader = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
@@ -51,15 +51,15 @@
             maximumHeader.Text = "Maximum";
             maximumHeader.Width = 66;
             // 
-            // disableButton
+            // singlePlayerButton
             // 
-            this.disableButton.Location = new System.Drawing.Point(359, 296);
-            this.disableButton.Name = "disableButton";
-            this.disableButton.Size = new System.Drawing.Size(147, 23);
-            this.disableButton.TabIndex = 0;
-            this.disableButton.Text = "Single player";
-            this.disableButton.UseVisualStyleBackColor = true;
-            this.disableButton.Click += new System.EventHandler(this.disableButton_Click);
+            this.singlePlayerButton.Location = new System.Drawing.Point(359, 296);
+            this.singlePlayerButton.Name = "singlePlayerButton";
+            this.singlePlayerButton.Size = new System.Drawing.Size(147, 23);
+            this.singlePlayerButton.TabIndex = 0;
+            this.singlePlayerButton.Text = "Single player";
+            this.singlePlayerButton.UseVisualStyleBackColor = true;
+            this.singlePlayerButton.Click += new System.EventHandler(this.singlePlayerButton_Click);
             // 
             // playButton
             // 
@@ -116,7 +116,7 @@
             this.Controls.Add(this.label1);
             this.Controls.Add(this.serverList);
             this.Controls.Add(this.playButton);
-            this.Controls.Add(this.disableButton);
+            this.Controls.Add(this.singlePlayerButton);
             this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.FixedSingle;
             this.MaximizeBox = false;
             this.MaximumSize = new System.Drawing.Size(534, 398);
@@ -130,7 +130,7 @@
 
         #endregion
 
-        private System.Windows.Forms.Button disableButton;
+        private System.Windows.Forms.Button singlePlayerButton;
         private System.Windows.Forms.Button playButton;
         private System.Windows.Forms.ListView serverList;
         private System.Windows.Forms.Label label1;
