@@ -2,6 +2,7 @@
 
 #include <MyGUI/MyGUI.h>
 #include <MyGUI/MyGUI_DirectXPlatform.h>
+#include <Engine/UpdateRegister.h>
 
 namespace Skyrim
 {
@@ -9,7 +10,7 @@ namespace Skyrim
 	{
 		class Message;
 
-		class System
+		class System : public UpdateRegister
 		{
 		public:
 

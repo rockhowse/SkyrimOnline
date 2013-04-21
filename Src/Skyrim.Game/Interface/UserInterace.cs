@@ -13,11 +13,6 @@ namespace Skyrim.Game.Interface
             Skyrim.Script.Overlay.System.CursorVisible = false;
         }
 
-        public void Update()
-        {
-
-        }
-
         public ChatInterface Chat
         {
             get;

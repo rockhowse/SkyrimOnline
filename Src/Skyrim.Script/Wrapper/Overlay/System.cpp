@@ -34,3 +34,20 @@ void Overlay::System::CursorVisible::set(bool pVisible)
 	if(Skyrim::Overlay::TheSystem)
 		Skyrim::Overlay::TheSystem->SetCursor(pVisible);
 }
+
+void Overlay::System::Register(Skyrim::Script::IUpdatable^ u)
+{
+	if(Skyrim::Overlay::TheSystem)
+		Skyrim::Overlay::TheSystem->Register((::IUpdatable*)u->NativeHandle);
+}
+
+void Overlay::System::Unregister(Skyrim::Script::IUpdatable^ u)
+{
+	if(Skyrim::Overlay::TheSystem)
+		Skyrim::Overlay::TheSystem->Unregister((::IUpdatable*)u->NativeHandle);
+}
+
+Overlay::System::System()
+{
+
+}

@@ -22,6 +22,8 @@ namespace Skyrim
 			mEdit->eventEditSelectAccept = MyGUI::newDelegate(this,&Chat::Handle_Click);
 
 			mList->setNeedKeyFocus(false);
+
+			mMutex = CreateMutex(NULL, FALSE, NULL);
 		}
 		//--------------------------------------------------------------------------------
 		Chat::~Chat()
@@ -48,29 +50,26 @@ namespace Skyrim
 		{
 			return mList->isVisible();
 		}
-
 		//--------------------------------------------------------------------------------
-		void	Chat::Update(double e)
+		void	Chat::Update()
 		{
-			//mMessagesMutex.lock();
+			WaitForSingleObject(mMutex, INFINITE);
 
 			for(auto it = mMessages.begin(); it != mMessages.end(); ++it)
 				this->_Log(it->first, it->second);
 
 			mMessages.clear();
 
-			//mMessagesMutex.unlock();
+			ReleaseMutex(mMutex);
 		}
 		//--------------------------------------------------------------------------------
 		void	Chat::Log(const MyGUI::UString& str, const MyGUI::UString& color)
 		{
-			/*Framework::System::Log::Debug(std::string("Chat: ") + str.asUTF8());
-
-			mMessagesMutex.lock();*/
+			WaitForSingleObject(mMutex, INFINITE);
 
 			mMessages.push_back(std::make_pair(str,color));
 
-			//mMessagesMutex.unlock();
+			ReleaseMutex(mMutex);
 		}
 		//--------------------------------------------------------------------------------
 		void	Chat::_Log(const MyGUI::UString& str, const MyGUI::UString& color)
@@ -141,8 +140,6 @@ namespace Skyrim
 			MyGUI::UString& str = mEdit->getOnlyText();
 			if(str.size() != 0)
 			{
-				//OnSendChatMessage(str.asUTF8());
-
 				mEdit->setTextSelect(0, mEdit->getTextLength());
 				mEdit->deleteTextSelection();
 			}

@@ -59,6 +59,7 @@
     <ClCompile Include="Engine\InputManager.cpp">
       <ObjectFileName Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">$(IntDir)%(RelativeDir)</ObjectFileName>
     </ClCompile>
+    <ClCompile Include="Engine\UpdateRegister.cpp" />
     <ClCompile Include="Overlay\Chat.cpp">
       <ObjectFileName Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">$(IntDir)%(RelativeDir)</ObjectFileName>
     </ClCompile>
@@ -97,6 +98,8 @@
     <ClInclude Include="common\skyscript.h" />
     <ClInclude Include="Engine\Data.hpp" />
     <ClInclude Include="Engine\InputManager.h" />
+    <ClInclude Include="Engine\IUpdatable.hpp" />
+    <ClInclude Include="Engine\UpdateRegister.h" />
     <ClInclude Include="FreeScript\Actor.hpp" />
     <ClInclude Include="FreeScript\Character.hpp" />
     <ClInclude Include="FreeScript\Common.hpp" />
@@ -132,6 +135,7 @@
     <ClInclude Include="Wrapper\Forms.h" />
     <ClInclude Include="Wrapper\Input.hpp" />
     <ClInclude Include="Wrapper\Overlay\Chat.h" />
+    <ClInclude Include="Wrapper\IUpdatable.h" />
     <ClInclude Include="Wrapper\Overlay\System.h" />
     <ClInclude Include="Wrapper\References.h" />
     <ClInclude Include="Wrapper\Types.h" />

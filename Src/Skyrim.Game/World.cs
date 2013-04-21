@@ -9,9 +9,17 @@ namespace Skyrim.Game
 {
     class World : IWorld
     {
+        private Int64 time = 0;
+
         public void Update()
         {
+            long ticks = DateTime.UtcNow.Ticks;
+            if ((ticks - time) / 10000000 > 5)
+            {
+                time = ticks;
 
+                Entry.UserInterace.Chat.Log("Test !");
+            }
         }
     }
 }

@@ -11,7 +11,6 @@ namespace Skyrim.Game
     {
         private static IWorld instance = null;
         private static IO.InputManager inputManager = null;
-        private static UserInterace userInterface = null;
 
         [DllExport]
         private static void Load()
@@ -39,15 +38,14 @@ namespace Skyrim.Game
         {
             if (Enabled)
             {
-                if (userInterface == null)
+                if (UserInterace == null)
                 {
-                    userInterface = new UserInterace();
-                    userInterface.Chat = new ChatInterface();
+                    UserInterace = new UserInterace();
+                    UserInterace.Chat = new ChatInterface();
                 }
 
                 GameClient.Update();
                 inputManager.Update();
-                userInterface.Update();
                 instance.Update();
             }
         }
@@ -60,16 +58,24 @@ namespace Skyrim.Game
             }
         }
 
+        static public GameClient GameClient
+        {
+            get;
+            set;
+        }
+
+        static public UserInterace UserInterace
+        {
+            get;
+            set;
+        }
+
         static public bool Enabled
         {
             get;
             set;
         }
 
-        static public GameClient GameClient
-        {
-            get;
-            set;
-        }
+        
     }
 }

@@ -2,28 +2,35 @@
 #include "Chat.h"
 #include <Overlay/Chat.h>
 #include <Overlay/System.h>
+#include < vcclr.h >
 
 using namespace Skyrim::Script;
 
 Overlay::Chat::Chat()
 {
-	ptr = new Skyrim::Overlay::Chat(Skyrim::Overlay::TheSystem->GetGui());
+	NativeHandle = new Skyrim::Overlay::Chat(Skyrim::Overlay::TheSystem->GetGui());
 }
 
 Overlay::Chat::~Chat()
 {
-	delete (Skyrim::Overlay::Chat*)ptr;
+	delete (Skyrim::Overlay::Chat*)NativeHandle;
+}
+
+void Overlay::Chat::Log(System::String^ pStr)
+{
+	pin_ptr<const wchar_t> wchstr = PtrToStringChars(pStr);
+	((Skyrim::Overlay::Chat*)NativeHandle)->Log((wchar_t*)wchstr);
 }
 
 bool Overlay::Chat::Visible::get()
 {
-	if(ptr)
-		return ((Skyrim::Overlay::Chat*)ptr)->IsVisible();
+	if(NativeHandle)
+		return ((Skyrim::Overlay::Chat*)NativeHandle)->IsVisible();
 	return false;
 }
 
 void Overlay::Chat::Visible::set(bool pVisible)
 {
-	if(ptr)
-		return ((Skyrim::Overlay::Chat*)ptr)->SetVisible(pVisible);
+	if(NativeHandle)
+		return ((Skyrim::Overlay::Chat*)NativeHandle)->SetVisible(pVisible);
 }

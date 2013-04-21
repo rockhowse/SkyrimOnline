@@ -5,6 +5,7 @@
 #pragma once
 
 #include <MyGUi/MyGUI.h>
+#include <Engine/IUpdatable.hpp>
 
 namespace Skyrim
 {
@@ -13,7 +14,7 @@ namespace Skyrim
 		//--------------------------------------------------------------------------------
 		/// @brief A chat interface for the client
 		//--------------------------------------------------------------------------------
-		class Chat
+		class Chat : public IUpdatable
 		{
 		public:
 
@@ -48,11 +49,7 @@ namespace Skyrim
 			//--------------------------------------------------------------------------------
 			/// @brief Updates the chat
 			//--------------------------------------------------------------------------------
-			void Update(double);
-
-			bool Setup(){return true;}
-
-			void Destroy(){}
+			void Update();
 
 			//--------------------------------------------------------------------------------
 			/// @brief Handles an edit box accept event.
@@ -89,6 +86,8 @@ namespace Skyrim
 			MyGUI::EditPtr			mEdit;
 
 			MyGUI::Gui*				mUI;
+
+			HANDLE					mMutex;
 		};
 	}
 }

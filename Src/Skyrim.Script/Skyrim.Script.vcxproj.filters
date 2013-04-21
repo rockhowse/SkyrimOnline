@@ -138,6 +138,15 @@
     <ClInclude Include="Wrapper\Overlay\Chat.h">
       <Filter>Header Files</Filter>
     </ClInclude>
+    <ClInclude Include="Engine\IUpdatable.hpp">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="Engine\UpdateRegister.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="Wrapper\IUpdatable.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="AssemblyInfo.cpp">
@@ -228,6 +237,9 @@
       <Filter>Source Files</Filter>
     </ClCompile>
     <ClCompile Include="Wrapper\Overlay\Chat.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="Engine\UpdateRegister.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
   </ItemGroup>

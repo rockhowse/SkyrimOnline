@@ -185,6 +185,7 @@ namespace Skyrim
 				{
 					if(mUI && mPlatform)
 					{
+						Update();
 						mPlatform->getRenderManagerPtr()->drawOneFrame();
 					}
 				}
