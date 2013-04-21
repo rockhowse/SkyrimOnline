@@ -62,7 +62,4 @@ extern "C" __declspec(dllexport) void SetVariables(IDirect3DDevice9* pDevice,
 
 	OnPresent->Add(std::bind(&Skyrim::Overlay::System::OnRender, Skyrim::Overlay::TheSystem, std::placeholders::_1));
 	OnReset->Add(std::bind(&Skyrim::Overlay::System::OnLostDevice, Skyrim::Overlay::TheSystem, std::placeholders::_1));
-
-	auto chat = new Skyrim::Overlay::Chat(Skyrim::Overlay::TheSystem->GetGui());
-	chat->Show();
 }

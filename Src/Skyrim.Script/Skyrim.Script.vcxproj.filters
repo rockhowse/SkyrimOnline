@@ -135,6 +135,9 @@
     <ClInclude Include="Wrapper\Overlay\System.h">
       <Filter>Header Files</Filter>
     </ClInclude>
+    <ClInclude Include="Wrapper\Overlay\Chat.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="AssemblyInfo.cpp">
@@ -222,6 +225,9 @@
       <Filter>Source Files</Filter>
     </ClCompile>
     <ClCompile Include="Wrapper\Overlay\System.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="Wrapper\Overlay\Chat.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
   </ItemGroup>

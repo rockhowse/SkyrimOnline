@@ -54,6 +54,8 @@
       <DependentUpon>Play.cs</DependentUpon>
     </Compile>
     <Compile Include="Entry.cs" />
+    <Compile Include="Interface\ChatInterface.cs" />
+    <Compile Include="Interface\UserInterace.cs" />
     <Compile Include="IO\GameClient.cs" />
     <Compile Include="IO\InputManager.cs" />
     <Compile Include="IO\MasterClient.cs" />

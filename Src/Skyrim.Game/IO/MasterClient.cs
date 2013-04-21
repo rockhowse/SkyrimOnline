@@ -6,6 +6,7 @@ using System.Linq;
 using System.Net;
 using System.Text;
 using System.Threading.Tasks;
+using System.Windows.Forms;
 
 namespace Skyrim.Game.IO
 {
@@ -45,6 +46,7 @@ namespace Skyrim.Game.IO
                     case NetIncomingMessageType.DebugMessage:
                     case NetIncomingMessageType.WarningMessage:
                     case NetIncomingMessageType.ErrorMessage:
+                        MessageBox.Show(inc.ReadString());
                         break;
                     case NetIncomingMessageType.UnconnectedData:
                         if (inc.SenderEndPoint.Equals(m_masterServer))

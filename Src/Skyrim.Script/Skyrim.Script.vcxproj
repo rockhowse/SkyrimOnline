@@ -80,6 +80,7 @@
     <ClCompile Include="Wrapper\Input.cpp">
       <ObjectFileName Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">$(IntDir)%(RelativeDir)</ObjectFileName>
     </ClCompile>
+    <ClCompile Include="Wrapper\Overlay\Chat.cpp" />
     <ClCompile Include="Wrapper\Overlay\System.cpp">
       <ObjectFileName Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">$(IntDir)%(RelativeDir)</ObjectFileName>
     </ClCompile>
@@ -130,6 +131,7 @@
     </ClCompile>
     <ClInclude Include="Wrapper\Forms.h" />
     <ClInclude Include="Wrapper\Input.hpp" />
+    <ClInclude Include="Wrapper\Overlay\Chat.h" />
     <ClInclude Include="Wrapper\Overlay\System.h" />
     <ClInclude Include="Wrapper\References.h" />
     <ClInclude Include="Wrapper\Types.h" />

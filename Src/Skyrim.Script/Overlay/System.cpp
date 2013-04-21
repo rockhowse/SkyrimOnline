@@ -28,6 +28,8 @@ namespace Skyrim
 
 			mUI = new MyGUI::Gui();
 			mUI->initialise("MyGUI_Core.xml");
+
+			SetCursor(false);
 		}
 		//--------------------------------------------------------------------------------
 		System::~System()

@@ -28,6 +28,7 @@
         /// </summary>
         private void InitializeComponent()
         {
+            this.components = new System.ComponentModel.Container();
             System.Windows.Forms.ColumnHeader populationHeader;
             System.Windows.Forms.ColumnHeader maximumHeader;
             this.singlePlayerButton = new System.Windows.Forms.Button();
@@ -38,6 +39,7 @@
             this.playerNameBox = new System.Windows.Forms.TextBox();
             this.playerNameLabel = new System.Windows.Forms.Label();
             this.selectedServerKey = new System.Windows.Forms.Label();
+            this.m_timer = new System.Windows.Forms.Timer(this.components);
             populationHeader = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
             maximumHeader = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
             this.SuspendLayout();
@@ -135,6 +137,11 @@
             this.selectedServerKey.Size = new System.Drawing.Size(0, 13);
             this.selectedServerKey.TabIndex = 6;
             // 
+            // m_timer
+            // 
+            this.m_timer.Interval = 3000;
+            this.m_timer.Tick += new System.EventHandler(this.m_timer_Tick);
+            // 
             // Play
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
@@ -169,5 +176,6 @@
         private System.Windows.Forms.TextBox playerNameBox;
         private System.Windows.Forms.Label playerNameLabel;
         private System.Windows.Forms.Label selectedServerKey;
+        private System.Windows.Forms.Timer m_timer;
     }
 }

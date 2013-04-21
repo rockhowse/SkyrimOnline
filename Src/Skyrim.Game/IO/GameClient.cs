@@ -30,8 +30,9 @@ namespace Skyrim.Game.IO
 
         //public static Dictionary<long, Player> g_playerList;
 
-        public delegate void ConnectionSuccessHandler();
-        public event ConnectionSuccessHandler ConnectionSuccess;
+        public delegate void ConnectionHandler();
+        public event ConnectionHandler ConnectionSuccess;
+        public event ConnectionHandler ConnectionFailed;
 
         public GameClient(IPEndPoint gameServer)
         {
@@ -74,6 +75,8 @@ namespace Skyrim.Game.IO
                                 ConnectionSuccess();
                                 break;
                             case NetConnectionStatus.Disconnected:
+                                ConnectionFailed();
+                                break;
                             case NetConnectionStatus.Disconnecting:
                             case NetConnectionStatus.InitiatedConnect:
                             case NetConnectionStatus.ReceivedInitiation:

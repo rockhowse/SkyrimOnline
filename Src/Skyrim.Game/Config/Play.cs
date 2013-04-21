@@ -19,6 +19,7 @@ namespace Skyrim.Game.Config
         private MasterClient client = null;
         private static string MASTER_SERVER_ADDRESS = "127.0.0.1";
         private Int64 GAME_SERVER_ID = 0;
+        private bool connecting = false;
 
         public Play()
         {
@@ -56,10 +57,21 @@ namespace Skyrim.Game.Config
             this.Close();
         }
 
+        private void connectionFailed()
+        {
+            playButton.Enabled = true;
+            singlePlayerButton.Enabled = true;
+        }
+
         private void natIntroductionSuccess(IPEndPoint endpoint)
         {
+            m_timer.Enabled = false;
+
             Entry.GameClient = new GameClient(endpoint);
+
             Entry.GameClient.ConnectionSuccess += connectionSuccess;
+            Entry.GameClient.ConnectionFailed += connectionFailed;
+
             Entry.GameClient.Connect();
         }
 
@@ -120,6 +132,9 @@ namespace Skyrim.Game.Config
         {
             if (GAME_SERVER_ID != 0)
             {
+                connecting = true;
+                m_timer.Enabled = true;
+
                 client.RequestNATIntroduction(GAME_SERVER_ID);
                 playButton.Enabled = false;
                 singlePlayerButton.Enabled = false;
@@ -150,22 +165,33 @@ namespace Skyrim.Game.Config
 
         private void serverList_SelectedIndexChanged(object sender, EventArgs e)
         {
-            ListView.SelectedListViewItemCollection selectedServers = serverList.SelectedItems;
-            foreach (ListViewItem server in selectedServers)
+            if (!connecting)
             {
-                if (server != null)
+                ListView.SelectedListViewItemCollection selectedServers = serverList.SelectedItems;
+                foreach (ListViewItem server in selectedServers)
                 {
-                    GAME_SERVER_ID = (long)server.Tag;
-                    IPEndPoint gameServerIp = client.GetServerIPByKey(GAME_SERVER_ID);
-                    selectedServerKey.Text = gameServerIp.ToString();
-                    playButton.Enabled = true;
+                    if (server != null)
+                    {
+                        GAME_SERVER_ID = (long)server.Tag;
+                        IPEndPoint gameServerIp = client.GetServerIPByKey(GAME_SERVER_ID);
+                        selectedServerKey.Text = gameServerIp.ToString();
+                        playButton.Enabled = true;
+                    }
+                    else
+                        playButton.Enabled = false;
+                    break;
                 }
-                else
-                    playButton.Enabled = false;
-                break;
             }
         }
 
         #endregion
+
+        private void m_timer_Tick(object sender, EventArgs e)
+        {
+            connecting = false;
+            singlePlayerButton.Enabled = true;
+            serverList_SelectedIndexChanged(null, null);
+            m_timer.Enabled = false;
+        }
     }
 }
