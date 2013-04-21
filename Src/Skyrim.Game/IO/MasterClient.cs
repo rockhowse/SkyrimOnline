@@ -11,13 +11,17 @@ namespace Skyrim.Game.IO
 {
     public class MasterClient
     {
-        private static NetClient m_client;
-		private static IPEndPoint m_masterServer;
+        private NetClient m_client;
+		private IPEndPoint m_masterServer;
+        private Guid m_token;
 
         public Dictionary<long, Object[]> m_registeredHosts;
 
         public delegate void ServerHandler(Object[] server);
         public event ServerHandler Updated;
+
+        public delegate void NatIntroductionHandler(IPEndPoint endpoint);
+        public event NatIntroductionHandler NatIntroductionSuccess;
 
         public MasterClient()
         {
@@ -57,6 +61,8 @@ namespace Skyrim.Game.IO
                         break;
                     case NetIncomingMessageType.NatIntroductionSuccess:
                         string token = inc.ReadString();
+                        if(m_token == new Guid(token))
+                            NatIntroductionSuccess(inc.SenderEndPoint);
                         break;
                 }
             }
@@ -100,7 +106,9 @@ namespace Skyrim.Game.IO
 
             om.Write(hostid);
 
-            om.Write(Guid.NewGuid().ToString());
+            m_token = Guid.NewGuid();
+
+            om.Write(m_token.ToString());
 
             m_client.SendUnconnectedMessage(om, m_masterServer);
         }

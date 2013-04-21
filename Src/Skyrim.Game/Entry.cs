@@ -37,6 +37,7 @@ namespace Skyrim.Game
         {
             if (Enabled)
             {
+                GameClient.Update();
                 inputManager.Update();
                 instance.Update();
             }
@@ -48,6 +49,12 @@ namespace Skyrim.Game
         }
 
         static public bool Enabled
+        {
+            get;
+            set;
+        }
+
+        static public GameClient GameClient
         {
             get;
             set;

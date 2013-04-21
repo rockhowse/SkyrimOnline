@@ -5,6 +5,7 @@ using System.ComponentModel;
 using System.Data;
 using System.Drawing;
 using System.Linq;
+using System.Net;
 using System.Runtime.InteropServices;
 using System.Text;
 using System.Threading.Tasks;
@@ -17,6 +18,7 @@ namespace Skyrim.Game.Config
         private ListViewColumnSorter sorter = new ListViewColumnSorter();
         private MasterClient client = null;
         private static string MASTER_SERVER_ADDRESS = "127.0.0.1";
+        private Int64 GAME_SERVER_ID = 0;
 
         public Play()
         {
@@ -24,10 +26,13 @@ namespace Skyrim.Game.Config
 
             client = new IO.MasterClient();
 
+            client.Updated += clientUpdated;
+            client.NatIntroductionSuccess += natIntroductionSuccess;
+
             LoadServerList();
 
             serverList.ListViewItemSorter = sorter;
-            client.Updated += clientUpdated;
+
             Application.Idle += new EventHandler(AppIdle);
         }
 
@@ -39,8 +44,23 @@ namespace Skyrim.Game.Config
 
             //Add the new server to the listview, using the id as the key
             var item = serverList.Items.Add(server.GetValue(0).ToString(), server.GetValue(1).ToString(), "");
+            item.Tag = server.GetValue(0);
+
             item.SubItems.Add(server.GetValue(2).ToString());
             item.SubItems.Add(server.GetValue(3).ToString());
+        }
+
+        private void connectionSuccess()
+        {
+            Entry.Enabled = true;
+            this.Close();
+        }
+
+        private void natIntroductionSuccess(IPEndPoint endpoint)
+        {
+            Entry.GameClient = new GameClient(endpoint);
+            Entry.GameClient.ConnectionSuccess += connectionSuccess;
+            Entry.GameClient.Connect();
         }
 
         private void LoadServerList()
@@ -78,8 +98,12 @@ namespace Skyrim.Game.Config
 
         void AppIdle(object sender, EventArgs e)
         {
-            while(AppStillIdle)
+            while (AppStillIdle)
+            {
+                if (Entry.GameClient != null)
+                    Entry.GameClient.Update();
                 client.Update();
+            }
         }
 
         #endregion
@@ -94,8 +118,12 @@ namespace Skyrim.Game.Config
 
         private void playButton_Click(object sender, EventArgs e)
         {
-            Entry.Enabled = true;
-            this.Close();
+            if (GAME_SERVER_ID != 0)
+            {
+                client.RequestNATIntroduction(GAME_SERVER_ID);
+                playButton.Enabled = false;
+                singlePlayerButton.Enabled = false;
+            }
         }
 
         private void serverList_ColumnClick(object sender, ColumnClickEventArgs e)
@@ -126,7 +154,12 @@ namespace Skyrim.Game.Config
             foreach (ListViewItem server in selectedServers)
             {
                 if (server != null)
+                {
+                    GAME_SERVER_ID = (long)server.Tag;
+                    IPEndPoint gameServerIp = client.GetServerIPByKey(GAME_SERVER_ID);
+                    selectedServerKey.Text = gameServerIp.ToString();
                     playButton.Enabled = true;
+                }
                 else
                     playButton.Enabled = false;
                 break;
