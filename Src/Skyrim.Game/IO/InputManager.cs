@@ -54,8 +54,16 @@ namespace Skyrim.Game.IO
             {
                 UIEnabled = !UIEnabled;
             }
-            if(UIEnabled)
+            if (UIEnabled)
+            {
                 Skyrim.Script.Overlay.System.InjectKeyboardKey(ev.Key, ev.Pressed);
+                Skyrim.Script.Papyrus.Game.DisablePlayerControls(true, true, true, true, true, true, true, true, 1);
+            }
+            else
+            {
+                Skyrim.Script.Papyrus.Game.EnablePlayerControls(true, true, true, true, true, true, true, true, 1);
+                Skyrim.Script.Papyrus.Game.SetInChargen(false, false, true);
+            }
         }
 
         public void OnEvent(MouseEvent ev)
