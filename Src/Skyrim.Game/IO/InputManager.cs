@@ -1,9 +1,11 @@
-﻿using Skyrim.Script;
+﻿using Game;
+using Skyrim.Script;
 using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using G = Game;
 
 namespace Skyrim.Game.IO
 {
@@ -19,7 +21,7 @@ namespace Skyrim.Game.IO
         public void Update()
         {
             Event e = null;
-            while ((e = Skyrim.Script.Input.Poll()) != null)
+            while ((e = G.Input.Poll()) != null)
             {
                 switch (e.Type)
                 {
@@ -56,7 +58,7 @@ namespace Skyrim.Game.IO
             }
             if (UIEnabled)
             {
-                Skyrim.Script.Overlay.System.InjectKeyboardKey(ev.Key, ev.Pressed);
+                G.Overlay.System.InjectKeyboardKey(ev.Key, ev.Pressed);
                 Skyrim.Script.Papyrus.Game.DisablePlayerControls(true, true, true, true, true, true, true, true, 1);
             }
             else
@@ -69,13 +71,13 @@ namespace Skyrim.Game.IO
         public void OnEvent(MouseEvent ev)
         {
             if (UIEnabled)
-                Skyrim.Script.Overlay.System.InjectMouseKey(ev.Key, ev.Pressed);
+                G.Overlay.System.InjectMouseKey(ev.Key, ev.Pressed);
         }
 
         public void OnEvent(MousePositionEvent ev)
         {
             if (UIEnabled)
-                Skyrim.Script.Overlay.System.InjectMousePosition(ev.X, ev.Y, ev.Z);
+                G.Overlay.System.InjectMousePosition(ev.X, ev.Y, ev.Z);
         }
 
         public bool UIEnabled
@@ -86,7 +88,7 @@ namespace Skyrim.Game.IO
             }
             set
             {
-                Skyrim.Script.Overlay.System.CursorVisible = value;
+                G.Overlay.System.CursorVisible = value;
                 mUIEnabled = value;
             }
         }

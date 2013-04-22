@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using G = Game;
 
 namespace Skyrim.Game.Interface
 {
@@ -10,7 +11,7 @@ namespace Skyrim.Game.Interface
     {
         public UserInterace()
         {
-            Skyrim.Script.Overlay.System.CursorVisible = false;
+            G.Overlay.System.CursorVisible = false;
         }
 
         public ChatInterface Chat

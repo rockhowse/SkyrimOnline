@@ -63,10 +63,6 @@
       <Project>{2b661abd-63a8-4916-a94b-034729231271}</Project>
       <Name>Lidgren XNA Extensions</Name>
     </ProjectReference>
-    <ProjectReference Include="..\Skyrim.Script\Skyrim.Script.vcxproj">
-      <Project>{8691e70d-6ea8-44bd-91ea-db69d61e0f10}</Project>
-      <Name>Skyrim.Script %28Microsoft Visual C++ Compiler Nov 2012 CTP%29</Name>
-    </ProjectReference>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
