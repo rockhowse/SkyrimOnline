@@ -1,6 +1,5 @@
-#include "../StdAfx.h"
-#include "myIDirect3D9.h"
-#include "myIDirect3DDevice9.h"
+#include "stdAfx.h"
+
 #include "Plugins.hpp"
 
 #pragma unmanaged

@@ -1,43 +1,17 @@
 // proxydll.cpp
 #include "stdafx.h"
 #include "proxydll.h"
-#include "Directx/myIDirect3D9.h"
-#include "Directx/myIDirect3DDevice9.h"
-#include "Dinput/Input.hpp"
-#include "Papyrus.hpp"
+
 #include "WinAPI.hpp"
 #include "Plugins.hpp"
-#include "common/plugin.h"
 
-#pragma unmanaged
+#include "Games/Skyrim.hpp"
+#include "Games/Oblivion.hpp"
 
 HINSTANCE           gl_hOriginalDll;
 HINSTANCE           gl_hThisInstance;
 
-TRegisterPlugin RegisterPlugin;		
-TWait Wait;
-
-#define SCRIPT_DRAGON "ScriptDragon.dll" 
-
-void DragonPluginInit(HMODULE hModule)
-{
-	HMODULE hDragon = LoadLibraryA(SCRIPT_DRAGON);
-	/* 
-	In order to provide NORMAL support i need a plugins to be distributed without the DragonScript.dll engine 
-	cuz user always must have the latest version which cud be found ONLY on my web page
-	*/
-	if (!hDragon) return;
-
-	RegisterPlugin = (TRegisterPlugin)GetProcAddress(hDragon, "RegisterPlugin");
-	Wait = (TWait)GetProcAddress(hDragon, "WaitMs");
-
-	if(!RegisterPlugin)
-	{
-		return;
-	}
-
-	RegisterPlugin(hModule);
-}
+void LoadOriginalDll();
 
 void WINAPI D3DPERF_SetOptions( DWORD dwOptions )
 {
@@ -138,26 +112,7 @@ void ExitInstance()
 #pragma unmanaged
 
 typedef HWND (WINAPI* tCreateWindowExA)(DWORD dwExStyle, LPCSTR lpClassName, LPCSTR lpWindowName, DWORD dwStyle, int X, int Y, int nWidth, int nHeight, HWND hWndParent, HMENU hMenu, HINSTANCE hInstance, LPVOID lpParam);
-typedef HANDLE (WINAPI *tCreateThread)(LPSECURITY_ATTRIBUTES,SIZE_T,LPTHREAD_START_ROUTINE,LPVOID,DWORD,PDWORD);
-tCreateThread oCreateThread;
 tCreateWindowExA oCreateWindowExA;
-
-HANDLE WINAPI FakeCreateThread(
-	LPSECURITY_ATTRIBUTES lpThreadAttributes,
-	SIZE_T dwStackSize,
-	LPTHREAD_START_ROUTINE lpStartAddress,
-	LPVOID lpParameter,
-	DWORD dwCreationFlags,
-	PDWORD lpThreadId
-	)
-{
-	if(*(uint32_t*)lpParameter == 0x010CDD60) // VMInitThread::vftable
-	{
-		DragonPluginInit(gl_hThisInstance);
-		//InstallPapyrusHook();
-	}
-	return oCreateThread(lpThreadAttributes, dwStackSize,lpStartAddress,lpParameter,dwCreationFlags,lpThreadId);
-}
 
 HWND WINAPI FakeCreateWindowExA(DWORD dwExStyle, LPCSTR lpClassName, LPCSTR lpWindowName, DWORD dwStyle, int X, int Y, int nWidth, int nHeight, HWND hWndParent, HMENU hMenu, HINSTANCE hInstance, LPVOID lpParam)
 {
@@ -183,7 +138,8 @@ BOOL APIENTRY DllMain(HMODULE hModule, DWORD fdwReason, LPVOID lpReserved)
 
 			DisableThreadLibraryCalls((HMODULE)hModule);
 
-			if(strL.find("TESV.exe") != std::string::npos)
+			if(strL.find("TESV.exe") != std::string::npos ||
+			   strL.find("Oblivion.exe") != std::string::npos)
 			{
 				gl_hThisInstance = hModule;
 				
@@ -193,11 +149,8 @@ BOOL APIENTRY DllMain(HMODULE hModule, DWORD fdwReason, LPVOID lpReserved)
 				// Load all the plugins
 				GetInstance()->Load();
 
-				/*
-				 * Hook CreateThread and Load scriptdragon once we are sure that the unpacker is finished AKA once VMInitThread is created
-				 */
-				HMODULE kernel = GetModuleHandle("Kernel32.dll");
-				oCreateThread = (tCreateThread)DetourFunction((PBYTE)GetProcAddress(kernel, "CreateThread"), (PBYTE)FakeCreateThread);
+				if(strL.find("TESV.exe") != std::string::npos)
+					InstallSkyrim();
 				
 				HMODULE user32 = GetModuleHandle("User32.dll");
 				oCreateWindowExA = (tCreateWindowExA)DetourFunction((PBYTE)GetProcAddress(user32, "CreateWindowExA"), (PBYTE)FakeCreateWindowExA);
@@ -213,8 +166,7 @@ BOOL APIENTRY DllMain(HMODULE hModule, DWORD fdwReason, LPVOID lpReserved)
 			ReleaseWinAPI();
 			ReleaseDInput();
 			ExitInstance();
-			//UninstallPapyrusHook();
-			
+
 			break;
 		}
 	}

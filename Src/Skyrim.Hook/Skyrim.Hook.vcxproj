@@ -10,7 +10,7 @@
     <ProjectGuid>{D8B2564C-4766-4DDF-B7E0-43DB3971B3A3}</ProjectGuid>
     <Keyword>Win32Proj</Keyword>
     <RootNamespace>SkyrimOnline</RootNamespace>
-    <ProjectName>Skyrim.Hook</ProjectName>
+    <ProjectName>Game.Hook</ProjectName>
   </PropertyGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.Default.props" />
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|Win32'" Label="Configuration">
@@ -42,7 +42,7 @@
       <FunctionLevelLinking>true</FunctionLevelLinking>
       <IntrinsicFunctions>true</IntrinsicFunctions>
       <PreprocessorDefinitions>WIN32;NDEBUG;_WINDOWS;_USRDLL;NINJATOONLINE_EXPORTS;_WINDLL;DETOURS_32BIT;DETOURS_X86;%(PreprocessorDefinitions)</PreprocessorDefinitions>
-      <AdditionalIncludeDirectories>$(SolutionDir)\Src\Skyrim.Script\;$(DXSDK_DIR)\Include;$(SolutionDir)\Dependencies\include;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+      <AdditionalIncludeDirectories>$(DXSDK_DIR)\Include;$(SolutionDir)\Dependencies\include;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
       <AdditionalOptions>/Zm250 %(AdditionalOptions)</AdditionalOptions>
       <AdditionalUsingDirectories>$(SolutionDir)\Bin</AdditionalUsingDirectories>
     </ClCompile>
@@ -64,9 +64,11 @@
     <ClInclude Include="Src\Dinput\Input.hpp" />
     <ClInclude Include="Src\Directx\myIDirect3D9.h" />
     <ClInclude Include="Src\Directx\myIDirect3DDevice9.h" />
-    <ClInclude Include="Src\Papyrus.hpp" />
+    <ClInclude Include="Src\Hook\Function.hpp" />
+    <ClInclude Include="Src\Games\Oblivion.hpp" />
     <ClInclude Include="Src\Plugins.hpp" />
     <ClInclude Include="Src\proxydll.h" />
+    <ClInclude Include="Src\Games\Skyrim.hpp" />
     <ClInclude Include="Src\stdafx.h" />
     <ClInclude Include="Src\WinAPI.hpp" />
   </ItemGroup>
@@ -80,9 +82,6 @@
     <ClCompile Include="Src\Directx\myIDirect3DDevice9.cpp">
       <CompileAsManaged Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">false</CompileAsManaged>
     </ClCompile>
-    <ClCompile Include="Src\Papyrus.cpp">
-      <CompileAsManaged Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">false</CompileAsManaged>
-    </ClCompile>
     <ClCompile Include="Src\Plugins.cpp">
       <CompileAsManaged Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">false</CompileAsManaged>
       <CompileAs Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">CompileAsCpp</CompileAs>
@@ -90,6 +89,7 @@
     <ClCompile Include="Src\proxydll.cpp">
       <CompileAsManaged Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">false</CompileAsManaged>
     </ClCompile>
+    <ClCompile Include="Src\Games\Skyrim.cpp" />
     <ClCompile Include="Src\stdafx.cpp">
       <PrecompiledHeader Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">NotUsing</PrecompiledHeader>
       <CompileAsManaged Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">false</CompileAsManaged>

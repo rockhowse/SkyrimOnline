@@ -13,13 +13,8 @@ HINSTANCE g_user32 = 0;
 
 void LoadRealUser32Library()
 {
-	char buffer[MAX_PATH];
-	::GetSystemDirectory(buffer,MAX_PATH);
-
-	// Append dll name
-	strcat(buffer,"\\User32.dll");
-
-	if(!g_user32) g_user32 = ::LoadLibraryA(buffer);
+	if(!g_user32) 
+		g_user32 = ::LoadLibraryA("user32.dll");
 }
 
 LRESULT CALLBACK WndProc(HWND hWindow, UINT msg, WPARAM wParam, LPARAM lParam)

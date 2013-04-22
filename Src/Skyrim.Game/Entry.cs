@@ -21,7 +21,6 @@ namespace Skyrim.Game
         private static void Initialize()
         {
             Application.EnableVisualStyles();
-
             Application.Run(new Config.Play());
 
             if (Enabled)
@@ -75,7 +74,5 @@ namespace Skyrim.Game
             get;
             set;
         }
-
-        
     }
 }

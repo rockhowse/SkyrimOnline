@@ -1,3 +1,9 @@
+#pragma warning( disable : 4251 )
+#pragma warning( disable : 4244 )
+#pragma warning( disable : 4996 )
+#pragma warning( disable : 4355 )
+
+#pragma once
 #pragma unmanaged
 #define _WIN32_WINNT 0x0501
 #define DIRECTINPUT_VERSION 0x0800
@@ -11,13 +17,17 @@
 
 #include <detours.h>
 
-#include <MyGUI/MyGUI.h>
+#include <memory>
+#include <xmemory>
+#include <stack>
+#include <iostream>
+#include <string>
 
-#include <FreeScript/FreeScript.hpp>
+#include "Hook/Function.hpp"
+#include "Dinput/Input.hpp"
+#include "Directx/myIDirect3D9.h"
+#include "Directx/myIDirect3DDevice9.h"
 
-#pragma warning( disable : 4251 )
-#pragma warning( disable : 4244 )
-#pragma warning( disable : 4996 )
-#pragma warning( disable : 4355 )
+
 
 extern std::ofstream file;

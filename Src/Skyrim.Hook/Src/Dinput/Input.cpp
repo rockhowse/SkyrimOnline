@@ -1,9 +1,7 @@
+#include "stdafx.h"
+
 #include "Plugins.hpp"
 #include "Input.hpp"
-
-#pragma unmanaged
-#include <dinput.h>
-#include <detours.h>
 
 #pragma unmanaged
 
