@@ -6,19 +6,19 @@
 #include "Types.h"
 
 using namespace System;
-using namespace Skyrim;
+using namespace Game;
 
-Script::BSFixedString::BSFixedString(FreeScript::BSFixedString* ptr) : ptr((void*)ptr)
+Skyrim::BSFixedString::BSFixedString(FreeScript::BSFixedString* ptr) : ptr((void*)ptr)
 {
 
 }
 
-Script::BSFixedString::~BSFixedString()
+Skyrim::BSFixedString::~BSFixedString()
 {
 
 }
 
-System::String^ Script::BSFixedString::ToString()
+System::String^ Skyrim::BSFixedString::ToString()
 {
 	return gcnew System::String(((FreeScript::BSFixedString*)ptr)->data);
 }

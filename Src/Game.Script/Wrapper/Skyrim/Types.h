@@ -4,9 +4,9 @@
 #include <FreeScript/Types.hpp>
 #pragma managed
 
-namespace Skyrim
+namespace Game
 {
-	namespace Script
+	namespace Skyrim
 	{
 		public ref class BSFixedString
 		{

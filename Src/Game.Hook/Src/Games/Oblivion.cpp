@@ -38,7 +38,6 @@ void InstallOblivion()
 	/*
 	 * Hook CreateThread and Load scriptdragon once we are sure that the unpacker is finished AKA once VMInitThread is created
 	 */
-	//HINSTANCE kernel = LoadLibraryA("Data/OBSE/Plugins/Oblivion.dll");
 	oUpdate = (tUpdate)DetourFunction((PBYTE)0x40D800, (PBYTE)Update);
 }
 

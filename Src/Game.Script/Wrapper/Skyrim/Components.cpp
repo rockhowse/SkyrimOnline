@@ -7,36 +7,36 @@
 #include "Components.h"
 
 using namespace System;
-using namespace Skyrim;
+using namespace Game;
 
 
-Script::BaseFormComponent::BaseFormComponent(void* ptr) : ptr(ptr)
+Skyrim::BaseFormComponent::BaseFormComponent(void* ptr) : ptr(ptr)
 {
 
 }
 
-Script::BaseFormComponent::~BaseFormComponent()
+Skyrim::BaseFormComponent::~BaseFormComponent()
 {
 
 }
 
-void* Script::BaseFormComponent::NativeHandle::get()
+void* Skyrim::BaseFormComponent::NativeHandle::get()
 {
 	return ptr;
 }
 
-Script::TESFullName::TESFullName(void* ptr) : Script::BaseFormComponent(ptr)
+Skyrim::TESFullName::TESFullName(void* ptr) : Skyrim::BaseFormComponent(ptr)
 {
 
 }
 
-Script::TESFullName::~TESFullName()
+Skyrim::TESFullName::~TESFullName()
 {
 
 }
 
-Script::BSFixedString^ Script::TESFullName::Name::get()
+Skyrim::BSFixedString^ Skyrim::TESFullName::Name::get()
 {
-	return gcnew Script::BSFixedString(&((FreeScript::TESFullName*)NativeHandle)->name);
+	return gcnew Skyrim::BSFixedString(&((FreeScript::TESFullName*)NativeHandle)->name);
 }
 

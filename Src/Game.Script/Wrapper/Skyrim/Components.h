@@ -2,9 +2,9 @@
 
 #include "Types.h"
 
-namespace Skyrim
+namespace Game
 {
-	namespace Script
+	namespace Skyrim
 	{
 		public ref class BaseFormComponent
 		{
@@ -23,16 +23,16 @@ namespace Skyrim
 			}
 		};
 
-		public ref class TESFullName : public Script::BaseFormComponent
+		public ref class TESFullName : public Skyrim::BaseFormComponent
 		{
 		public:
 
 			TESFullName(void* ptr);
 			~TESFullName();
 
-			property Script::BSFixedString^ Name
+			property Skyrim::BSFixedString^ Name
 			{
-				Script::BSFixedString^ get();
+				Skyrim::BSFixedString^ get();
 			}
 		};
 	}

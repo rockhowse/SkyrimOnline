@@ -3,20 +3,20 @@
 #include "Forms.h"
 
 
-namespace Skyrim
+namespace Game
 {
-	namespace Script
+	namespace Skyrim
 	{
-		public ref class TESObjectREFR : public Script::TESForm
+		public ref class TESObjectREFR : public Skyrim::TESForm
 		{
 		public:
 
 			TESObjectREFR(void* ptr);
 			~TESObjectREFR();
 
-			property Script::TESForm^ BaseForm
+			property Skyrim::TESForm^ BaseForm
 			{
-				Script::TESForm^ get();
+				Skyrim::TESForm^ get();
 			}
 
 			property Microsoft::Xna::Framework::Vector3 Position
@@ -43,12 +43,12 @@ namespace Skyrim
 
 			void UnequipAll();
 
-			Script::TESForm^ GetWornForm(System::UInt32 id);
-			void EquipItem(Script::TESForm^ form);
+			Skyrim::TESForm^ GetWornForm(System::UInt32 id);
+			void EquipItem(Skyrim::TESForm^ form);
 
-			property Script::TESNPC^ BaseNpc
+			property Skyrim::TESNPC^ BaseNpc
 			{
-				Script::TESNPC^ get();
+				Skyrim::TESNPC^ get();
 			}
 
 			property bool Dead

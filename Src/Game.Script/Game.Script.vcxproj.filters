@@ -87,15 +87,6 @@
     <ClInclude Include="common\skyscript.h">
       <Filter>Header Files</Filter>
     </ClInclude>
-    <ClInclude Include="Papyrus\Debug.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
-    <ClInclude Include="Papyrus\Actor.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
-    <ClInclude Include="Papyrus\Game.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
     <ClInclude Include="Engine\InputManager.h">
       <Filter>Header Files</Filter>
     </ClInclude>
@@ -147,6 +138,15 @@
     <ClInclude Include="Math\Vector3.hpp">
       <Filter>Header Files</Filter>
     </ClInclude>
+    <ClInclude Include="Script\Skyrim\Actor.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="Script\Skyrim\Debug.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="Script\Skyrim\Game.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="AssemblyInfo.cpp">
@@ -194,15 +194,6 @@
     <ClCompile Include="common\plugin.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
-    <ClCompile Include="Papyrus\Debug.cpp">
-      <Filter>Source Files</Filter>
-    </ClCompile>
-    <ClCompile Include="Papyrus\Actor.cpp">
-      <Filter>Source Files</Filter>
-    </ClCompile>
-    <ClCompile Include="Papyrus\Game.cpp">
-      <Filter>Source Files</Filter>
-    </ClCompile>
     <ClCompile Include="Engine\InputManager.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
@@ -240,6 +231,15 @@
       <Filter>Source Files</Filter>
     </ClCompile>
     <ClCompile Include="Wrapper\Skyrim\Types.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="Script\Skyrim\Actor.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="Script\Skyrim\Debug.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="Script\Skyrim\Game.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
   </ItemGroup>

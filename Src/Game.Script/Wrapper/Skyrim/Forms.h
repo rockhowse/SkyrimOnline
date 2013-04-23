@@ -4,11 +4,11 @@
 
 using namespace System;
 
-namespace Skyrim
+namespace Game
 {
-	namespace Script
+	namespace Skyrim
 	{
-		public ref class TESForm : public Script::BaseFormComponent
+		public ref class TESForm : public Skyrim::BaseFormComponent
 		{
 		public:
 
@@ -31,7 +31,7 @@ namespace Skyrim
 			}
 		};
 
-		public ref class TESObjectCELL : public Script::TESForm
+		public ref class TESObjectCELL : public Skyrim::TESForm
 		{
 		public:
 
@@ -40,7 +40,7 @@ namespace Skyrim
 
 		};
 
-		public ref class TESObject : public Script::TESForm
+		public ref class TESObject : public Skyrim::TESForm
 		{
 		public:
 
@@ -48,7 +48,7 @@ namespace Skyrim
 			~TESObject();
 		};
 
-		public ref class TESBoundObject : public TESObject
+		public ref class TESBoundObject : public Skyrim::TESObject
 		{
 		public:
 
@@ -56,7 +56,7 @@ namespace Skyrim
 			~TESBoundObject();
 		};
 
-		public ref class TESBoundAnimObject : public TESBoundObject
+		public ref class TESBoundAnimObject : public Skyrim::TESBoundObject
 		{
 		public:
 
@@ -64,7 +64,7 @@ namespace Skyrim
 			~TESBoundAnimObject();
 		};
 
-		public ref class TESActorBase : public TESBoundAnimObject
+		public ref class TESActorBase : public Skyrim::TESBoundAnimObject
 		{
 		public:
 
@@ -86,7 +86,7 @@ namespace Skyrim
 			Bosmer
 		};
 
-		public ref class TESRace : public Script::TESForm
+		public ref class TESRace : public Skyrim::TESForm
 		{
 		public:
 
@@ -94,16 +94,16 @@ namespace Skyrim
 			~TESRace();
 		};
 
-		public ref class TESNPC : public TESActorBase
+		public ref class TESNPC : public Skyrim::TESActorBase
 		{
 		public:
 
 			TESNPC(void* ptr);
 			~TESNPC();
 
-			property Script::TESRace^ Race
+			property Skyrim::TESRace^ Race
 			{
-				Script::TESRace^ get();
+				Skyrim::TESRace^ get();
 			}
 
 			property System::UInt32 Gender

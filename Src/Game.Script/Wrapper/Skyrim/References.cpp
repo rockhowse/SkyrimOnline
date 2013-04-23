@@ -7,25 +7,25 @@
 #include "References.h"
 
 using namespace System;
-using namespace Skyrim;
+using namespace Game;
 
 
-Script::TESObjectREFR::TESObjectREFR(void* ptr) : Script::TESForm(ptr)
+Skyrim::TESObjectREFR::TESObjectREFR(void* ptr) : Skyrim::TESForm(ptr)
 {
 
 }
 
-Script::TESObjectREFR::~TESObjectREFR()
+Skyrim::TESObjectREFR::~TESObjectREFR()
 {
 
 }
 
-Script::TESForm^ Script::TESObjectREFR::BaseForm::get()
+Skyrim::TESForm^ Skyrim::TESObjectREFR::BaseForm::get()
 {
-	return gcnew Script::TESForm(((FreeScript::TESObjectREFR*)NativeHandle)->baseForm);
+	return gcnew Skyrim::TESForm(((FreeScript::TESObjectREFR*)NativeHandle)->baseForm);
 }
 
-Microsoft::Xna::Framework::Vector3 Script::TESObjectREFR::Position::get()
+Microsoft::Xna::Framework::Vector3 Skyrim::TESObjectREFR::Position::get()
 {
 	Microsoft::Xna::Framework::Vector3 vec;
 	vec.X = ((FreeScript::TESObjectREFR*)ptr)->pos.X;
@@ -34,14 +34,14 @@ Microsoft::Xna::Framework::Vector3 Script::TESObjectREFR::Position::get()
 	return vec;
 }
 
-void Script::TESObjectREFR::Position::set(Microsoft::Xna::Framework::Vector3 vec)
+void Skyrim::TESObjectREFR::Position::set(Microsoft::Xna::Framework::Vector3 vec)
 {
 	((FreeScript::TESObjectREFR*)ptr)->pos.X = vec.X;
 	((FreeScript::TESObjectREFR*)ptr)->pos.Y = vec.Y;
 	((FreeScript::TESObjectREFR*)ptr)->pos.Z = vec.Z;
 }
 
-Microsoft::Xna::Framework::Vector3 Script::TESObjectREFR::Rotation::get()
+Microsoft::Xna::Framework::Vector3 Skyrim::TESObjectREFR::Rotation::get()
 {
 	Microsoft::Xna::Framework::Vector3 vec;
 	vec.X = ((FreeScript::TESObjectREFR*)ptr)->rot.X;
@@ -50,7 +50,7 @@ Microsoft::Xna::Framework::Vector3 Script::TESObjectREFR::Rotation::get()
 	return vec;
 }
 
-void Script::TESObjectREFR::Rotation::set(Microsoft::Xna::Framework::Vector3 vec)
+void Skyrim::TESObjectREFR::Rotation::set(Microsoft::Xna::Framework::Vector3 vec)
 {
 	((FreeScript::TESObjectREFR*)ptr)->rot.X = vec.X;
 	((FreeScript::TESObjectREFR*)ptr)->rot.Y = vec.Y;
@@ -58,49 +58,49 @@ void Script::TESObjectREFR::Rotation::set(Microsoft::Xna::Framework::Vector3 vec
 }
 
 
-Script::Actor::Actor(void* ptr) : Script::TESObjectREFR(ptr)
+Skyrim::Actor::Actor(void* ptr) : Skyrim::TESObjectREFR(ptr)
 {
 
 }
 
-Script::Actor::~Actor()
+Skyrim::Actor::~Actor()
 {
 
 }
 
-void Script::Actor::QueueNiNodeUpdate()
+void Skyrim::Actor::QueueNiNodeUpdate()
 {
 	FreeScript::QueueNiNodeUpdate((FreeScript::Actor*)NativeHandle);
 }
 
-void Script::Actor::UnequipAll()
+void Skyrim::Actor::UnequipAll()
 {
 	SActor::UnequipAll((FreeScript::Actor*)NativeHandle);
 }
 
-Script::TESNPC^ Script::Actor::BaseNpc::get()
+Skyrim::TESNPC^ Skyrim::Actor::BaseNpc::get()
 {
-	return gcnew Script::TESNPC(FreeScript::ActorHelper((FreeScript::Actor*)NativeHandle).GetNpc());
+	return gcnew Skyrim::TESNPC(FreeScript::ActorHelper((FreeScript::Actor*)NativeHandle).GetNpc());
 }
 
-bool Script::Actor::Dead::get()
+bool Skyrim::Actor::Dead::get()
 {
 	return SActor::IsDead((FreeScript::Actor*)NativeHandle);
 }
 
-System::UInt32 Script::Actor::Level::get()
+System::UInt32 Skyrim::Actor::Level::get()
 {
 	return SActor::GetLevel((FreeScript::Actor*)NativeHandle);
 }
 
-Script::TESForm^ Script::Actor::GetWornForm(System::UInt32 id)
+Skyrim::TESForm^ Skyrim::Actor::GetWornForm(System::UInt32 id)
 {
 	if(id > 14)
 		throw gcnew Exception("The worn forms are in the following range [0, 14]");
-	return gcnew Script::TESForm((void*)FreeScript::GetWornForm((FreeScript::Actor*)NativeHandle, 1 << id));
+	return gcnew Skyrim::TESForm((void*)FreeScript::GetWornForm((FreeScript::Actor*)NativeHandle, 1 << id));
 }
 
-void Script::Actor::EquipItem(Script::TESForm^ form)
+void Skyrim::Actor::EquipItem(Skyrim::TESForm^ form)
 {
 	::ObjectReference::AddItem(rtti_cast(ptr, Actor, TESObjectREFR), (FreeScript::TESForm*)form->NativeHandle, 1, true);
 	SActor::EquipItem((FreeScript::Actor*)ptr, (FreeScript::TESForm*)form->NativeHandle, true, false);
