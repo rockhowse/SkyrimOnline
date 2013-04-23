@@ -4,6 +4,7 @@
 
 #pragma once
 
+
 #include <list>
 #include <vector>
 #include <ctime>
@@ -17,7 +18,6 @@
 #include <sstream>
 
 #include <d3d9.h>
-
 
 #pragma warning( disable : 4251 )
 #pragma warning( disable : 4244 )

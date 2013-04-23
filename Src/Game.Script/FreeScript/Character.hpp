@@ -5,8 +5,6 @@
 #include "Actor.hpp"
 #include "Math/Vector3.hpp"
 
-using namespace Math;
-
 namespace FreeScript
 {
 	class Character
@@ -18,12 +16,12 @@ namespace FreeScript
 		float GetPosX();
 		float GetPosY();
 		float GetPosZ();
-		Vector3 GetPosition();
+		::Math::Vector3 GetPosition();
 
 		float GetRotX();
 		float GetRotY();
 		float GetRotZ();
-		Vector3 GetRotation();
+		::Math::Vector3 GetRotation();
 
 		void SetPos(float x, float y, float z);
 		void SetRot(float x, float y, float z);

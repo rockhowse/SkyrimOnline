@@ -88,12 +88,12 @@ bool Script::Actor::Dead::get()
 	return SActor::IsDead((FreeScript::Actor*)NativeHandle);
 }
 
-UInt32 Script::Actor::Level::get()
+System::UInt32 Script::Actor::Level::get()
 {
 	return SActor::GetLevel((FreeScript::Actor*)NativeHandle);
 }
 
-Script::TESForm^ Script::Actor::GetWornForm(UInt32 id)
+Script::TESForm^ Script::Actor::GetWornForm(System::UInt32 id)
 {
 	if(id > 14)
 		throw gcnew Exception("The worn forms are in the following range [0, 14]");

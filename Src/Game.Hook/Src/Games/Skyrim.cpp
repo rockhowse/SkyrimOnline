@@ -1,4 +1,5 @@
 #include "stdafx.h"
+#include "Skyrim.hpp"
 #include "Plugins.hpp"
 
 #pragma unmanaged
@@ -66,7 +67,7 @@ tSetVariables SetVariables;
 
 extern "C" __declspec(dllexport) void main()
 {
-	auto mod = GetModuleHandle("Skyrim.Script.dll");
+	auto mod = GetModuleHandle("Game.Script.dll");
 
 	SetVariables = (tSetVariables)GetProcAddress(mod, "SetVariables");
 

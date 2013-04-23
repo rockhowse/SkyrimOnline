@@ -13,6 +13,16 @@ HINSTANCE           gl_hThisInstance;
 
 void LoadOriginalDll();
 
+void Init()
+{
+	static bool init = true;
+	if(init)
+	{
+		init = false;
+		GetInstance()->Initialize();
+	}
+}
+
 void WINAPI D3DPERF_SetOptions( DWORD dwOptions )
 {
 	if (!gl_hOriginalDll) LoadOriginalDll(); // looking for the "right d3d9.dll"
@@ -116,13 +126,8 @@ tCreateWindowExA oCreateWindowExA;
 
 HWND WINAPI FakeCreateWindowExA(DWORD dwExStyle, LPCSTR lpClassName, LPCSTR lpWindowName, DWORD dwStyle, int X, int Y, int nWidth, int nHeight, HWND hWndParent, HMENU hMenu, HINSTANCE hInstance, LPVOID lpParam)
 {
-	static bool init = true;
-	if(init)
-	{
-		init = false;
-		GetInstance()->Initialize();
-	}
-	
+	Init();
+
 	return oCreateWindowExA(dwExStyle, lpClassName, lpWindowName, dwStyle, X, Y, nWidth, nHeight, hWndParent, hMenu, hInstance, lpParam);
 }
 
@@ -134,9 +139,9 @@ BOOL APIENTRY DllMain(HMODULE hModule, DWORD fdwReason, LPVOID lpReserved)
 		{
 			std::string strL;
 			strL.resize(MAX_PATH);
-			GetModuleFileName(NULL, &strL[0], MAX_PATH) ;
+			GetModuleFileName(NULL, &strL[0], MAX_PATH);
 
-			DisableThreadLibraryCalls((HMODULE)hModule);
+			DisableThreadLibraryCalls(hModule);
 
 			if(strL.find("TESV.exe") != std::string::npos ||
 			   strL.find("Oblivion.exe") != std::string::npos)
@@ -149,11 +154,13 @@ BOOL APIENTRY DllMain(HMODULE hModule, DWORD fdwReason, LPVOID lpReserved)
 				// Load all the plugins
 				GetInstance()->Load();
 
+				HMODULE user32 = LoadLibraryA("User32.dll");
+				oCreateWindowExA = (tCreateWindowExA)DetourFunction((PBYTE)GetProcAddress(user32, "CreateWindowExA"), (PBYTE)FakeCreateWindowExA);
+
 				if(strL.find("TESV.exe") != std::string::npos)
 					InstallSkyrim();
-				
-				HMODULE user32 = GetModuleHandle("User32.dll");
-				oCreateWindowExA = (tCreateWindowExA)DetourFunction((PBYTE)GetProcAddress(user32, "CreateWindowExA"), (PBYTE)FakeCreateWindowExA);
+				if(strL.find("Oblivion.exe") != std::string::npos)
+					InstallOblivion();
 
 				HookDInput();
 				HookWinAPI();

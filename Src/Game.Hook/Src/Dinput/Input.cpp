@@ -167,24 +167,26 @@ public:
 			}
 			return ret;
 		}
+
 	}
 
 	HRESULT _stdcall GetDeviceData(DWORD dataSize, DIDEVICEOBJECTDATA * outData, DWORD * outDataLen, DWORD flags)
 	{
 		HRESULT ret = mRealDevice->GetDeviceData(dataSize, outData, outDataLen, flags);
-		for(uint32_t i = 0 ; i < *outDataLen; ++i)
-		{
-			if(outData[i].dwData & 0x80)
+		if(outData)
+			for(uint32_t i = 0 ; i < *outDataLen; ++i)
 			{
-				if(InputHook::GetInstance()->GetListener())
-					InputHook::GetInstance()->GetListener()->OnPress(outData[i].dwOfs);
+				if(outData[i].dwData & 0x80)
+				{
+					if(InputHook::GetInstance()->GetListener())
+						InputHook::GetInstance()->GetListener()->OnPress(outData[i].dwOfs);
+				}
+				else
+				{
+					if(InputHook::GetInstance()->GetListener())
+						InputHook::GetInstance()->GetListener()->OnRelease(outData[i].dwOfs);
+				}
 			}
-			else
-			{
-				if(InputHook::GetInstance()->GetListener())
-					InputHook::GetInstance()->GetListener()->OnRelease(outData[i].dwOfs);
-			}
-		}
 		if(InputHook::GetInstance()->IsInputEnabled() == false)
 		{
 			*outDataLen = 0;

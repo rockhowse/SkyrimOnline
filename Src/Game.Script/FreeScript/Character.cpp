@@ -44,9 +44,9 @@ namespace FreeScript
 		return mActor->pos.Z;
 	}
 	//--------------------------------------------------------------------------------
-	Vector3 Character::GetPosition()
+	::Math::Vector3 Character::GetPosition()
 	{
-		Vector3 vec = {GetPosX(), GetPosY(), GetPosZ()};
+		::Math::Vector3 vec = {GetPosX(), GetPosY(), GetPosZ()};
 		return vec;
 	}
 	//--------------------------------------------------------------------------------
@@ -65,9 +65,9 @@ namespace FreeScript
 		return mActor->rot.Z;
 	}
 	//--------------------------------------------------------------------------------
-	Vector3 Character::GetRotation()
+	::Math::Vector3 Character::GetRotation()
 	{
-		Vector3 vec = {GetRotX(), GetRotY(), GetRotZ()};
+		::Math::Vector3 vec = {GetRotX(), GetRotY(), GetRotZ()};
 		return vec;
 	}
 	//--------------------------------------------------------------------------------

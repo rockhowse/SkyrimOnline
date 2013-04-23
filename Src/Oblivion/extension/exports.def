@@ -1,0 +1,5 @@
+LIBRARY	"Oblivion"
+EXPORTS
+OBSEPlugin_Query
+OBSEPlugin_Load
+CallFunction

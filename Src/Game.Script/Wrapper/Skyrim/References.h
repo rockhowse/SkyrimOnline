@@ -43,7 +43,7 @@ namespace Skyrim
 
 			void UnequipAll();
 
-			Script::TESForm^ GetWornForm(UInt32 id);
+			Script::TESForm^ GetWornForm(System::UInt32 id);
 			void EquipItem(Script::TESForm^ form);
 
 			property Script::TESNPC^ BaseNpc
@@ -56,9 +56,9 @@ namespace Skyrim
 				bool get();
 			}
 
-			property UInt32 Level
+			property System::UInt32 Level
 			{
-				UInt32 get();
+				System::UInt32 get();
 			}
 		};
 	}

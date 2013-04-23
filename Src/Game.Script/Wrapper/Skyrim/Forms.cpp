@@ -102,7 +102,7 @@ Script::TESRace^ Script::TESNPC::Race::get()
 	return gcnew Script::TESRace(npc->race.race);
 }
 
-UInt32 Script::TESNPC::Gender::get()
+System::UInt32 Script::TESNPC::Gender::get()
 {
 	auto npc = FreeScript::ActorHelper((FreeScript::Actor*)NativeHandle).GetNpc();
 	return npc->gender;
@@ -116,7 +116,7 @@ array<float>^ Script::TESNPC::FaceMorphs::get()
 	auto npc = FreeScript::ActorHelper((FreeScript::Actor*)NativeHandle).GetNpc();
 	FreeScript::TESNPCHelper(npc).GetFaceMorph(fmorphs);
 
-	for(UInt32 i = 0; i < 19; ++i)
+	for(System::UInt32 i = 0; i < 19; ++i)
 	{
 		arr[i] = fmorphs[i];
 	}
@@ -130,7 +130,7 @@ void Script::TESNPC::FaceMorphs::set(array<float>^ val)
 		throw gcnew Exception("FaceMorphs must contain 19 values.");
 
 	std::vector<float> fmorphs(19);
-	for(UInt32 i = 0; i < 19; ++i)
+	for(System::UInt32 i = 0; i < 19; ++i)
 	{
 		fmorphs[i] = val[i];
 	}

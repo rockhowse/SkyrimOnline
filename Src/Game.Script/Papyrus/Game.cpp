@@ -13,12 +13,12 @@ Script::Actor^ Script::Papyrus::Game::GetPlayer()
 	return gcnew Skyrim::Script::Actor(::Game::GetPlayer());
 }
 
-Script::TESForm^ Script::Papyrus::Game::GetFormById(UInt32 aiFormID)
+Script::TESForm^ Script::Papyrus::Game::GetFormById(System::UInt32 aiFormID)
 {
 	return gcnew Script::TESForm(::Game::GetFormById(aiFormID));
 }
 
-void Script::Papyrus::Game::EnablePlayerControls(bool abMovement, bool abFighting, bool abCamSwitch, bool abLooking, bool abSneaking, bool abMenu, bool abActivate, bool abJournalTabs, UInt32 aiDisablePOVType)
+void Script::Papyrus::Game::EnablePlayerControls(bool abMovement, bool abFighting, bool abCamSwitch, bool abLooking, bool abSneaking, bool abMenu, bool abActivate, bool abJournalTabs, System::UInt32 aiDisablePOVType)
 {
 	::Game::EnablePlayerControls(abMovement, abFighting, abCamSwitch, abLooking, abSneaking, abMenu, abActivate, abJournalTabs, aiDisablePOVType);
 }
@@ -28,7 +28,7 @@ void Script::Papyrus::Game::SetInChargen(bool abDisableSaving, bool abDisableWai
 	::Game::SetInChargen(abDisableSaving, abDisableWaiting, abShowControlsDisabledMessage);
 }
 
-void Script::Papyrus::Game::DisablePlayerControls(bool abMovement, bool abFighting, bool abCamSwitch, bool abLooking, bool abSneaking, bool abMenu, bool abActivate, bool abJournalTabs, UInt32 aiDisablePOVType)
+void Script::Papyrus::Game::DisablePlayerControls(bool abMovement, bool abFighting, bool abCamSwitch, bool abLooking, bool abSneaking, bool abMenu, bool abActivate, bool abJournalTabs, System::UInt32 aiDisablePOVType)
 {
 	::Game::DisablePlayerControls(abMovement, abFighting, abCamSwitch, abLooking, abSneaking, abMenu, abActivate, abJournalTabs, aiDisablePOVType);
 }

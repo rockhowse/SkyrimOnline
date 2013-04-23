@@ -106,9 +106,9 @@ namespace Skyrim
 				Script::TESRace^ get();
 			}
 
-			property UInt32 Gender
+			property System::UInt32 Gender
 			{
-				UInt32 get();
+				System::UInt32 get();
 			}
 
 			property array<float>^ FaceMorphs
