@@ -7,7 +7,7 @@ using Microsoft.Xna.Framework;
 
 namespace Game.API.Entities
 {
-    public class Player : SkyrimObject
+    public class Player : GameObject
     {
         private bool isInvulnerable;
 

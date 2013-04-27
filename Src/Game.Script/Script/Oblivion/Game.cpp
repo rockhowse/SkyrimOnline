@@ -9,7 +9,12 @@ using namespace Game::Script;
 
 typedef bool (*_IsMenuMode)();
 
-bool::Game::Script::Oblivion::Game::IsMenuMode()
+Game::Oblivion::Actor^ Game::Script::Oblivion::Game::GetPlayer()
+{
+	return gcnew ::Game::Oblivion::Actor(*(void**)0x00B333C4);
+}
+
+bool ::Game::Script::Oblivion::Game::IsMenuMode()
 {
 	return ((_IsMenuMode)0x00578F60)();
 }

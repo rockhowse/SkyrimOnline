@@ -150,6 +150,12 @@
     <ClInclude Include="Script\Oblivion\Game.h">
       <Filter>Header Files</Filter>
     </ClInclude>
+    <ClInclude Include="Wrapper\Oblivion\GameObjects.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="Wrapper\Oblivion\GameForms.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="AssemblyInfo.cpp">
@@ -246,6 +252,12 @@
       <Filter>Source Files</Filter>
     </ClCompile>
     <ClCompile Include="Script\Oblivion\Game.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="Wrapper\Oblivion\GameForms.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="Wrapper\Oblivion\GameObjects.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
   </ItemGroup>

@@ -7,9 +7,9 @@ using Microsoft.Xna.Framework;
 
 namespace Game.API.Entities
 {
-    public class SkyrimObject
+    public class GameObject
     {
-        internal SkyrimObject(
+        internal GameObject(
             long id,
             EntityState simulationState)
         {

@@ -1,6 +1,6 @@
 #pragma once
 
-#include <Wrapper/Skyrim/References.h>
+#include <Wrapper/Oblivion/GameObjects.h>
 
 namespace Game
 {
@@ -12,6 +12,7 @@ namespace Game
 			{
 			public:
 
+				static ::Game::Oblivion::Actor^ GetPlayer();
 				static bool IsMenuMode();
 			};
 		}

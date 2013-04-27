@@ -52,7 +52,6 @@ namespace Game.Client.IO
 
         public void OnEvent(KeyboardEvent ev)
         {
-            Entry.UserInterace.Chat.Log(ev.Key + " " + ev.Pressed);
             // F3 - http://community.bistudio.com/wiki/DIK_KeyCodes
             if (ev.Key == 0x3D && ev.Pressed == true)
             {

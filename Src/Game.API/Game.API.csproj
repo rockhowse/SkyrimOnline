@@ -28,6 +28,7 @@
     <DefineConstants>TRACE</DefineConstants>
     <ErrorReport>prompt</ErrorReport>
     <WarningLevel>4</WarningLevel>
+    <PlatformTarget>x86</PlatformTarget>
   </PropertyGroup>
   <ItemGroup>
     <Reference Include="Microsoft.Xna.Framework, Version=4.0.0.0, Culture=neutral, PublicKeyToken=842cf8be1de50553, processorArchitecture=x86" />
@@ -43,7 +44,7 @@
   <ItemGroup>
     <Compile Include="Entities\EntityState.cs" />
     <Compile Include="Entities\Player.cs" />
-    <Compile Include="Entities\SkyrimObject.cs" />
+    <Compile Include="Entities\GameObject.cs" />
     <Compile Include="Events\PlayerStateChangedArgs.cs" />
     <Compile Include="GameTimer.cs" />
     <Compile Include="GlobalFactory.cs" />
