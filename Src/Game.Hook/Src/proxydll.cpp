@@ -131,6 +131,8 @@ HWND WINAPI FakeCreateWindowExA(DWORD dwExStyle, LPCSTR lpClassName, LPCSTR lpWi
 	return oCreateWindowExA(dwExStyle, lpClassName, lpWindowName, dwStyle, X, Y, nWidth, nHeight, hWndParent, hMenu, hInstance, lpParam);
 }
 
+int GameType = 0;
+
 BOOL APIENTRY DllMain(HMODULE hModule, DWORD fdwReason, LPVOID lpReserved)
 {
 	switch (fdwReason)
@@ -158,9 +160,15 @@ BOOL APIENTRY DllMain(HMODULE hModule, DWORD fdwReason, LPVOID lpReserved)
 				oCreateWindowExA = (tCreateWindowExA)DetourFunction((PBYTE)GetProcAddress(user32, "CreateWindowExA"), (PBYTE)FakeCreateWindowExA);
 
 				if(strL.find("TESV.exe") != std::string::npos)
+				{
 					InstallSkyrim();
-				if(strL.find("Oblivion.exe") != std::string::npos)
+					GameType = 'skyr';
+				}
+				else if(strL.find("Oblivion.exe") != std::string::npos)
+				{	
 					InstallOblivion();
+					GameType = 'obli';
+				}
 
 				HookDInput();
 				HookWinAPI();

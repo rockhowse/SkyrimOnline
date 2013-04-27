@@ -1,6 +1,7 @@
 ﻿using Game.API.Utilities;
 using System;
 using System.Collections.Generic;
+using System.Diagnostics;
 using System.Linq;
 using System.Reflection;
 using System.Text;
@@ -12,17 +13,17 @@ namespace Game.API
     {
         private static IModule m_module = null;
 
-        public IModule Module
+        public static IModule Module
         {
             get
             {
                 if (m_module == null)
                 {
-                    Module mod = Assembly.GetExecutingAssembly().GetModules()[0];
+                    string assemblyName = Process.GetCurrentProcess().MainModule.ModuleName;
 
-                    if (mod.Name == "Oblivion.exe")
+                    if (assemblyName == "Oblivion.exe")
                         m_module = new OblivionModule();
-                    else if (mod.Name == "TESV.exe")
+                    else if (assemblyName == "TESV.exe")
                         m_module = new SkyrimModule();
                 }
                 return m_module;

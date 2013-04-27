@@ -1,11 +1,12 @@
 ﻿using Game;
+using Game.API;
+using Game.API.Utilities;
 using Game.Script;
 using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
-using G = Game;
 
 namespace Game.Client.IO
 {
@@ -21,7 +22,7 @@ namespace Game.Client.IO
         public void Update()
         {
             Event e = null;
-            while ((e = G.Input.Poll()) != null)
+            while ((e = Input.Poll()) != null)
             {
                 switch (e.Type)
                 {
@@ -51,33 +52,49 @@ namespace Game.Client.IO
 
         public void OnEvent(KeyboardEvent ev)
         {
+            Entry.UserInterace.Chat.Log(ev.Key + " " + ev.Pressed);
             // F3 - http://community.bistudio.com/wiki/DIK_KeyCodes
             if (ev.Key == 0x3D && ev.Pressed == true)
             {
                 UIEnabled = !UIEnabled;
+                if (UIEnabled)
+                {
+                    switch (GlobalFactory.Module.GameType)
+                    {
+                        case GameType.kSkyrim:
+                            Game.Script.Skyrim.Game.DisablePlayerControls(true, true, true, true, true, true, true, true, 1);
+                            break;
+                    }
+                    
+                }
+                else
+                {
+                    switch (GlobalFactory.Module.GameType)
+                    {
+                        case GameType.kSkyrim:
+                            Game.Script.Skyrim.Game.EnablePlayerControls(true, true, true, true, true, true, true, true, 1);
+                            Game.Script.Skyrim.Game.SetInChargen(false, false, true);
+                            break;
+                    }
+                }
             }
+
             if (UIEnabled)
             {
-                G.Overlay.System.InjectKeyboardKey(ev.Key, ev.Pressed);
-                Game.Script.Skyrim.Game.DisablePlayerControls(true, true, true, true, true, true, true, true, 1);
-            }
-            else
-            {
-                Game.Script.Skyrim.Game.EnablePlayerControls(true, true, true, true, true, true, true, true, 1);
-                Game.Script.Skyrim.Game.SetInChargen(false, false, true);
+                Overlay.System.InjectKeyboardKey(ev.Key, ev.Pressed);
             }
         }
 
         public void OnEvent(MouseEvent ev)
         {
             if (UIEnabled)
-                G.Overlay.System.InjectMouseKey(ev.Key, ev.Pressed);
+                Overlay.System.InjectMouseKey(ev.Key, ev.Pressed);
         }
 
         public void OnEvent(MousePositionEvent ev)
         {
             if (UIEnabled)
-                G.Overlay.System.InjectMousePosition(ev.X, ev.Y, ev.Z);
+                Overlay.System.InjectMousePosition(ev.X, ev.Y, ev.Z);
         }
 
         public bool UIEnabled
@@ -88,7 +105,7 @@ namespace Game.Client.IO
             }
             set
             {
-                G.Overlay.System.CursorVisible = value;
+                Overlay.System.CursorVisible = value;
                 mUIEnabled = value;
             }
         }

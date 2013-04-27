@@ -1,7 +1,9 @@
 ﻿using Game.API;
 using System;
 using System.Collections.Generic;
+using System.Diagnostics;
 using System.Linq;
+using System.Reflection;
 using System.Text;
 using System.Threading.Tasks;
 
@@ -17,8 +19,7 @@ namespace Game.Client
             if ((ticks - time) / 10000000 > 5)
             {
                 time = ticks;
-
-                Entry.UserInterace.Chat.Log("Test !");
+                Entry.UserInterace.Chat.Log(GlobalFactory.Module.Name);
             }
         }
     }

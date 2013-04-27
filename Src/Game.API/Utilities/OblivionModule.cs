@@ -12,5 +12,10 @@ namespace Game.API.Utilities
         {
             get { return "Oblivion"; }
         }
+
+        GameType IModule.GameType
+        {
+            get { return GameType.kOblivion; }
+        }
     }
 }

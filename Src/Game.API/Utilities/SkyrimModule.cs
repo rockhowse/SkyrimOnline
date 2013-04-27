@@ -12,5 +12,10 @@ namespace Game.API.Utilities
         {
             get { return "Skyrim"; }
         }
+
+        GameType IModule.GameType
+        {
+            get { return GameType.kSkyrim; }
+        }
     }
 }

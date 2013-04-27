@@ -17,6 +17,8 @@ static DirectInput8Create_t	DirectInput8Create_r;
 
 IInputHook* TheIInputHook = nullptr;
 
+extern int GameType;
+
 class InputHook : public IInputHook
 {
 public:
@@ -187,6 +189,7 @@ public:
 						InputHook::GetInstance()->GetListener()->OnRelease(outData[i].dwOfs);
 				}
 			}
+
 		if(InputHook::GetInstance()->IsInputEnabled() == false)
 		{
 			*outDataLen = 0;

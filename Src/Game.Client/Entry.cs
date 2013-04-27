@@ -10,7 +10,7 @@ namespace Game.Client
     public class Entry
     {
         private static IWorld instance = null;
-        private static IO.InputManager inputManager = null;
+        private static IO.InputManager inputManager;
 
         [DllExport]
         private static void Load()
@@ -25,7 +25,7 @@ namespace Game.Client
 
             if (Enabled)
             {
-                if (instance == null)
+               if (instance == null)
                     instance = new World();
                 if (inputManager == null)
                     inputManager = new IO.InputManager();
