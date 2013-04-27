@@ -23,5 +23,12 @@ namespace Game.Client.Interface
         {
             m_chat.Log(str);
         }
+
+        public bool Visible
+        {
+            get { return m_chat.Visible; }
+            set { m_chat.Visible = value; }
+        }
+
     }
 }

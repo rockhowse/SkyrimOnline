@@ -45,6 +45,7 @@ namespace Game.Client
 
                 GameClient.Update();
                 inputManager.Update();
+                UserInterace.Update();
                 instance.Update();
             }
         }

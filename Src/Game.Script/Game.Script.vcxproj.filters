@@ -147,6 +147,9 @@
     <ClInclude Include="Script\Skyrim\Game.h">
       <Filter>Header Files</Filter>
     </ClInclude>
+    <ClInclude Include="Script\Oblivion\Game.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="AssemblyInfo.cpp">
@@ -240,6 +243,9 @@
       <Filter>Source Files</Filter>
     </ClCompile>
     <ClCompile Include="Script\Skyrim\Game.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="Script\Oblivion\Game.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
   </ItemGroup>
