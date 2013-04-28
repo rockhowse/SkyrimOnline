@@ -1,6 +1,7 @@
 #include "stdafx.h"
 #include "GameObjects.h"
 #include "common/plugin.h"
+#include "Script/Oblivion/ObscriptCaller.hpp"
 
 #pragma managed
 
@@ -17,17 +18,22 @@ Game::Oblivion::TESObjectREFR::~TESObjectREFR()
 Microsoft::Xna::Framework::Vector3 Game::Oblivion::TESObjectREFR::Position::get()
 {
 	Microsoft::Xna::Framework::Vector3 vec;
-	double result;
 
-	std::vector<unsigned char> params;
-	params.push_back(2); // Param size
-	params.push_back(0); // NULL byte
-	params.push_back('Y'); // Axis
-
-
-	if(!CallOblivionFunction("GetPos", NativeHandle, params, 1, &result))
-		MessageBoxA(0,"Call returned false","",0);
-	vec.X = result;
+	{
+		ObscriptCaller caller("GetPos");
+		caller.Push((const char)'X');
+		vec.X = caller(NativeHandle);
+	}
+	{
+		ObscriptCaller caller("GetPos");
+		caller.Push((const char)'Y');
+		vec.Y = caller(NativeHandle);
+	}
+	{
+		ObscriptCaller caller("GetPos");
+		caller.Push((const char)'Z');
+		vec.Z = caller(NativeHandle);
+	}
 
 	return vec;
 }

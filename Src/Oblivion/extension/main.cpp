@@ -166,7 +166,7 @@ bool OBSEPlugin_Query(const OBSEInterface * obse, PluginInfo * info)
 	return true;
 }
 
-bool CallFunction(const char* longName, void * thisObj, std::vector<unsigned char>& parameterStack, int stackSize, double * result)
+bool CallFunction(const char* longName, void * thisObj, std::vector<unsigned char>& parameterStack, double * result)
 {
 	if(g_cmdIntfc)
 	{

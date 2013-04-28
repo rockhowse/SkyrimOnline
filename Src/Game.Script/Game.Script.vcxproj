@@ -74,6 +74,7 @@
       <ObjectFileName Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">$(IntDir)%(RelativeDir)</ObjectFileName>
     </ClCompile>
     <ClCompile Include="Script\Oblivion\Game.cpp" />
+    <ClCompile Include="Script\Oblivion\ObscriptCaller.cpp" />
     <ClCompile Include="Script\Skyrim\Actor.cpp">
       <ObjectFileName Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">$(IntDir)%(RelativeDir)</ObjectFileName>
     </ClCompile>
@@ -130,6 +131,7 @@
     <ClInclude Include="Overlay\Message.h" />
     <ClInclude Include="Overlay\System.h" />
     <ClInclude Include="Script\Oblivion\Game.h" />
+    <ClInclude Include="Script\Oblivion\ObscriptCaller.hpp" />
     <ClInclude Include="Script\Skyrim\Actor.h" />
     <ClInclude Include="resource.h" />
     <ClInclude Include="Stdafx.h" />
