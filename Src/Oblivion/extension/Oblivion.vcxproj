@@ -11,7 +11,7 @@
     </ProjectConfiguration>
   </ItemGroup>
   <PropertyGroup Label="Globals">
-    <ProjectName>Oblivion</ProjectName>
+    <ProjectName>Oblivion.Online</ProjectName>
     <ProjectGuid>{D4DDA734-7E93-4581-8F82-32BB738F69FE}</ProjectGuid>
     <RootNamespace>obse_plugin_example</RootNamespace>
     <SccProjectName>

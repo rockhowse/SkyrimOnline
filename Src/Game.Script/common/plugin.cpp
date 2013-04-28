@@ -32,7 +32,7 @@ void Error(char *pattern, ...)
 	va_start(lst, pattern);
 	vsprintf_s(text, pattern, lst);
 	va_end(lst);
-	MessageBoxA(0, text, "ScriptDragon plugin critical error", MB_ICONERROR); 
+	MessageBoxA(0, text, "Online Mod plugin critical error", MB_ICONERROR); 
 	ExitProcess(0);
 }
 
@@ -110,6 +110,21 @@ void DragonPluginInit(HMODULE hModule)
 	RegisterPlugin(hModule);
 }
 
+////////////////////////////////////////////////////////////////////////// Oblivion
+
+TCallOblivionFunction CallOblivionFunction;
+
+void OblivionPluginInit(HMODULE hModule)
+{
+	HMODULE hOblivion = GetModuleHandleA("Oblivion.Online.dll");
+	CallOblivionFunction = (TCallOblivionFunction)GetProcAddress(hOblivion, "CallFunction");
+
+	if(!CallOblivionFunction)
+	{
+		Error("Can't load the function !");
+	}
+}
+
 #pragma unmanaged
 
 extern "C" __declspec(dllexport) void main()
@@ -133,6 +148,10 @@ BOOL APIENTRY DllMain(HMODULE hModule, DWORD fdwReason, LPVOID lpReserved)
 			if(strL.find("TESV.exe") != std::string::npos)
 			{
 				DragonPluginInit(hModule);
+			}
+			else if(strL.find("Oblivion.exe") != std::string::npos)
+			{
+				OblivionPluginInit(hModule);
 			}
 
 			break;

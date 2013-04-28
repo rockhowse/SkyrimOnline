@@ -22,6 +22,8 @@ OBSEScriptInterface * g_scriptInterface = NULL;	// make sure you assign to this
 #include "obse/Script.h"
 #include "obse/GameObjects.h"
 #include <string>
+#include <sstream>
+#include <fstream>
 
 
 PluginHandle				g_pluginHandle = kPluginHandle_Invalid;
@@ -35,6 +37,7 @@ OBSECommandTableInterface* g_cmdIntfc = NULL;
 ***************************/
 
 std::string	g_strData;
+std::ofstream g_log("out.log", std::ios::trunc);
 
 static void ResetData(void)
 {
@@ -57,6 +60,27 @@ static void ExamplePlugin_NewGameCallback(void * reserved)
 {
 	ResetData();
 }
+
+bool Cmd_TextAxis_Execute(COMMAND_ARGS)
+{
+	std::ostringstream os;
+	*result = 4.0f;
+	for(int i = 0; i < 16; ++i)
+	{
+		os << "{" << ((char*)arg1)[i] << ":" << (int)((char*)arg1)[i] << "} ; ";
+	}
+	g_log << os.str() << std::endl;
+
+	return true;
+}
+
+static ParamInfo kParams_TextAxis[2] =
+{
+	{	"axis",		kParamType_Axis,	0	},
+	{	"string",	kParamType_String,	0	},
+};
+
+DEFINE_COMMAND_PLUGIN(TextAxis, "Test", 0, 2, kParams_TextAxis)
 
 /*************************
 	Messaging API example
@@ -142,14 +166,55 @@ bool OBSEPlugin_Query(const OBSEInterface * obse, PluginInfo * info)
 	return true;
 }
 
-bool CallFunction(const char* longName, void * thisObj, void * arg1, void * arg2, double * result)
+bool CallFunction(const char* longName, void * thisObj, std::vector<unsigned char>& parameterStack, int stackSize, double * result)
 {
 	if(g_cmdIntfc)
 	{
 		auto cmd = g_cmdIntfc->GetByName(longName);
+
 		if(cmd)
 		{
-			return cmd->eval((TESObjectREFR*)thisObj, arg1, arg2, result);
+			UInt32 opcodeOffset = 4;
+
+			unsigned char scriptBuff[sizeof(Script)];
+			Script* fScript = (Script*)scriptBuff;
+			ScriptEventList eList;
+			void* sstate = GetGlobalScriptStateObj();
+			fScript->Constructor();
+			fScript->MarkAsTemporary();
+			eList.m_eventList = nullptr;
+			eList.m_script = fScript;
+			eList.m_vars = nullptr;
+			eList.m_unk1 = 0;
+
+			union ShortToChar
+			{
+				unsigned short s;
+				unsigned char c[2];
+			};
+
+			ShortToChar tmp;
+			tmp.s = cmd->opcode;
+
+			std::vector<unsigned char> params;
+			params.push_back(tmp.c[0]);
+			params.push_back(tmp.c[1]);
+
+			tmp.s = parameterStack.size();
+			params.push_back(tmp.c[0]);
+			params.push_back(tmp.c[1]);
+
+			params.insert(params.end(), parameterStack.begin(), parameterStack.end());
+
+			bool ret = cmd->execute(cmd->params, params.data(), (TESObjectREFR*)thisObj, 0, fScript, &eList, result, &opcodeOffset);
+
+			fScript->StaticDestructor();
+
+			return ret;
+		}
+		else
+		{
+			MessageBoxA(0, "Command not found...", "", 0);
 		}
 	}
 	return false;
@@ -162,12 +227,13 @@ bool OBSEPlugin_Load(const OBSEInterface * obse)
 
 	// register commands
 	obse->SetOpcodeBase(0x7541);
+	obse->RegisterCommand(&kCommandInfo_TextAxis);
 	
 	// set up serialization callbacks when running in the runtime
 	if(!obse->isEditor)
 	{
-		g_serialization->SetSaveCallback(g_pluginHandle, ExamplePlugin_SaveCallback);
-		g_serialization->SetLoadCallback(g_pluginHandle, ExamplePlugin_LoadCallback);
+		g_serialization->SetSaveCallback(g_pluginHandle,    ExamplePlugin_SaveCallback);
+		g_serialization->SetLoadCallback(g_pluginHandle,    ExamplePlugin_LoadCallback);
 		g_serialization->SetNewGameCallback(g_pluginHandle, ExamplePlugin_NewGameCallback);
 
 		// register to use string var interface

@@ -12,6 +12,8 @@
 
 using namespace FreeScript;
 
+// Skyrim :
+
 #define MAX_STACK_LEN 32
 
 typedef void (_stdcall *TNativeCall)(char *clname, char *fname, DWORD stackparamcount, DWORD *stack, DWORD *result);
@@ -47,3 +49,7 @@ void PrintDebug(char *pattern, ...);
 int IniReadInt(char *inifile, char *section, char *param, int def);
 
 
+// Oblivion :
+
+typedef bool (*TCallOblivionFunction)(const char* fName, void* thisObj,std::vector<unsigned char>& parameterStack, int stackSize, double* result);
+extern TCallOblivionFunction CallOblivionFunction;

@@ -14,6 +14,18 @@ namespace Game
 
 			TESObjectREFR(void * ptr);
 			~TESObjectREFR();
+
+			property Microsoft::Xna::Framework::Vector3 Position
+			{
+				Microsoft::Xna::Framework::Vector3 get();
+				void set(Microsoft::Xna::Framework::Vector3 pos);
+			}
+
+			property Microsoft::Xna::Framework::Vector3 Rotation
+			{
+				Microsoft::Xna::Framework::Vector3 get();
+				void set(Microsoft::Xna::Framework::Vector3 pos);
+			}
 		};
 
 		public ref class MobileObject : public Oblivion::TESObjectREFR
