@@ -34,6 +34,15 @@ void ObscriptCaller::Push(const char pC)
 	mData.push_back(pC);
 }
 
+void ObscriptCaller::Push(double pValue)
+{
+	mData.push_back(122);
+	for(int i = 0; i < sizeof(double); ++i)
+	{
+		mData.push_back(((unsigned char*)&pValue)[i]);
+	}
+}
+
 void ObscriptCaller::PushSize(short pSize)
 {
 	ShortToChar s;

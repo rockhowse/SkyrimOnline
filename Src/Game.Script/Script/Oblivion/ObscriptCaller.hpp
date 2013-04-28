@@ -8,6 +8,7 @@ struct ObscriptCaller
 
 	void Push(const std::string& pStr);
 	void Push(const char pC);
+	void Push(double pValue);
 
 	double operator()(void * pThisObj = nullptr);
 

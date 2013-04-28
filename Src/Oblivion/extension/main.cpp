@@ -77,7 +77,7 @@ bool Cmd_TextAxis_Execute(COMMAND_ARGS)
 static ParamInfo kParams_TextAxis[2] =
 {
 	{	"axis",		kParamType_Axis,	0	},
-	{	"string",	kParamType_String,	0	},
+	{	"float",	kParamType_Float,	0	},
 };
 
 DEFINE_COMMAND_PLUGIN(TextAxis, "Test", 0, 2, kParams_TextAxis)
