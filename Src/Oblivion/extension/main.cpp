@@ -226,7 +226,7 @@ bool OBSEPlugin_Load(const OBSEInterface * obse)
 	g_pluginHandle = obse->GetPluginHandle();
 
 	// register commands
-	obse->SetOpcodeBase(0x7541);
+	obse->SetOpcodeBase(0x27E0); // We have 0x27E0-0x27EF
 	obse->RegisterCommand(&kCommandInfo_TextAxis);
 	
 	// set up serialization callbacks when running in the runtime
