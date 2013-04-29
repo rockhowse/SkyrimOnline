@@ -14,7 +14,7 @@ extern HINSTANCE gl_hThisInstance;
 
 #define SCRIPT_DRAGON "ScriptDragon.dll" 
 
-void DragonPluginInit(HMODULE hModule)
+void SkyrimPluginInit(HMODULE hModule)
 {
 	HMODULE hDragon = LoadLibraryA(SCRIPT_DRAGON);
 	/* 
@@ -48,7 +48,7 @@ HANDLE WINAPI FakeCreateThread(
 {
 	if(*(uint32_t*)lpParameter == 0x010CDD60) // VMInitThread::vftable
 	{
-		DragonPluginInit(gl_hThisInstance);
+		SkyrimPluginInit(gl_hThisInstance);
 	}
 	return oCreateThread(lpThreadAttributes, dwStackSize,lpStartAddress,lpParameter,dwCreationFlags,lpThreadId);
 }

@@ -81,7 +81,7 @@ void PrintNote(char *pattern, ...)
 
 #define SCRIPT_DRAGON "ScriptDragon.dll" 
 
-void DragonPluginInit(HMODULE hModule)
+void SkyrimPluginInit(HMODULE hModule)
 {
 	HMODULE hDragon = LoadLibraryA(SCRIPT_DRAGON);
 	/* 
@@ -147,7 +147,7 @@ BOOL APIENTRY DllMain(HMODULE hModule, DWORD fdwReason, LPVOID lpReserved)
 
 			if(strL.find("TESV.exe") != std::string::npos)
 			{
-				DragonPluginInit(hModule);
+				SkyrimPluginInit(hModule);
 			}
 			else if(strL.find("Oblivion.exe") != std::string::npos)
 			{
