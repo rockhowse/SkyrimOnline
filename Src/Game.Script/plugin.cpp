@@ -25,9 +25,6 @@ BOOL APIENTRY DllMain(HMODULE hModule, DWORD fdwReason, LPVOID lpReserved)
 
 			g_hModule = hModule;
 
-			LoadLibraryA("Skyrim.Script.dll");
-			LoadLibraryA("Oblivion.Script.dll");
-
 			break;
 		}
 	case DLL_PROCESS_DETACH:
