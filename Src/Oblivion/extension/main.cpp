@@ -178,10 +178,12 @@ bool CallFunction(const char* longName, void * thisObj, std::vector<unsigned cha
 
 			unsigned char scriptBuff[sizeof(Script)];
 			Script* fScript = (Script*)scriptBuff;
+
 			ScriptEventList eList;
-			void* sstate = GetGlobalScriptStateObj();
+
 			fScript->Constructor();
 			fScript->MarkAsTemporary();
+
 			eList.m_eventList = nullptr;
 			eList.m_script = fScript;
 			eList.m_vars = nullptr;
