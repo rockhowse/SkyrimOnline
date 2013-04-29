@@ -96,6 +96,7 @@
     <ClCompile Include="Wrapper\Skyrim\References.cpp">
       <ObjectFileName Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">$(IntDir)%(RelativeDir)</ObjectFileName>
     </ClCompile>
+    <ClCompile Include="Wrapper\Skyrim\SkyrimFactory.cpp" />
     <ClCompile Include="Wrapper\Skyrim\Types.cpp">
       <ObjectFileName Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">$(IntDir)%(RelativeDir)</ObjectFileName>
     </ClCompile>
@@ -136,6 +137,9 @@
     <ClInclude Include="resource.h" />
     <ClInclude Include="Stdafx.h" />
     <ClInclude Include="Script\Skyrim\Game.h" />
+    <ClInclude Include="Wrapper\GameForms.hpp" />
+    <ClInclude Include="Wrapper\GameObjects.hpp" />
+    <ClInclude Include="Wrapper\IObjectFactory.h" />
     <ClInclude Include="Wrapper\Oblivion\GameForms.h" />
     <ClInclude Include="Wrapper\Oblivion\GameObjects.h" />
     <ClInclude Include="Wrapper\Skyrim\Components.h" />

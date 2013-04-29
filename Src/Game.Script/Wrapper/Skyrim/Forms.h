@@ -1,6 +1,7 @@
 #pragma once
 
 #include "Components.h"
+#include "../GameForms.hpp"
 
 using namespace System;
 
@@ -8,19 +9,19 @@ namespace Game
 {
 	namespace Skyrim
 	{
-		public ref class TESForm : public Skyrim::BaseFormComponent
+		public ref class TESForm : public Skyrim::BaseFormComponent, ITESForm
 		{
 		public:
 
 			TESForm(void* ptr);
 			~TESForm();
 
-			property int FormID
+			virtual property int FormID 
 			{
 				int get();
 			}
 
-			property int FormType
+			virtual property int FormType
 			{
 				int get();
 			}

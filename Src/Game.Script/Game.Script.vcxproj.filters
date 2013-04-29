@@ -159,6 +159,15 @@
     <ClInclude Include="Script\Oblivion\ObscriptCaller.hpp">
       <Filter>Header Files</Filter>
     </ClInclude>
+    <ClInclude Include="Wrapper\GameObjects.hpp">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="Wrapper\GameForms.hpp">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="Wrapper\IObjectFactory.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="AssemblyInfo.cpp">
@@ -264,6 +273,9 @@
       <Filter>Source Files</Filter>
     </ClCompile>
     <ClCompile Include="Script\Oblivion\ObscriptCaller.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="Wrapper\Skyrim\SkyrimFactory.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
   </ItemGroup>

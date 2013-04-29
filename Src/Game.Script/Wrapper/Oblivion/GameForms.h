@@ -1,5 +1,7 @@
 #pragma once
 
+#include "../GameForms.hpp"
+
 using namespace System;
 
 namespace Game
@@ -23,12 +25,22 @@ namespace Game
 			}
 		};
 
-		public ref class TESForm : public Oblivion::BaseFormComponent
+		public ref class TESForm : public Oblivion::BaseFormComponent, ITESForm
 		{
 		public:
 
 			TESForm(void * ptr);
 			~TESForm();
+
+			virtual property int FormID 
+			{
+				int get();
+			}
+
+			virtual property int FormType
+			{
+				int get();
+			}
 		};
 
 	}
