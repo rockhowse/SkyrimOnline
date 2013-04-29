@@ -80,6 +80,7 @@
     <ClCompile Include="Wrapper\Overlay\System.cpp">
       <ObjectFileName Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">$(IntDir)%(RelativeDir)</ObjectFileName>
     </ClCompile>
+    <ClInclude Include="Hook\clix.h" />
     <ClInclude Include="plugin.h" />
     <ClInclude Include="Engine\Data.hpp" />
     <ClInclude Include="Engine\InputManager.h" />

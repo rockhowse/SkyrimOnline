@@ -138,8 +138,11 @@ namespace Skyrim
 		void	Chat::Handle_Click(MyGUI::WidgetPtr _widget)
 		{
 			MyGUI::UString& str = mEdit->getOnlyText();
+
 			if(str.size() != 0)
 			{
+				OnInput(str.asUTF8());
+
 				mEdit->setTextSelect(0, mEdit->getTextLength());
 				mEdit->deleteTextSelection();
 			}

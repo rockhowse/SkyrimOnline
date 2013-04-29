@@ -6,6 +6,7 @@
 
 #include <MyGUi/MyGUI.h>
 #include <Engine/IUpdatable.hpp>
+#include "../Hook/Function.hpp"
 
 namespace Skyrim
 {
@@ -14,7 +15,7 @@ namespace Skyrim
 		//--------------------------------------------------------------------------------
 		/// @brief A chat interface for the client
 		//--------------------------------------------------------------------------------
-		class Chat : public IUpdatable
+		class Chat : public ::IUpdatable
 		{
 		public:
 
@@ -67,6 +68,8 @@ namespace Skyrim
 			//--------------------------------------------------------------------------------
 			~Chat();
 
+			Signal<void(const std::string&)>		OnInput;
+
 		private:
 
 			//--------------------------------------------------------------------------------
@@ -86,6 +89,8 @@ namespace Skyrim
 			MyGUI::EditPtr			mEdit;
 
 			MyGUI::Gui*				mUI;
+
+			
 
 			HANDLE					mMutex;
 		};

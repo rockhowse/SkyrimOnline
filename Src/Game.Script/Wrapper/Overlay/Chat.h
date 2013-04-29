@@ -7,9 +7,13 @@ namespace Game
 {
 	namespace Overlay
 	{
+
 		public ref class Chat : public Game::IUpdatable
 		{
 		public:
+
+			delegate void InputHandler(System::String^);
+			event InputHandler^ OnInput;
 
 			Chat();
 			~Chat();
@@ -21,6 +25,8 @@ namespace Game
 				bool get();
 				void set(bool);
 			}
+
+			void _inputHandle(const std::string& pStr);
 		};
 	}
 }

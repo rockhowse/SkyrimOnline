@@ -15,6 +15,7 @@ namespace Game.Client.Interface
         {
             m_chat = new G.Overlay.Chat();
             m_chat.Visible = true;
+            m_chat.OnInput += OnChatInput;
 
             G.Overlay.System.Register(m_chat);
         }
@@ -30,5 +31,9 @@ namespace Game.Client.Interface
             set { m_chat.Visible = value; }
         }
 
+        private void OnChatInput(string str)
+        {
+            Log("Chat input : " + str);
+        }
     }
 }
