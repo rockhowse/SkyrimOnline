@@ -13,6 +13,8 @@ void SetGameScriptVariables(bool pForce)
 		init = true;
 
 		auto mod = GetModuleHandleA("Game.Script.dll");
+		if(!mod)
+			mod = LoadLibraryA("Game.Script.dll");
 
 		SetVariables = (tSetVariables)GetProcAddress(mod, "SetVariables");
 

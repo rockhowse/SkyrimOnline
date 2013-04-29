@@ -1,6 +1,7 @@
 #include "Stdafx.h"
 #pragma managed
 #include "Game.h"
+#include "ObscriptCaller.hpp"
 #pragma managed
 
 using namespace System;
@@ -21,6 +22,30 @@ Game::Oblivion::Actor^ Game::Script::Oblivion::Game::GetPlayer()
 Game::Oblivion::TESForm^ Game::Script::Oblivion::Game::GetFormById(UInt32 aiFormID)
 {
 	return gcnew ::Game::Oblivion::Actor(LookupFormByID(aiFormID));
+}
+
+void ::Game::Script::Oblivion::Game::EnablePlayerControls()
+{
+	ObscriptCaller caller("EnablePlayerControls");
+	caller();
+}
+
+void ::Game::Script::Oblivion::Game::DisablePlayerControls()
+{
+	ObscriptCaller caller("DisablePlayerControls");
+	caller();
+}
+
+void ::Game::Script::Oblivion::Game::EnableMouse()
+{
+	ObscriptCaller caller("EnableMouse");
+	caller();
+}
+
+void ::Game::Script::Oblivion::Game::DisableMouse()
+{
+	ObscriptCaller caller("DisableMouse");
+	caller();
 }
 
 bool ::Game::Script::Oblivion::Game::IsMenuMode()

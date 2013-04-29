@@ -66,6 +66,7 @@ void InstallSkyrim()
 extern "C" __declspec(dllexport) void main()
 {
 	SetGameScriptVariables();
+
 	while(Wait)
 	{
 		GetInstance()->Run();

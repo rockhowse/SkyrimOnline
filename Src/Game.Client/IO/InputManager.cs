@@ -53,7 +53,7 @@ namespace Game.Client.IO
         public void OnEvent(KeyboardEvent ev)
         {
             // F3 - http://community.bistudio.com/wiki/DIK_KeyCodes
-            if (ev.Key == 0x3D && ev.Pressed == true)
+            if (ev.Key == 0x9D && ev.Pressed == true)
             {
                 UIEnabled = !UIEnabled;
                 if (UIEnabled)
@@ -62,6 +62,10 @@ namespace Game.Client.IO
                     {
                         case GameType.kSkyrim:
                             Game.Script.Skyrim.Game.DisablePlayerControls(true, true, true, true, true, true, true, true, 1);
+                            break;
+                        case GameType.kOblivion:
+                            Game.Script.Oblivion.Game.DisablePlayerControls();
+                            Game.Script.Oblivion.Game.DisableMouse();
                             break;
                     }
                     
@@ -73,6 +77,10 @@ namespace Game.Client.IO
                         case GameType.kSkyrim:
                             Game.Script.Skyrim.Game.EnablePlayerControls(true, true, true, true, true, true, true, true, 1);
                             Game.Script.Skyrim.Game.SetInChargen(false, false, true);
+                            break;
+                        case GameType.kOblivion:
+                            Game.Script.Oblivion.Game.EnablePlayerControls();
+                            Game.Script.Oblivion.Game.EnableMouse();
                             break;
                     }
                 }
