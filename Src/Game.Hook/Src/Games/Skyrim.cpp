@@ -1,6 +1,7 @@
 #include "stdafx.h"
 #include "Skyrim.hpp"
 #include "Plugins.hpp"
+#include "Common.hpp"
 
 #pragma unmanaged
 
@@ -62,21 +63,9 @@ void InstallSkyrim()
 	oCreateThread = (tCreateThread)DetourFunction((PBYTE)GetProcAddress(kernel, "CreateThread"), (PBYTE)FakeCreateThread);
 }
 
-typedef void (*tSetVariables)(IDirect3DDevice9* pDevice, IDirect3D9* pDirect, IInputHook* pInput, Signal<void(IDirect3DDevice9*)>*,Signal<void(IDirect3DDevice9*)>*);
-tSetVariables SetVariables;
-
 extern "C" __declspec(dllexport) void main()
 {
-	auto mod = GetModuleHandle("Game.Script.dll");
-
-	SetVariables = (tSetVariables)GetProcAddress(mod, "SetVariables");
-
-	IDirect3D9* pDevice;
-	myIDirect3DDevice9::GetInstance()->GetDirect3D(&pDevice);
-	SetVariables(myIDirect3DDevice9::GetInstance()->GetDevice(), pDevice, TheIInputHook, 
-		&myIDirect3DDevice9::GetInstance()->OnPresent,
-		&myIDirect3DDevice9::GetInstance()->OnReset);
-
+	SetGameScriptVariables();
 	while(Wait)
 	{
 		GetInstance()->Run();

@@ -64,6 +64,7 @@
     <ClInclude Include="Src\Dinput\Input.hpp" />
     <ClInclude Include="Src\Directx\myIDirect3D9.h" />
     <ClInclude Include="Src\Directx\myIDirect3DDevice9.h" />
+    <ClInclude Include="Src\Games\Common.hpp" />
     <ClInclude Include="Src\Hook\Function.hpp" />
     <ClInclude Include="Src\Games\Oblivion.hpp" />
     <ClInclude Include="Src\Plugins.hpp" />
@@ -82,6 +83,7 @@
     <ClCompile Include="Src\Directx\myIDirect3DDevice9.cpp">
       <CompileAsManaged Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">false</CompileAsManaged>
     </ClCompile>
+    <ClCompile Include="Src\Games\Common.cpp" />
     <ClCompile Include="Src\Games\Oblivion.cpp">
       <CompileAsManaged Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">false</CompileAsManaged>
     </ClCompile>
