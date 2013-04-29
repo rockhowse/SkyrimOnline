@@ -9,106 +9,106 @@
 using namespace System;
 using namespace Game;
 
-Skyrim::TESForm::TESForm(void* ptr) : Skyrim::BaseFormComponent(ptr)
+Game::Skyrim::TESForm::TESForm(void* ptr) : Game::Skyrim::BaseFormComponent(ptr)
 {
 
 }
-Skyrim::TESForm::~TESForm()
+Game::Skyrim::TESForm::~TESForm()
 {
 
 }
 
-int Skyrim::TESForm::FormID::get()
+int Game::Skyrim::TESForm::FormID::get()
 {
 	return ((FreeScript::TESForm*)NativeHandle)->formID;
 }
 
-int Skyrim::TESForm::FormType::get()
+int Game::Skyrim::TESForm::FormType::get()
 {
 	return ((FreeScript::TESForm*)NativeHandle)->formType;
 }
 
-int Skyrim::TESForm::Flags::get()
+int Game::Skyrim::TESForm::Flags::get()
 {
 	return ((FreeScript::TESForm*)NativeHandle)->flags;
 }
 
-Skyrim::TESObjectCELL::TESObjectCELL(void* ptr) : Skyrim::TESForm(ptr)
+Game::Skyrim::TESObjectCELL::TESObjectCELL(void* ptr) : Game::Skyrim::TESForm(ptr)
 {
 
 }
 
-Skyrim::TESObjectCELL::~TESObjectCELL()
+Game::Skyrim::TESObjectCELL::~TESObjectCELL()
 {
 
 }
 
-Skyrim::TESObject::TESObject(void* ptr): Skyrim::TESForm(ptr)
+Game::Skyrim::TESObject::TESObject(void* ptr): Game::Skyrim::TESForm(ptr)
 {
 
 }
 
-Skyrim::TESObject::~TESObject()
+Game::Skyrim::TESObject::~TESObject()
 {
 
 }
 
-Skyrim::TESBoundObject::TESBoundObject(void* ptr) : Skyrim::TESObject(ptr)
+Game::Skyrim::TESBoundObject::TESBoundObject(void* ptr) : Game::Skyrim::TESObject(ptr)
 {
 
 }
 
-Skyrim::TESBoundObject::~TESBoundObject()
+Game::Skyrim::TESBoundObject::~TESBoundObject()
 {
 
 }
 
-Skyrim::TESBoundAnimObject::TESBoundAnimObject(void* ptr)
-	:Skyrim::TESBoundObject(ptr)
+Game::Skyrim::TESBoundAnimObject::TESBoundAnimObject(void* ptr)
+	: Game::Skyrim::TESBoundObject(ptr)
 {
 
 }
 
-Skyrim::TESBoundAnimObject::~TESBoundAnimObject()
+Game::Skyrim::TESBoundAnimObject::~TESBoundAnimObject()
 {
 
 }
 
-Skyrim::TESActorBase::TESActorBase(void* ptr)
+Game::Skyrim::TESActorBase::TESActorBase(void* ptr)
 	:TESBoundAnimObject(ptr)
 {
 
 }
 
-Skyrim::TESActorBase::~TESActorBase()
+Game::Skyrim::TESActorBase::~TESActorBase()
 {
 
 }
 
-Skyrim::TESNPC::TESNPC(void* ptr)
+Game::Skyrim::TESNPC::TESNPC(void* ptr)
 	:Skyrim::TESActorBase(ptr)
 {
 
 }
 
-Skyrim::TESNPC::~TESNPC()
+Game::Skyrim::TESNPC::~TESNPC()
 {
 
 }
 
-Skyrim::TESRace^ Skyrim::TESNPC::Race::get()
+Game::Skyrim::TESRace^ Game::Skyrim::TESNPC::Race::get()
 {
 	auto npc = FreeScript::ActorHelper((FreeScript::Actor*)NativeHandle).GetNpc();
-	return gcnew Skyrim::TESRace(npc->race.race);
+	return gcnew Game::Skyrim::TESRace(npc->race.race);
 }
 
-System::UInt32 Skyrim::TESNPC::Gender::get()
+System::UInt32 Game::Skyrim::TESNPC::Gender::get()
 {
 	auto npc = FreeScript::ActorHelper((FreeScript::Actor*)NativeHandle).GetNpc();
 	return npc->gender;
 }
 
-array<float>^ Skyrim::TESNPC::FaceMorphs::get()
+array<float>^ Game::Skyrim::TESNPC::FaceMorphs::get()
 {
 	array<float>^ arr = gcnew array<float>(19);
 
@@ -124,7 +124,7 @@ array<float>^ Skyrim::TESNPC::FaceMorphs::get()
 	return arr;
 }
 
-void Skyrim::TESNPC::FaceMorphs::set(array<float>^ val)
+void Game::Skyrim::TESNPC::FaceMorphs::set(array<float>^ val)
 {
 	if(val->Length != 19)
 		throw gcnew Exception("FaceMorphs must contain 19 values.");
@@ -139,12 +139,12 @@ void Skyrim::TESNPC::FaceMorphs::set(array<float>^ val)
 	FreeScript::TESNPCHelper(npc).SetFaceMorph(fmorphs);
 }
 
-Skyrim::TESRace::TESRace(void* ptr) : Skyrim::TESForm(ptr)
+Game::Skyrim::TESRace::TESRace(void* ptr) : Game::Skyrim::TESForm(ptr)
 {
 
 }
 
-Skyrim::TESRace::~TESRace()
+Game::Skyrim::TESRace::~TESRace()
 {
 
 }

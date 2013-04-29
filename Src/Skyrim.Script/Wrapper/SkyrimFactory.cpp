@@ -1,5 +1,5 @@
 #include "Stdafx.h"
-#include "../IObjectFactory.h"
+#include <wrapper/IObjectFactory.h>
 
 namespace Game
 {

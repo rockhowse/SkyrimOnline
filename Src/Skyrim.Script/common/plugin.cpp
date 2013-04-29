@@ -1,4 +1,5 @@
 // proxydll.cpp
+#include "Stdafx.h"
 #include "common/plugin.h"
 #include "common/skyscript.h"
 #include <string>
@@ -10,15 +11,15 @@ HINSTANCE           gl_hThisInstance;
 
 TNativeCall NativeCall;						 
 TObscriptCall ObscriptCall;				 
-TGetPlayerObjectHandle GetPlayerObjectHandle; // same as Game::GetPlayer()
-TGetConsoleSelectedRef GetConsoleSelectedRef; // gets the object ref selected in the console menu
-Tdyn_cast dyn_cast;							 // object dynamic casting
+TGetPlayerObjectHandle GetPlayerObjectHandle; 
+TGetConsoleSelectedRef GetConsoleSelectedRef;
+Tdyn_cast dyn_cast;	
 TRegisterPlugin RegisterPlugin;				 
 TWait Wait;									 
 TBSString_Create BSString_Create;			 
 TBSString_Free BSString_Free;	
-TExecuteConsoleCommand ExecuteConsoleCommand;  // executes command just like you typed in in the console
-											   // 2nd param is parent handle which can be 0 or point to a ref
+TExecuteConsoleCommand ExecuteConsoleCommand; 
+
 DWORD ___stack[MAX_STACK_LEN];
 DWORD ___stackindex;
 DWORD ___result;
@@ -108,58 +109,4 @@ void SkyrimPluginInit(HMODULE hModule)
 	}
 
 	RegisterPlugin(hModule);
-}
-
-////////////////////////////////////////////////////////////////////////// Oblivion
-
-TCallOblivionFunction CallOblivionFunction;
-
-void OblivionPluginInit(HMODULE hModule)
-{
-	HMODULE hOblivion = GetModuleHandleA("Oblivion.Online.dll");
-	CallOblivionFunction = (TCallOblivionFunction)GetProcAddress(hOblivion, "CallFunction");
-
-	if(!CallOblivionFunction)
-	{
-		Error("Can't load the function !");
-	}
-}
-
-#pragma unmanaged
-
-extern "C" __declspec(dllexport) void main()
-{
-}
-
-BOOL APIENTRY DllMain(HMODULE hModule, DWORD fdwReason, LPVOID lpReserved)
-{
-	switch (fdwReason)
-	{
-	case DLL_PROCESS_ATTACH:
-		{
-			std::string strL;
-			strL.resize(MAX_PATH);
-			GetModuleFileNameA(NULL, &strL[0], MAX_PATH) ;
-
-			DisableThreadLibraryCalls((HMODULE)hModule);
-
-			g_hModule = hModule;
-
-			if(strL.find("TESV.exe") != std::string::npos)
-			{
-				SkyrimPluginInit(hModule);
-			}
-			else if(strL.find("Oblivion.exe") != std::string::npos)
-			{
-				OblivionPluginInit(hModule);
-			}
-
-			break;
-		}
-	case DLL_PROCESS_DETACH:
-		{		
-			break;
-		}
-	}
-	return TRUE;
 }

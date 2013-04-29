@@ -134,15 +134,13 @@ namespace FreeScript
 	//--------------------------------------------------------------------------------
 	void Character::EquipItems(std::vector<uint32_t> wornForms)
 	{
-		std::ofstream f("Equip.log", std::ios::app);
 		::SActor::UnequipAll(mActor);
-		f << GetCurrentThreadId() << std::endl;
 		for( auto itor = wornForms.begin(); itor != wornForms.end(); ++itor )
 		{
 			if( *itor != 0 )
 			{
-				f << std::hex << mActor << " " << ::Game::GetFormById(*itor) << std::endl;
-				f << "AddItem" << ::ObjectReference::AddItem(rtti_cast(mActor, Actor, TESObjectREFR), ::Game::GetFormById(*itor), 1, true) << std::endl;
+				//f << std::hex << mActor << " " << ::Game::GetFormById(*itor) << std::endl;
+				//f << "AddItem" << ::ObjectReference::AddItem(rtti_cast(mActor, Actor, TESObjectREFR), ::Game::GetFormById(*itor), 1, true) << std::endl;
 				//SActor::EquipItem(mActor, Game::GetForm(*itor), true, false); 
 			}
 		}

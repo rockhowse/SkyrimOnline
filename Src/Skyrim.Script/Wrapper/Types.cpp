@@ -8,17 +8,17 @@
 using namespace System;
 using namespace Game;
 
-Skyrim::BSFixedString::BSFixedString(FreeScript::BSFixedString* ptr) : ptr((void*)ptr)
+Game::Skyrim::BSFixedString::BSFixedString(FreeScript::BSFixedString* ptr) : ptr((void*)ptr)
 {
 
 }
 
-Skyrim::BSFixedString::~BSFixedString()
+Game::Skyrim::BSFixedString::~BSFixedString()
 {
 
 }
 
-System::String^ Skyrim::BSFixedString::ToString()
+System::String^ Game::Skyrim::BSFixedString::ToString()
 {
 	return gcnew System::String(((FreeScript::BSFixedString*)ptr)->data);
 }

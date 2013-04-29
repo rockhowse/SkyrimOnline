@@ -73,19 +73,6 @@
     <ClCompile Include="Overlay\System.cpp">
       <ObjectFileName Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">$(IntDir)%(RelativeDir)</ObjectFileName>
     </ClCompile>
-    <ClCompile Include="Script\Oblivion\Game.cpp" />
-    <ClCompile Include="Script\Oblivion\ObscriptCaller.cpp" />
-    <ClCompile Include="Script\Skyrim\Actor.cpp">
-      <ObjectFileName Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">$(IntDir)%(RelativeDir)</ObjectFileName>
-    </ClCompile>
-    <ClCompile Include="Script\Skyrim\Game.cpp">
-      <ObjectFileName Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">$(IntDir)%(RelativeDir)</ObjectFileName>
-    </ClCompile>
-    <ClCompile Include="Wrapper\Oblivion\GameForms.cpp" />
-    <ClCompile Include="Wrapper\Oblivion\GameObjects.cpp" />
-    <ClCompile Include="Wrapper\Skyrim\Components.cpp">
-      <ObjectFileName Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">$(IntDir)%(RelativeDir)</ObjectFileName>
-    </ClCompile>
     <ClCompile Include="Wrapper\Input.cpp">
       <ObjectFileName Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">$(IntDir)%(RelativeDir)</ObjectFileName>
     </ClCompile>
@@ -93,118 +80,36 @@
     <ClCompile Include="Wrapper\Overlay\System.cpp">
       <ObjectFileName Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">$(IntDir)%(RelativeDir)</ObjectFileName>
     </ClCompile>
-    <ClCompile Include="Wrapper\Skyrim\References.cpp">
-      <ObjectFileName Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">$(IntDir)%(RelativeDir)</ObjectFileName>
-    </ClCompile>
-    <ClCompile Include="Wrapper\Skyrim\SkyrimFactory.cpp" />
-    <ClCompile Include="Wrapper\Skyrim\Types.cpp">
-      <ObjectFileName Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">$(IntDir)%(RelativeDir)</ObjectFileName>
-    </ClCompile>
-    <ClInclude Include="common\enums.h" />
-    <ClInclude Include="common\invoke.h" />
-    <ClInclude Include="common\obscript.h" />
-    <ClInclude Include="common\plugin.h" />
-    <ClInclude Include="common\skyscript.h" />
+    <ClInclude Include="plugin.h" />
     <ClInclude Include="Engine\Data.hpp" />
     <ClInclude Include="Engine\InputManager.h" />
     <ClInclude Include="Engine\IUpdatable.hpp" />
     <ClInclude Include="Engine\UpdateRegister.h" />
-    <ClInclude Include="FreeScript\Actor.hpp" />
-    <ClInclude Include="FreeScript\Character.hpp" />
-    <ClInclude Include="FreeScript\Common.hpp" />
-    <ClInclude Include="FreeScript\Components.hpp" />
-    <ClInclude Include="FreeScript\Data.hpp" />
-    <ClInclude Include="FreeScript\ExtraData.hpp" />
-    <ClInclude Include="FreeScript\Forms.hpp" />
-    <ClInclude Include="FreeScript\FormsHelper.hpp" />
-    <ClInclude Include="FreeScript\FreeScript.hpp" />
-    <ClInclude Include="FreeScript\Memory.hpp" />
-    <ClInclude Include="FreeScript\References.hpp" />
-    <ClInclude Include="FreeScript\ReferencesHelper.hpp" />
-    <ClInclude Include="FreeScript\RTTI.hpp" />
-    <ClInclude Include="FreeScript\TimeManager.h" />
-    <ClInclude Include="FreeScript\Types.hpp" />
-    <ClInclude Include="FreeScript\VM.hpp" />
-    <ClInclude Include="FreeScript\WeatherManager.h" />
     <ClInclude Include="Hook\Function.hpp" />
     <ClInclude Include="Math\Vector3.hpp" />
     <ClInclude Include="Overlay\Chat.h" />
     <ClInclude Include="Overlay\Message.h" />
     <ClInclude Include="Overlay\System.h" />
-    <ClInclude Include="Script\Oblivion\Game.h" />
-    <ClInclude Include="Script\Oblivion\ObscriptCaller.hpp" />
-    <ClInclude Include="Script\Skyrim\Actor.h" />
     <ClInclude Include="resource.h" />
     <ClInclude Include="Stdafx.h" />
-    <ClInclude Include="Script\Skyrim\Game.h" />
     <ClInclude Include="Wrapper\GameForms.hpp" />
     <ClInclude Include="Wrapper\GameObjects.hpp" />
     <ClInclude Include="Wrapper\IObjectFactory.h" />
-    <ClInclude Include="Wrapper\Oblivion\GameForms.h" />
-    <ClInclude Include="Wrapper\Oblivion\GameObjects.h" />
-    <ClInclude Include="Wrapper\Skyrim\Components.h" />
-    <ClInclude Include="Script\Skyrim\Debug.h" />
-    <ClCompile Include="Wrapper\Skyrim\Forms.cpp">
-      <FileType>CppHeader</FileType>
-      <ObjectFileName Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">$(IntDir)%(RelativeDir)</ObjectFileName>
-    </ClCompile>
-    <ClInclude Include="Wrapper\Skyrim\Forms.h" />
     <ClInclude Include="Wrapper\Input.hpp" />
     <ClInclude Include="Wrapper\Overlay\Chat.h" />
     <ClInclude Include="Wrapper\IUpdatable.h" />
     <ClInclude Include="Wrapper\Overlay\System.h" />
-    <ClInclude Include="Wrapper\Skyrim\References.h" />
-    <ClInclude Include="Wrapper\Skyrim\Types.h" />
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="AssemblyInfo.cpp">
       <ObjectFileName Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">$(IntDir)</ObjectFileName>
     </ClCompile>
-    <ClCompile Include="common\plugin.cpp">
+    <ClCompile Include="plugin.cpp">
       <CompileAsManaged Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">false</CompileAsManaged>
       <PrecompiledHeader Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">NotUsing</PrecompiledHeader>
     </ClCompile>
-    <ClCompile Include="FreeScript\Actor.cpp">
-      <ObjectFileName Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">$(IntDir)%(RelativeDir)</ObjectFileName>
-    </ClCompile>
-    <ClCompile Include="FreeScript\Character.cpp">
-      <ObjectFileName Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">$(IntDir)%(RelativeDir)</ObjectFileName>
-    </ClCompile>
-    <ClCompile Include="FreeScript\Data.cpp">
-      <ObjectFileName Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">$(IntDir)%(RelativeDir)</ObjectFileName>
-    </ClCompile>
-    <ClCompile Include="FreeScript\ExtraData.cpp">
-      <ObjectFileName Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">$(IntDir)%(RelativeDir)</ObjectFileName>
-    </ClCompile>
-    <ClCompile Include="FreeScript\Forms.cpp">
-      <ObjectFileName Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">$(IntDir)%(RelativeDir)</ObjectFileName>
-    </ClCompile>
-    <ClCompile Include="FreeScript\FreeScript.cpp">
-      <ObjectFileName Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">$(IntDir)%(RelativeDir)</ObjectFileName>
-    </ClCompile>
-    <ClCompile Include="FreeScript\Memory.cpp">
-      <ObjectFileName Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">$(IntDir)%(RelativeDir)</ObjectFileName>
-    </ClCompile>
-    <ClCompile Include="FreeScript\RTTI.cpp">
-      <ObjectFileName Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">$(IntDir)%(RelativeDir)</ObjectFileName>
-    </ClCompile>
-    <ClCompile Include="FreeScript\TimeManager.cpp">
-      <ObjectFileName Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">$(IntDir)%(RelativeDir)</ObjectFileName>
-    </ClCompile>
-    <ClCompile Include="FreeScript\Types.cpp">
-      <ObjectFileName Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">$(IntDir)%(RelativeDir)</ObjectFileName>
-    </ClCompile>
-    <ClCompile Include="FreeScript\VM.cpp">
-      <ObjectFileName Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">$(IntDir)%(RelativeDir)</ObjectFileName>
-    </ClCompile>
-    <ClCompile Include="FreeScript\WeatherManager.cpp">
-      <ObjectFileName Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">$(IntDir)%(RelativeDir)</ObjectFileName>
-    </ClCompile>
     <ClCompile Include="Stdafx.cpp">
       <PrecompiledHeader Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">Create</PrecompiledHeader>
-    </ClCompile>
-    <ClCompile Include="Script\Skyrim\Debug.cpp">
-      <ObjectFileName Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">$(IntDir)%(RelativeDir)</ObjectFileName>
     </ClCompile>
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />

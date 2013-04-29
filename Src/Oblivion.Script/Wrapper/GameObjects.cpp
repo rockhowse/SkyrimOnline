@@ -1,7 +1,6 @@
 #include "stdafx.h"
 #include "GameObjects.h"
-#include "common/plugin.h"
-#include "Script/Oblivion/ObscriptCaller.hpp"
+#include "Script/ObscriptCaller.hpp"
 
 #pragma managed
 

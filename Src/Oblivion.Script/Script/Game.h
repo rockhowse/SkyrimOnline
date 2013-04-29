@@ -1,6 +1,6 @@
 #pragma once
 
-#include <Wrapper/Oblivion/GameObjects.h>
+#include "../Wrapper/GameObjects.h"
 
 namespace Game
 {

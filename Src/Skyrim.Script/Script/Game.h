@@ -1,6 +1,6 @@
 #pragma once
 
-#include <Wrapper/Skyrim/References.h>
+#include <Wrapper/References.h>
 
 namespace Game
 {

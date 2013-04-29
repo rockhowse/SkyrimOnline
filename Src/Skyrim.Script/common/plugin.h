@@ -1,9 +1,3 @@
-/*
-	THIS FILE IS A PART OF THE SKYRIM DRAGON SCRIPT PROJECT	
-				(C) Alexander Blade 2011
-			http://Alexander.SannyBuilder.com
-*/
-
 #pragma once
 
 #include <FreeScript/FreeScript.hpp>
@@ -48,8 +42,4 @@ void PrintNote(char *pattern, ...);
 void PrintDebug(char *pattern, ...);
 int IniReadInt(char *inifile, char *section, char *param, int def);
 
-
-// Oblivion :
-
-typedef bool (*TCallOblivionFunction)(const char* fName, void* thisObj,std::vector<unsigned char>& parameterStack, double* result);
-extern TCallOblivionFunction CallOblivionFunction;
+void SkyrimPluginInit(HMODULE hModule);

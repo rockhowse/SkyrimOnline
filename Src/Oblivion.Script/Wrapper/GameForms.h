@@ -1,6 +1,6 @@
 #pragma once
 
-#include "../GameForms.hpp"
+#include <Wrapper/GameForms.hpp>
 
 using namespace System;
 

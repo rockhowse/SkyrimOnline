@@ -1,6 +1,8 @@
 #include "Stdafx.h"
-#include "common/plugin.h"
 #include "ObscriptCaller.hpp"
+
+typedef bool (*TCallOblivionFunction)(const char* fName, void* thisObj,std::vector<unsigned char>& parameterStack, double* result);
+extern TCallOblivionFunction CallOblivionFunction;
 
 union ShortToChar
 {
@@ -55,7 +57,12 @@ void ObscriptCaller::PushSize(short pSize)
 double ObscriptCaller::operator()(void* pThisObj)
 {
 	double res = 0.0;
-	CallOblivionFunction(mFunction, pThisObj, mData, &res);
+	if(CallOblivionFunction)
+		CallOblivionFunction(mFunction, pThisObj, mData, &res);
+	else
+	{
+		MessageBoxA(0,"CallOblivionFunction is NULL", "Error", 0);
+	}
 	return res;
 }
 
