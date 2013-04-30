@@ -20,7 +20,7 @@ namespace Game.Server
         private GameWorld world;
         private Dictionary<NetConnection, Session> sessions = new Dictionary<NetConnection, Session>();
 
-        public GameServer(string pName)
+        public GameServer(string pName, int port)
         {
             Name = pName;
             world = new GameWorld(this);
@@ -29,7 +29,7 @@ namespace Game.Server
             config.EnableMessageType(NetIncomingMessageType.ConnectionApproval);
             config.EnableMessageType(NetIncomingMessageType.StatusChanged);
             config.EnableMessageType(NetIncomingMessageType.Data);
-            config.Port = 14242;
+            config.Port = port;
 
             server = new NetServer(config);
             server.Start();

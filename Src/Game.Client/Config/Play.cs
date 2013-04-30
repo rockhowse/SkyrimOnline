@@ -135,7 +135,9 @@ namespace Game.Client.Config
                 connecting = true;
                 m_timer.Enabled = true;
 
-                client.RequestNATIntroduction(GAME_SERVER_ID);
+               // client.RequestNATIntroduction(GAME_SERVER_ID);
+                natIntroductionSuccess(client.GetServerIPByKey(GAME_SERVER_ID));
+
                 playButton.Enabled = false;
                 singlePlayerButton.Enabled = false;
             }
