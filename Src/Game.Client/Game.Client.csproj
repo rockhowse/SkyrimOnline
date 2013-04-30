@@ -59,6 +59,7 @@
     <Compile Include="Interface\ChatInterface.cs" />
     <Compile Include="Interface\UserInterace.cs" />
     <Compile Include="IO\GameClient.cs" />
+    <Compile Include="IO\GameClientHandlers.cs" />
     <Compile Include="IO\InputManager.cs" />
     <Compile Include="IO\MasterClient.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />

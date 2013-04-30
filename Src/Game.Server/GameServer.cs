@@ -9,18 +9,22 @@ using Game.API.Entities;
 using Game.API.Networking;
 using Game.API.Networking.Messages;
 using Microsoft.Xna.Framework;
+using Game.Server.World;
 
 namespace Game.Server
 {
-    class GameServer
+    public class GameServer
     {
         private NetServer server;
-        private PlayerManager playerManager;
         private GameTime appTime;
+        private GameWorld world;
+        private Dictionary<NetConnection, Session> sessions = new Dictionary<NetConnection, Session>();
 
         public GameServer(string pName)
         {
             Name = pName;
+            world = new GameWorld(this);
+
             NetPeerConfiguration config = new NetPeerConfiguration("game");
             config.EnableMessageType(NetIncomingMessageType.ConnectionApproval);
             config.EnableMessageType(NetIncomingMessageType.StatusChanged);
@@ -37,24 +41,34 @@ namespace Game.Server
         protected void Initialize()
         {
             appTime = new GameTime();
-            this.playerManager = new PlayerManager(true);
-            this.playerManager.PlayerStateChanged += (sender, e) => this.SendMessage(new UpdatePlayerStateMessage(e.Player));
+           // this.playerManager.PlayerStateChanged += (sender, e) => this.SendMessage(new UpdatePlayerStateMessage(e.Player));
         }
 
         public void SendMessage(IGameMessage gameMessage)
         {
-            NetOutgoingMessage om = this.server.CreateMessage();
-            om.Write((byte)gameMessage.MessageType);
-            gameMessage.Encode(om);
+            try
+            {
+               
+                foreach (var s in sessions)
+                {
+                    NetOutgoingMessage om = this.server.CreateMessage();
+                    om.Write((byte)gameMessage.MessageType);
+                    gameMessage.Encode(om);
 
-            this.server.SendToAll(om, NetDeliveryMethod.ReliableUnordered);
+                    s.Key.SendMessage(om, NetDeliveryMethod.ReliableUnordered, 0);
+                }
+            }
+            catch (System.Exception ex)
+            {
+                Console.WriteLine(ex.ToString());
+            }
         }
 
         public void Update()
         {
             ProcessNetworkMessages();
 
-            this.playerManager.Update(this.appTime);
+            this.world.Update(this.appTime);
         }
 
         private void ProcessNetworkMessages()
@@ -64,7 +78,6 @@ namespace Game.Server
             {
                 switch (inc.MessageType)
                 {
-                    //Report changes in connection status
                     case NetIncomingMessageType.StatusChanged:
                         NetConnectionStatus status = (NetConnectionStatus)inc.ReadByte();
                         switch (status)
@@ -86,17 +99,22 @@ namespace Game.Server
                         break;
                     //Check for client attempting to connect
                     case NetIncomingMessageType.ConnectionApproval:
-                        NetOutgoingMessage hailMessage = server.CreateMessage();
-                        new UpdatePlayerStateMessage(this.playerManager.AddPlayer(false)).Encode(hailMessage);
-                        inc.SenderConnection.Approve(hailMessage);
+
+                        NetOutgoingMessage hailMessage;
+                        if (world.EnterWorld(inc, out hailMessage))
+                        {
+                            sessions.Add(inc.SenderConnection, new Session(inc.SenderConnection, this));
+                            inc.SenderConnection.Approve(hailMessage);
+                        }
+                        else
+                            inc.SenderConnection.Deny(hailMessage.ReadString());
+  
                         break;
                     case NetIncomingMessageType.Data:
-                        var gameMessageType = (GameMessageTypes)inc.ReadByte();
-                        switch (gameMessageType)
+                        Session session = null;
+                        if (sessions.TryGetValue(inc.SenderConnection, out session))
                         {
-                            case GameMessageTypes.UpdatePlayerState:
-                                this.HandleUpdatePlayerStateMessage(inc);
-                                break;
+                            session.HandlePacket(inc);
                         }
                         break;
                     case NetIncomingMessageType.VerboseDebugMessage:
@@ -110,32 +128,19 @@ namespace Game.Server
             }
         }
 
-        private void HandleUpdatePlayerStateMessage(NetIncomingMessage im)
+        public NetOutgoingMessage CreateMessage()
         {
-            var message = new UpdatePlayerStateMessage(im);
-
-            var timeDelay = (float)(NetTime.Now - im.SenderConnection.GetLocalTime(message.MessageTime));
-
-            Player player = this.playerManager.GetPlayer(message.Id)
-                            ??
-                            this.playerManager.AddPlayer(
-                                message.Id, message.Position, message.Velocity, message.Rotation, false);
-
-            player.EnableSmoothing = true;
-
-            if (player.LastUpdateTime < message.MessageTime)
-            {
-                player.SimulationState.Position = message.Position += message.Velocity * timeDelay;
-                player.SimulationState.Velocity = message.Velocity;
-                player.SimulationState.Rotation = message.Rotation;
-
-                player.LastUpdateTime = message.MessageTime;
-            }
+            return server.CreateMessage();
         }
 
         public NetServer Server
         {
             get { return server; }
+        }
+
+        public GameWorld World
+        {
+            get { return world; }
         }
 
         public string Name

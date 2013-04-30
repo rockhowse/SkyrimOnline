@@ -4,12 +4,9 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace Game.API.Networking
+namespace Game.Server.Services
 {
-    public enum GameMessageTypes
+    class ChatService
     {
-        ChatTalk,
-        UpdatePlayerState,
-
     }
 }

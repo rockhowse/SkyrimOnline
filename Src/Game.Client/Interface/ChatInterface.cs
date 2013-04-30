@@ -4,6 +4,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using G = Game;
+using Game.API.Networking.Messages;
 
 namespace Game.Client.Interface
 {
@@ -33,7 +34,9 @@ namespace Game.Client.Interface
 
         private void OnChatInput(string str)
         {
-            Log("Chat input : " + str);
+            ChatTalkMessage message = new ChatTalkMessage(str);
+
+            Entry.GameClient.SendMessage(message);
         }
     }
 }

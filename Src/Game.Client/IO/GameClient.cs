@@ -14,16 +14,15 @@ using Microsoft.Xna.Framework;
 
 namespace Game.Client.IO
 {
-    public class GameClient
+    public partial class GameClient
     {
         private static NetClient g_client;
         private static IPEndPoint g_gameServer;
         private PlayerManager playerManager;
         private GameTime appTime;
+        private PacketHandler handler = new PacketHandler();
 
         public bool connected;
-
-        //public static Dictionary<long, Player> g_playerList;
 
         public delegate void ConnectionHandler();
         public event ConnectionHandler ConnectionSuccess;
@@ -50,6 +49,9 @@ namespace Game.Client.IO
         protected void Initialize()
         {
             appTime = new GameTime();
+
+            this.handler.OnChatTalk += HandleChatTalkMessage;
+
             this.playerManager = new PlayerManager(false);
             this.playerManager.PlayerStateChanged += (sender, e) => this.SendMessage(new UpdatePlayerStateMessage(e.Player));
         }
@@ -93,9 +95,9 @@ namespace Game.Client.IO
                         switch (status)
                         {
                             case NetConnectionStatus.Connected:
-                                var message = new UpdatePlayerStateMessage(inc.SenderConnection.RemoteHailMessage);
+                                /*var message = new UpdatePlayerStateMessage(inc.SenderConnection.RemoteHailMessage);
                                 this.playerManager.AddPlayer(message.Id, message.Position, message.Velocity, message.Rotation, true);
-                                Console.WriteLine("Connected to {0}", inc.SenderEndPoint);
+                                Console.WriteLine("Connected to {0}", inc.SenderEndPoint);*/
                                 ConnectionSuccess();
                                 break;
                             case NetConnectionStatus.Disconnected:
@@ -112,18 +114,10 @@ namespace Game.Client.IO
                         }
                         break;
                     case NetIncomingMessageType.ConnectionApproval:
-                        NetOutgoingMessage hailMessage = g_client.CreateMessage();
-                        new UpdatePlayerStateMessage(this.playerManager.AddPlayer(false)).Encode(hailMessage);
-                        inc.SenderConnection.Approve(hailMessage);
+
                         break;
                     case NetIncomingMessageType.Data:
-                        var gameMessageType = (GameMessageTypes)inc.ReadByte();
-                        switch (gameMessageType)
-                        {
-                            case GameMessageTypes.UpdatePlayerState:
-                                this.HandleUpdatePlayerStateMessage(inc);
-                                break;
-                        }
+                        handler.Handle(inc);
                         break;
                     case NetIncomingMessageType.VerboseDebugMessage:
                     case NetIncomingMessageType.DebugMessage:
@@ -133,29 +127,6 @@ namespace Game.Client.IO
                         break;
                 }
                 g_client.Recycle(inc);
-            }
-        }
-
-        private void HandleUpdatePlayerStateMessage(NetIncomingMessage im)
-        {
-            var message = new UpdatePlayerStateMessage(im);
-
-            var timeDelay = (float)(NetTime.Now - im.SenderConnection.GetLocalTime(message.MessageTime));
-
-            Player player = this.playerManager.GetPlayer(message.Id)
-                            ??
-                            this.playerManager.AddPlayer(
-                                message.Id, message.Position, message.Velocity, message.Rotation, false);
-
-            player.EnableSmoothing = true;
-
-            if (player.LastUpdateTime < message.MessageTime)
-            {
-                player.SimulationState.Position = message.Position += message.Velocity * timeDelay;
-                player.SimulationState.Velocity = message.Velocity;
-                player.SimulationState.Rotation = message.Rotation;
-
-                player.LastUpdateTime = message.MessageTime;
             }
         }
 
