@@ -5,11 +5,17 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using log4net;
+using log4net.Config;
+using System.Reflection;
 
 namespace Game.Server
 {
     class Program
     {
+        private static readonly ILog Logger = LogManager.GetLogger(MethodBase.GetCurrentMethod().DeclaringType);
+
+
         static string GetValue(IniData data, string section, string key, string defaultString)
         {
             if (data != null)
@@ -60,7 +66,7 @@ namespace Game.Server
             }
             catch (System.Exception ex)
             {
-                Console.WriteLine(ex.Message);
+                Logger.Error(ex.Message);
             }
 
             return new GameServer(
@@ -71,15 +77,24 @@ namespace Game.Server
 
         static void Main(string[] args)
         {
-            GameServer server =  CreateServer();
-            MasterServer masterServer = new MasterServer(server);
-
-            while (Console.KeyAvailable == false || Console.ReadKey().Key != ConsoleKey.Escape)
+            try
             {
-                server.Update();
-                masterServer.Update();
+                XmlConfigurator.Configure();
 
-                System.Threading.Thread.Sleep(1);
+                GameServer server = CreateServer();
+                MasterServer masterServer = new MasterServer(server);
+
+                while (Console.KeyAvailable == false || Console.ReadKey().Key != ConsoleKey.Escape)
+                {
+                    server.Update();
+                    masterServer.Update();
+
+                    System.Threading.Thread.Sleep(1);
+                }
+            }
+            catch (System.Exception ex)
+            {
+                Console.WriteLine(ex.ToString());
             }
         }
     }

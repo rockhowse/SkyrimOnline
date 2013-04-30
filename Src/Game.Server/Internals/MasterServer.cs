@@ -6,11 +6,15 @@ using System.Linq;
 using System.Net;
 using System.Text;
 using System.Threading.Tasks;
+using log4net;
+using System.Reflection;
 
 namespace Game.Server.Internals
 {
     class MasterServer
     {
+        private static readonly ILog Logger = LogManager.GetLogger(MethodBase.GetCurrentMethod().DeclaringType);
+
         IPEndPoint masterServerEndpoint;
         float lastRegistered = -60.0f;
         GameServer server = null;
@@ -34,7 +38,7 @@ namespace Game.Server.Internals
                 regMsg.Write((UInt16)server.Server.ConnectionsCount);
                 regMsg.Write((UInt16)32);
                 regMsg.Write(new IPEndPoint(adr, 14242));
-                Console.WriteLine("Sending registration to master server");
+                Logger.Info("Sending registration to master server");
                 server.Server.SendUnconnectedMessage(regMsg, masterServerEndpoint);
                 lastRegistered = (float)NetTime.Now;
             }
