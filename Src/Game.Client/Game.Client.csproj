@@ -56,6 +56,8 @@
       <DependentUpon>Play.cs</DependentUpon>
     </Compile>
     <Compile Include="Entry.cs" />
+    <Compile Include="Controllers\OblivionController.cs" />
+    <Compile Include="Controllers\SkyrimController.cs" />
     <Compile Include="Interface\ChatInterface.cs" />
     <Compile Include="Interface\UserInterace.cs" />
     <Compile Include="IO\GameClient.cs" />
@@ -87,9 +89,7 @@
       <Name>Skyrim.Script %28Microsoft Visual C++ Compiler Nov 2012 CTP%29</Name>
     </ProjectReference>
   </ItemGroup>
-  <ItemGroup>
-    <Folder Include="Game\" />
-  </ItemGroup>
+  <ItemGroup />
   <ItemGroup>
     <EmbeddedResource Include="Config\Play.resx">
       <DependentUpon>Play.cs</DependentUpon>

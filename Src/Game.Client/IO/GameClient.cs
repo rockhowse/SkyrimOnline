@@ -16,8 +16,8 @@ namespace Game.Client.IO
 {
     public partial class GameClient
     {
-        private static NetClient g_client;
-        private static IPEndPoint g_gameServer;
+        private NetClient client;
+        private IPEndPoint gameServer;
         private PlayerManager playerManager;
         private GameTime appTime;
         private PacketHandler handler = new PacketHandler();
@@ -38,10 +38,10 @@ namespace Game.Client.IO
             config.EnableMessageType(NetIncomingMessageType.ConnectionApproval);
             config.EnableMessageType(NetIncomingMessageType.Data);
 
-            g_client = new NetClient(config);
-            g_client.Start();
+            client = new NetClient(config);
+            client.Start();
 
-            g_gameServer = gameServer;
+            this.gameServer = gameServer;
 
             this.Initialize();
         }
@@ -58,20 +58,20 @@ namespace Game.Client.IO
 
         public void SendMessage(IGameMessage gameMessage)
         {
-            NetOutgoingMessage om = g_client.CreateMessage();
+            NetOutgoingMessage om = client.CreateMessage();
             om.Write((byte)gameMessage.MessageType);
             gameMessage.Encode(om);
 
-            g_client.SendMessage(om, NetDeliveryMethod.ReliableUnordered);
+            client.SendMessage(om, NetDeliveryMethod.ReliableUnordered);
         }
 
         public void Connect()
         {
-            if (g_gameServer != null)
+            if (gameServer != null)
             {
                 connected = true;
                 //Attempt to connect to the remote server
-                g_client.Connect(g_gameServer);
+                client.Connect(gameServer);
             }
         }
 
@@ -85,7 +85,7 @@ namespace Game.Client.IO
         private void ProcessNetworkMessages()
         {
             NetIncomingMessage inc;
-            while ((inc = g_client.ReadMessage()) != null)
+            while ((inc = client.ReadMessage()) != null)
             {
                 switch (inc.MessageType)
                 {
@@ -126,7 +126,7 @@ namespace Game.Client.IO
                         Console.WriteLine(inc.ReadString());
                         break;
                 }
-                g_client.Recycle(inc);
+                client.Recycle(inc);
             }
         }
 

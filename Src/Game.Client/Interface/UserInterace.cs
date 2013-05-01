@@ -18,17 +18,14 @@ namespace Game.Client.Interface
 
         public void Update()
         {
-            if (GlobalFactory.Module.GameType == GameType.kOblivion)
+            if (GlobalFactory.Controller.IsMenuMode())
             {
-                if (Game.Script.Oblivion.Game.IsMenuMode())
-                {
-                    Overlay.System.CursorVisible = false;
-                    this.Chat.Visible = false;
-                }
-                else
-                {
-                    this.Chat.Visible = true;
-                }
+                Overlay.System.CursorVisible = false;
+                this.Chat.Visible = false;
+            }
+            else
+            {
+                this.Chat.Visible = true;
             }
         }
 

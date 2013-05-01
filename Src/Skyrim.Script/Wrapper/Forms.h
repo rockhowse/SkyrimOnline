@@ -1,7 +1,6 @@
 #pragma once
 
 #include "Components.h"
-#include <Wrapper/GameForms.hpp>
 
 using namespace System;
 

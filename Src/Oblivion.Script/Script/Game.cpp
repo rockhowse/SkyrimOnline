@@ -14,6 +14,14 @@ typedef void* (*_LookupFormByID)(UInt32);
 const _LookupFormByID LookupFormByID = (_LookupFormByID)0x0046B250;
 const _IsMenuMode IsMenuMode = (_IsMenuMode)0x00578F60;
 
+Game::Oblivion::Actor^ Game::Script::Oblivion::Game::PlaceAtMe(::Game::Oblivion::Actor^ self, UInt32 id)
+{
+	ObscriptCaller caller("PlaceAtMe");
+	//caller.Push((double)id);
+	double ret = caller(self->NativeHandle);
+	return gcnew ::Game::Oblivion::Actor(*(void**)&ret);
+}
+
 Game::Oblivion::Actor^ Game::Script::Oblivion::Game::GetPlayer()
 {
 	return gcnew ::Game::Oblivion::Actor(*(void**)0x00B333C4);

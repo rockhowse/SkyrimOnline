@@ -9,6 +9,11 @@ using namespace System;
 using namespace Game;
 using namespace Game::Script;
 
+::Game::Skyrim::Actor^ ::Game::Script::Skyrim::Game::PlaceAtMe(::Game::Skyrim::Actor^ self, UInt32 formId)
+{
+	return gcnew ::Game::Skyrim::Actor(::ObjectReference::PlaceAtMe((FreeScript::TESObjectREFR*)self->NativeHandle, ::Game::GetFormById(formId), 1, false, false));
+}
+
 ::Game::Skyrim::Actor^ ::Game::Script::Skyrim::Game::GetPlayer()
 {
 	return gcnew ::Game::Skyrim::Actor(::Game::GetPlayer());

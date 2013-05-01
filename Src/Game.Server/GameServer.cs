@@ -10,11 +10,15 @@ using Game.API.Networking;
 using Game.API.Networking.Messages;
 using Microsoft.Xna.Framework;
 using Game.Server.World;
+using log4net;
+using System.Reflection;
 
 namespace Game.Server
 {
     public class GameServer
     {
+        private static readonly ILog Logger = LogManager.GetLogger(MethodBase.GetCurrentMethod().DeclaringType);
+
         private NetServer server;
         private GameTime appTime;
         private GameWorld world;
@@ -36,11 +40,15 @@ namespace Game.Server
 
             this.Initialize();   
 
+            Logger.InfoFormat("Started {0} on port {1} !", Name, port);
+
         }
 
         protected void Initialize()
         {
             appTime = new GameTime();
+
+            
            // this.playerManager.PlayerStateChanged += (sender, e) => this.SendMessage(new UpdatePlayerStateMessage(e.Player));
         }
 

@@ -56,34 +56,6 @@ namespace Game.Client.IO
             if (ev.Key == 0x9D && ev.Pressed == true)
             {
                 UIEnabled = !UIEnabled;
-                if (UIEnabled)
-                {
-                    switch (GlobalFactory.Module.GameType)
-                    {
-                        case GameType.kSkyrim:
-                            Game.Script.Skyrim.Game.DisablePlayerControls(true, true, true, true, true, true, true, true, 1);
-                            break;
-                        case GameType.kOblivion:
-                            Game.Script.Oblivion.Game.DisablePlayerControls();
-                            Game.Script.Oblivion.Game.DisableMouse();
-                            break;
-                    }
-                    
-                }
-                else
-                {
-                    switch (GlobalFactory.Module.GameType)
-                    {
-                        case GameType.kSkyrim:
-                            Game.Script.Skyrim.Game.EnablePlayerControls(true, true, true, true, true, true, true, true, 1);
-                            Game.Script.Skyrim.Game.SetInChargen(false, false, true);
-                            break;
-                        case GameType.kOblivion:
-                            Game.Script.Oblivion.Game.EnablePlayerControls();
-                            Game.Script.Oblivion.Game.EnableMouse();
-                            break;
-                    }
-                }
             }
 
             if (UIEnabled)
@@ -112,6 +84,11 @@ namespace Game.Client.IO
             }
             set
             {
+                if(value)
+                    GlobalFactory.Controller.DisableInput();
+                else
+                    GlobalFactory.Controller.EnableInput();
+
                 Overlay.System.CursorVisible = value;
                 mUIEnabled = value;
             }

@@ -4,6 +4,7 @@ using Game.Client.Interface;
 using Game.Client.IO;
 using Game.Script;
 using System.Windows.Forms;
+using Game.Client.Controllers;
 
 namespace Game.Client
 {
@@ -29,6 +30,16 @@ namespace Game.Client
                     instance = new World();
                 if (inputManager == null)
                     inputManager = new IO.InputManager();
+
+                switch (GlobalFactory.Module.GameType)
+                {
+                    case API.Utilities.GameType.kOblivion:
+                        GlobalFactory.Controller = new SkyrimController();
+                        break;
+                    case API.Utilities.GameType.kSkyrim:
+                        GlobalFactory.Controller = new OblivionController();
+                        break;
+                }
             }
         }
 

@@ -399,6 +399,13 @@ namespace Utility
     }
 }
 
+namespace UI
+{
+	static bool IsTextInputEnabled() {
+		return NativeInvoke::Invoke<bool>("UI", "IsTextInputEnabled", BSScript_StaticFunctionTag);
+	}
+}
+
 namespace Debug
 {
     static void CenterOnCell(char * asCellname) {
@@ -1057,6 +1064,10 @@ namespace ActorBase
         return NativeInvoke::Invoke<int>("ActorBase", "GetDeadCount", self);
     }
 
+	static float GetFaceMorph(TESNPC * self, int index) {
+		return NativeInvoke::Invoke<float>("ActorBase", "GetFaceMorph", self, index);
+	}
+
     static BGSListForm * GetGiftFilter(TESNPC * self) {
         return NativeInvoke::Invoke<BGSListForm *>("ActorBase", "GetGiftFilter", self);
     }
@@ -1077,17 +1088,25 @@ namespace ActorBase
         return NativeInvoke::Invoke<bool>("ActorBase", "IsInvulnerable", self);
     }
 
-    static bool IsProtected(TESNPC * self) {
-        return NativeInvoke::Invoke<bool>("ActorBase", "IsProtected", self);
-    }
+	static bool IsProtected(TESNPC * self) {
+		return NativeInvoke::Invoke<bool>("ActorBase", "IsProtected", self);
+	}
 
     static bool IsUnique(TESNPC * self) {
         return NativeInvoke::Invoke<bool>("ActorBase", "IsUnique", self);
     }
 
+	static void SetClass(TESNPC* self, TESClass* c){
+		NativeInvoke::Invoke<ScriptNone>("ActorBase", "SetClass", self, c);
+	}
+
     static void SetEssential(TESNPC * self, bool abEssential) {
         NativeInvoke::Invoke<ScriptNone>("ActorBase", "SetEssential", self, abEssential);
     }
+
+	static void SetFaceMorph(TESNPC * self, float value, int index) {
+		NativeInvoke::Invoke<ScriptNone>("ActorBase", "SetFaceMorph", self, value, index);
+	}
 
     static void SetInvulnerable(TESNPC * self, bool abInvulnerable) {
         NativeInvoke::Invoke<ScriptNone>("ActorBase", "SetInvulnerable", self, abInvulnerable);

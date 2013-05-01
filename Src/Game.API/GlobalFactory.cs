@@ -29,5 +29,11 @@ namespace Game.API
                 return m_module;
             }
         }
+
+        public static IController Controller
+        {
+            get;
+            set;
+        }
     }
 }

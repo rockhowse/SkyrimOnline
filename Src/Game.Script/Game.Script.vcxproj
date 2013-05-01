@@ -73,6 +73,8 @@
     <ClCompile Include="Overlay\System.cpp">
       <ObjectFileName Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">$(IntDir)%(RelativeDir)</ObjectFileName>
     </ClCompile>
+    <ClCompile Include="Wrapper\GameForms.cpp" />
+    <ClCompile Include="Wrapper\GameObjects.cpp" />
     <ClCompile Include="Wrapper\Input.cpp">
       <ObjectFileName Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">$(IntDir)%(RelativeDir)</ObjectFileName>
     </ClCompile>

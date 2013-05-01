@@ -12,6 +12,7 @@ namespace Game
 			{
 			public:
 
+				static ::Game::Oblivion::Actor^ PlaceAtMe(::Game::Oblivion::Actor^ self, UInt32 id);
 				static ::Game::Oblivion::Actor^ GetPlayer();
 				static ::Game::Oblivion::TESForm^ GetFormById(UInt32 aiFormID);
 				static bool IsMenuMode();

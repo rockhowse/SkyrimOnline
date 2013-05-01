@@ -8,20 +8,20 @@ namespace Game
 {
 	namespace Oblivion
 	{
-		public ref class TESObjectREFR : public Oblivion::TESForm
+		public ref class TESObjectREFR : public Oblivion::TESForm, ::Game::ITESObjectREFR
 		{
 		public:
 
 			TESObjectREFR(void * ptr);
 			~TESObjectREFR();
 
-			property Microsoft::Xna::Framework::Vector3 Position
+			virtual property Microsoft::Xna::Framework::Vector3 Position
 			{
 				Microsoft::Xna::Framework::Vector3 get();
 				void set(Microsoft::Xna::Framework::Vector3 pos);
 			}
 
-			property Microsoft::Xna::Framework::Vector3 Rotation
+			virtual property Microsoft::Xna::Framework::Vector3 Rotation
 			{
 				Microsoft::Xna::Framework::Vector3 get();
 				void set(Microsoft::Xna::Framework::Vector3 pos);
@@ -36,7 +36,7 @@ namespace Game
 			~MobileObject();
 		};
 
-		public ref class Actor : public Oblivion::MobileObject
+		public ref class Actor : public Oblivion::MobileObject, ::Game::IActor
 		{
 		public:
 

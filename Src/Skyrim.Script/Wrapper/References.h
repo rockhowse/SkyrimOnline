@@ -7,7 +7,7 @@ namespace Game
 {
 	namespace Skyrim
 	{
-		public ref class TESObjectREFR : public Skyrim::TESForm
+		public ref class TESObjectREFR : public Skyrim::TESForm, ::Game::ITESObjectREFR
 		{
 		public:
 
@@ -19,20 +19,20 @@ namespace Game
 				Skyrim::TESForm^ get();
 			}
 
-			property Microsoft::Xna::Framework::Vector3 Position
+			virtual property Microsoft::Xna::Framework::Vector3 Position
 			{
 				Microsoft::Xna::Framework::Vector3 get();
 				void set(Microsoft::Xna::Framework::Vector3 pos);
 			}
 
-			property Microsoft::Xna::Framework::Vector3 Rotation
+			virtual property Microsoft::Xna::Framework::Vector3 Rotation
 			{
 				Microsoft::Xna::Framework::Vector3 get();
 				void set(Microsoft::Xna::Framework::Vector3 pos);
 			}
 		};
 
-		public ref class Actor : public TESObjectREFR
+		public ref class Actor : public TESObjectREFR, ::Game::IActor
 		{
 		public:
 

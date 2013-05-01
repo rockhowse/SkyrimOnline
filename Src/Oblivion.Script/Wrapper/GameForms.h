@@ -1,7 +1,5 @@
 #pragma once
 
-#include <Wrapper/GameForms.hpp>
-
 using namespace System;
 
 namespace Game
