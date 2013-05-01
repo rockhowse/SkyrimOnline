@@ -56,6 +56,10 @@ namespace Game.Client.IO
             if (ev.Key == 0x9D && ev.Pressed == true)
             {
                 UIEnabled = !UIEnabled;
+                if (UIEnabled)
+                    GlobalContext.Controller.DisableInput();
+                else
+                    GlobalContext.Controller.EnableInput();
             }
 
             if (UIEnabled)
@@ -84,11 +88,6 @@ namespace Game.Client.IO
             }
             set
             {
-                if(value)
-                    GlobalContext.Controller.DisableInput();
-                else
-                    GlobalContext.Controller.EnableInput();
-
                 Overlay.System.CursorVisible = value;
                 mUIEnabled = value;
             }

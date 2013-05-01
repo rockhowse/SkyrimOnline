@@ -16,8 +16,8 @@ namespace Game.Client.IO
 {
     public partial class GameClient
     {
-        private NetClient client;
-        private IPEndPoint gameServer;
+        private static NetClient client;
+        private static IPEndPoint gameServer;
         private PlayerManager playerManager;
         private GameTime appTime;
         private PacketHandler handler = new PacketHandler();
@@ -41,7 +41,7 @@ namespace Game.Client.IO
             client = new NetClient(config);
             client.Start();
 
-            this.gameServer = gameServer;
+            GameClient.gameServer = gameServer;
 
             this.Initialize();
         }

@@ -24,13 +24,8 @@ namespace Game.Client
             Application.EnableVisualStyles();
             Application.Run(new Config.Play());
 
-            if (Enabled)
+           // if (Enabled)
             {
-               if (instance == null)
-                    instance = new World();
-                if (inputManager == null)
-                    inputManager = new IO.InputManager();
-
                 switch (GlobalContext.Module.GameType)
                 {
                     case API.Utilities.GameType.kOblivion:
@@ -40,13 +35,18 @@ namespace Game.Client
                         GlobalContext.Controller = new SkyrimController();
                         break;
                 }
+
+              if (instance == null)
+                   instance = new World();
+              if (inputManager == null)
+                   inputManager = new IO.InputManager();
             }
         }
 
         [DllExport]
         private static void Update()
         {
-            if (Enabled)
+           // if (Enabled)
             {
                 if (UserInterace == null)
                 {
