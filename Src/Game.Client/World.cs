@@ -19,13 +19,13 @@ namespace Game.Client
             long ticks = DateTime.UtcNow.Ticks;
             if ((ticks - time) / 10000000 > 5)
             {
-                if (GlobalFactory.Module.GameType == GameType.kOblivion)
+                if (GlobalContext.Module.GameType == GameType.kOblivion)
                 {
                     var actor = Game.Script.Oblivion.Game.GetPlayer();
                     Entry.UserInterace.Chat.Log(actor.Position.X.ToString());
                 }
                 time = ticks;
-                Entry.UserInterace.Chat.Log(GlobalFactory.Module.Name);
+                Entry.UserInterace.Chat.Log(GlobalContext.Module.Name);
             }
         }
     }

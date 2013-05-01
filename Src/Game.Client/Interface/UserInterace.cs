@@ -18,7 +18,7 @@ namespace Game.Client.Interface
 
         public void Update()
         {
-            if (GlobalFactory.Controller.IsMenuMode())
+            if (GlobalContext.Controller.IsMenuMode())
             {
                 Overlay.System.CursorVisible = false;
                 this.Chat.Visible = false;

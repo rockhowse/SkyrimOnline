@@ -9,7 +9,7 @@ using System.Threading.Tasks;
 
 namespace Game.API
 {
-    public static class GlobalFactory
+    public static class GlobalContext
     {
         private static IModule m_module = null;
 

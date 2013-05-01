@@ -85,9 +85,9 @@ namespace Game.Client.IO
             set
             {
                 if(value)
-                    GlobalFactory.Controller.DisableInput();
+                    GlobalContext.Controller.DisableInput();
                 else
-                    GlobalFactory.Controller.EnableInput();
+                    GlobalContext.Controller.EnableInput();
 
                 Overlay.System.CursorVisible = value;
                 mUIEnabled = value;

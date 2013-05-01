@@ -31,13 +31,13 @@ namespace Game.Client
                 if (inputManager == null)
                     inputManager = new IO.InputManager();
 
-                switch (GlobalFactory.Module.GameType)
+                switch (GlobalContext.Module.GameType)
                 {
                     case API.Utilities.GameType.kOblivion:
-                        GlobalFactory.Controller = new SkyrimController();
+                        GlobalContext.Controller = new SkyrimController();
                         break;
                     case API.Utilities.GameType.kSkyrim:
-                        GlobalFactory.Controller = new OblivionController();
+                        GlobalContext.Controller = new OblivionController();
                         break;
                 }
             }
