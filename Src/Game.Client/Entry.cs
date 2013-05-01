@@ -61,6 +61,12 @@ namespace Game.Client
             }
         }
 
+        static public string Username
+        {
+            get;
+            set;
+        }
+
         static public IWorld World
         {
             get 

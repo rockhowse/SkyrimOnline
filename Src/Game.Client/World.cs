@@ -16,14 +16,14 @@ namespace Game.Client
 
         public void Update()
         {
-            long ticks = DateTime.UtcNow.Ticks;
+            /*long ticks = DateTime.UtcNow.Ticks;
             if ((ticks - time) / 10000000 > 5)
             {
                 var actor = GlobalContext.Controller.GetPlayer();
                 Entry.UserInterace.Chat.Log(actor.Position.X.ToString());
 
                 time = ticks;
-            }
+            }*/
         }
     }
 }

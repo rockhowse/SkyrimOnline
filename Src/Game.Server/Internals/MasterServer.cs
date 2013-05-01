@@ -22,7 +22,7 @@ namespace Game.Server.Internals
         public MasterServer(GameServer pServer)
         {
             server = pServer;
-            masterServerEndpoint = NetUtility.Resolve("localhost", Game.API.MasterServer.MasterServerPort);
+            masterServerEndpoint = NetUtility.Resolve("skyrim-online.com", Game.API.MasterServer.MasterServerPort);
         }
 
         public void Update()

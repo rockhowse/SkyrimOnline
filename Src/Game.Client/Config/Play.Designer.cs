@@ -119,6 +119,7 @@
             this.playerNameBox.Name = "playerNameBox";
             this.playerNameBox.Size = new System.Drawing.Size(147, 20);
             this.playerNameBox.TabIndex = 4;
+            this.playerNameBox.Text = "Default";
             // 
             // playerNameLabel
             // 

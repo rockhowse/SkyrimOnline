@@ -175,7 +175,7 @@ public:
 	HRESULT _stdcall GetDeviceData(DWORD dataSize, DIDEVICEOBJECTDATA * outData, DWORD * outDataLen, DWORD flags)
 	{
 		HRESULT ret = mRealDevice->GetDeviceData(dataSize, outData, outDataLen, flags);
-		if(outData)
+		/*if(outData)
 			for(uint32_t i = 0 ; i < *outDataLen; ++i)
 			{
 				if(outData[i].dwData & 0x80)
@@ -193,7 +193,7 @@ public:
 		if(InputHook::GetInstance()->IsInputEnabled() == false)
 		{
 			*outDataLen = 0;
-		}
+		}*/
 
 
 		return ret;
