@@ -91,17 +91,17 @@ namespace Game.Server
                         switch (status)
                         {
                             case NetConnectionStatus.Connected:
-                                Console.WriteLine("{0} Connected", inc.SenderEndPoint);
+                                Logger.InfoFormat("{0} Connected", inc.SenderEndPoint);
                                 break;
                             case NetConnectionStatus.Disconnected:
-                                Console.WriteLine("{0} Disconnected", inc.SenderEndPoint);
+                                Logger.InfoFormat("{0} Disconnected", inc.SenderEndPoint);
                                 break;
                             case NetConnectionStatus.RespondedAwaitingApproval:
                             case NetConnectionStatus.Disconnecting:
                             case NetConnectionStatus.InitiatedConnect:
                             case NetConnectionStatus.ReceivedInitiation:
                             case NetConnectionStatus.RespondedConnect:
-                                Console.WriteLine(status.ToString());
+                                Logger.Debug(status.ToString());
                                 break;
                         }
                         break;
@@ -127,9 +127,13 @@ namespace Game.Server
                         break;
                     case NetIncomingMessageType.VerboseDebugMessage:
                     case NetIncomingMessageType.DebugMessage:
+                        Logger.Debug(inc.ReadString());
+                        break;
                     case NetIncomingMessageType.WarningMessage:
+                        Logger.Warn(inc.ReadString());
+                        break;
                     case NetIncomingMessageType.ErrorMessage:
-                        Console.WriteLine(inc.ReadString());
+                        Logger.Error(inc.ReadString());
                         break;
                 }
                 server.Recycle(inc);
