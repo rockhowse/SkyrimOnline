@@ -34,10 +34,10 @@ namespace Game.Client
                 switch (GlobalContext.Module.GameType)
                 {
                     case API.Utilities.GameType.kOblivion:
-                        GlobalContext.Controller = new SkyrimController();
+                        GlobalContext.Controller = new OblivionController();
                         break;
                     case API.Utilities.GameType.kSkyrim:
-                        GlobalContext.Controller = new OblivionController();
+                        GlobalContext.Controller = new SkyrimController();
                         break;
                 }
             }
