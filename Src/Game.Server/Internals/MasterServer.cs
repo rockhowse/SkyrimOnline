@@ -36,7 +36,7 @@ namespace Game.Server.Internals
                 regMsg.Write(server.Server.UniqueIdentifier);
                 regMsg.Write(server.Name);
                 regMsg.Write((UInt16)server.Server.ConnectionsCount);
-                regMsg.Write((UInt16)32);
+                regMsg.Write((UInt16)1000);
                 regMsg.Write(new IPEndPoint(adr, 14242));
                 Logger.Debug("Sending registration to master server");
                 server.Server.SendUnconnectedMessage(regMsg, masterServerEndpoint);

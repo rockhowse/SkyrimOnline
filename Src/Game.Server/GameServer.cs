@@ -94,6 +94,7 @@ namespace Game.Server
                                 Logger.InfoFormat("{0} Connected", inc.SenderEndPoint);
                                 break;
                             case NetConnectionStatus.Disconnected:
+                                sessions.Remove(inc.SenderConnection);
                                 Logger.InfoFormat("{0} Disconnected", inc.SenderEndPoint);
                                 break;
                             case NetConnectionStatus.RespondedAwaitingApproval:

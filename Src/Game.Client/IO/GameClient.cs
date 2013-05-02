@@ -101,6 +101,9 @@ namespace Game.Client.IO
                                 ConnectionSuccess();
                                 break;
                             case NetConnectionStatus.Disconnected:
+                                if (Entry.UserInterace != null && Entry.UserInterace.Chat != null)
+                                    Entry.UserInterace.Chat.Log("Lost connection to the server !");
+
                                 Console.WriteLine("Disconnected from {0}", inc.SenderEndPoint);
                                 ConnectionFailed();
                                 break;

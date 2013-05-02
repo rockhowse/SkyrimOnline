@@ -7,11 +7,15 @@ using Game.API.Networking;
 using Lidgren.Network;
 using Game.API.Entities;
 using Game.API.Networking.Messages;
+using log4net;
+using System.Reflection;
 
 namespace Game.Server
 {
     public class Session
     {
+        private static readonly ILog Logger = LogManager.GetLogger(MethodBase.GetCurrentMethod().DeclaringType);
+
         private PacketHandler handler = new PacketHandler();
         private NetConnection connection;
         private Player player;
@@ -54,6 +58,8 @@ namespace Game.Server
         public void HandleChatTalkMessage(IGameMessage msg)
         {
             ChatTalkMessage message = (ChatTalkMessage)msg;
+
+            Logger.Info(message.Message);
 
             server.SendMessage(message);
         }

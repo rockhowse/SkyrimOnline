@@ -53,6 +53,14 @@ namespace Game.Client.IO
         public void OnEvent(KeyboardEvent ev)
         {
             // F3 - http://community.bistudio.com/wiki/DIK_KeyCodes
+           /* if (ev.Pressed)
+            {
+                Entry.UserInterace.Chat.Log("Pressed key : " + ev.Key.ToString());
+            }
+            else
+            {
+                Entry.UserInterace.Chat.Log("Released key : " + ev.Key.ToString());
+            }*/
             if (ev.Key == 0x9D && ev.Pressed == true)
             {
                 UIEnabled = !UIEnabled;
