@@ -72,7 +72,25 @@ namespace Game.Server
             return new GameServer(
                 GetValue(data, "General", "Name", "Default server name"),
                 GetValue(data, "General", "Port", 14242));
-            
+
+        }
+
+        static MasterServerClient CreateMasterServerClient(GameServer server)
+        {
+            IniData data = null;
+            try
+            {
+                IniParser.FileIniDataParser parser = new IniParser.FileIniDataParser();
+                data = parser.LoadFile("GameServer.ini");
+            }
+            catch (System.Exception ex)
+            {
+                Logger.Error(ex.Message);
+            }
+
+            return new MasterServerClient(server,
+                GetValue(data, "Master", "GUID", "none"));
+
         }
 
         static void Main(string[] args)
@@ -82,12 +100,12 @@ namespace Game.Server
                 XmlConfigurator.Configure();
 
                 GameServer server = CreateServer();
-                MasterServer masterServer = new MasterServer(server);
+                MasterServerClient masterClient = CreateMasterServerClient(server);
 
                 while (Console.KeyAvailable == false || Console.ReadKey().Key != ConsoleKey.Escape)
                 {
                     server.Update();
-                    masterServer.Update();
+                    masterClient.Update();
 
                     System.Threading.Thread.Sleep(1);
                 }

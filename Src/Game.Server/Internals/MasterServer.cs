@@ -11,17 +11,19 @@ using System.Reflection;
 
 namespace Game.Server.Internals
 {
-    class MasterServer
+    class MasterServerClient
     {
         private static readonly ILog Logger = LogManager.GetLogger(MethodBase.GetCurrentMethod().DeclaringType);
 
         IPEndPoint masterServerEndpoint;
         float lastRegistered = -60.0f;
         GameServer server = null;
+        string mGuid = "none";
 
-        public MasterServer(GameServer pServer)
+        public MasterServerClient(GameServer pServer, string guid)
         {
             server = pServer;
+            mGuid = guid;
             masterServerEndpoint = NetUtility.Resolve("skyrim-online.com", Game.API.MasterServer.MasterServerPort);
         }
 
@@ -31,13 +33,17 @@ namespace Game.Server.Internals
             {
                 NetOutgoingMessage regMsg = server.Server.CreateMessage();
                 regMsg.Write((byte)MasterServerMessageType.RegisterHost);
+
                 IPAddress mask;
                 IPAddress adr = NetUtility.GetMyAddress(out mask);
+
                 regMsg.Write(server.Server.UniqueIdentifier);
                 regMsg.Write(server.Name);
                 regMsg.Write((UInt16)server.Server.ConnectionsCount);
                 regMsg.Write((UInt16)1000);
+                regMsg.Write(mGuid);
                 regMsg.Write(new IPEndPoint(adr, 14242));
+                
                 Logger.Debug("Sending registration to master server");
                 server.Server.SendUnconnectedMessage(regMsg, masterServerEndpoint);
                 lastRegistered = (float)NetTime.Now;

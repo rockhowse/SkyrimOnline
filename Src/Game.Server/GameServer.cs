@@ -38,7 +38,7 @@ namespace Game.Server
             server = new NetServer(config);
             server.Start();
 
-            this.Initialize();   
+            this.Initialize();
 
             Logger.InfoFormat("Started {0} on port {1} !", Name, port);
 
