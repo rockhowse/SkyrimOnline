@@ -65,7 +65,13 @@ bool Cmd_TextAxis_Execute(COMMAND_ARGS)
 {
 	std::ostringstream os;
 	*result = 4.0f;
-	for(int i = 0; i < 16; ++i)
+	os << "Opcode : " << *(unsigned short*)arg1;
+	arg1 = (char*)arg1 + 2;
+	int len = *(unsigned short*)arg1;
+	arg1 = (char*)arg1 + 2;
+	auto var = scriptObj->GetVariable(1)->form->refID;
+	os << " Form : " << var << std::endl;
+	for(int i = 0; i < len; ++i)
 	{
 		os << "{" << ((char*)arg1)[i] << ":" << (int)((char*)arg1)[i] << "} ; ";
 	}
@@ -74,10 +80,10 @@ bool Cmd_TextAxis_Execute(COMMAND_ARGS)
 	return true;
 }
 
-static ParamInfo kParams_TextAxis[2] =
+static ParamInfo kParams_TextAxis[] =
 {
-	{	"axis",		kParamType_Axis,	0	},
-	{	"float",	kParamType_Float,	0	},
+	{	"item",		kParamType_InventoryObject,	0	},
+	{	"lockEquip",kParamType_Integer,			1	}
 };
 
 DEFINE_COMMAND_PLUGIN(TextAxis, "Test", 0, 2, kParams_TextAxis)
@@ -166,7 +172,7 @@ bool OBSEPlugin_Query(const OBSEInterface * obse, PluginInfo * info)
 	return true;
 }
 
-bool CallFunction(const char* longName, void * thisObj, std::vector<unsigned char>& parameterStack, double * result)
+bool CallFunction(const char* longName, void * thisObj, std::vector<unsigned char>& parameterStack, std::vector<void*> forms, short count, double * result)
 {
 	if(g_cmdIntfc)
 	{
@@ -206,7 +212,16 @@ bool CallFunction(const char* longName, void * thisObj, std::vector<unsigned cha
 			params.push_back(tmp.c[0]);
 			params.push_back(tmp.c[1]);
 
+			tmp.s = count;
+			params.push_back(tmp.c[0]);
+			params.push_back(tmp.c[1]);
+
 			params.insert(params.end(), parameterStack.begin(), parameterStack.end());
+
+			for(auto f : forms)
+			{
+				fScript->AddVariable((TESForm*)f);
+			}
 
 			bool ret = cmd->execute(cmd->params, params.data(), (TESObjectREFR*)thisObj, 0, fScript, &eList, result, &opcodeOffset);
 
