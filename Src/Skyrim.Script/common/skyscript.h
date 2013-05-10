@@ -1910,9 +1910,13 @@ namespace SActor
         NativeInvoke::Invoke<ScriptNone>("Actor", "EnableAI", self, abEnable);
     }
 
-    static void EquipItem(Actor * self, TESForm * akItem, bool abPreventRemoval, bool abSilent) {
-        NativeInvoke::Invoke<ScriptNone>("Actor", "EquipItem", self, akItem, abPreventRemoval, abSilent);
-    }
+	static void EquipItem(Actor * self, TESForm * akItem, bool abPreventRemoval, bool abSilent) {
+		NativeInvoke::Invoke<ScriptNone>("Actor", "EquipItem", self, akItem, abPreventRemoval, abSilent);
+	}
+
+	static void EquipItemEx(Actor * self, TESForm * akItem, int equipSlot, bool abPreventRemoval, bool abSilent) {
+		NativeInvoke::Invoke<ScriptNone>("Actor", "EquipItemEx", self, akItem, equipSlot, abPreventRemoval, abSilent);
+	}
 
     static void EquipShout(Actor * self, TESShout * akShout) {
         NativeInvoke::Invoke<ScriptNone>("Actor", "EquipShout", self, akShout);

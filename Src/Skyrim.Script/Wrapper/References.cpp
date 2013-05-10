@@ -109,6 +109,5 @@ void Game::Skyrim::Actor::EquipItem(Game::ITESForm^ form)
 {
 	::Game::Skyrim::TESForm^ f = (::Game::Skyrim::TESForm^)form;
 
-	::ObjectReference::AddItem(rtti_cast(ptr, Actor, TESObjectREFR), (FreeScript::TESForm*)f->NativeHandle, 1, true);
-	SActor::EquipItem((FreeScript::Actor*)ptr, (FreeScript::TESForm*)f->NativeHandle, true, false);
+	SActor::EquipItemEx((FreeScript::Actor*)ptr, (FreeScript::TESForm*)f->NativeHandle, 0, true, true);
 }
