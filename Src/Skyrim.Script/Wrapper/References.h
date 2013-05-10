@@ -14,9 +14,9 @@ namespace Game
 			TESObjectREFR(void* ptr);
 			~TESObjectREFR();
 
-			property Skyrim::TESForm^ BaseForm
+			virtual property ITESForm^ BaseForm
 			{
-				Skyrim::TESForm^ get();
+				ITESForm^ get();
 			}
 
 			virtual property Microsoft::Xna::Framework::Vector3 Position
@@ -41,11 +41,12 @@ namespace Game
 
 			void QueueNiNodeUpdate();
 
-			void UnequipAll();
+			virtual void EnableAI(bool enabled);
+			virtual void EquipItem(Game::ITESForm^ form);
+			virtual void UnequipAll();
 
 			Skyrim::TESForm^ GetWornForm(System::UInt32 id);
-			void EquipItem(Skyrim::TESForm^ form);
-
+			
 			property Skyrim::TESNPC^ BaseNpc
 			{
 				Skyrim::TESNPC^ get();

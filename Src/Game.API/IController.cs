@@ -15,8 +15,9 @@ namespace Game.API
 #endregion
 
 #region Game
-        abstract public void PlaceAtMe();
+        abstract public IActor PlaceAtMe();
         abstract public IActor GetPlayer();
+        abstract public void PlayAnimation(IActor actor, string animationName);
 #endregion
     }
 }

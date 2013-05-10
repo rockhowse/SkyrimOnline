@@ -5,6 +5,13 @@
 
 #pragma unmanaged
 
+struct ParamInfo
+{
+	const char	* typeStr;
+	unsigned int typeID;	
+	unsigned int isOptional;
+};
+
 typedef int (__thiscall* tUpdate)(void*);
 tUpdate oUpdate;
 

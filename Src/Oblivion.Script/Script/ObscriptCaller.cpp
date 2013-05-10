@@ -71,9 +71,16 @@ void ObscriptCaller::Push(short pValue)
 
 void ObscriptCaller::PushForm(void* form)
 {
+	++mCount;
+
 	Append((unsigned char)114);
 	Append((unsigned char)mForms.size() + 1);
 
+	mForms.push_back(form);
+}
+
+void ObscriptCaller::PushThisForm(void* form)
+{
 	mForms.push_back(form);
 }
 

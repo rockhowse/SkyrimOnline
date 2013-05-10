@@ -17,8 +17,12 @@ const _IsMenuMode IsMenuMode = (_IsMenuMode)0x00578F60;
 Game::Oblivion::Actor^ Game::Script::Oblivion::Game::PlaceAtMe(::Game::Oblivion::Actor^ self, UInt32 id)
 {
 	ObscriptCaller caller("PlaceAtMe");
-	//caller.Push((double)id);
+	
+	caller.PushThisForm(self->NativeHandle);
+	caller.PushForm(LookupFormByID(id));
+
 	double ret = caller(self->NativeHandle);
+
 	return gcnew ::Game::Oblivion::Actor(*(void**)&ret);
 }
 

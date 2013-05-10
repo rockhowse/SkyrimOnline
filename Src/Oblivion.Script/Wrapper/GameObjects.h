@@ -26,6 +26,11 @@ namespace Game
 				Microsoft::Xna::Framework::Vector3 get();
 				void set(Microsoft::Xna::Framework::Vector3 pos);
 			}
+
+			virtual property ITESForm^ BaseForm
+			{
+				ITESForm^ get();
+			}
 		};
 
 		public ref class MobileObject : public Oblivion::TESObjectREFR
@@ -42,6 +47,10 @@ namespace Game
 
 			Actor(void* ptr);
 			~Actor();
+
+			virtual void EnableAI(bool enabled);
+			virtual void EquipItem(ITESForm^ form);
+			virtual void UnequipAll();
 
 		};
 	}

@@ -47,7 +47,7 @@
     <Compile Include="Entities\GameObject.cs" />
     <Compile Include="Events\PlayerStateChangedArgs.cs" />
     <Compile Include="GameTimer.cs" />
-    <Compile Include="GlobalFactory.cs" />
+    <Compile Include="GlobalContext.cs" />
     <Compile Include="IController.cs" />
     <Compile Include="IWorld.cs" />
     <Compile Include="Managers\PlayerManager.cs" />

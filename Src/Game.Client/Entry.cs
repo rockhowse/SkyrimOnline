@@ -12,6 +12,7 @@ namespace Game.Client
     {
         private static IWorld instance = null;
         private static IO.InputManager inputManager;
+        private static bool menuMode = true;
 
         [DllExport]
         private static void Load()
@@ -24,7 +25,7 @@ namespace Game.Client
             Application.EnableVisualStyles();
             Application.Run(new Config.Play());
 
-           // if (Enabled)
+            if (Enabled)
             {
                 switch (GlobalContext.Module.GameType)
                 {
@@ -46,7 +47,7 @@ namespace Game.Client
         [DllExport]
         private static void Update()
         {
-           // if (Enabled)
+            if (Enabled)
             {
                 if (UserInterace == null)
                 {
@@ -57,7 +58,23 @@ namespace Game.Client
                 GameClient.Update();
                 inputManager.Update();
                 UserInterace.Update();
-                instance.Update();
+
+                bool menu = GlobalContext.Controller.IsMenuMode();
+                if (menuMode != menu)
+                {
+                    menuMode = menu;
+                    if (menuMode)
+                    {
+
+                    }
+                    else
+                    {
+                        instance.OnEnter();
+                    }
+                }
+
+                if(!menu)
+                    instance.Update();
             }
         }
 

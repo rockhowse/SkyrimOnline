@@ -13,17 +13,28 @@ namespace Game.Client
     class World : IWorld
     {
         private Int64 time = 0;
+        private IActor actor = null;
 
         public void Update()
         {
-            /*long ticks = DateTime.UtcNow.Ticks;
+            long ticks = DateTime.UtcNow.Ticks;
             if ((ticks - time) / 10000000 > 5)
             {
-                var actor = GlobalContext.Controller.GetPlayer();
-                Entry.UserInterace.Chat.Log(actor.Position.X.ToString());
+                //if (actor == null)
+                {
+                    actor = GlobalContext.Controller.PlaceAtMe();
+                    //actor.EnableAI(false);
+                }
+                //GlobalContext.Controller.PlayAnimation(actor, "JumpStandingStart");
 
+                Entry.UserInterace.Chat.Log("PlaceAtMe");
                 time = ticks;
-            }*/
+            }
+        }
+
+        public void OnEnter()
+        {
+            time = DateTime.UtcNow.Ticks;
         }
     }
 }

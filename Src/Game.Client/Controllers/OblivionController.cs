@@ -33,14 +33,19 @@ namespace Game.Client.Controllers
 
 #region Game
 
-        public override void PlaceAtMe()
+        public override IActor PlaceAtMe()
         {
-            OblivionS.Game.PlaceAtMe(OblivionS.Game.GetPlayer(), 0x00033095);
+            return OblivionS.Game.PlaceAtMe(OblivionS.Game.GetPlayer(), 0x0003DB35);
         }
 
         public override IActor GetPlayer()
         {
             return OblivionS.Game.GetPlayer();
+        }
+
+        public override void PlayAnimation(IActor actor, string animationName)
+        {
+           // throw new NotImplementedException();
         }
 
 #endregion

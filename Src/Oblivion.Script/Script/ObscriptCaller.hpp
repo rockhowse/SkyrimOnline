@@ -12,6 +12,7 @@ struct ObscriptCaller
 	void Push(int pValue);
 	void Push(short pValue);
 	void PushForm(void* form);
+	void PushThisForm(void* form);
 
 	double operator()(void * pThisObj = nullptr);
 

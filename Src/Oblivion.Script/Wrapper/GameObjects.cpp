@@ -54,6 +54,16 @@ void Game::Oblivion::TESObjectREFR::Rotation::set(Microsoft::Xna::Framework::Vec
 
 }
 
+Game::ITESForm^ Game::Oblivion::TESObjectREFR::BaseForm::get()
+{
+	double res;
+
+	ObscriptCaller caller("GetBaseObject");
+	res = caller(NativeHandle);
+
+	return gcnew Game::Oblivion::TESForm((void*)*(UInt32*)&res);
+}
+
 
 Game::Oblivion::MobileObject::MobileObject(void * ptr)
 	: Game::Oblivion::TESObjectREFR(ptr)
@@ -74,5 +84,34 @@ Game::Oblivion::Actor::Actor(void* ptr)
 
 Game::Oblivion::Actor::~Actor()
 {
+
+}
+
+void Game::Oblivion::Actor::EnableAI(bool enabled)
+{
+	ObscriptCaller caller("SetActorsAI");
+	if(enabled)
+		caller.Push(int(1));
+	else
+	{
+		caller.Push(int(0));
+	}
+	caller(NativeHandle);
+}
+
+void Game::Oblivion::Actor::EquipItem(ITESForm^ form)
+{
+	TESForm^ f = (TESForm^)form;
+
+	ObscriptCaller caller("EquipItemSilent");
+	caller.PushForm(f->NativeHandle);
+	caller.Push(int(1));
+
+	caller(NativeHandle);
+}
+
+void Game::Oblivion::Actor::UnequipAll()
+{
+	
 
 }

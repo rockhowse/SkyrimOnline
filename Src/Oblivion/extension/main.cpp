@@ -61,20 +61,71 @@ static void ExamplePlugin_NewGameCallback(void * reserved)
 	ResetData();
 }
 
-bool Cmd_TextAxis_Execute(COMMAND_ARGS)
+typedef bool (* tExecute)(ParamInfo * paramInfo, void * arg1, void * thisObj, int arg3, void * scriptObj, void * eventList, double * result, unsigned int * opcodeOffsetPtr);
+Cmd_Execute oPlaceAtMe;
+
+bool PlaceAtMe(COMMAND_ARGS)
 {
 	std::ostringstream os;
-	*result = 4.0f;
-	os << "Opcode : " << *(unsigned short*)arg1;
-	arg1 = (char*)arg1 + 2;
-	int len = *(unsigned short*)arg1;
-	arg1 = (char*)arg1 + 2;
-	auto var = scriptObj->GetVariable(1)->form->refID;
-	os << " Form : " << var << std::endl;
-	for(int i = 0; i < len; ++i)
+
+	void* arg1cpy = arg1;
+	os << "Opcode : " << *(unsigned short*)arg1cpy << std::endl;
+	os << "Offset ptr : " << *opcodeOffsetPtr << std::endl;
+	os << "This : " << thisObj << std::endl;
+	arg1cpy = (char*)arg1cpy + 2;
+	int len = *(unsigned short*)arg1cpy;
+	arg1cpy = (char*)arg1cpy + 2;
+
+	for(int i = 1;true;++i)
+	{
+		auto ref = scriptObj->GetVariable(i);
+		
+		if(ref == NULL)
+			break;
+
+		auto var = ref->form->refID;
+
+		os << " Form #" << i << " : " << var << std::endl;
+	}
+
+	for(int i = 0; i < 16; ++i)
 	{
 		os << "{" << ((char*)arg1)[i] << ":" << (int)((char*)arg1)[i] << "} ; ";
 	}
+
+	g_log << os.str() << std::endl;
+	return oPlaceAtMe(paramInfo, arg1, thisObj, arg3, scriptObj, eventList, result, opcodeOffsetPtr);
+}
+
+bool Cmd_TextAxis_Execute(COMMAND_ARGS)
+{
+	std::ostringstream os;
+
+	void* arg1cpy = arg1;
+	os << "Opcode : " << *(unsigned short*)arg1cpy << std::endl;
+	os << "Offset ptr : " << *opcodeOffsetPtr << std::endl;
+	os << "This : " << thisObj << std::endl;
+	arg1cpy = (char*)arg1cpy + 2;
+	int len = *(unsigned short*)arg1cpy;
+	arg1cpy = (char*)arg1cpy + 2;
+
+	for(int i = 1;true;++i)
+	{
+		auto ref = scriptObj->GetVariable(i);
+
+		if(ref == NULL)
+			break;
+
+		auto var = ref->form->refID;
+
+		os << " Form #" << i << " : id " << var << " addr : " << ref->form << std::endl;
+	}
+
+	for(int i = 0; i < 16; ++i)
+	{
+		os << "{" << ((char*)arg1)[i] << ":" << (int)((char*)arg1)[i] << "} ; ";
+	}
+
 	g_log << os.str() << std::endl;
 
 	return true;
@@ -200,11 +251,34 @@ bool CallFunction(const char* longName, void * thisObj, std::vector<unsigned cha
 				unsigned short s;
 				unsigned char c[2];
 			};
-
 			ShortToChar tmp;
-			tmp.s = cmd->opcode;
 
 			std::vector<unsigned char> params;
+
+			if(forms.size() > 0)
+			{
+				if(forms[0] == thisObj)
+				{
+					tmp.s = 28;
+					params.push_back(tmp.c[0]);
+					params.push_back(tmp.c[1]);
+
+					tmp.s = 1;
+					params.push_back(tmp.c[0]);
+					params.push_back(tmp.c[1]);
+
+					opcodeOffset = 8;
+				}
+			}
+
+			for(auto f : forms)
+			{
+				fScript->AddVariable((TESForm*)f);
+			}
+
+			
+			tmp.s = cmd->opcode;
+
 			params.push_back(tmp.c[0]);
 			params.push_back(tmp.c[1]);
 
@@ -218,11 +292,12 @@ bool CallFunction(const char* longName, void * thisObj, std::vector<unsigned cha
 
 			params.insert(params.end(), parameterStack.begin(), parameterStack.end());
 
-			for(auto f : forms)
+			g_log << longName << " is at : " << cmd->execute << std::endl;
+			for(int i = 0; i < cmd->numParams; ++i)
 			{
-				fScript->AddVariable((TESForm*)f);
+				g_log << "Param #" << i << " " << cmd->params[i].typeStr << " id : " << cmd->params[i].typeID << " optional ? " << cmd->params[i].isOptional << std::endl;
 			}
-
+			
 			bool ret = cmd->execute(cmd->params, params.data(), (TESObjectREFR*)thisObj, 0, fScript, &eList, result, &opcodeOffset);
 
 			fScript->StaticDestructor();
@@ -269,6 +344,9 @@ bool OBSEPlugin_Load(const OBSEInterface * obse)
 
 	// get command table, if needed
 	g_cmdIntfc = (OBSECommandTableInterface*)obse->QueryInterface(kInterface_CommandTable);
+	auto cmd = (CommandInfo*)g_cmdIntfc->GetByName("PlaceAtMe");
+	oPlaceAtMe = cmd->execute;
+	cmd->execute = PlaceAtMe;
 
 	return true;
 }

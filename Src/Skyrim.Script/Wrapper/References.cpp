@@ -20,7 +20,7 @@ Game::Skyrim::TESObjectREFR::~TESObjectREFR()
 
 }
 
-Game::Skyrim::TESForm^ Game::Skyrim::TESObjectREFR::BaseForm::get()
+Game::ITESForm^ Game::Skyrim::TESObjectREFR::BaseForm::get()
 {
 	return gcnew Game::Skyrim::TESForm(((FreeScript::TESObjectREFR*)NativeHandle)->baseForm);
 }
@@ -68,6 +68,11 @@ Game::Skyrim::Actor::~Actor()
 
 }
 
+void Game::Skyrim::Actor::EnableAI(bool enabled)
+{
+	SActor::EnableAI((FreeScript::Actor*)NativeHandle, enabled);
+}
+
 void Game::Skyrim::Actor::QueueNiNodeUpdate()
 {
 	FreeScript::QueueNiNodeUpdate((FreeScript::Actor*)NativeHandle);
@@ -100,8 +105,10 @@ Game::Skyrim::TESForm^ Game::Skyrim::Actor::GetWornForm(System::UInt32 id)
 	return gcnew Game::Skyrim::TESForm((void*)FreeScript::GetWornForm((FreeScript::Actor*)NativeHandle, 1 << id));
 }
 
-void Game::Skyrim::Actor::EquipItem(Game::Skyrim::TESForm^ form)
+void Game::Skyrim::Actor::EquipItem(Game::ITESForm^ form)
 {
-	::ObjectReference::AddItem(rtti_cast(ptr, Actor, TESObjectREFR), (FreeScript::TESForm*)form->NativeHandle, 1, true);
-	SActor::EquipItem((FreeScript::Actor*)ptr, (FreeScript::TESForm*)form->NativeHandle, true, false);
+	::Game::Skyrim::TESForm^ f = (::Game::Skyrim::TESForm^)form;
+
+	::ObjectReference::AddItem(rtti_cast(ptr, Actor, TESObjectREFR), (FreeScript::TESForm*)f->NativeHandle, 1, true);
+	SActor::EquipItem((FreeScript::Actor*)ptr, (FreeScript::TESForm*)f->NativeHandle, true, false);
 }

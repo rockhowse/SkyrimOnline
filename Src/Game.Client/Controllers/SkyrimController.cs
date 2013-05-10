@@ -32,14 +32,19 @@ namespace Game.Client.Controllers
 
 #region Game
 
-        public override void PlaceAtMe()
+        public override IActor PlaceAtMe()
         {
-            SkyrimS.Game.PlaceAtMe(SkyrimS.Game.GetPlayer(), 0);
+            return SkyrimS.Game.PlaceAtMe(SkyrimS.Game.GetPlayer(), 7);
         }
 
         public override IActor GetPlayer()
         {
             return SkyrimS.Game.GetPlayer();
+        }
+
+        public override void PlayAnimation(IActor actor, string animationName)
+        {
+            SkyrimS.Debug.SendAnimationEvent(actor, animationName);
         }
 #endregion
     }

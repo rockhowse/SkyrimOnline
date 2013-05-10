@@ -11,6 +11,7 @@ namespace Game
 			public:
 
 				static void Notification(System::String^ str);
+				static void SendAnimationEvent(::Game::IActor^ arRef, System::String^ asEventName);
 			};
 		}
 	}
