@@ -30,6 +30,9 @@
     <ClInclude Include="Wrapper\GameObjects.h">
       <Filter>Header Files</Filter>
     </ClInclude>
+    <ClInclude Include="Script\Globals.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="AssemblyInfo.cpp">
@@ -51,6 +54,9 @@
       <Filter>Source Files</Filter>
     </ClCompile>
     <ClCompile Include="Wrapper\GameObjects.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="Script\Globals.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
   </ItemGroup>

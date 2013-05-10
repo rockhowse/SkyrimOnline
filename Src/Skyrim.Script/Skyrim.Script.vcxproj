@@ -80,6 +80,7 @@
     <ClInclude Include="Script\Actor.h" />
     <ClInclude Include="Script\Debug.h" />
     <ClInclude Include="Script\Game.h" />
+    <ClInclude Include="Script\Globals.h" />
     <ClInclude Include="Stdafx.h" />
     <ClInclude Include="Wrapper\Components.h" />
     <ClInclude Include="Wrapper\Forms.h" />
@@ -137,6 +138,7 @@
     <ClCompile Include="Script\Game.cpp">
       <ObjectFileName Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">$(IntDir)%(RelativeDir)</ObjectFileName>
     </ClCompile>
+    <ClCompile Include="Script\Globals.cpp" />
     <ClCompile Include="Stdafx.cpp">
       <PrecompiledHeader Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">NotUsing</PrecompiledHeader>
       <CompileAsManaged Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">false</CompileAsManaged>

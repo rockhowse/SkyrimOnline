@@ -53,6 +53,7 @@
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Script\Game.h" />
+    <ClInclude Include="Script\Globals.h" />
     <ClInclude Include="Script\ObscriptCaller.hpp" />
     <ClInclude Include="Stdafx.h" />
     <ClInclude Include="Wrapper\GameForms.h" />
@@ -64,6 +65,7 @@
       <CompileAsManaged Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">false</CompileAsManaged>
     </ClCompile>
     <ClCompile Include="Script\Game.cpp" />
+    <ClCompile Include="Script\Globals.cpp" />
     <ClCompile Include="Script\ObscriptCaller.cpp" />
     <ClCompile Include="Stdafx.cpp">
       <PrecompiledHeader Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">NotUsing</PrecompiledHeader>

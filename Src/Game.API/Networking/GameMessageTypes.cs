@@ -10,6 +10,6 @@ namespace Game.API.Networking
     {
         ChatTalk,
         UpdatePlayerState,
-
+        WorldEnvironmentState
     }
 }
