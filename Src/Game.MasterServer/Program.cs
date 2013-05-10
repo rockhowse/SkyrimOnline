@@ -139,7 +139,7 @@ namespace Game.MasterServer
             var endpoint = inc.ReadIPEndPoint();
             var game = inc.ReadInt32();
             
-            if (manager.Register(id, new Guid(guid)))
+            //if (manager.Register(id, new Guid(guid)))
             {
                 registeredHosts[id] = new Object[]
 									{

@@ -17,7 +17,7 @@ namespace Game.Client.Config
     {
         private ListViewColumnSorter sorter = new ListViewColumnSorter();
         private MasterClient client = null;
-        private static string MASTER_SERVER_ADDRESS = "skyrim-online.com";
+        private static string MASTER_SERVER_ADDRESS = "127.0.0.1";
         private Int64 GAME_SERVER_ID = 0;
         private bool connecting = false;
 

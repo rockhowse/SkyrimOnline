@@ -27,9 +27,6 @@ namespace Game.API.Networking.Messages
         {
         }
 
-        public WorldEnvironmentStateMessage()
-        {
-        }
 
         public float Hour
         {
