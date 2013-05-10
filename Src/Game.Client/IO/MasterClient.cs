@@ -87,6 +87,7 @@ namespace Game.Client.IO
 
             NetOutgoingMessage listRequest = m_client.CreateMessage();
             listRequest.Write((byte)MasterServerMessageType.RequestHostList);
+            listRequest.Write(GlobalContext.Module.Name.ToUpper().GetHashCode());
             m_client.SendUnconnectedMessage(listRequest, m_masterServer);
         }
 

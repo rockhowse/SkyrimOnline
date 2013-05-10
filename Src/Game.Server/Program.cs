@@ -15,6 +15,29 @@ namespace Game.Server
     {
         private static readonly ILog Logger = LogManager.GetLogger(MethodBase.GetCurrentMethod().DeclaringType);
 
+        static private Int32 game = 0;
+        static public Int32 Game
+        {
+            get
+            {
+                if (game == 0)
+                {
+                    IniData data = null;
+                    try
+                    {
+                        IniParser.FileIniDataParser parser = new IniParser.FileIniDataParser();
+                        data = parser.LoadFile("GameServer.ini");
+                    }
+                    catch (System.Exception ex)
+                    {
+                        Logger.Error(ex.Message);
+                    }
+
+                    game = GetValue(data, "General", "Game", "skyrim").ToUpper().GetHashCode();
+                }
+                return game;
+            }
+        }
 
         static string GetValue(IniData data, string section, string key, string defaultString)
         {

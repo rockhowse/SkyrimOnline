@@ -100,6 +100,8 @@ namespace Game.MasterServer
         {
             //Console.WriteLine("Sending list of " + registeredHosts.Count + " hosts to client " + msg.SenderEndPoint);
             List<Int64> toRemove = new List<Int64>();
+            var game = inc.ReadInt32();
+
             foreach (var kvp in registeredHosts)
             {
                 if ((double)kvp.Value[5] + 130.0 < NetTime.Now)
@@ -107,13 +109,17 @@ namespace Game.MasterServer
                     toRemove.Add(kvp.Key);
                     continue;
                 }
-                NetOutgoingMessage om = peer.CreateMessage();
-                om.Write(kvp.Key);
-                om.Write((string)kvp.Value[2]);
-                om.Write((UInt16)kvp.Value[3]);
-                om.Write((UInt16)kvp.Value[4]);
-                om.Write((IPEndPoint)kvp.Value[1]);
-                peer.SendUnconnectedMessage(om, inc.SenderEndPoint);
+
+                if ((int)kvp.Value[6] == game)
+                {
+                    NetOutgoingMessage om = peer.CreateMessage();
+                    om.Write(kvp.Key);
+                    om.Write((string)kvp.Value[2]);
+                    om.Write((UInt16)kvp.Value[3]);
+                    om.Write((UInt16)kvp.Value[4]);
+                    om.Write((IPEndPoint)kvp.Value[1]);
+                    peer.SendUnconnectedMessage(om, inc.SenderEndPoint);
+                }
             }
 
             foreach (var kvp in toRemove)
@@ -130,17 +136,20 @@ namespace Game.MasterServer
             var population = inc.ReadUInt16();
             var maxPopulation = inc.ReadUInt16();
             var guid = inc.ReadString();
+            var endpoint = inc.ReadIPEndPoint();
+            var game = inc.ReadInt32();
             
             if (manager.Register(id, new Guid(guid)))
             {
                 registeredHosts[id] = new Object[]
 									{
-										inc.ReadIPEndPoint(),
+										endpoint,
 										inc.SenderEndPoint,
                                         name,
                                         population,
                                         maxPopulation,
-                                        NetTime.Now                                      
+                                        NetTime.Now,
+                                        game
 									};
             }
         }
