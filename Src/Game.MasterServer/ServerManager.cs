@@ -35,10 +35,7 @@ namespace Game.MasterServer
                                 if (!registeredGuids.ContainsValue(new Guid(line)) && !guids.Contains(new Guid(line)))
                                     guids.Add(new Guid(line));
                             }
-                            catch (System.Exception ex)
-                            {
-
-                            }
+                            catch { }
 
                         }
 
@@ -48,10 +45,7 @@ namespace Game.MasterServer
 
                         return;
                     }
-                    catch (System.Exception ex)
-                    {
-
-                    }
+                    catch{}
                 }
                 
                 

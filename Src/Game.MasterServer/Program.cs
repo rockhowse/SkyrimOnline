@@ -66,10 +66,7 @@ namespace Game.MasterServer
                             break;
                     }
                 }
-                catch (System.Exception ex)
-                {
-
-                }
+                catch { }
             }
         }
 
