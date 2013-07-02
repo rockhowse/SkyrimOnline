@@ -18,7 +18,7 @@ namespace Game.Client
         public void Update()
         {
             long ticks = DateTime.UtcNow.Ticks;
-            if ((ticks - time) / 10000000 > 5)
+            /*if ((ticks - time) / 10000000 > 5)
             {
                 //if (actor == null)
                 {
@@ -29,7 +29,7 @@ namespace Game.Client
 
                 Entry.UserInterace.Chat.Log("PlaceAtMe");
                 time = ticks;
-            }
+            }*/
         }
 
         public void OnEnter()

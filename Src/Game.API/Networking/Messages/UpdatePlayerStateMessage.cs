@@ -4,7 +4,6 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using Lidgren.Network;
-using Lidgren.Network.Xna;
 using Microsoft.Xna.Framework;
 using Game.API.Entities;
 
@@ -53,8 +52,8 @@ namespace Game.API.Networking.Messages
         {
             this.Id = im.ReadInt64();
             this.MessageTime = im.ReadDouble();
-            this.Position = im.ReadVector3();
-            this.Velocity = im.ReadVector3();
+            /*this.Position = im.ReadVector3();
+            this.Velocity = im.ReadVector3();*/
             this.Rotation = im.ReadSingle();
         }
 
@@ -62,8 +61,8 @@ namespace Game.API.Networking.Messages
         {
             om.Write(this.Id);
             om.Write(this.MessageTime);
-            om.Write(this.Position);
-            om.Write(this.Velocity);
+           /* om.Write(this.Position);
+            om.Write(this.Velocity);*/
             om.Write(this.Rotation);
         }
 

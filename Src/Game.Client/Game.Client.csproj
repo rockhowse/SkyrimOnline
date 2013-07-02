@@ -25,8 +25,8 @@
     <StartupObject />
   </PropertyGroup>
   <ItemGroup>
-    <Reference Include="Microsoft.Xna.Framework, Version=4.0.0.0, Culture=neutral, PublicKeyToken=842cf8be1de50553, processorArchitecture=x86" />
-    <Reference Include="Microsoft.Xna.Framework.Game, Version=4.0.0.0, Culture=neutral, PublicKeyToken=842cf8be1de50553, processorArchitecture=x86" />
+    <Reference Include="Lidgren.Network, Version=2011.3.12.0, Culture=neutral, processorArchitecture=MSIL" />
+    <Reference Include="MonoGame.Framework, Version=3.0.0.0, Culture=neutral, processorArchitecture=MSIL" />
     <Reference Include="protobuf-net">
       <HintPath>..\..\packages\protobuf-net.2.0.0.621\lib\net40\protobuf-net.dll</HintPath>
     </Reference>
@@ -75,10 +75,6 @@
     <ProjectReference Include="..\Game.Script\Game.Script.vcxproj">
       <Project>{8691e70d-6ea8-44bd-91ea-db69d61e0f10}</Project>
       <Name>Game.Script %28Microsoft Visual C++ Compiler Nov 2012 CTP%29</Name>
-    </ProjectReference>
-    <ProjectReference Include="..\Lidgren.Network\Lidgren.Network.csproj">
-      <Project>{49ba1c69-6104-41ac-a5d8-b54fa9f696e8}</Project>
-      <Name>Lidgren.Network</Name>
     </ProjectReference>
     <ProjectReference Include="..\Oblivion.Script\Oblivion.Script.vcxproj">
       <Project>{5a52c34b-356a-46d8-b63c-4837524770b8}</Project>

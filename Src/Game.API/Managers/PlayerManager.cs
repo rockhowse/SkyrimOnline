@@ -4,9 +4,9 @@ using System.Linq;
 using System.Text;
 using System.Threading;
 using System.Threading.Tasks;
-using Microsoft.Xna.Framework;
 using Game.API.Entities;
 using Game.API.Events;
+using Microsoft.Xna.Framework;
 
 namespace Game.API.Managers
 {

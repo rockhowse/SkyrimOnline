@@ -40,6 +40,7 @@
             this.playerNameLabel = new System.Windows.Forms.Label();
             this.selectedServerKey = new System.Windows.Forms.Label();
             this.m_timer = new System.Windows.Forms.Timer(this.components);
+            this.button1 = new System.Windows.Forms.Button();
             populationHeader = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
             maximumHeader = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
             this.SuspendLayout();
@@ -143,12 +144,23 @@
             this.m_timer.Interval = 3000;
             this.m_timer.Tick += new System.EventHandler(this.m_timer_Tick);
             // 
+            // button1
+            // 
+            this.button1.Location = new System.Drawing.Point(359, 267);
+            this.button1.Name = "button1";
+            this.button1.Size = new System.Drawing.Size(147, 23);
+            this.button1.TabIndex = 7;
+            this.button1.Text = "Exit";
+            this.button1.UseVisualStyleBackColor = true;
+            this.button1.Click += new System.EventHandler(this.button1_Click);
+            // 
             // Play
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(518, 360);
             this.ControlBox = false;
+            this.Controls.Add(this.button1);
             this.Controls.Add(this.selectedServerKey);
             this.Controls.Add(this.playerNameLabel);
             this.Controls.Add(this.playerNameBox);
@@ -178,5 +190,6 @@
         private System.Windows.Forms.Label playerNameLabel;
         private System.Windows.Forms.Label selectedServerKey;
         private System.Windows.Forms.Timer m_timer;
+        private System.Windows.Forms.Button button1;
     }
 }

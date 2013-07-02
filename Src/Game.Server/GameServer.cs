@@ -91,16 +91,14 @@ namespace Game.Server
                         switch (status)
                         {
                             case NetConnectionStatus.Connected:
-                                Logger.InfoFormat("{0} Connected", inc.SenderEndPoint);
+                                Logger.InfoFormat("{0} Connected", inc.SenderEndpoint);
                                 break;
                             case NetConnectionStatus.Disconnected:
                                 sessions.Remove(inc.SenderConnection);
-                                Logger.InfoFormat("{0} Disconnected", inc.SenderEndPoint);
+                                Logger.InfoFormat("{0} Disconnected", inc.SenderEndpoint);
                                 break;
-                            case NetConnectionStatus.RespondedAwaitingApproval:
                             case NetConnectionStatus.Disconnecting:
                             case NetConnectionStatus.InitiatedConnect:
-                            case NetConnectionStatus.ReceivedInitiation:
                             case NetConnectionStatus.RespondedConnect:
                                 Logger.Debug(status.ToString());
                                 break;
@@ -116,7 +114,7 @@ namespace Game.Server
                             inc.SenderConnection.Approve(hailMessage);
                         }
                         else
-                            inc.SenderConnection.Deny(hailMessage.ReadString());
+                            inc.SenderConnection.Deny("No !");
   
                         break;
                     case NetIncomingMessageType.Data:

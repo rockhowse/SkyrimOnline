@@ -3,6 +3,7 @@ using System;
 using System.Collections.Generic;
 using System.ComponentModel;
 using System.Data;
+using System.Diagnostics;
 using System.Drawing;
 using System.Linq;
 using System.Net;
@@ -17,7 +18,7 @@ namespace Game.Client.Config
     {
         private ListViewColumnSorter sorter = new ListViewColumnSorter();
         private MasterClient client = null;
-        private static string MASTER_SERVER_ADDRESS = "skyrim-online.com";
+        private static string MASTER_SERVER_ADDRESS = "game.skyrim-online.com";
         private Int64 GAME_SERVER_ID = 0;
         private bool connecting = false;
 
@@ -39,7 +40,6 @@ namespace Game.Client.Config
 
         private void clientUpdated(object[] server)
         {
-
             //If a listview item with the same id/key as the incoming server exists already, remove it
             serverList.Items.RemoveByKey(server.GetValue(0).ToString());
 
@@ -195,6 +195,11 @@ namespace Game.Client.Config
             singlePlayerButton.Enabled = true;
             serverList_SelectedIndexChanged(null, null);
             m_timer.Enabled = false;
+        }
+
+        private void button1_Click(object sender, EventArgs e)
+        {
+            Process.GetCurrentProcess().Kill();
         }
     }
 }

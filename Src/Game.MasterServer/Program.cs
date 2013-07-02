@@ -72,7 +72,7 @@ namespace Game.MasterServer
 
         private void HandleRequestIntroduction(NetIncomingMessage msg)
         {
-            IPEndPoint clientInternal = msg.ReadIPEndPoint();
+            IPEndPoint clientInternal = msg.ReadIPEndpoint();
             long hostId = msg.ReadInt64();
             string token = msg.ReadString();
 
@@ -83,7 +83,7 @@ namespace Game.MasterServer
                     (IPEndPoint)elist[0],
                     (IPEndPoint)elist[1],
                     clientInternal,
-                    msg.SenderEndPoint,
+                    msg.SenderEndpoint,
                     token
                 );
             }
@@ -95,7 +95,7 @@ namespace Game.MasterServer
 
         void HandleRequestHost(NetIncomingMessage inc)
         {
-            //Console.WriteLine("Sending list of " + registeredHosts.Count + " hosts to client " + msg.SenderEndPoint);
+            Console.WriteLine("Sending list of " + registeredHosts.Count + " hosts to client " + inc.SenderEndpoint);
             List<Int64> toRemove = new List<Int64>();
             var game = inc.ReadInt32();
 
@@ -115,7 +115,7 @@ namespace Game.MasterServer
                     om.Write((UInt16)kvp.Value[3]);
                     om.Write((UInt16)kvp.Value[4]);
                     om.Write((IPEndPoint)kvp.Value[1]);
-                    peer.SendUnconnectedMessage(om, inc.SenderEndPoint);
+                    peer.SendUnconnectedMessage(om, inc.SenderEndpoint);
                 }
             }
 
@@ -133,7 +133,7 @@ namespace Game.MasterServer
             var population = inc.ReadUInt16();
             var maxPopulation = inc.ReadUInt16();
             var guid = inc.ReadString();
-            var endpoint = inc.ReadIPEndPoint();
+            var endpoint = inc.ReadIPEndpoint();
             var game = inc.ReadInt32();
             
             //if (manager.Register(id, new Guid(guid)))
@@ -141,7 +141,7 @@ namespace Game.MasterServer
                 registeredHosts[id] = new Object[]
 									{
 										endpoint,
-										inc.SenderEndPoint,
+										inc.SenderEndpoint,
                                         name,
                                         population,
                                         maxPopulation,
