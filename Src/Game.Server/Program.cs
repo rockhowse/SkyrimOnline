@@ -33,10 +33,22 @@ namespace Game.Server
                         Logger.Error(ex.Message);
                     }
 
-                    game = GetValue(data, "General", "Game", "skyrim").ToUpper().GetHashCode();
+                    game = GetHash(GetValue(data, "General", "Game", "skyrim").ToUpper());
                 }
                 return game;
             }
+        }
+
+        static Int32 GetHash(string game)
+        {
+            switch (game)
+            {
+                case "SKYRIM":
+                    return 2095065945;
+                case "OBLIVION":
+                    return 1663201550;
+            }
+            return 1663201550;
         }
 
         static string GetValue(IniData data, string section, string key, string defaultString)

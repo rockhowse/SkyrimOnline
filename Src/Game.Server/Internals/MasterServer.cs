@@ -8,6 +8,7 @@ using System.Text;
 using System.Threading.Tasks;
 using log4net;
 using System.Reflection;
+using System.IO;
 
 namespace Game.Server.Internals
 {
@@ -27,6 +28,24 @@ namespace Game.Server.Internals
             masterServerEndpoint = NetUtility.Resolve("game.skyrim-online.com", Game.API.MasterServer.MasterServerPort);
         }
 
+        public string GetPublicIP()
+        {
+            String direction = "";
+            WebRequest request = WebRequest.Create("http://checkip.dyndns.org/");
+            using (WebResponse response = request.GetResponse())
+            using (StreamReader stream = new StreamReader(response.GetResponseStream()))
+            {
+                direction = stream.ReadToEnd();
+            }
+
+            //Search for the ip in the html
+            int first = direction.IndexOf("Address: ") + 9;
+            int last = direction.LastIndexOf("</body>");
+            direction = direction.Substring(first, last - first);
+
+            return direction;
+        }
+
         public void Update()
         {
             if (NetTime.Now > lastRegistered + 60)
@@ -34,8 +53,7 @@ namespace Game.Server.Internals
                 NetOutgoingMessage regMsg = server.Server.CreateMessage();
                 regMsg.Write((byte)MasterServerMessageType.RegisterHost);
 
-                IPAddress mask;
-                IPAddress adr = NetUtility.GetMyAddress(out mask);
+                IPAddress adr = IPAddress.Parse(GetPublicIP());
 
                 regMsg.Write(server.Server.UniqueIdentifier);
                 regMsg.Write(server.Name);

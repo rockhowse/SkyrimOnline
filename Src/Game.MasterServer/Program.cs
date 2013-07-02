@@ -107,6 +107,7 @@ namespace Game.MasterServer
                     continue;
                 }
 
+                //Console.WriteLine(game + " " + kvp.Value[6]);
                 if ((int)kvp.Value[6] == game)
                 {
                     NetOutgoingMessage om = peer.CreateMessage();
