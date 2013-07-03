@@ -142,7 +142,7 @@ namespace Game.Server
                     server.Update();
                     masterClient.Update();
 
-                    System.Threading.Thread.Sleep(1);
+                    System.Threading.Thread.Sleep(30);
                 }
             }
             catch (System.Exception ex)

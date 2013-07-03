@@ -160,7 +160,7 @@ namespace Game.MasterServer
             while (!Console.KeyAvailable || Console.ReadKey().Key != ConsoleKey.Escape)
             {
                 prog.Update();
-                Thread.Sleep(1);
+                Thread.Sleep(100);
             }
         }
     }
