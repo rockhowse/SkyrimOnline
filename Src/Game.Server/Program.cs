@@ -147,7 +147,7 @@ namespace Game.Server
             }
             catch (System.Exception ex)
             {
-                Console.WriteLine(ex.ToString());
+                Logger.Error(ex.ToString());
             }
         }
     }

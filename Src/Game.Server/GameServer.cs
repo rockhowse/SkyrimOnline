@@ -48,15 +48,15 @@ namespace Game.Server
         {
             appTime = new GameTime();
 
-            
-           // this.playerManager.PlayerStateChanged += (sender, e) => this.SendMessage(new UpdatePlayerStateMessage(e.Player));
+
+            // this.playerManager.PlayerStateChanged += (sender, e) => this.SendMessage(new UpdatePlayerStateMessage(e.Player));
         }
 
         public void SendMessage(IGameMessage gameMessage)
         {
             try
             {
-               
+
                 foreach (var s in sessions)
                 {
                     NetOutgoingMessage om = this.server.CreateMessage();
@@ -68,15 +68,23 @@ namespace Game.Server
             }
             catch (System.Exception ex)
             {
-                Console.WriteLine(ex.ToString());
+                Logger.Error(ex.ToString());
             }
         }
 
         public void Update()
         {
-            ProcessNetworkMessages();
+            try
+            {
 
-            this.world.Update(this.appTime);
+                ProcessNetworkMessages();
+
+                this.world.Update(this.appTime);
+            }
+            catch (System.Exception ex)
+            {
+                Logger.Error(ex.ToString());
+            }
         }
 
         private void ProcessNetworkMessages()
@@ -115,7 +123,7 @@ namespace Game.Server
                         }
                         else
                             inc.SenderConnection.Deny("No !");
-  
+
                         break;
                     case NetIncomingMessageType.Data:
                         Session session = null;
