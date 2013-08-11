@@ -56,14 +56,9 @@ namespace Game.Server
         {
             try
             {
-
                 foreach (var s in sessions)
                 {
-                    NetOutgoingMessage om = this.server.CreateMessage();
-                    om.Write((byte)gameMessage.MessageType);
-                    gameMessage.Encode(om);
-
-                    s.Key.SendMessage(om, NetDeliveryMethod.ReliableUnordered, 0);
+                    s.Value.SendMessage(gameMessage);
                 }
             }
             catch (System.Exception ex)
@@ -150,6 +145,11 @@ namespace Game.Server
         public NetOutgoingMessage CreateMessage()
         {
             return server.CreateMessage();
+        }
+
+        public int SessionCount
+        {
+            get { return sessions.Count; }
         }
 
         public NetServer Server

@@ -17,16 +17,24 @@ namespace Game.API.Networking
 
         public void Handle(NetIncomingMessage inc)
         {
-            var gameMessageType = (GameMessageTypes)inc.ReadByte();
-            switch (gameMessageType)
+            try
             {
-                case GameMessageTypes.UpdatePlayerState:
-                    OnUpdatePlayerState(new UpdatePlayerStateMessage(inc));
-                    break;
-                case GameMessageTypes.ChatTalk:
-                    OnChatTalk(new ChatTalkMessage(inc));
-                    break;
+                var gameMessageType = (GameMessageTypes)inc.ReadByte();
+                switch (gameMessageType)
+                {
+                    case GameMessageTypes.UpdatePlayerState:
+                        OnUpdatePlayerState(new UpdatePlayerStateMessage(inc));
+                        break;
+                    case GameMessageTypes.ChatTalk:
+                        OnChatTalk(new ChatTalkMessage(inc));
+                        break;
+                }
             }
+            catch
+            {
+
+            }
+
         }
     }
 }

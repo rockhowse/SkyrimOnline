@@ -9,6 +9,7 @@ using Game.API.Entities;
 using Game.API.Networking.Messages;
 using log4net;
 using System.Reflection;
+using Game.Server.Services;
 
 namespace Game.Server
 {
@@ -61,7 +62,40 @@ namespace Game.Server
 
             Logger.Info(message.Message);
 
+            if(message.Message.Length > 1 && message.Message[0] == '/')
+            {
+                var t = typeof(ChatService);
+                var s = message.Message.Substring(1);
+                s = s.Split(' ')[0];
+                var m = t.GetMethod(s, BindingFlags.IgnoreCase | BindingFlags.Public | BindingFlags.Instance);
+                if (m != null)
+                {
+                    m.Invoke(null, new object[] { this, message, server });
+                }
+                else
+                    SendMessage(new ChatTalkMessage("This command is not valid !"));
+
+                return;
+            }
+            
             server.SendMessage(message);
+        }
+
+        public void SendMessage(IGameMessage gameMessage)
+        {
+            try
+            {
+
+                NetOutgoingMessage om = server.CreateMessage();
+                om.Write((byte)gameMessage.MessageType);
+                gameMessage.Encode(om);
+
+                Connection.SendMessage(om, NetDeliveryMethod.ReliableUnordered, 0);
+            }
+            catch (System.Exception ex)
+            {
+                Logger.Error(ex.ToString());
+            }
         }
 
         public NetConnection Connection
