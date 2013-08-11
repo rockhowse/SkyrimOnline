@@ -20,6 +20,7 @@ namespace Game.Server.Internals
         float lastRegistered = -60.0f;
         GameServer server = null;
         string mGuid = "none";
+        string mIp = null;
 
         public MasterServerClient(GameServer pServer, string guid)
         {
@@ -30,20 +31,30 @@ namespace Game.Server.Internals
 
         public string GetPublicIP()
         {
-            String direction = "";
-            WebRequest request = WebRequest.Create("http://checkip.dyndns.org/");
-            using (WebResponse response = request.GetResponse())
-            using (StreamReader stream = new StreamReader(response.GetResponseStream()))
+            while (mIp == null)
             {
-                direction = stream.ReadToEnd();
+                try
+                {
+                    String direction = "";
+                    WebRequest request = WebRequest.Create("http://checkip.dyndns.org/");
+                    using (WebResponse response = request.GetResponse())
+                    using (StreamReader stream = new StreamReader(response.GetResponseStream()))
+                    {
+                        direction = stream.ReadToEnd();
+                    }
+
+                    //Search for the ip in the html
+                    int first = direction.IndexOf("Address: ") + 9;
+                    int last = direction.LastIndexOf("</body>");
+                    mIp = direction.Substring(first, last - first);
+                }
+                catch
+                {
+                }
+
             }
 
-            //Search for the ip in the html
-            int first = direction.IndexOf("Address: ") + 9;
-            int last = direction.LastIndexOf("</body>");
-            direction = direction.Substring(first, last - first);
-
-            return direction;
+            return mIp;
         }
 
         public void Update()
