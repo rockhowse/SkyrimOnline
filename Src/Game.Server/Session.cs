@@ -21,12 +21,14 @@ namespace Game.Server
         private NetConnection connection;
         private Player player;
         private GameServer server;
+        private string username;
 
-        public Session(NetConnection connection, GameServer server)
+        public Session(NetConnection connection, GameServer server, string username)
         {
             this.connection = connection;
             this.server = server;
-
+            this.username = username;
+            
             handler.OnUpdatePlayerState += HandleUpdatePlayerStateMessage;
             handler.OnChatTalk += HandleChatTalkMessage;
 
@@ -60,32 +62,22 @@ namespace Game.Server
         {
             ChatTalkMessage message = (ChatTalkMessage)msg;
 
-            Logger.Info(message.Message);
-
             if(message.Message.Length > 1 && message.Message[0] == '/')
             {
-                var t = typeof(ChatService);
-                var s = message.Message.Substring(1);
-                s = s.Split(' ')[0];
-                var m = t.GetMethod(s, BindingFlags.IgnoreCase | BindingFlags.Public | BindingFlags.Instance);
-                if (m != null)
-                {
-                    m.Invoke(null, new object[] { this, message, server });
-                }
-                else
-                    SendMessage(new ChatTalkMessage("This command is not valid !"));
-
+                Logger.Info("[" + username + "] issued command " + message.Message);
+                ChatService.HandleCommand(this, server, message);
                 return;
             }
+
+            Logger.Info("[" + username + "]: " + message.Message);
             
-            server.SendMessage(message);
+            server.SendMessage(new ChatTalkMessage("[" + username + "]: " + message.Message));
         }
 
         public void SendMessage(IGameMessage gameMessage)
         {
             try
             {
-
                 NetOutgoingMessage om = server.CreateMessage();
                 om.Write((byte)gameMessage.MessageType);
                 gameMessage.Encode(om);

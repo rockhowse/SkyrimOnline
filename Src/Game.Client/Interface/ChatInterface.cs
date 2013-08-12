@@ -34,7 +34,7 @@ namespace Game.Client.Interface
 
         private void OnChatInput(string str)
         {
-            ChatTalkMessage message = new ChatTalkMessage("[" + Entry.Username + "]: " + str);
+            ChatTalkMessage message = new ChatTalkMessage(str);
 
             Entry.GameClient.SendMessage(message);
         }

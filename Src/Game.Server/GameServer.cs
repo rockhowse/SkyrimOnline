@@ -71,7 +71,6 @@ namespace Game.Server
         {
             try
             {
-
                 ProcessNetworkMessages();
 
                 this.world.Update(this.appTime);
@@ -111,13 +110,14 @@ namespace Game.Server
                     case NetIncomingMessageType.ConnectionApproval:
 
                         NetOutgoingMessage hailMessage;
-                        if (world.EnterWorld(inc, out hailMessage))
+                        string username = null;
+                        if (world.EnterWorld(inc, out hailMessage, out username))
                         {
-                            sessions.Add(inc.SenderConnection, new Session(inc.SenderConnection, this));
+                            sessions.Add(inc.SenderConnection, new Session(inc.SenderConnection, this, username));
                             inc.SenderConnection.Approve(hailMessage);
                         }
                         else
-                            inc.SenderConnection.Deny("No !");
+                            inc.SenderConnection.Deny("Wrong version !");
 
                         break;
                     case NetIncomingMessageType.Data:

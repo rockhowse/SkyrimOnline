@@ -24,7 +24,7 @@ namespace Game.Client.IO
 
         public bool connected;
 
-        public delegate void ConnectionHandler();
+        public delegate void ConnectionHandler(string message);
         public event ConnectionHandler ConnectionSuccess;
         public event ConnectionHandler ConnectionFailed;
 
@@ -65,13 +65,32 @@ namespace Game.Client.IO
             client.SendMessage(om, NetDeliveryMethod.ReliableUnordered);
         }
 
+        public void SendMessageOrdered(IGameMessage gameMessage)
+        {
+            NetOutgoingMessage om = client.CreateMessage();
+            om.Write((byte)gameMessage.MessageType);
+            gameMessage.Encode(om);
+
+            client.SendMessage(om, NetDeliveryMethod.ReliableOrdered);
+        }
+
         public void Connect()
         {
             if (gameServer != null)
             {
                 connected = true;
                 //Attempt to connect to the remote server
-                client.Connect(gameServer);
+                NetOutgoingMessage om = client.CreateMessage();
+                IGameMessage gameMessage = new HandShakeMessage()
+                    {
+                        Version = Game.API.Networking.PacketHandler.PROTOCOL_VERSION,
+                        Username = Entry.Username
+                    };
+
+                om.Write((byte)gameMessage.MessageType);
+                gameMessage.Encode(om);
+
+                client.Connect(gameServer, om);
             }
         }
 
@@ -98,14 +117,21 @@ namespace Game.Client.IO
                                 /*var message = new UpdatePlayerStateMessage(inc.SenderConnection.RemoteHailMessage);
                                 this.playerManager.AddPlayer(message.Id, message.Position, message.Velocity, message.Rotation, true);
                                 Console.WriteLine("Connected to {0}", inc.SenderEndPoint);*/
-                                ConnectionSuccess();
+                                ConnectionSuccess("Connected to " + inc.SenderEndpoint);
                                 break;
                             case NetConnectionStatus.Disconnected:
                                 if (Entry.UserInterace != null && Entry.UserInterace.Chat != null)
                                     Entry.UserInterace.Chat.Log("Lost connection to the server !");
 
-                                Console.WriteLine("Disconnected from {0}", inc.SenderEndpoint);
-                                ConnectionFailed();
+                                string reason = "Unknown error !";
+                                try
+                                {
+                                    inc.ReadByte();
+                                    reason = inc.ReadString();
+                                }
+                                catch { }
+                                
+                                ConnectionFailed(reason);
                                 break;
                             case NetConnectionStatus.Disconnecting:
                             case NetConnectionStatus.InitiatedConnect:

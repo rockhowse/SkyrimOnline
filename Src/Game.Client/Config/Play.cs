@@ -51,15 +51,17 @@ namespace Game.Client.Config
             item.SubItems.Add(server.GetValue(3).ToString());
         }
 
-        private void connectionSuccess()
+        private void connectionSuccess(string message)
         {
             Entry.Enabled = true;
-            Entry.Username = this.playerNameBox.Text;
+            
             this.Close();
         }
 
-        private void connectionFailed()
+        private void connectionFailed(string message)
         {
+            MessageBox.Show(message);
+
             playButton.Enabled = true;
             singlePlayerButton.Enabled = true;
         }
@@ -72,6 +74,8 @@ namespace Game.Client.Config
 
             Entry.GameClient.ConnectionSuccess += connectionSuccess;
             Entry.GameClient.ConnectionFailed += connectionFailed;
+
+            Entry.Username = this.playerNameBox.Text;
 
             Entry.GameClient.Connect();
         }

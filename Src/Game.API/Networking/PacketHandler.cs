@@ -15,6 +15,8 @@ namespace Game.API.Networking
         public event PacketHandlerDelegate OnChatTalk;
         public event PacketHandlerDelegate OnUpdatePlayerState;
 
+        public static int PROTOCOL_VERSION = 1;
+
         public void Handle(NetIncomingMessage inc)
         {
             try

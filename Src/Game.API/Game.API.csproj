@@ -55,6 +55,7 @@
     <Compile Include="Networking\GameMessageTypes.cs" />
     <Compile Include="Networking\IGameMessage.cs" />
     <Compile Include="Networking\Messages\ChatTalkMessage.cs" />
+    <Compile Include="Networking\Messages\HandShakeMessage.cs" />
     <Compile Include="Networking\Messages\UpdatePlayerStateMessage.cs" />
     <Compile Include="Networking\Messages\WorldEnvironmentStateMessage.cs" />
     <Compile Include="Networking\PacketHandler.cs" />
