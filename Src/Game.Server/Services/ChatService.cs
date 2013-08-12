@@ -16,7 +16,7 @@ namespace Game.Server.Services
             var s = message.Message.Substring(1);
             s = s.Split(' ')[0];
             var m = t.GetMethod(s, BindingFlags.IgnoreCase | BindingFlags.Static | BindingFlags.Public | BindingFlags.Instance);
-            if (m != null)
+            if (m != null && m.Name != "HandleCommand")
             {
                 m.Invoke(null, new object[] { session, server, message });
             }
