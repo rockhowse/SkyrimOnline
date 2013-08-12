@@ -33,6 +33,9 @@ namespace Game.Server
             handler.OnChatTalk += HandleChatTalkMessage;
 
             player = server.World.AddPlayer();
+
+            SendMessageOrdered(new ChatTalkMessage("Welcome to the servers, press right ctrl to chat !"));
+            SendMessageOrdered(new ChatTalkMessage("Type /help to see a list of available commands."));
         }
 
         public void HandlePacket(NetIncomingMessage inc)
@@ -83,6 +86,22 @@ namespace Game.Server
                 gameMessage.Encode(om);
 
                 Connection.SendMessage(om, NetDeliveryMethod.ReliableUnordered, 0);
+            }
+            catch (System.Exception ex)
+            {
+                Logger.Error(ex.ToString());
+            }
+        }
+
+        public void SendMessageOrdered(IGameMessage gameMessage)
+        {
+            try
+            {
+                NetOutgoingMessage om = server.CreateMessage();
+                om.Write((byte)gameMessage.MessageType);
+                gameMessage.Encode(om);
+
+                Connection.SendMessage(om, NetDeliveryMethod.ReliableOrdered, 0);
             }
             catch (System.Exception ex)
             {

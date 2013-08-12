@@ -28,5 +28,11 @@ namespace Game.Server.Services
         {
             session.SendMessage(new ChatTalkMessage("Currently " + server.SessionCount + " players are online."));
         }
+
+        public static void Help(Session session, GameServer server, ChatTalkMessage message)
+        {
+            session.SendMessageOrdered(new ChatTalkMessage("/users : Display the number of players currently logged in."));
+            session.SendMessageOrdered(new ChatTalkMessage("/help : Display this message."));
+        }
     }
 }
