@@ -40,7 +40,13 @@
             this.playerNameLabel = new System.Windows.Forms.Label();
             this.selectedServerKey = new System.Windows.Forms.Label();
             this.m_timer = new System.Windows.Forms.Timer(this.components);
-            this.button1 = new System.Windows.Forms.Button();
+            this.Exit_Button = new System.Windows.Forms.Button();
+            this.DirectConnect_Button = new System.Windows.Forms.Button();
+            this.DirectConnect_Label = new System.Windows.Forms.Label();
+            this.DirectConnectAddress_TextBox = new System.Windows.Forms.TextBox();
+            this.DirectConnectPort_TextBox = new System.Windows.Forms.TextBox();
+            this.DirectConnectPort_Label = new System.Windows.Forms.Label();
+            this.DirectConnectAddress_Label = new System.Windows.Forms.Label();
             populationHeader = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
             maximumHeader = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
             this.SuspendLayout();
@@ -59,7 +65,7 @@
             // 
             // singlePlayerButton
             // 
-            this.singlePlayerButton.Location = new System.Drawing.Point(359, 296);
+            this.singlePlayerButton.Location = new System.Drawing.Point(360, 288);
             this.singlePlayerButton.Name = "singlePlayerButton";
             this.singlePlayerButton.Size = new System.Drawing.Size(147, 23);
             this.singlePlayerButton.TabIndex = 0;
@@ -70,7 +76,7 @@
             // playButton
             // 
             this.playButton.Enabled = false;
-            this.playButton.Location = new System.Drawing.Point(359, 325);
+            this.playButton.Location = new System.Drawing.Point(360, 259);
             this.playButton.Name = "playButton";
             this.playButton.Size = new System.Drawing.Size(147, 23);
             this.playButton.TabIndex = 1;
@@ -88,10 +94,10 @@
             maximumHeader});
             this.serverList.FullRowSelect = true;
             this.serverList.GridLines = true;
-            this.serverList.Location = new System.Drawing.Point(12, 40);
+            this.serverList.Location = new System.Drawing.Point(10, 40);
             this.serverList.MultiSelect = false;
             this.serverList.Name = "serverList";
-            this.serverList.Size = new System.Drawing.Size(341, 308);
+            this.serverList.Size = new System.Drawing.Size(340, 300);
             this.serverList.TabIndex = 2;
             this.serverList.UseCompatibleStateImageBehavior = false;
             this.serverList.View = System.Windows.Forms.View.Details;
@@ -115,17 +121,17 @@
             // 
             // playerNameBox
             // 
-            this.playerNameBox.Location = new System.Drawing.Point(359, 65);
+            this.playerNameBox.Location = new System.Drawing.Point(360, 65);
             this.playerNameBox.MaxLength = 100;
             this.playerNameBox.Name = "playerNameBox";
             this.playerNameBox.Size = new System.Drawing.Size(147, 20);
             this.playerNameBox.TabIndex = 4;
-            this.playerNameBox.Text = "Default";
+            this.playerNameBox.Text = "Your nick name";
             // 
             // playerNameLabel
             // 
             this.playerNameLabel.AutoSize = true;
-            this.playerNameLabel.Location = new System.Drawing.Point(359, 40);
+            this.playerNameLabel.Location = new System.Drawing.Point(360, 40);
             this.playerNameLabel.Name = "playerNameLabel";
             this.playerNameLabel.Size = new System.Drawing.Size(100, 13);
             this.playerNameLabel.TabIndex = 5;
@@ -144,23 +150,85 @@
             this.m_timer.Interval = 3000;
             this.m_timer.Tick += new System.EventHandler(this.m_timer_Tick);
             // 
-            // button1
+            // Exit_Button
             // 
-            this.button1.Location = new System.Drawing.Point(359, 267);
-            this.button1.Name = "button1";
-            this.button1.Size = new System.Drawing.Size(147, 23);
-            this.button1.TabIndex = 7;
-            this.button1.Text = "Exit";
-            this.button1.UseVisualStyleBackColor = true;
-            this.button1.Click += new System.EventHandler(this.button1_Click);
+            this.Exit_Button.Location = new System.Drawing.Point(360, 317);
+            this.Exit_Button.Name = "Exit_Button";
+            this.Exit_Button.Size = new System.Drawing.Size(147, 23);
+            this.Exit_Button.TabIndex = 7;
+            this.Exit_Button.Text = "Exit";
+            this.Exit_Button.UseVisualStyleBackColor = true;
+            this.Exit_Button.Click += new System.EventHandler(this.onExitButton_Click);
+            // 
+            // DirectConnect_Button
+            // 
+            this.DirectConnect_Button.Location = new System.Drawing.Point(360, 216);
+            this.DirectConnect_Button.Name = "DirectConnect_Button";
+            this.DirectConnect_Button.Size = new System.Drawing.Size(147, 23);
+            this.DirectConnect_Button.TabIndex = 8;
+            this.DirectConnect_Button.Text = "Direct connect";
+            this.DirectConnect_Button.UseVisualStyleBackColor = true;
+            this.DirectConnect_Button.Click += new System.EventHandler(this.onDirectConnectClick);
+            // 
+            // DirectConnect_Label
+            // 
+            this.DirectConnect_Label.Location = new System.Drawing.Point(360, 100);
+            this.DirectConnect_Label.Name = "DirectConnect_Label";
+            this.DirectConnect_Label.Size = new System.Drawing.Size(147, 14);
+            this.DirectConnect_Label.TabIndex = 10;
+            this.DirectConnect_Label.Text = "Direct connect section";
+            this.DirectConnect_Label.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
+            // 
+            // DirectConnectAddress_TextBox
+            // 
+            this.DirectConnectAddress_TextBox.Location = new System.Drawing.Point(360, 145);
+            this.DirectConnectAddress_TextBox.MaxLength = 100;
+            this.DirectConnectAddress_TextBox.Name = "DirectConnectAddress_TextBox";
+            this.DirectConnectAddress_TextBox.Size = new System.Drawing.Size(146, 20);
+            this.DirectConnectAddress_TextBox.TabIndex = 9;
+            this.DirectConnectAddress_TextBox.Text = "127.0.0.1";
+            // 
+            // DirectConnectPort_TextBox
+            // 
+            this.DirectConnectPort_TextBox.Location = new System.Drawing.Point(360, 190);
+            this.DirectConnectPort_TextBox.MaxLength = 100;
+            this.DirectConnectPort_TextBox.Name = "DirectConnectPort_TextBox";
+            this.DirectConnectPort_TextBox.Size = new System.Drawing.Size(146, 20);
+            this.DirectConnectPort_TextBox.TabIndex = 11;
+            this.DirectConnectPort_TextBox.Text = "14243";
+            this.DirectConnectPort_TextBox.KeyPress += new System.Windows.Forms.KeyPressEventHandler(this.onDirectConnectPort_KeyPress);
+            // 
+            // DirectConnectPort_Label
+            // 
+            this.DirectConnectPort_Label.AutoSize = true;
+            this.DirectConnectPort_Label.Location = new System.Drawing.Point(360, 170);
+            this.DirectConnectPort_Label.Name = "DirectConnectPort_Label";
+            this.DirectConnectPort_Label.Size = new System.Drawing.Size(63, 13);
+            this.DirectConnectPort_Label.TabIndex = 12;
+            this.DirectConnectPort_Label.Text = "Server Port:";
+            // 
+            // DirectConnectAddress_Label
+            // 
+            this.DirectConnectAddress_Label.AutoSize = true;
+            this.DirectConnectAddress_Label.Location = new System.Drawing.Point(360, 125);
+            this.DirectConnectAddress_Label.Name = "DirectConnectAddress_Label";
+            this.DirectConnectAddress_Label.Size = new System.Drawing.Size(82, 13);
+            this.DirectConnectAddress_Label.TabIndex = 13;
+            this.DirectConnectAddress_Label.Text = "Only IP Address";
             // 
             // Play
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(518, 360);
+            this.ClientSize = new System.Drawing.Size(514, 347);
             this.ControlBox = false;
-            this.Controls.Add(this.button1);
+            this.Controls.Add(this.DirectConnectAddress_Label);
+            this.Controls.Add(this.DirectConnectPort_Label);
+            this.Controls.Add(this.DirectConnectPort_TextBox);
+            this.Controls.Add(this.DirectConnect_Label);
+            this.Controls.Add(this.DirectConnectAddress_TextBox);
+            this.Controls.Add(this.DirectConnect_Button);
+            this.Controls.Add(this.Exit_Button);
             this.Controls.Add(this.selectedServerKey);
             this.Controls.Add(this.playerNameLabel);
             this.Controls.Add(this.playerNameBox);
@@ -170,8 +238,8 @@
             this.Controls.Add(this.singlePlayerButton);
             this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.FixedSingle;
             this.MaximizeBox = false;
-            this.MaximumSize = new System.Drawing.Size(534, 398);
-            this.MinimumSize = new System.Drawing.Size(534, 398);
+            this.MaximumSize = new System.Drawing.Size(530, 385);
+            this.MinimumSize = new System.Drawing.Size(530, 385);
             this.Name = "Play";
             this.Text = "Skyrim Online - Configuration";
             this.ResumeLayout(false);
@@ -190,6 +258,12 @@
         private System.Windows.Forms.Label playerNameLabel;
         private System.Windows.Forms.Label selectedServerKey;
         private System.Windows.Forms.Timer m_timer;
-        private System.Windows.Forms.Button button1;
+        private System.Windows.Forms.Button Exit_Button;
+        private System.Windows.Forms.Button DirectConnect_Button;
+        private System.Windows.Forms.Label DirectConnect_Label;
+        private System.Windows.Forms.TextBox DirectConnectAddress_TextBox;
+        private System.Windows.Forms.TextBox DirectConnectPort_TextBox;
+        private System.Windows.Forms.Label DirectConnectPort_Label;
+        private System.Windows.Forms.Label DirectConnectAddress_Label;
     }
 }

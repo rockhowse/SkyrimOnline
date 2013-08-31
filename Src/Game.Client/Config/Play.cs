@@ -22,10 +22,21 @@ namespace Game.Client.Config
         private Int64 GAME_SERVER_ID = 0;
         private bool connecting = false;
 
+        // Added
+        public static readonly string NOT_A_NUMBER = "Only numbers in Port field !!!";
+        public static readonly string NO_PORT_SET = "Before join, add server port";
+        public static readonly string NO_ADDRESS_SET = "Before join, add server address: IP or server Name";
+        private int port = 14243;
+        private string address = "127.0.0.1";
+        //
+
+        /// <summary>
+        /// TODO
+        /// </summary>
         public Play()
         {
-            InitializeComponent();
 
+            InitializeComponent();
             client = new IO.MasterClient();
 
             client.Updated += clientUpdated;
@@ -36,8 +47,13 @@ namespace Game.Client.Config
             serverList.ListViewItemSorter = sorter;
 
             Application.Idle += new EventHandler(AppIdle);
+
         }
 
+        /// <summary>
+        /// TODO
+        /// </summary>
+        /// <param name="server"></param>
         private void clientUpdated(object[] server)
         {
             //If a listview item with the same id/key as the incoming server exists already, remove it
@@ -51,21 +67,33 @@ namespace Game.Client.Config
             item.SubItems.Add(server.GetValue(3).ToString());
         }
 
+        /// <summary>
+        /// TODO
+        /// </summary>
+        /// <param name="message"></param>
         private void connectionSuccess(string message)
         {
             Entry.Enabled = true;
-            
             this.Close();
         }
 
+        /// <summary>
+        /// TODO
+        /// </summary>
+        /// <param name="message"></param>
         private void connectionFailed(string message)
         {
             MessageBox.Show(message);
 
             playButton.Enabled = true;
+            DirectConnect_Button.Enabled = true;
             singlePlayerButton.Enabled = true;
         }
 
+        /// <summary>
+        /// TODO
+        /// </summary>
+        /// <param name="endpoint"></param>
         private void natIntroductionSuccess(IPEndPoint endpoint)
         {
             m_timer.Enabled = false;
@@ -80,6 +108,9 @@ namespace Game.Client.Config
             Entry.GameClient.Connect();
         }
 
+        /// <summary>
+        /// TODO
+        /// </summary>
         private void LoadServerList()
         {
             serverList.Items.Clear();
@@ -140,7 +171,7 @@ namespace Game.Client.Config
                 connecting = true;
                 m_timer.Enabled = true;
 
-               // client.RequestNATIntroduction(GAME_SERVER_ID);
+                // client.RequestNATIntroduction(GAME_SERVER_ID);
                 natIntroductionSuccess(client.GetServerIPByKey(GAME_SERVER_ID));
 
                 playButton.Enabled = false;
@@ -193,6 +224,11 @@ namespace Game.Client.Config
 
         #endregion
 
+        /// <summary>
+        /// TODO
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
         private void m_timer_Tick(object sender, EventArgs e)
         {
             connecting = false;
@@ -201,9 +237,74 @@ namespace Game.Client.Config
             m_timer.Enabled = false;
         }
 
-        private void button1_Click(object sender, EventArgs e)
+        /// <summary>
+        /// TODO
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
+        private void onDirectConnectClick(object sender, EventArgs e)
         {
+
+            if (DirectConnectPort_TextBox.Text != null && DirectConnectAddress_TextBox.Text != null)
+            {
+
+                Boolean isPortSet = false, isAddressSet = false;
+
+                if (DirectConnectAddress_TextBox.Text.Equals(""))
+                {
+                    MessageBox.Show(NO_ADDRESS_SET);
+                }
+                else
+                {
+                    address = DirectConnectAddress_TextBox.Text;
+                    isAddressSet = true;
+                }
+
+                if (DirectConnectPort_TextBox.Text.Equals(""))
+                {
+                    MessageBox.Show(NO_PORT_SET);
+                }
+                else
+                {
+                    port = Int32.Parse(DirectConnectPort_TextBox.Text);
+                    isPortSet = true;
+                }
+
+                if (isAddressSet && isPortSet)
+                {
+                    DirectConnect_Button.Enabled = false;
+                    IPAddress ipAddress = IPAddress.Parse(address);
+                    natIntroductionSuccess(new IPEndPoint(ipAddress.MapToIPv4(), port));
+                }
+
+            }
+
+        }
+
+        /// <summary>
+        /// TODO
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
+        private void onExitButton_Click(object sender, EventArgs e)
+        {
+            this.Visible = false;
             Process.GetCurrentProcess().Kill();
         }
+
+        /// <summary>
+        /// TODO
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
+        private void onDirectConnectPort_KeyPress(object sender, KeyPressEventArgs e)
+        {
+            if (!char.IsDigit(e.KeyChar) && !char.IsControl(e.KeyChar))
+            {
+                MessageBox.Show(NOT_A_NUMBER);
+                e.Handled = true;
+            }
+        }
+
     }
 }
