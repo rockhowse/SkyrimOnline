@@ -42,6 +42,8 @@
     <Compile Include="CommandLine\CommandLine.cs" />
     <Compile Include="CommandLine\Commands.cs" />
     <Compile Include="GameTools.cs" />
+    <Compile Include="IniManager\IniLoader.cs" />
+    <Compile Include="IniManager\IniWriter.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
