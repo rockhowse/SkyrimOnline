@@ -39,6 +39,8 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="CommandLine\CommandLine.cs" />
+    <Compile Include="CommandLine\Commands.cs" />
     <Compile Include="GameTools.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
