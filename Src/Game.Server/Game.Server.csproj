@@ -49,7 +49,7 @@
       <HintPath>..\..\..\..\..\..\..\Program Files (x86)\MonoGame\v3.0\Assemblies\WindowsGL\MonoGame.Framework.dll</HintPath>
     </Reference>
     <Reference Include="protobuf-net">
-      <HintPath>..\..\packages\protobuf-net.2.0.0.640\lib\net40\protobuf-net.dll</HintPath>
+      <HintPath>..\..\packages\protobuf-net.2.0.0.663\lib\net40\protobuf-net.dll</HintPath>
     </Reference>
     <Reference Include="RGiesecke.DllExport.Metadata">
       <HintPath>..\..\packages\UnmanagedExports.1.2.4.23262\lib\net\RGiesecke.DllExport.Metadata.dll</HintPath>
