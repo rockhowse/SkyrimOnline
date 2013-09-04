@@ -1,5 +1,4 @@
 ﻿using Game.Server.Internals;
-using IniParser;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -8,126 +7,90 @@ using System.Threading.Tasks;
 using log4net;
 using log4net.Config;
 using System.Reflection;
+using Game.Tools.IniManager;
+using System.IO;
+using IniParser;
+
+
+/*
+ * Main Game.Server class
+ * Create server config and server object
+ * Create MaseterServerClient
+ */
 
 namespace Game.Server
 {
     class Program
     {
         private static readonly ILog Logger = LogManager.GetLogger(MethodBase.GetCurrentMethod().DeclaringType);
+        private static readonly IniLoader iniLoader = new IniLoader(IniManager.Instance.getIniData(ServerConfig.SERVER_CONFIG_FILE));
+        private static ServerConfig config = null;
 
-        static private Int32 game = 0;
-        static public Int32 Game
-        {
-            get
-            {
-                if (game == 0)
-                {
-                    IniData data = null;
-                    try
-                    {
-                        IniParser.FileIniDataParser parser = new IniParser.FileIniDataParser();
-                        data = parser.LoadFile("GameServer.ini");
-                    }
-                    catch (System.Exception ex)
-                    {
-                        Logger.Error(ex.Message);
-                    }
-
-                    game = GetHash(GetValue(data, "General", "Game", "skyrim").ToUpper());
-                }
-                return game;
-            }
-        }
-
-        static Int32 GetHash(string game)
-        {
-            switch (game)
-            {
-                case "SKYRIM":
-                    return 2095065945;
-                case "OBLIVION":
-                    return 1663201550;
-            }
-            return 1663201550;
-        }
-
-        static string GetValue(IniData data, string section, string key, string defaultString)
-        {
-            if (data != null)
-            {
-                var general = data.Sections.GetSectionData(section);
-                if (general != null)
-                {
-                    if (general.Keys.ContainsKey(key))
-                    {
-                        var keyData = general.Keys.GetKeyData(key);
-                        if (keyData != null && keyData.Value.Length > 0)
-                        {
-                            return keyData.Value;
-                        }
-                    }
-                }
-            }
-            return defaultString;
-        }
-
-        static int GetValue(IniData data, string section, string key, int defaultValue)
-        {
-            if (data != null)
-            {
-                var general = data.Sections.GetSectionData(section);
-                if (general != null)
-                {
-                    if (general.Keys.ContainsKey(key))
-                    {
-                        var keyData = general.Keys.GetKeyData(key);
-                        if (keyData != null && keyData.Value.Length > 0)
-                        {
-                            return int.Parse(keyData.Value);
-                        }
-                    }
-                }
-            }
-            return defaultValue;
-        }
-
+        static public Int32 Game = 0;
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <returns></returns>
         static GameServer CreateServer()
         {
-            IniData data = null;
-            try
-            {
-                IniParser.FileIniDataParser parser = new IniParser.FileIniDataParser();
-                data = parser.LoadFile("GameServer.ini");
-            }
-            catch (System.Exception ex)
-            {
-                Logger.Error(ex.Message);
-            }
 
-            return new GameServer(
-                GetValue(data, "General", "Name", "Default server name"),
-                GetValue(data, "General", "Port", 14242));
+            if (!File.Exists(ServerConfig.SERVER_CONFIG_FILE))
+            {
+
+                IniWriter writer = new IniWriter(ServerConfig.SERVER_CONFIG_FILE);
+
+                writer.addAndSelectSection(ServerConfig.SECTION_GENERAL, "General server settings");
+
+                writer.addKeyToSelectedSection(ServerConfig.GENERAL_KEY_GAME, "Skyrim", "Game to set: Skyrim, Oblivion");
+                writer.addKeyToSelectedSection(ServerConfig.GENERAL_KEY_NAME, "Server Name", "Your server name" );
+                writer.addKeyToSelectedSection(ServerConfig.GENERAL_KEY_ADDRESS, "127.0.0.1", "Local ip address or name");
+                writer.addKeyToSelectedSection(ServerConfig.GENERAL_KEY_PORT, "14242", "Server port default: 14242");
+                writer.addKeyToSelectedSection(ServerConfig.GENERAL_KEY_ONLINE, "true", "Server online flag to enable inbound internet connection default: true");
+                writer.addKeyToSelectedSection(ServerConfig.GENERAL_KEY_LANGUAGE, "English", "Server language communications, defaulat: English");
+                writer.addKeyToSelectedSection(ServerConfig.GENERAL_KEY_PASSWORD, "", "If password is set game wil be private only for players with password, defaulat: \"\" ");
+                
+
+                writer.addAndSelectSection(ServerConfig.SECTION_MASTER, "Master Server settings");
+
+                writer.addKeyToSelectedSection(ServerConfig.MASTER_KEY_GUID, "", "Server GUID, to generate use http://www.guidgenerator.com/, default: \"\" ");
+
+                if (!writer.SaveFile())
+                {
+                    Console.WriteLine("ERROR: Server config ini file not created");
+                }
+
+            }
+            
+
+                config = new ServerConfig(iniLoader.GetValue(ServerConfig.SECTION_GENERAL, ServerConfig.GENERAL_KEY_GAME, "Skyrim"),
+                                          iniLoader.GetValue(ServerConfig.SECTION_GENERAL, ServerConfig.GENERAL_KEY_NAME, "Server Name"),
+                                          iniLoader.GetValue(ServerConfig.SECTION_GENERAL, ServerConfig.GENERAL_KEY_ADDRESS, "127.0.0.1"),
+                                          iniLoader.GetValue(ServerConfig.SECTION_GENERAL, ServerConfig.GENERAL_KEY_PORT, 14242),
+                                          iniLoader.GetValue(ServerConfig.SECTION_GENERAL, ServerConfig.GENERAL_KEY_ONLINE, true),
+                                          iniLoader.GetValue(ServerConfig.SECTION_GENERAL, ServerConfig.GENERAL_KEY_LANGUAGE, "English"),
+                                          iniLoader.GetValue(ServerConfig.SECTION_GENERAL, ServerConfig.GENERAL_KEY_PASSWORD, ""),
+                                          iniLoader.GetValue(ServerConfig.SECTION_MASTER, ServerConfig.MASTER_KEY_GUID, "")
+                                         );
+            
+            return new GameServer(config);
 
         }
 
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="server"></param>
+        /// <returns></returns>
         static MasterServerClient CreateMasterServerClient(GameServer server)
         {
-            IniData data = null;
-            try
-            {
-                IniParser.FileIniDataParser parser = new IniParser.FileIniDataParser();
-                data = parser.LoadFile("GameServer.ini");
-            }
-            catch (System.Exception ex)
-            {
-                Logger.Error(ex.Message);
-            }
-
-            return new MasterServerClient(server,
-                GetValue(data, "Master", "GUID", "none"));
-
+            Game = config.getGame();
+            return new MasterServerClient(server, config.getGUID());
         }
 
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="args"></param>
         static void Main(string[] args)
         {
             try

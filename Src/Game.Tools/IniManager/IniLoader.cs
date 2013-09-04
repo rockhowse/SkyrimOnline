@@ -13,22 +13,24 @@ namespace Game.Tools.IniManager
     public class IniLoader
     {
 
-        private static readonly ILog Logger = LogManager.GetLogger(MethodBase.GetCurrentMethod().DeclaringType);
+        
         private IniData data = null;
 
-        public IniLoader(string pathToIniFile)
+        private static readonly ILog Logger = LogManager.GetLogger(MethodBase.GetCurrentMethod().DeclaringType);
+
+        public IniLoader(IniData iniData)
         {
 
-            try
+            if (iniData != null)
             {
-                IniParser.FileIniDataParser parser = new IniParser.FileIniDataParser();
-                data = parser.LoadFile("GameServer.ini");
-            }
-            catch (System.Exception ex)
-            {
-                Logger.Error(ex.Message);
+                data = iniData;
             }
             
+        }
+
+        public IniData getData() 
+        {
+            return data;
         }
 
         /// <summary>
