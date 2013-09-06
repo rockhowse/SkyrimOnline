@@ -65,12 +65,10 @@ namespace Game.Tools.IniManager
                 // data in cache
                 if (isCached(iniFile))
                 {
-                    Console.WriteLine("Value is cached");
                     getCachedData(iniFile);
                 }
                 else
                 {
-                    Console.WriteLine("First value loaded");
                     setDataSetCache(iniFile);
                 }
 
