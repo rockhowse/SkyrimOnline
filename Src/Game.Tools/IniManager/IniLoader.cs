@@ -7,30 +7,38 @@ using System.Threading.Tasks;
 using log4net;
 using log4net.Config;
 using System.Reflection;
+using System.IO;
 
 namespace Game.Tools.IniManager
 {
     public class IniLoader
     {
 
-        
         private IniData data = null;
-
+        private IniManager manager = IniManager.Instance;
         private static readonly ILog Logger = LogManager.GetLogger(MethodBase.GetCurrentMethod().DeclaringType);
 
-        public IniLoader(IniData iniData)
-        {
 
-            if (iniData != null)
-            {
-                data = iniData;
-            }
+        public IniLoader(string iniFilePath)
+        {
             
+
+            if (iniFilePath != null && File.Exists(iniFilePath))
+            {
+                data = manager.getIniData(iniFilePath);
+            }
         }
 
-        public IniData getData() 
+        /// <summary>
+        /// Force load data from ini file
+        /// </summary>
+        /// <param name="pathToIni">Path to ini file</param>
+        public void ForceLoadData(string pathToIni)
         {
-            return data;
+            if (data != null)
+            {
+                data = manager.forceLoadIniData(pathToIni);
+            }
         }
 
         /// <summary>

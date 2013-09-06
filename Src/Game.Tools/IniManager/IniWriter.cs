@@ -123,6 +123,7 @@ namespace Game.Tools.IniManager
 
                 if (comment != null && !comment.Equals(""))
                 {
+
                     if (sectionData.Comments.Count > 0)
                     {
                         sectionData.Comments.Clear();
