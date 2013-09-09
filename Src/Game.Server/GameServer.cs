@@ -23,24 +23,29 @@ namespace Game.Server
         private GameTime appTime;
         private GameWorld world;
         private Dictionary<NetConnection, Session> sessions = new Dictionary<NetConnection, Session>();
+        private ServerConfig serverConfig = null;
 
-        public GameServer(string pName, int port)
+        public GameServer(ServerConfig sConfig)
         {
-            Name = pName;
+
+            serverConfig = sConfig;
+
+            Name = serverConfig.getServerName();
+            Port = serverConfig.getServerPort();
             world = new GameWorld(this);
 
-            NetPeerConfiguration config = new NetPeerConfiguration("game");
-            config.EnableMessageType(NetIncomingMessageType.ConnectionApproval);
-            config.EnableMessageType(NetIncomingMessageType.StatusChanged);
-            config.EnableMessageType(NetIncomingMessageType.Data);
-            config.Port = port;
+            NetPeerConfiguration npConfig = new NetPeerConfiguration("game");
+            npConfig.EnableMessageType(NetIncomingMessageType.ConnectionApproval);
+            npConfig.EnableMessageType(NetIncomingMessageType.StatusChanged);
+            npConfig.EnableMessageType(NetIncomingMessageType.Data);
+            npConfig.Port = Port;
 
-            server = new NetServer(config);
+            server = new NetServer(npConfig);
             server.Start();
 
             this.Initialize();
 
-            Logger.InfoFormat("Started {0} on port {1} !", Name, port);
+            Logger.InfoFormat("Started {0} on port {1} !", Name, Port);
 
         }
 
@@ -167,5 +172,12 @@ namespace Game.Server
             get;
             set;
         }
+
+        public int Port
+        {
+            get;
+            private set;
+        }
+
     }
 }
