@@ -1,14 +1,7 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-
-namespace Game.Tools.CommandLine
+﻿namespace Game.Tools.CommandLine
 {
     public class Commands
     {
-
         public static readonly string COMMAND_HELP = "help";
 
         public static readonly string COMMAND_EXIT = "exit";
@@ -19,6 +12,5 @@ namespace Game.Tools.CommandLine
 
         public static readonly string COMMAND_RELOAD_LANGUAGE = "lang";
         public static readonly string DESCRIPTION_RELOAD_LANGUAGE = "reload lang - reload language";
-
     }
 }

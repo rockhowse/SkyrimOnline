@@ -1,55 +1,53 @@
-﻿using System;
+﻿#region
+
+using System;
 using System.Collections.Generic;
-using System.Linq;
-using System.Text;
 using System.Threading;
-using System.Threading.Tasks;
 using Game.API.Entities;
 using Game.API.Events;
 using Microsoft.Xna.Framework;
+
+#endregion
 
 namespace Game.API.Managers
 {
     public class PlayerManager
     {
+        private static long playerIdCounter;
+        private readonly GameTimer hearbeatTimer;
         private readonly bool isHost;
         private readonly Dictionary<long, Player> players = new Dictionary<long, Player>();
-        private static long playerIdCounter;
-        private GameTimer hearbeatTimer;
         private Player localPlayer;
-
-        public event EventHandler<PlayerStateChangedArgs> PlayerStateChanged;
 
         public PlayerManager(bool isHost)
         {
             this.isHost = isHost;
-            this.hearbeatTimer = new GameTimer();
+            hearbeatTimer = new GameTimer();
         }
 
         public IEnumerable<Player> Players
         {
-            get
-            {
-                return this.players.Values;
-            }
+            get { return players.Values; }
         }
+
+        public event EventHandler<PlayerStateChangedArgs> PlayerStateChanged;
 
         public Player AddPlayer(long id, Vector3 position, Vector3 velocity, float rotation, bool isLocal)
         {
-            if (this.players.ContainsKey(id))
+            if (players.ContainsKey(id))
             {
-                return this.players[id];
+                return players[id];
             }
 
             var player = new Player(
                 id,
-                new EntityState { Position = position, Rotation = rotation, Velocity = velocity });
+                new EntityState {Position = position, Rotation = rotation, Velocity = velocity});
 
-            this.players.Add(player.Id, player);
+            players.Add(player.Id, player);
 
             if (isLocal)
             {
-                this.localPlayer = player;
+                localPlayer = player;
             }
 
             return player;
@@ -57,9 +55,9 @@ namespace Game.API.Managers
 
         public Player AddPlayer(bool isLocal)
         {
-            EntityState physicsState = this.DefaultEntityState();
+            EntityState physicsState = DefaultEntityState();
 
-            Player player = this.AddPlayer(
+            Player player = AddPlayer(
                 Interlocked.Increment(ref playerIdCounter),
                 physicsState.Position,
                 physicsState.Velocity,
@@ -71,9 +69,9 @@ namespace Game.API.Managers
 
         public Player GetPlayer(long id)
         {
-            if (this.players.ContainsKey(id))
+            if (players.ContainsKey(id))
             {
-                return this.players[id];
+                return players[id];
             }
 
             return null;
@@ -81,14 +79,14 @@ namespace Game.API.Managers
 
         public bool PlayerIsLocal(Player player)
         {
-            return this.localPlayer != null && this.localPlayer.Id == player.Id;
+            return localPlayer != null && localPlayer.Id == player.Id;
         }
 
         public void RemovePlayer(long id)
         {
-            if (this.players.ContainsKey(id))
+            if (players.ContainsKey(id))
             {
-                this.players.Remove(id);
+                players.Remove(id);
             }
         }
 
@@ -104,38 +102,37 @@ namespace Game.API.Managers
 
         public void Update(GameTime gameTime)
         {
-            if ((this.localPlayer != null) && (!this.localPlayer.IsDestroyed))
+            if ((localPlayer != null) && (!localPlayer.IsDestroyed))
             {
-                bool velocityChanged = this.HandlePlayerMovement();
+                bool velocityChanged = HandlePlayerMovement();
 
                 if (velocityChanged)
                 {
-                    this.OnPlayerStateChanged(this.localPlayer);
+                    OnPlayerStateChanged(localPlayer);
                 }
             }
 
-            foreach (Player player in this.Players)
+            foreach (Player player in Players)
             {
                 player.Update(gameTime);
 
                 if (!player.IsDestroyed)
                 {
-
                 }
             }
 
-            if (this.isHost && this.hearbeatTimer.Stopwatch(200))
+            if (isHost && hearbeatTimer.Stopwatch(200))
             {
-                foreach (Player player in this.Players)
+                foreach (Player player in Players)
                 {
-                    this.OnPlayerStateChanged(player);
+                    OnPlayerStateChanged(player);
                 }
             }
         }
 
         protected void OnPlayerStateChanged(Player player)
         {
-            EventHandler<PlayerStateChangedArgs> playerStateChanged = this.PlayerStateChanged;
+            EventHandler<PlayerStateChangedArgs> playerStateChanged = PlayerStateChanged;
             if (playerStateChanged != null)
             {
                 playerStateChanged(this, new PlayerStateChangedArgs(player));

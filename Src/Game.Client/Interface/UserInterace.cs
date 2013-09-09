@@ -1,11 +1,8 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using Game;
-using Game.API.Utilities;
+﻿#region
+
 using Game.API;
+
+#endregion
 
 namespace Game.Client.Interface
 {
@@ -16,23 +13,19 @@ namespace Game.Client.Interface
             Overlay.System.CursorVisible = false;
         }
 
+        public ChatInterface Chat { get; set; }
+
         public void Update()
         {
             if (GlobalContext.Controller.IsMenuMode())
             {
                 Overlay.System.CursorVisible = false;
-                this.Chat.Visible = false;
+                Chat.Visible = false;
             }
             else
             {
-                this.Chat.Visible = true;
+                Chat.Visible = true;
             }
-        }
-
-        public ChatInterface Chat
-        {
-            get;
-            set;
         }
     }
 }

@@ -1,28 +1,27 @@
-﻿using Lidgren.Network;
-using Game.API;
+﻿#region
+
 using System;
 using System.Collections.Generic;
-using System.Linq;
 using System.Net;
-using System.Text;
-using System.Threading.Tasks;
 using System.Windows.Forms;
+using Game.API;
+using Lidgren.Network;
+
+#endregion
 
 namespace Game.Client.IO
 {
     public class MasterClient
     {
-        private NetClient m_client;
-		private IPEndPoint m_masterServer;
-        private Guid m_token;
-
-        public Dictionary<long, Object[]> m_registeredHosts;
+        public delegate void NatIntroductionHandler(IPEndPoint endpoint);
 
         public delegate void ServerHandler(Object[] server);
-        public event ServerHandler Updated;
 
-        public delegate void NatIntroductionHandler(IPEndPoint endpoint);
-        public event NatIntroductionHandler NatIntroductionSuccess;
+        private readonly NetClient m_client;
+        private IPEndPoint m_masterServer;
+
+        public Dictionary<long, Object[]> m_registeredHosts;
+        private Guid m_token;
 
         public MasterClient()
         {
@@ -34,6 +33,10 @@ namespace Game.Client.IO
             m_client = new NetClient(config);
             m_client.Start();
         }
+
+        public event ServerHandler Updated;
+
+        public event NatIntroductionHandler NatIntroductionSuccess;
 
         public void Update()
         {
@@ -57,13 +60,13 @@ namespace Game.Client.IO
                             var maxPopulation = inc.ReadUInt16();
                             var ipEndPoint = inc.ReadIPEndpoint();
 
-                            m_registeredHosts.Add(id, new Object[] { name, population, maxPopulation, ipEndPoint }); 
-                            Updated(new Object[] { id, name, population, maxPopulation, ipEndPoint });
+                            m_registeredHosts.Add(id, new Object[] {name, population, maxPopulation, ipEndPoint});
+                            Updated(new Object[] {id, name, population, maxPopulation, ipEndPoint});
                         }
                         break;
                     case NetIncomingMessageType.NatIntroductionSuccess:
                         string token = inc.ReadString();
-                        if(m_token == new Guid(token))
+                        if (m_token == new Guid(token))
                             NatIntroductionSuccess(inc.SenderEndpoint);
                         break;
                 }
@@ -86,7 +89,7 @@ namespace Game.Client.IO
             m_masterServer = new IPEndPoint(NetUtility.Resolve(masterServerAddress), MasterServer.MasterServerPort);
 
             NetOutgoingMessage listRequest = m_client.CreateMessage();
-            listRequest.Write((byte)MasterServerMessageType.RequestHostList);
+            listRequest.Write((byte) MasterServerMessageType.RequestHostList);
             listRequest.Write(GlobalContext.Module.Name.ToUpper().GetHashCode());
             m_client.SendUnconnectedMessage(listRequest, m_masterServer);
         }
@@ -102,7 +105,7 @@ namespace Game.Client.IO
                 throw new Exception("Must connect to master server first!");
 
             NetOutgoingMessage om = m_client.CreateMessage();
-            om.Write((byte)MasterServerMessageType.RequestIntroduction);
+            om.Write((byte) MasterServerMessageType.RequestIntroduction);
 
             IPAddress mask;
             om.Write(new IPEndPoint(NetUtility.GetMyAddress(out mask), m_client.Port));

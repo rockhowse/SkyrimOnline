@@ -1,17 +1,16 @@
-﻿using Game.API;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+﻿#region
+
+using Game.API;
 using OblivionS = Game.Script.Oblivion;
+
+#endregion
 
 namespace Game.Client.Controllers
 {
     public class OblivionController : IController
     {
-#region Input        
-        
+        #region Input        
+
         public override void EnableInput()
         {
             OblivionS.Game.EnableMouse();
@@ -29,9 +28,9 @@ namespace Game.Client.Controllers
             return OblivionS.Game.IsMenuMode();
         }
 
-#endregion
+        #endregion
 
-#region Game
+        #region Game
 
         public override IActor PlaceAtMe()
         {
@@ -45,10 +44,9 @@ namespace Game.Client.Controllers
 
         public override void PlayAnimation(IActor actor, string animationName)
         {
-           // throw new NotImplementedException();
+            // throw new NotImplementedException();
         }
 
-#endregion
-
+        #endregion
     }
 }

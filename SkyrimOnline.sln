@@ -1,6 +1,6 @@
 ﻿
 Microsoft Visual Studio Solution File, Format Version 12.00
-# Visual Studio Express 2012 for Windows Desktop
+# Visual Studio 2012
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Game.Client", "Src\Game.Client\Game.Client.csproj", "{FF3D7555-F14A-493A-955C-B630D0916741}"
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Game.Server", "Src\Game.Server\Game.Server.csproj", "{0980CDD6-A924-4444-A23C-842482446894}"
@@ -11,8 +11,6 @@ EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Core", "Core", "{403AE901-EC7A-4C81-ABC9-3FB2FF09367D}"
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Game", "Game", "{7B3017BB-1CD8-4E81-859E-F9321FBCBD92}"
-EndProject
-Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Libs", "Libs", "{A2034AA3-7AC9-45A8-B460-C8522A6C5B48}"
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Game.MasterServer", "Src\Game.MasterServer\Game.MasterServer.csproj", "{F9E90F10-8AE9-46F7-B946-753E53243AC9}"
 EndProject

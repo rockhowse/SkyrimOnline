@@ -1,10 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-
-namespace Game.API.Utilities
+﻿namespace Game.API.Utilities
 {
     public enum GameType
     {
@@ -14,14 +8,8 @@ namespace Game.API.Utilities
 
     public interface IModule
     {
-        string Name
-        {
-            get;
-        }
+        string Name { get; }
 
-        GameType GameType
-        {
-            get;
-        }
+        GameType GameType { get; }
     }
 }

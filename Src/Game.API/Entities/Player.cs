@@ -1,9 +1,8 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+﻿#region
+
 using Microsoft.Xna.Framework;
+
+#endregion
 
 namespace Game.API.Entities
 {
@@ -19,43 +18,37 @@ namespace Game.API.Entities
 
         public bool IsInvulnerable
         {
-            get
-            {
-                return this.isInvulnerable;
-            }
+            get { return isInvulnerable; }
 
             set
             {
-                if (this.isInvulnerable == value)
+                if (isInvulnerable == value)
                 {
                     return;
                 }
 
-                this.isInvulnerable = value;
-                if (this.isInvulnerable)
+                isInvulnerable = value;
+                if (isInvulnerable)
                 {
-
                 }
             }
         }
 
         public override void Update(GameTime gameTime)
         {
-            if (this.IsDestroyed)
+            if (IsDestroyed)
             {
-
             }
 
-            if (this.IsInvulnerable)
+            if (IsInvulnerable)
             {
-                this.IsInvulnerable = false;
+                IsInvulnerable = false;
             }
 
-            if (!this.IsDestroyed)
+            if (!IsDestroyed)
             {
                 base.Update(gameTime);
             }
         }
-
     }
 }

@@ -1,16 +1,14 @@
-﻿using Lidgren.Network;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+﻿#region
+
+using Lidgren.Network;
+
+#endregion
 
 namespace Game.API.Networking.Messages
 {
     public class ChatTalkMessage
         : IGameMessage
     {
-
         public enum MessageSignature : byte
         {
             kPlayer,
@@ -20,7 +18,7 @@ namespace Game.API.Networking.Messages
 
         public ChatTalkMessage(NetIncomingMessage im)
         {
-            this.Decode(im);
+            Decode(im);
         }
 
         public ChatTalkMessage()
@@ -29,39 +27,28 @@ namespace Game.API.Networking.Messages
 
         public ChatTalkMessage(string message)
         {
-            this.Message = message;
+            Message = message;
         }
+
+        public string Message { get; set; }
+
+        public MessageSignature Signature { get; set; }
 
         public GameMessageTypes MessageType
         {
-            get
-            {
-                return GameMessageTypes.ChatTalk;
-            }
-        }
-
-        public string Message
-        {
-            get;
-            set;
-        }
-
-        public MessageSignature Signature
-        {
-            get;
-            set;
+            get { return GameMessageTypes.ChatTalk; }
         }
 
         public void Decode(NetIncomingMessage im)
         {
-            this.Message = im.ReadString();
-            this.Signature = (MessageSignature)im.ReadByte();
+            Message = im.ReadString();
+            Signature = (MessageSignature) im.ReadByte();
         }
 
         public void Encode(NetOutgoingMessage om)
         {
-            om.Write(this.Message);
-            om.Write((byte)this.Signature);
+            om.Write(Message);
+            om.Write((byte) Signature);
         }
     }
 }

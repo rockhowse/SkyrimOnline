@@ -1,10 +1,9 @@
-﻿using Game.API.Networking;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+﻿#region
+
+using Game.API.Networking;
 using Game.API.Networking.Messages;
+
+#endregion
 
 namespace Game.Client.IO
 {
@@ -12,7 +11,7 @@ namespace Game.Client.IO
     {
         private void HandleChatTalkMessage(IGameMessage msg)
         {
-            ChatTalkMessage message = (ChatTalkMessage)msg;
+            ChatTalkMessage message = (ChatTalkMessage) msg;
             Entry.UserInterace.Chat.Log(message.Message);
         }
 

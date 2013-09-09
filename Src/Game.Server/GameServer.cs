@@ -1,17 +1,15 @@
-﻿using Lidgren.Network;
+﻿#region
+
 using System;
 using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using Game.API.Managers;
-using Game.API.Entities;
-using Game.API.Networking;
-using Game.API.Networking.Messages;
-using Microsoft.Xna.Framework;
-using Game.Server.World;
-using log4net;
 using System.Reflection;
+using Game.API.Networking;
+using Game.Server.World;
+using Lidgren.Network;
+using log4net;
+using Microsoft.Xna.Framework;
+
+#endregion
 
 namespace Game.Server
 {
@@ -19,15 +17,14 @@ namespace Game.Server
     {
         private static readonly ILog Logger = LogManager.GetLogger(MethodBase.GetCurrentMethod().DeclaringType);
 
-        private NetServer server;
+        private readonly NetServer server;
+        private readonly Dictionary<NetConnection, Session> sessions = new Dictionary<NetConnection, Session>();
+        private readonly GameWorld world;
         private GameTime appTime;
-        private GameWorld world;
-        private Dictionary<NetConnection, Session> sessions = new Dictionary<NetConnection, Session>();
-        private ServerConfig serverConfig = null;
+        private ServerConfig serverConfig;
 
         public GameServer(ServerConfig sConfig)
         {
-
             serverConfig = sConfig;
 
             Name = serverConfig.getServerName();
@@ -43,11 +40,29 @@ namespace Game.Server
             server = new NetServer(npConfig);
             server.Start();
 
-            this.Initialize();
+            Initialize();
 
             Logger.InfoFormat("Started {0} on port {1} !", Name, Port);
-
         }
+
+        public int SessionCount
+        {
+            get { return sessions.Count; }
+        }
+
+        public NetServer Server
+        {
+            get { return server; }
+        }
+
+        public GameWorld World
+        {
+            get { return world; }
+        }
+
+        public string Name { get; set; }
+
+        public int Port { get; private set; }
 
         protected void Initialize()
         {
@@ -66,7 +81,7 @@ namespace Game.Server
                     s.Value.SendMessage(gameMessage);
                 }
             }
-            catch (System.Exception ex)
+            catch (Exception ex)
             {
                 Logger.Error(ex.ToString());
             }
@@ -78,9 +93,9 @@ namespace Game.Server
             {
                 ProcessNetworkMessages();
 
-                this.world.Update(this.appTime);
+                world.Update(appTime);
             }
-            catch (System.Exception ex)
+            catch (Exception ex)
             {
                 Logger.Error(ex.ToString());
             }
@@ -94,7 +109,7 @@ namespace Game.Server
                 switch (inc.MessageType)
                 {
                     case NetIncomingMessageType.StatusChanged:
-                        NetConnectionStatus status = (NetConnectionStatus)inc.ReadByte();
+                        NetConnectionStatus status = (NetConnectionStatus) inc.ReadByte();
                         switch (status)
                         {
                             case NetConnectionStatus.Connected:
@@ -111,7 +126,7 @@ namespace Game.Server
                                 break;
                         }
                         break;
-                    //Check for client attempting to connect
+                        //Check for client attempting to connect
                     case NetIncomingMessageType.ConnectionApproval:
 
                         NetOutgoingMessage hailMessage;
@@ -151,33 +166,5 @@ namespace Game.Server
         {
             return server.CreateMessage();
         }
-
-        public int SessionCount
-        {
-            get { return sessions.Count; }
-        }
-
-        public NetServer Server
-        {
-            get { return server; }
-        }
-
-        public GameWorld World
-        {
-            get { return world; }
-        }
-
-        public string Name
-        {
-            get;
-            set;
-        }
-
-        public int Port
-        {
-            get;
-            private set;
-        }
-
     }
 }

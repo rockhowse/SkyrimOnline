@@ -1,27 +1,27 @@
-﻿using Lidgren.Network;
-using Game.API;
+﻿#region
+
 using System;
 using System.Collections.Generic;
-using System.Linq;
 using System.Net;
-using System.Text;
-using System.Threading.Tasks;
 using System.Threading;
+using Game.API;
+using Lidgren.Network;
+
+#endregion
 
 namespace Game.MasterServer
 {
-    class Program
+    internal class Program
     {
-        Dictionary<Int64, Object[]> registeredHosts = new Dictionary<Int64, Object[]>();
-        ServerManager manager = new ServerManager();
-        NetPeer peer;
+        private readonly ServerManager manager = new ServerManager();
+        private readonly NetPeer peer;
+        private readonly Dictionary<Int64, Object[]> registeredHosts = new Dictionary<Int64, Object[]>();
 
         public Program()
         {
-
             NetPeerConfiguration config = new NetPeerConfiguration("masterserver");
             config.SetMessageTypeEnabled(NetIncomingMessageType.UnconnectedData, true);
-            config.Port = Game.API.MasterServer.MasterServerPort;
+            config.Port = API.MasterServer.MasterServerPort;
 
             peer = new NetPeer(config);
             peer.Start();
@@ -32,7 +32,7 @@ namespace Game.MasterServer
             peer.Shutdown("shutting down");
         }
 
-        void Update()
+        private void Update()
         {
             NetIncomingMessage msg;
             while ((msg = peer.ReadMessage()) != null)
@@ -42,10 +42,10 @@ namespace Game.MasterServer
                     switch (msg.MessageType)
                     {
                         case NetIncomingMessageType.UnconnectedData:
-                            switch ((MasterServerMessageType)msg.ReadByte())
+                            switch ((MasterServerMessageType) msg.ReadByte())
                             {
                                 case MasterServerMessageType.RegisterHost:
-                                    HandleRegisterHost(msg);                                    
+                                    HandleRegisterHost(msg);
                                     break;
 
                                 case MasterServerMessageType.RequestHostList:
@@ -66,7 +66,9 @@ namespace Game.MasterServer
                             break;
                     }
                 }
-                catch { }
+                catch
+                {
+                }
             }
         }
 
@@ -80,12 +82,12 @@ namespace Game.MasterServer
             if (registeredHosts.TryGetValue(hostId, out elist))
             {
                 peer.Introduce(
-                    (IPEndPoint)elist[0],
-                    (IPEndPoint)elist[1],
+                    (IPEndPoint) elist[0],
+                    (IPEndPoint) elist[1],
                     clientInternal,
                     msg.SenderEndpoint,
                     token
-                );
+                    );
             }
             else
             {
@@ -93,7 +95,7 @@ namespace Game.MasterServer
             }
         }
 
-        void HandleRequestHost(NetIncomingMessage inc)
+        private void HandleRequestHost(NetIncomingMessage inc)
         {
             Console.WriteLine("Sending list of " + registeredHosts.Count + " hosts to client " + inc.SenderEndpoint);
             List<Int64> toRemove = new List<Int64>();
@@ -101,21 +103,21 @@ namespace Game.MasterServer
 
             foreach (var kvp in registeredHosts)
             {
-                if ((double)kvp.Value[5] + 130.0 < NetTime.Now)
+                if ((double) kvp.Value[5] + 130.0 < NetTime.Now)
                 {
                     toRemove.Add(kvp.Key);
                     continue;
                 }
 
                 //Console.WriteLine(game + " " + kvp.Value[6]);
-                if ((int)kvp.Value[6] == game)
+                if ((int) kvp.Value[6] == game)
                 {
                     NetOutgoingMessage om = peer.CreateMessage();
                     om.Write(kvp.Key);
-                    om.Write((string)kvp.Value[2]);
-                    om.Write((UInt16)kvp.Value[3]);
-                    om.Write((UInt16)kvp.Value[4]);
-                    om.Write((IPEndPoint)kvp.Value[1]);
+                    om.Write((string) kvp.Value[2]);
+                    om.Write((UInt16) kvp.Value[3]);
+                    om.Write((UInt16) kvp.Value[4]);
+                    om.Write((IPEndPoint) kvp.Value[1]);
                     peer.SendUnconnectedMessage(om, inc.SenderEndpoint);
                 }
             }
@@ -127,7 +129,7 @@ namespace Game.MasterServer
             }
         }
 
-        void HandleRegisterHost(NetIncomingMessage inc)
+        private void HandleRegisterHost(NetIncomingMessage inc)
         {
             var id = inc.ReadInt64();
             var name = inc.ReadString();
@@ -136,23 +138,23 @@ namespace Game.MasterServer
             var guid = inc.ReadString();
             var endpoint = inc.ReadIPEndpoint();
             var game = inc.ReadInt32();
-            
+
             //if (manager.Register(id, new Guid(guid)))
             {
                 registeredHosts[id] = new Object[]
-									{
-										endpoint,
-										inc.SenderEndpoint,
-                                        name,
-                                        population,
-                                        maxPopulation,
-                                        NetTime.Now,
-                                        game
-									};
+                {
+                    endpoint,
+                    inc.SenderEndpoint,
+                    name,
+                    population,
+                    maxPopulation,
+                    NetTime.Now,
+                    game
+                };
             }
         }
 
-        static void Main(string[] args)
+        private static void Main(string[] args)
         {
             Program prog = new Program();
 

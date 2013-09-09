@@ -1,10 +1,9 @@
-﻿using Game.API.Networking.Messages;
-using System;
-using System.Collections.Generic;
-using System.Linq;
+﻿#region
+
 using System.Reflection;
-using System.Text;
-using System.Threading.Tasks;
+using Game.API.Networking.Messages;
+
+#endregion
 
 namespace Game.Server.Services
 {
@@ -12,13 +11,14 @@ namespace Game.Server.Services
     {
         public static void HandleCommand(Session session, GameServer server, ChatTalkMessage message)
         {
-            var t = typeof(ChatService);
+            var t = typeof (ChatService);
             var s = message.Message.Substring(1);
             s = s.Split(' ')[0];
-            var m = t.GetMethod(s, BindingFlags.IgnoreCase | BindingFlags.Static | BindingFlags.Public | BindingFlags.Instance);
+            var m = t.GetMethod(s,
+                BindingFlags.IgnoreCase | BindingFlags.Static | BindingFlags.Public | BindingFlags.Instance);
             if (m != null && m.Name != "HandleCommand")
             {
-                m.Invoke(null, new object[] { session, server, message });
+                m.Invoke(null, new object[] {session, server, message});
             }
             else
                 session.SendMessage(new ChatTalkMessage("This command is not valid !"));

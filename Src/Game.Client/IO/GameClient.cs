@@ -1,32 +1,28 @@
-﻿using Lidgren.Network;
-using Game.API;
+﻿#region
+
 using System;
-using System.Collections.Generic;
-using System.Linq;
 using System.Net;
-using System.Text;
-using System.Threading.Tasks;
 using Game.API.Managers;
-using Game.API.Entities;
 using Game.API.Networking;
 using Game.API.Networking.Messages;
+using Lidgren.Network;
 using Microsoft.Xna.Framework;
+
+#endregion
 
 namespace Game.Client.IO
 {
     public partial class GameClient
     {
-        private NetClient client;
-        private IPEndPoint gameServer;
-        private PlayerManager playerManager;
+        public delegate void ConnectionHandler(string message);
+
+        private readonly NetClient client;
+        private readonly IPEndPoint gameServer;
+        private readonly PacketHandler handler = new PacketHandler();
         private GameTime appTime;
-        private PacketHandler handler = new PacketHandler();
 
         public bool connected;
-
-        public delegate void ConnectionHandler(string message);
-        public event ConnectionHandler ConnectionSuccess;
-        public event ConnectionHandler ConnectionFailed;
+        private PlayerManager playerManager;
 
         public GameClient(IPEndPoint gameServer)
         {
@@ -43,23 +39,26 @@ namespace Game.Client.IO
 
             this.gameServer = gameServer;
 
-            this.Initialize();
+            Initialize();
         }
+
+        public event ConnectionHandler ConnectionSuccess;
+        public event ConnectionHandler ConnectionFailed;
 
         protected void Initialize()
         {
             appTime = new GameTime();
 
-            this.handler.OnChatTalk += HandleChatTalkMessage;
+            handler.OnChatTalk += HandleChatTalkMessage;
 
-            this.playerManager = new PlayerManager(false);
-            this.playerManager.PlayerStateChanged += (sender, e) => this.SendMessage(new UpdatePlayerStateMessage(e.Player));
+            playerManager = new PlayerManager(false);
+            playerManager.PlayerStateChanged += (sender, e) => SendMessage(new UpdatePlayerStateMessage(e.Player));
         }
 
         public void SendMessage(IGameMessage gameMessage)
         {
             NetOutgoingMessage om = client.CreateMessage();
-            om.Write((byte)gameMessage.MessageType);
+            om.Write((byte) gameMessage.MessageType);
             gameMessage.Encode(om);
 
             client.SendMessage(om, NetDeliveryMethod.ReliableUnordered);
@@ -68,7 +67,7 @@ namespace Game.Client.IO
         public void SendMessageOrdered(IGameMessage gameMessage)
         {
             NetOutgoingMessage om = client.CreateMessage();
-            om.Write((byte)gameMessage.MessageType);
+            om.Write((byte) gameMessage.MessageType);
             gameMessage.Encode(om);
 
             client.SendMessage(om, NetDeliveryMethod.ReliableOrdered);
@@ -81,13 +80,13 @@ namespace Game.Client.IO
                 connected = true;
                 //Attempt to connect to the remote server
                 NetOutgoingMessage om = client.CreateMessage();
-                IGameMessage gameMessage = new HandShakeMessage()
-                    {
-                        Version = Game.API.Networking.PacketHandler.PROTOCOL_VERSION,
-                        Username = Entry.Username
-                    };
+                IGameMessage gameMessage = new HandShakeMessage
+                {
+                    Version = PacketHandler.PROTOCOL_VERSION,
+                    Username = Entry.Username
+                };
 
-                om.Write((byte)gameMessage.MessageType);
+                om.Write((byte) gameMessage.MessageType);
                 gameMessage.Encode(om);
 
                 client.Connect(gameServer, om);
@@ -98,7 +97,7 @@ namespace Game.Client.IO
         {
             ProcessNetworkMessages();
 
-            this.playerManager.Update(this.appTime);
+            playerManager.Update(appTime);
         }
 
         private void ProcessNetworkMessages()
@@ -108,9 +107,9 @@ namespace Game.Client.IO
             {
                 switch (inc.MessageType)
                 {
-                    //Report changes in connection status
+                        //Report changes in connection status
                     case NetIncomingMessageType.StatusChanged:
-                        NetConnectionStatus status = (NetConnectionStatus)inc.ReadByte();
+                        NetConnectionStatus status = (NetConnectionStatus) inc.ReadByte();
                         switch (status)
                         {
                             case NetConnectionStatus.Connected:
@@ -129,8 +128,10 @@ namespace Game.Client.IO
                                     inc.ReadByte();
                                     reason = inc.ReadString();
                                 }
-                                catch { }
-                                
+                                catch
+                                {
+                                }
+
                                 ConnectionFailed(reason);
                                 break;
                             case NetConnectionStatus.Disconnecting:
@@ -156,6 +157,5 @@ namespace Game.Client.IO
                 client.Recycle(inc);
             }
         }
-
     }
 }

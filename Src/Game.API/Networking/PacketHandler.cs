@@ -1,10 +1,9 @@
-﻿using Lidgren.Network;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+﻿#region
+
 using Game.API.Networking.Messages;
+using Lidgren.Network;
+
+#endregion
 
 namespace Game.API.Networking
 {
@@ -12,16 +11,16 @@ namespace Game.API.Networking
     {
         public delegate void PacketHandlerDelegate(IGameMessage message);
 
+        public static int PROTOCOL_VERSION = 1;
+
         public event PacketHandlerDelegate OnChatTalk;
         public event PacketHandlerDelegate OnUpdatePlayerState;
-
-        public static int PROTOCOL_VERSION = 1;
 
         public void Handle(NetIncomingMessage inc)
         {
             try
             {
-                var gameMessageType = (GameMessageTypes)inc.ReadByte();
+                var gameMessageType = (GameMessageTypes) inc.ReadByte();
                 switch (gameMessageType)
                 {
                     case GameMessageTypes.UpdatePlayerState:
@@ -34,9 +33,7 @@ namespace Game.API.Networking
             }
             catch
             {
-
             }
-
         }
     }
 }

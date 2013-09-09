@@ -1,16 +1,17 @@
-﻿using System;
+﻿#region
+
+using System;
 using System.Collections.Generic;
 using System.IO;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+
+#endregion
 
 namespace Game.MasterServer
 {
     public class ServerManager
     {
-        private List<Guid> guids = new List<Guid>();
-        private Dictionary<Int64, Guid> registeredGuids = new Dictionary<Int64, Guid>();
+        private readonly List<Guid> guids = new List<Guid>();
+        private readonly Dictionary<Int64, Guid> registeredGuids = new Dictionary<Int64, Guid>();
 
         public ServerManager()
         {
@@ -27,7 +28,7 @@ namespace Game.MasterServer
                     try
                     {
                         string line;
-                        System.IO.StreamReader file = new System.IO.StreamReader("master.server.guid.txt");
+                        StreamReader file = new StreamReader("master.server.guid.txt");
                         while ((line = file.ReadLine()) != null)
                         {
                             try
@@ -35,8 +36,9 @@ namespace Game.MasterServer
                                 if (!registeredGuids.ContainsValue(new Guid(line)) && !guids.Contains(new Guid(line)))
                                     guids.Add(new Guid(line));
                             }
-                            catch { }
-
+                            catch
+                            {
+                            }
                         }
 
                         Console.WriteLine("Reloaded GUIDs {0} are free", guids.Count);
@@ -45,16 +47,16 @@ namespace Game.MasterServer
 
                         return;
                     }
-                    catch{}
+                    catch
+                    {
+                    }
                 }
-                
-                
             }
         }
 
         public bool Register(Int64 id, Guid guid)
         {
-            lock(this)
+            lock (this)
             {
                 if (guids.Contains(guid))
                 {
@@ -89,12 +91,12 @@ namespace Game.MasterServer
             /* Watch for changes in LastAccess and LastWrite times, and 
                the renaming of files or directories. */
             watcher.NotifyFilter = NotifyFilters.LastAccess | NotifyFilters.LastWrite
-               | NotifyFilters.FileName | NotifyFilters.DirectoryName;
+                                   | NotifyFilters.FileName | NotifyFilters.DirectoryName;
 
             // Add event handlers.
-            watcher.Changed += new FileSystemEventHandler(OnChanged);
-            watcher.Created += new FileSystemEventHandler(OnChanged);
-            watcher.Deleted += new FileSystemEventHandler(OnChanged);
+            watcher.Changed += OnChanged;
+            watcher.Created += OnChanged;
+            watcher.Deleted += OnChanged;
             watcher.Filter = "master.server.guid.txt";
 
             // Begin watching.

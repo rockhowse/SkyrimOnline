@@ -1,12 +1,8 @@
-﻿using Game;
+﻿#region
+
 using Game.API;
-using Game.API.Utilities;
-using Game.Script;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+
+#endregion
 
 namespace Game.Client.IO
 {
@@ -19,6 +15,16 @@ namespace Game.Client.IO
             UIEnabled = false;
         }
 
+        public bool UIEnabled
+        {
+            get { return mUIEnabled; }
+            set
+            {
+                Overlay.System.CursorVisible = value;
+                mUIEnabled = value;
+            }
+        }
+
         public void Update()
         {
             Event e = null;
@@ -27,25 +33,25 @@ namespace Game.Client.IO
                 switch (e.Type)
                 {
                     case EventType.kKeyboard:
-                        {
-                            KeyboardEvent ev = (KeyboardEvent)e;
-                            OnEvent(ev);
-                            break;
-                        }
+                    {
+                        KeyboardEvent ev = (KeyboardEvent) e;
+                        OnEvent(ev);
+                        break;
+                    }
 
                     case EventType.kMouse:
-                        {
-                            MouseEvent ev = (MouseEvent)e;
-                            OnEvent(ev);
-                            break;
-                        }
+                    {
+                        MouseEvent ev = (MouseEvent) e;
+                        OnEvent(ev);
+                        break;
+                    }
 
                     case EventType.kPosition:
-                        {
-                            MousePositionEvent ev = (MousePositionEvent)e;
-                            OnEvent(ev);
-                            break;
-                        }
+                    {
+                        MousePositionEvent ev = (MousePositionEvent) e;
+                        OnEvent(ev);
+                        break;
+                    }
                 }
             }
         }
@@ -53,7 +59,7 @@ namespace Game.Client.IO
         public void OnEvent(KeyboardEvent ev)
         {
             // F3 - http://community.bistudio.com/wiki/DIK_KeyCodes
-           /* if (ev.Pressed)
+            /* if (ev.Pressed)
             {
                 Entry.UserInterace.Chat.Log("Pressed key : " + ev.Key.ToString());
             }
@@ -61,7 +67,7 @@ namespace Game.Client.IO
             {
                 Entry.UserInterace.Chat.Log("Released key : " + ev.Key.ToString());
             }*/
-            if (ev.Key == 0x9D && ev.Pressed == true)
+            if (ev.Key == 0x9D && ev.Pressed)
             {
                 UIEnabled = !UIEnabled;
                 if (UIEnabled)
@@ -86,19 +92,6 @@ namespace Game.Client.IO
         {
             if (UIEnabled)
                 Overlay.System.InjectMousePosition(ev.X, ev.Y, ev.Z);
-        }
-
-        public bool UIEnabled
-        {
-            get
-            {
-                return mUIEnabled;
-            }
-            set
-            {
-                Overlay.System.CursorVisible = value;
-                mUIEnabled = value;
-            }
         }
     }
 }

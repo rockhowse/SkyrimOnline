@@ -1,8 +1,8 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+﻿#region
+
+using System;
+
+#endregion
 
 namespace Game.API
 {
@@ -12,19 +12,19 @@ namespace Game.API
 
         public GameTimer()
         {
-            this.Reset();
+            Reset();
         }
 
         public void Reset()
         {
-            this.stopwatchStart = this.TimeGetTime();
+            stopwatchStart = TimeGetTime();
         }
 
         public bool Stopwatch(int ms)
         {
-            if (this.TimeGetTime() > this.stopwatchStart + ms)
+            if (TimeGetTime() > stopwatchStart + ms)
             {
-                this.Reset();
+                Reset();
                 return true;
             }
 
@@ -33,8 +33,7 @@ namespace Game.API
 
         private long TimeGetTime()
         {
-            return DateTime.Now.Ticks / 10000; // convert ticks to milliseconds. 10,000 ticks in 1 millisecond.
+            return DateTime.Now.Ticks/10000; // convert ticks to milliseconds. 10,000 ticks in 1 millisecond.
         }
-
     }
 }

@@ -1,18 +1,36 @@
-﻿using RGiesecke.DllExport;
+﻿#region
+
+using System.Windows.Forms;
 using Game.API;
+using Game.API.Utilities;
+using Game.Client.Config;
+using Game.Client.Controllers;
 using Game.Client.Interface;
 using Game.Client.IO;
-using Game.Script;
-using System.Windows.Forms;
-using Game.Client.Controllers;
+using RGiesecke.DllExport;
+
+#endregion
 
 namespace Game.Client
 {
     public class Entry
     {
-        private static IWorld instance = null;
-        private static IO.InputManager inputManager;
+        private static IWorld instance;
+        private static InputManager inputManager;
         private static bool menuMode = true;
+
+        public static string Username { get; set; }
+
+        public static IWorld World
+        {
+            get { return instance; }
+        }
+
+        public static GameClient GameClient { get; set; }
+
+        public static UserInterace UserInterace { get; set; }
+
+        public static bool Enabled { get; set; }
 
         [DllExport]
         private static void Load()
@@ -23,24 +41,24 @@ namespace Game.Client
         private static void Initialize()
         {
             Application.EnableVisualStyles();
-            Application.Run(new Config.Play());
+            Application.Run(new Play());
 
             if (Enabled)
             {
                 switch (GlobalContext.Module.GameType)
                 {
-                    case API.Utilities.GameType.kOblivion:
+                    case GameType.kOblivion:
                         GlobalContext.Controller = new OblivionController();
                         break;
-                    case API.Utilities.GameType.kSkyrim:
+                    case GameType.kSkyrim:
                         GlobalContext.Controller = new SkyrimController();
                         break;
                 }
 
-              if (instance == null)
-                   instance = new World();
-              if (inputManager == null)
-                   inputManager = new IO.InputManager();
+                if (instance == null)
+                    instance = new World();
+                if (inputManager == null)
+                    inputManager = new InputManager();
             }
         }
 
@@ -65,7 +83,6 @@ namespace Game.Client
                     menuMode = menu;
                     if (menuMode)
                     {
-
                     }
                     else
                     {
@@ -73,41 +90,9 @@ namespace Game.Client
                     }
                 }
 
-                if(!menu)
+                if (!menu)
                     instance.Update();
             }
-        }
-
-        static public string Username
-        {
-            get;
-            set;
-        }
-
-        static public IWorld World
-        {
-            get 
-            { 
-                return instance; 
-            }
-        }
-
-        static public GameClient GameClient
-        {
-            get;
-            set;
-        }
-
-        static public UserInterace UserInterace
-        {
-            get;
-            set;
-        }
-
-        static public bool Enabled
-        {
-            get;
-            set;
         }
     }
 }

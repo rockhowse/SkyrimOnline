@@ -1,31 +1,26 @@
-﻿using Game.Tools.IniManager;
+﻿#region
+
 using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+using Game.Tools.IniManager;
+
+#endregion
 
 namespace Game.Tools.Language
 {
-
     public delegate void EventHandler();
 
     public class LanguageManager
     {
-
         //Events
-        private event EventHandler Load;
-        private event EventHandler Reload;
-        private event EventHandler Change;
 
         private static volatile LanguageManager instance;
-        private static object syncRoot = new Object();
+        private static readonly object syncRoot = new Object();
         private static IniLoader serverConfig = null;
         private static IniLoader languageFile = null;
 
 
         /// <summary>
-        /// EN: Loading GameServer.ini
+        ///     EN: Loading GameServer.ini
         /// </summary>
         private LanguageManager()
         {
@@ -38,37 +33,39 @@ namespace Game.Tools.Language
         {
             get
             {
-                if (instance == null)
+                if (instance != null) return instance;
+                lock (syncRoot)
                 {
-                    lock (syncRoot)
-                    {
-                        if (instance == null)
-                            instance = new LanguageManager();
-                    }
+                    if (instance == null)
+                        instance = new LanguageManager();
                 }
 
                 return instance;
             }
         }
 
+        private event EventHandler Load;
+        private event EventHandler Reload;
+        private event EventHandler Change;
+
         /// <summary>
-        /// Reloading language from config file
+        ///     Reloading language from config file
         /// </summary>
-        public void ReloadLanguage(){
+        public void ReloadLanguage()
+        {
             //language = serverConfig.GetValue("General", "Language", Languages.LANGUAGE_ENGLISH);
             Reload();
         }
 
         /// <summary>
-        /// Changing language
+        ///     Changing language
         /// </summary>
         public void ChangeLanguage()
         {
-
         }
 
         /// <summary>
-        /// When language reloaded
+        ///     When language reloaded
         /// </summary>
         /// <param name="e"></param>
         protected virtual void onReload(EventArgs e)
@@ -80,7 +77,7 @@ namespace Game.Tools.Language
         }
 
         /// <summary>
-        /// EN: When server config loaded
+        ///     EN: When server config loaded
         /// </summary>
         /// <param name="e"></param>
         protected virtual void onLoadConfig(EventArgs e)
@@ -92,7 +89,7 @@ namespace Game.Tools.Language
         }
 
         /// <summary>
-        /// EN: When Language changed
+        ///     EN: When Language changed
         /// </summary>
         /// <param name="e"></param>
         protected virtual void onLanguageChanged(EventArgs e)
@@ -102,7 +99,6 @@ namespace Game.Tools.Language
                 Change();
             }
         }
-
     }
 
     public class Languages
@@ -113,5 +109,4 @@ namespace Game.Tools.Language
         public static readonly string LANGUAGE_POLISH = "Polish";
         public static readonly string ID_PL = "PL";
     }
-
 }

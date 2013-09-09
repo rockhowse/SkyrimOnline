@@ -1,20 +1,9 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-
-namespace Game.Tools.Language
+﻿namespace Game.Tools.Language
 {
-    class LanguageConfig
+    internal class LanguageConfig
     {
-
-
-
-        LanguageConfig(string pathToLanguageFile)
+        private LanguageConfig(string pathToLanguageFile)
         {
-
         }
-
     }
 }

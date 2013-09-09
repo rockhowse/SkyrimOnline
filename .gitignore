@@ -40,3 +40,5 @@ setup.exe
 Bin/
 Obj/
 Src/Skyrim.Script/FreeScript.lib
+packages/protobuf-net.2.0.0.640/*
+packages/protobuf-net.2.0.0.663/*

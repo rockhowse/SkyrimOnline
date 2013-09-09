@@ -1,16 +1,14 @@
-﻿using Lidgren.Network;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+﻿#region
+
+using Lidgren.Network;
+
+#endregion
 
 namespace Game.API.Networking.Messages
 {
     public class WorldEnvironmentStateMessage
         : IGameMessage
     {
-
         public enum MessageSignature : byte
         {
             kPlayer,
@@ -20,7 +18,7 @@ namespace Game.API.Networking.Messages
 
         public WorldEnvironmentStateMessage(NetIncomingMessage im)
         {
-            this.Decode(im);
+            Decode(im);
         }
 
         public WorldEnvironmentStateMessage()
@@ -28,48 +26,21 @@ namespace Game.API.Networking.Messages
         }
 
 
-        public float Hour
-        {
-            get;
-            set;
-        }
+        public float Hour { get; set; }
 
-        public float Day
-        {
-            get;
-            set;
-        }
+        public float Day { get; set; }
 
-        public float Month
-        {
-            get;
-            set;
-        }
+        public float Month { get; set; }
 
-        public float Year
-        {
-            get;
-            set;
-        }
+        public float Year { get; set; }
 
-        public float TimeScale
-        {
-            get;
-            set;
-        }
+        public float TimeScale { get; set; }
 
-        public int Weather
-        {
-            get;
-            set;
-        }
+        public int Weather { get; set; }
 
         public GameMessageTypes MessageType
         {
-            get
-            {
-                return GameMessageTypes.WorldEnvironmentState;
-            }
+            get { return GameMessageTypes.WorldEnvironmentState; }
         }
 
         public void Decode(NetIncomingMessage im)

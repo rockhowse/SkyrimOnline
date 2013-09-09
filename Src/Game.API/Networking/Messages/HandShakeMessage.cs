@@ -1,9 +1,9 @@
-﻿using Lidgren.Network;
+﻿#region
+
 using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+using Lidgren.Network;
+
+#endregion
 
 namespace Game.API.Networking.Messages
 {
@@ -12,43 +12,32 @@ namespace Game.API.Networking.Messages
     {
         public HandShakeMessage(NetIncomingMessage im)
         {
-            this.Decode(im);
+            Decode(im);
         }
 
         public HandShakeMessage()
         {
         }
 
+        public Int32 Version { get; set; }
+
+        public string Username { get; set; }
+
         public GameMessageTypes MessageType
         {
-            get
-            {
-                return GameMessageTypes.HandShake;
-            }
-        }
-
-        public Int32 Version
-        {
-            get;
-            set;
-        }
-
-        public string Username
-        {
-            get;
-            set;
+            get { return GameMessageTypes.HandShake; }
         }
 
         public void Decode(NetIncomingMessage im)
         {
-            this.Version = im.ReadInt32();
-            this.Username = im.ReadString();
+            Version = im.ReadInt32();
+            Username = im.ReadString();
         }
 
         public void Encode(NetOutgoingMessage om)
         {
-            om.Write(this.Version);
-            om.Write(this.Username);
+            om.Write(Version);
+            om.Write(Username);
         }
     }
 }

@@ -1,16 +1,13 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+﻿#region
+
+using System;
+
+#endregion
 
 namespace Game.Server
 {
-
-
     public class ServerConfig
     {
-
         public static readonly string SERVER_CONFIG_FILE = "GameServer.ini";
 
         public static readonly string SECTION_MASTER = "Master";
@@ -24,28 +21,29 @@ namespace Game.Server
         public static readonly string GENERAL_KEY_ONLINE = "Online";
         public static readonly string GENERAL_KEY_LANGUAGE = "Language";
         public static readonly string GENERAL_KEY_PASSWORD = "Password";
+        private readonly string Address = "127.0.0.1";
+        private readonly string GUID = "";
 
-        private int Game = 0;
-        private string Name = "Server Name";
-        private string Address = "127.0.0.1";
-        private int Port = 14242;
-        private bool Online = true;
-        private string Language = "English";
-        private string Password = "";
-        private string GUID = "";
+        private readonly int Game;
+        private readonly string Language = "English";
+        private readonly string Name = "Server Name";
+        private readonly bool Online = true;
+        private readonly string Password = "";
+        private readonly int Port = 14242;
 
-        private ServerConfig() { }
+        private ServerConfig()
+        {
+        }
 
         public ServerConfig(string game,
-                              string name,
-                              string address,
-                              int port,
-                              bool online,
-                              string language,
-                              string password,
-                              string guid)
+            string name,
+            string address,
+            int port,
+            bool online,
+            string language,
+            string password,
+            string guid)
         {
-
             if (game != null)
             {
                 Game = GetHash(game.ToUpper());
@@ -82,7 +80,6 @@ namespace Game.Server
             {
                 GUID = guid;
             }
-
         }
 
         public int getGame()
@@ -126,7 +123,7 @@ namespace Game.Server
         }
 
 
-        static Int32 GetHash(string game)
+        private static Int32 GetHash(string game)
         {
             switch (game)
             {
@@ -137,8 +134,5 @@ namespace Game.Server
             }
             return 1663201550;
         }
-
     }
-
-
 }

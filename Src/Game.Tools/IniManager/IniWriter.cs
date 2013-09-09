@@ -1,11 +1,12 @@
-﻿using System;
-using IniParser;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+﻿using IniParser;
 using log4net;
+
+#region
+
+using System;
 using System.Reflection;
+
+#endregion
 
 /* * * * * * * * * * * * * * * * * * *
  * By Konrad Janczarek nick Nerus87  *
@@ -19,27 +20,24 @@ namespace Game.Tools.IniManager
 {
     public class IniWriter
     {
-
-        private IniData data = null;
         private static IniParser.FileIniDataParser parser = null;
         private static readonly ILog Logger = LogManager.GetLogger(MethodBase.GetCurrentMethod().DeclaringType);
-        private static string path = null;
+        private static string path;
+        private IniData data = null;
 
-        private SectionData sectionData = null;
         private KeyData keyData = null;
+        private SectionData sectionData = null;
 
         /// <summary>
-        /// EN: Constructor of class to create instance and set path to save file
+        ///     EN: Constructor of class to create instance and set path to save file
         /// </summary>
         /// <param name="filePath">Path to file</param>
         /// <example>Example: how to create instance</example>
         /// <code>IniWriter("folder/filename.ini")</code>
         public IniWriter(string filePath)
         {
-
             if (filePath != null)
             {
-                
                 path = filePath;
 
                 if (data == null)
@@ -49,7 +47,6 @@ namespace Game.Tools.IniManager
 
                 parser = new FileIniDataParser();
             }
-
         }
 
         /*
@@ -70,13 +67,13 @@ namespace Game.Tools.IniManager
         }*/
 
         /// <summary>
-        /// EN: Add section if section not exist and select, otherwise only select.
+        ///     EN: Add section if section not exist and select, otherwise only select.
         /// </summary>
         /// <param name="section">Section name</param>
         /// <example>Example: How to add and select section</example>
         /// <code>AddAndSelectSection("General")</code>
-        public void addAndSelectSection(string section) {
-
+        public void addAndSelectSection(string section)
+        {
             if (data != null)
             {
                 if (data.Sections.GetSectionData(section) != null)
@@ -92,11 +89,10 @@ namespace Game.Tools.IniManager
                     sectionData = data.Sections.GetSectionData(section);
                 }
             }
-
         }
 
         /// <summary>
-        /// EN: Add section if section not exist and select, otherwise only select.
+        ///     EN: Add section if section not exist and select, otherwise only select.
         ///     Add comment to section if comment not exist, otherwise delete old comment and add new.
         /// </summary>
         /// <param name="section">Section name to add</param>
@@ -105,7 +101,6 @@ namespace Game.Tools.IniManager
         /// <code>AddAndSelectSection("General", "This is a general section")</code>
         public void addAndSelectSection(string section, string comment)
         {
-
             if (data != null)
             {
                 if (data.Sections.GetSectionData(section) != null)
@@ -123,22 +118,18 @@ namespace Game.Tools.IniManager
 
                 if (comment != null && !comment.Equals(""))
                 {
-
                     if (sectionData.Comments.Count > 0)
                     {
                         sectionData.Comments.Clear();
                     }
 
                     sectionData.Comments.Add(comment);
-                    
                 }
-
             }
-
         }
 
         /// <summary>
-        /// EN: Add key to selected section with key value
+        ///     EN: Add key to selected section with key value
         /// </summary>
         /// <param name="key">Key name to add</param>
         /// <param name="value">Key value to set</param>
@@ -146,7 +137,6 @@ namespace Game.Tools.IniManager
         /// <code>addKeyToSelectedSection("name", "Igor")</code>
         public void addKeyToSelectedSection(string key, string value)
         {
-            
             if (sectionData != null)
             {
                 if (sectionData.Keys.GetKeyData(key) != null)
@@ -168,11 +158,10 @@ namespace Game.Tools.IniManager
                     keyData.Value = value;
                 }
             }
-
         }
 
         /// <summary>
-        /// EN: Add key to selected section with key value and comment
+        ///     EN: Add key to selected section with key value and comment
         /// </summary>
         /// <param name="key">Key name to add</param>
         /// <param name="value">Value to set</param>
@@ -198,14 +187,12 @@ namespace Game.Tools.IniManager
 
                 if (comment != null && !comment.Equals(""))
                 {
-
                     if (keyData.Comments.Count > 0)
                     {
                         keyData.Comments.Clear();
                     }
 
                     keyData.Comments.Add(comment);
-
                 }
 
                 if (value != null)
@@ -396,8 +383,9 @@ namespace Game.Tools.IniManager
 
         }
         */
+
         /// <summary>
-        /// EN: Save ini data to file
+        ///     EN: Save ini data to file
         /// </summary>
         /// <param name="filePath">file path</param>
         /// <returns>true if file saved, false otherwise</returns>
@@ -405,12 +393,10 @@ namespace Game.Tools.IniManager
         /// <code>if(SaveFile()) then...</code>
         public bool SaveFile()
         {
-
             bool result = false;
 
             if (path != null && data != null)
             {
-
                 try
                 {
                     parser.SaveFile(path, data);
@@ -421,7 +407,6 @@ namespace Game.Tools.IniManager
                     Logger.Error(ex.Message);
                     result = false;
                 }
-
             }
 
             if (result)
@@ -430,7 +415,6 @@ namespace Game.Tools.IniManager
             }
 
             return result;
-
         }
 
         /*
@@ -445,6 +429,4 @@ namespace Game.Tools.IniManager
         }
         */
     }
-
-
 }

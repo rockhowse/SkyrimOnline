@@ -1,9 +1,8 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+﻿#region
+
 using Lidgren.Network;
+
+#endregion
 
 namespace Game.API.Networking
 {
@@ -13,6 +12,5 @@ namespace Game.API.Networking
 
         void Decode(NetIncomingMessage im);
         void Encode(NetOutgoingMessage om);
-
     }
 }

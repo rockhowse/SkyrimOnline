@@ -1,18 +1,17 @@
-﻿using Game.API;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+﻿#region
+
+using Game.API;
 using SkyrimS = Game.Script.Skyrim;
+
+#endregion
 
 namespace Game.Client.Controllers
 {
-    public class SkyrimController : Game.API.IController
+    public class SkyrimController : IController
     {
         #region Input
 
-        public override void EnableInput() 
+        public override void EnableInput()
         {
             SkyrimS.Game.EnablePlayerControls(true, true, true, true, true, true, true, true, 1);
             SkyrimS.Game.SetInChargen(false, false, true);
@@ -30,7 +29,7 @@ namespace Game.Client.Controllers
 
         #endregion
 
-#region Game
+        #region Game
 
         public override IActor PlaceAtMe()
         {
@@ -46,6 +45,7 @@ namespace Game.Client.Controllers
         {
             SkyrimS.Debug.SendAnimationEvent(actor, animationName);
         }
-#endregion
+
+        #endregion
     }
 }

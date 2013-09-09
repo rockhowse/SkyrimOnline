@@ -1,15 +1,15 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using Game.API.Networking;
-using Lidgren.Network;
-using Game.API.Entities;
-using Game.API.Networking.Messages;
-using log4net;
+﻿#region
+
+using System;
 using System.Reflection;
+using Game.API.Entities;
+using Game.API.Networking;
+using Game.API.Networking.Messages;
 using Game.Server.Services;
+using Lidgren.Network;
+using log4net;
+
+#endregion
 
 namespace Game.Server
 {
@@ -17,18 +17,18 @@ namespace Game.Server
     {
         private static readonly ILog Logger = LogManager.GetLogger(MethodBase.GetCurrentMethod().DeclaringType);
 
-        private PacketHandler handler = new PacketHandler();
-        private NetConnection connection;
-        private Player player;
-        private GameServer server;
-        private string username;
+        private readonly NetConnection connection;
+        private readonly PacketHandler handler = new PacketHandler();
+        private readonly Player player;
+        private readonly GameServer server;
+        private readonly string username;
 
         public Session(NetConnection connection, GameServer server, string username)
         {
             this.connection = connection;
             this.server = server;
             this.username = username;
-            
+
             handler.OnUpdatePlayerState += HandleUpdatePlayerStateMessage;
             handler.OnChatTalk += HandleChatTalkMessage;
 
@@ -38,6 +38,11 @@ namespace Game.Server
             SendMessageOrdered(new ChatTalkMessage("Type /help to see a list of available commands."));
         }
 
+        public NetConnection Connection
+        {
+            get { return connection; }
+        }
+
         public void HandlePacket(NetIncomingMessage inc)
         {
             handler.Handle(inc);
@@ -45,15 +50,15 @@ namespace Game.Server
 
         public void HandleUpdatePlayerStateMessage(IGameMessage msg)
         {
-            UpdatePlayerStateMessage message = (UpdatePlayerStateMessage)msg;
+            UpdatePlayerStateMessage message = (UpdatePlayerStateMessage) msg;
 
-            var timeDelay = (float)(NetTime.Now - connection.GetLocalTime(message.MessageTime));
+            var timeDelay = (float) (NetTime.Now - connection.GetLocalTime(message.MessageTime));
 
             player.EnableSmoothing = true;
 
             if (player.LastUpdateTime < message.MessageTime)
             {
-                player.SimulationState.Position = message.Position += message.Velocity * timeDelay;
+                player.SimulationState.Position = message.Position += message.Velocity*timeDelay;
                 player.SimulationState.Velocity = message.Velocity;
                 player.SimulationState.Rotation = message.Rotation;
 
@@ -63,9 +68,9 @@ namespace Game.Server
 
         public void HandleChatTalkMessage(IGameMessage msg)
         {
-            ChatTalkMessage message = (ChatTalkMessage)msg;
+            ChatTalkMessage message = (ChatTalkMessage) msg;
 
-            if(message.Message.Length > 1 && message.Message[0] == '/')
+            if (message.Message.Length > 1 && message.Message[0] == '/')
             {
                 Logger.Info("[" + username + "] issued command " + message.Message);
                 ChatService.HandleCommand(this, server, message);
@@ -73,7 +78,7 @@ namespace Game.Server
             }
 
             Logger.Info("[" + username + "]: " + message.Message);
-            
+
             server.SendMessage(new ChatTalkMessage("[" + username + "]: " + message.Message));
         }
 
@@ -82,12 +87,12 @@ namespace Game.Server
             try
             {
                 NetOutgoingMessage om = server.CreateMessage();
-                om.Write((byte)gameMessage.MessageType);
+                om.Write((byte) gameMessage.MessageType);
                 gameMessage.Encode(om);
 
                 Connection.SendMessage(om, NetDeliveryMethod.ReliableUnordered, 0);
             }
-            catch (System.Exception ex)
+            catch (Exception ex)
             {
                 Logger.Error(ex.ToString());
             }
@@ -98,22 +103,14 @@ namespace Game.Server
             try
             {
                 NetOutgoingMessage om = server.CreateMessage();
-                om.Write((byte)gameMessage.MessageType);
+                om.Write((byte) gameMessage.MessageType);
                 gameMessage.Encode(om);
 
                 Connection.SendMessage(om, NetDeliveryMethod.ReliableOrdered, 0);
             }
-            catch (System.Exception ex)
+            catch (Exception ex)
             {
                 Logger.Error(ex.ToString());
-            }
-        }
-
-        public NetConnection Connection
-        {
-            get
-            {
-                return connection;
             }
         }
     }

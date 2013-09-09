@@ -1,9 +1,9 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+﻿#region
+
+using System;
 using Microsoft.Xna.Framework;
+
+#endregion
 
 namespace Game.API.Entities
 {
@@ -15,19 +15,16 @@ namespace Game.API.Entities
 
         public float Rotation
         {
-            get
-            {
-                return this.rotation;
-            }
+            get { return rotation; }
 
             set
             {
-                if (this.rotation == value % MathHelper.TwoPi)
+                if (rotation == value%MathHelper.TwoPi)
                 {
                     return;
                 }
 
-                this.rotation = value % MathHelper.TwoPi;
+                rotation = value%MathHelper.TwoPi;
             }
         }
 
@@ -35,7 +32,7 @@ namespace Game.API.Entities
 
         public object Clone()
         {
-            return new EntityState { Position = this.Position, Rotation = this.Rotation, Velocity = this.Velocity };
+            return new EntityState {Position = Position, Rotation = Rotation, Velocity = Velocity};
         }
     }
 }

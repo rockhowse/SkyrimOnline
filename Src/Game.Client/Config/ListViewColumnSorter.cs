@@ -1,11 +1,15 @@
-﻿using System.Collections;
+﻿#region
+
+using System.Collections;
 using System.Windows.Forms;
+
+#endregion
 
 public class ListViewColumnSorter : IComparer
 {
+    private readonly CaseInsensitiveComparer ObjectCompare;
     private int ColumnToSort;
     private SortOrder OrderOfSort;
-    private CaseInsensitiveComparer ObjectCompare;
 
     public ListViewColumnSorter()
     {
@@ -14,52 +18,37 @@ public class ListViewColumnSorter : IComparer
         ObjectCompare = new CaseInsensitiveComparer();
     }
 
+    public int SortColumn
+    {
+        set { ColumnToSort = value; }
+        get { return ColumnToSort; }
+    }
+
+    public SortOrder Order
+    {
+        set { OrderOfSort = value; }
+        get { return OrderOfSort; }
+    }
+
     public int Compare(object x, object y)
     {
         int compareResult;
         ListViewItem listviewX, listviewY;
 
-        listviewX = (ListViewItem)x;
-        listviewY = (ListViewItem)y;
+        listviewX = (ListViewItem) x;
+        listviewY = (ListViewItem) y;
 
-        compareResult = ObjectCompare.Compare(listviewX.SubItems[ColumnToSort].Text, listviewY.SubItems[ColumnToSort].Text);
+        compareResult = ObjectCompare.Compare(listviewX.SubItems[ColumnToSort].Text,
+            listviewY.SubItems[ColumnToSort].Text);
 
         if (OrderOfSort == SortOrder.Ascending)
         {
             return compareResult;
         }
-        else if (OrderOfSort == SortOrder.Descending)
+        if (OrderOfSort == SortOrder.Descending)
         {
             return (-compareResult);
         }
-        else
-        {
-            return 0;
-        }
+        return 0;
     }
-
-    public int SortColumn
-    {
-        set
-        {
-            ColumnToSort = value;
-        }
-        get
-        {
-            return ColumnToSort;
-        }
-    }
-
-    public SortOrder Order
-    {
-        set
-        {
-            OrderOfSort = value;
-        }
-        get
-        {
-            return OrderOfSort;
-        }
-    }
-
 }

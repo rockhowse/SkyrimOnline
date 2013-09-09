@@ -1,19 +1,16 @@
-﻿using Game.API;
+﻿#region
+
 using System;
-using System.Collections.Generic;
-using System.Diagnostics;
-using System.Linq;
-using System.Reflection;
-using System.Text;
-using System.Threading.Tasks;
-using Game.API.Utilities;
+using Game.API;
+
+#endregion
 
 namespace Game.Client
 {
-    class World : IWorld
+    internal class World : IWorld
     {
-        private Int64 time = 0;
         private IActor actor = null;
+        private Int64 time;
 
         public void Update()
         {

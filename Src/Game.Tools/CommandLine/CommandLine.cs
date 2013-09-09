@@ -1,9 +1,10 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
+﻿#region
+
+using System;
 using System.Threading;
-using System.Threading.Tasks;
+using Game.Tools.Language;
+
+#endregion
 
 namespace Game.Tools.CommandLine
 {
@@ -11,7 +12,7 @@ namespace Game.Tools.CommandLine
     {
         private static Thread console;
         private static volatile CommandPrompt instance;
-        private static object syncRoot = new Object();
+        private static readonly object syncRoot = new Object();
 
         private CommandPrompt()
         {
@@ -39,7 +40,6 @@ namespace Game.Tools.CommandLine
 
         private void startListen()
         {
-
             string[] command = null;
 
             while (true)
@@ -48,7 +48,6 @@ namespace Game.Tools.CommandLine
 
                 if (command != null && command.Length > 0)
                 {
-
                     // single command like "help"
                     if (command.Length == 1)
                     {
@@ -65,37 +64,28 @@ namespace Game.Tools.CommandLine
                             /* ... */
                         }
                     }
-                    // command with one or more arguments like "reload lang"
+                        // command with one or more arguments like "reload lang"
                     else
                     {
                         // for reload section
-                        if(command[0].Equals(Commands.COMMAND_RELOAD)) {
-                            
-                            if(command[1].Equals(Commands.COMMAND_RELOAD_LANGUAGE)) {
-                                Language.LanguageManager lang = Language.LanguageManager.Instance;
+                        if (command[0].Equals(Commands.COMMAND_RELOAD))
+                        {
+                            if (command[1].Equals(Commands.COMMAND_RELOAD_LANGUAGE))
+                            {
+                                LanguageManager lang = LanguageManager.Instance;
                                 lang.ReloadLanguage();
                             }
-
                         }
-
                     }
 
-                    
 
                     if (command.Equals(Commands.COMMAND_RELOAD_LANGUAGE))
                     {
-
                     }
-
                 }
 
                 Thread.Sleep(300);
             }
-
         }
-
     }
-
-    
-
 }

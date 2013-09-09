@@ -1,28 +1,23 @@
-﻿using System;
-using IniParser;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using log4net;
-using log4net.Config;
-using System.Reflection;
+﻿#region
+
 using System.IO;
+using System.Reflection;
+using IniParser;
+using log4net;
+
+#endregion
 
 namespace Game.Tools.IniManager
 {
     public class IniLoader
     {
-
-        private IniData data = null;
-        private IniManager manager = IniManager.Instance;
         private static readonly ILog Logger = LogManager.GetLogger(MethodBase.GetCurrentMethod().DeclaringType);
+        private readonly IniManager manager = IniManager.Instance;
+        private IniData data = null;
 
 
         public IniLoader(string iniFilePath)
         {
-            
-
             if (iniFilePath != null && File.Exists(iniFilePath))
             {
                 data = manager.getIniData(iniFilePath);
@@ -30,7 +25,7 @@ namespace Game.Tools.IniManager
         }
 
         /// <summary>
-        /// Force load data from ini file
+        ///     Force load data from ini file
         /// </summary>
         /// <param name="pathToIni">Path to ini file</param>
         public void ForceLoadData(string pathToIni)
@@ -42,7 +37,7 @@ namespace Game.Tools.IniManager
         }
 
         /// <summary>
-        /// EN: Method return String value from config
+        ///     EN: Method return String value from config
         /// </summary>
         /// <param name="data"></param>
         /// <param name="section"></param>
@@ -70,7 +65,7 @@ namespace Game.Tools.IniManager
         }
 
         /// <summary>
-        /// EN: Method return Int value from config
+        ///     EN: Method return Int value from config
         /// </summary>
         /// <param name="data"></param>
         /// <param name="section"></param>
@@ -98,7 +93,7 @@ namespace Game.Tools.IniManager
         }
 
         /// <summary>
-        /// EN: Method return Boolean value from config
+        ///     EN: Method return Boolean value from config
         /// </summary>
         /// <param name="data"></param>
         /// <param name="section"></param>
@@ -124,7 +119,5 @@ namespace Game.Tools.IniManager
             }
             return defaultValue;
         }
-
-
     }
 }

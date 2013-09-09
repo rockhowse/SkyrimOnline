@@ -1,32 +1,32 @@
-﻿using Lidgren.Network;
-using Game.API;
+﻿#region
+
 using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Net;
-using System.Text;
-using System.Threading.Tasks;
-using log4net;
-using System.Reflection;
 using System.IO;
+using System.Net;
+using System.Reflection;
+using Game.API;
+using Lidgren.Network;
+using log4net;
+
+#endregion
 
 namespace Game.Server.Internals
 {
-    class MasterServerClient
+    internal class MasterServerClient
     {
         private static readonly ILog Logger = LogManager.GetLogger(MethodBase.GetCurrentMethod().DeclaringType);
+        private readonly string mGuid = "none";
 
-        IPEndPoint masterServerEndpoint;
-        float lastRegistered = -60.0f;
-        GameServer server = null;
-        string mGuid = "none";
-        string mIp = null;
+        private readonly IPEndPoint masterServerEndpoint;
+        private readonly GameServer server;
+        private float lastRegistered = -60.0f;
+        private string mIp;
 
         public MasterServerClient(GameServer pServer, string guid)
         {
             server = pServer;
             mGuid = guid;
-            masterServerEndpoint = NetUtility.Resolve("game.skyrim-online.com", Game.API.MasterServer.MasterServerPort);
+            masterServerEndpoint = NetUtility.Resolve("game.skyrim-online.com", MasterServer.MasterServerPort);
         }
 
         public string GetPublicIP()
@@ -51,7 +51,6 @@ namespace Game.Server.Internals
                 catch
                 {
                 }
-
             }
 
             return mIp;
@@ -62,21 +61,21 @@ namespace Game.Server.Internals
             if (NetTime.Now > lastRegistered + 60)
             {
                 NetOutgoingMessage regMsg = server.Server.CreateMessage();
-                regMsg.Write((byte)MasterServerMessageType.RegisterHost);
+                regMsg.Write((byte) MasterServerMessageType.RegisterHost);
 
                 IPAddress adr = IPAddress.Parse(GetPublicIP());
 
                 regMsg.Write(server.Server.UniqueIdentifier);
                 regMsg.Write(server.Name);
-                regMsg.Write((UInt16)server.Server.ConnectionsCount);
-                regMsg.Write((UInt16)1000);
+                regMsg.Write((UInt16) server.Server.ConnectionsCount);
+                regMsg.Write((UInt16) 1000);
                 regMsg.Write(mGuid);
                 regMsg.Write(new IPEndPoint(adr, server.Server.Port));
                 regMsg.Write(Program.Game);
-                
+
                 Logger.Debug("Sending registration to master server");
                 server.Server.SendUnconnectedMessage(regMsg, masterServerEndpoint);
-                lastRegistered = (float)NetTime.Now;
+                lastRegistered = (float) NetTime.Now;
             }
         }
     }

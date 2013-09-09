@@ -1,17 +1,15 @@
-﻿using Game.API.Utilities;
-using System;
-using System.Collections.Generic;
+﻿#region
+
 using System.Diagnostics;
-using System.Linq;
-using System.Reflection;
-using System.Text;
-using System.Threading.Tasks;
+using Game.API.Utilities;
+
+#endregion
 
 namespace Game.API
 {
     public static class GlobalContext
     {
-        private static IModule m_module = null;
+        private static IModule m_module;
 
         public static IModule Module
         {
@@ -30,10 +28,6 @@ namespace Game.API
             }
         }
 
-        public static IController Controller
-        {
-            get;
-            set;
-        }
+        public static IController Controller { get; set; }
     }
 }

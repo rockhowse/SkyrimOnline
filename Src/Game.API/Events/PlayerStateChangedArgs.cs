@@ -1,9 +1,9 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+﻿#region
+
+using System;
 using Game.API.Entities;
+
+#endregion
 
 namespace Game.API.Events
 {
@@ -11,7 +11,7 @@ namespace Game.API.Events
     {
         public PlayerStateChangedArgs(Player player)
         {
-            this.Player = player;
+            Player = player;
         }
 
         public Player Player { get; private set; }
