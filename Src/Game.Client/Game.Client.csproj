@@ -31,7 +31,8 @@
       <HintPath>..\..\..\..\..\..\..\Program Files (x86)\MonoGame\v3.0\Assemblies\WindowsGL\MonoGame.Framework.dll</HintPath>
     </Reference>
     <Reference Include="protobuf-net">
-      <HintPath>..\..\packages\protobuf-net.2.0.0.621\lib\net40\protobuf-net.dll</HintPath>
+      <HintPath>..\..\packages\protobuf-net.2.0.0.666\lib\net40\protobuf-net.dll</HintPath>
+      <Private>False</Private>
     </Reference>
     <Reference Include="RGiesecke.DllExport.Metadata">
       <HintPath>..\..\packages\UnmanagedExports.1.2.4.23262\lib\net\RGiesecke.DllExport.Metadata.dll</HintPath>
@@ -39,6 +40,7 @@
     </Reference>
     <Reference Include="SteamKit2">
       <HintPath>..\..\packages\SteamKit2.1.4.1\lib\net40\SteamKit2.dll</HintPath>
+      <Private>False</Private>
     </Reference>
     <Reference Include="System" />
     <Reference Include="System.Core" />
