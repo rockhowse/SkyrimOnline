@@ -59,7 +59,7 @@ namespace Game.Server
                 Address = address;
             }
 
-            if (port < 1)
+            if (port > 1)
             {
                 Port = port;
             }
