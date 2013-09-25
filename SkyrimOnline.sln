@@ -1,6 +1,6 @@
 ﻿
 Microsoft Visual Studio Solution File, Format Version 12.00
-# Visual Studio 2012
+# Visual Studio Express 2012 for Windows Desktop
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Game.Client", "Src\Game.Client\Game.Client.csproj", "{FF3D7555-F14A-493A-955C-B630D0916741}"
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Game.Server", "Src\Game.Server\Game.Server.csproj", "{0980CDD6-A924-4444-A23C-842482446894}"
@@ -33,6 +33,10 @@ EndProject
 Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "d3d9.Hook", "Src\d3d9.Hook\d3d9.Hook.vcxproj", "{71C858BE-5F83-4E19-9FD8-5FF57A4DD5F2}"
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Game.Tools", "Src\Game.Tools\Game.Tools.csproj", "{EA2162B2-38A8-414F-A4CE-6FA250A3071B}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Game.Tools.Examples.Networking.ServerChat", "Src\Game.Tools\Examples\Game.Tools.Examples.Networking.ServerChat\Game.Tools.Examples.Networking.ServerChat.csproj", "{E90B46B5-F450-4C22-AF50-2EDFB8788B21}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Game.Tools.Examples.Networking.ClientChat", "Src\Game.Tools\Examples\Game.Tools.Examples.Networking.ClientChat\Game.Tools.Examples.Networking.ClientChat.csproj", "{06408B28-1028-46BB-B8DF-598B4ABABC52}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -233,6 +237,34 @@ Global
 		{EA2162B2-38A8-414F-A4CE-6FA250A3071B}.Release|Win32.ActiveCfg = Release|Any CPU
 		{EA2162B2-38A8-414F-A4CE-6FA250A3071B}.Release|x64.ActiveCfg = Release|Any CPU
 		{EA2162B2-38A8-414F-A4CE-6FA250A3071B}.Release|x86.ActiveCfg = Release|Any CPU
+		{E90B46B5-F450-4C22-AF50-2EDFB8788B21}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{E90B46B5-F450-4C22-AF50-2EDFB8788B21}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{E90B46B5-F450-4C22-AF50-2EDFB8788B21}.Debug|Mixed Platforms.ActiveCfg = Debug|Any CPU
+		{E90B46B5-F450-4C22-AF50-2EDFB8788B21}.Debug|Mixed Platforms.Build.0 = Debug|Any CPU
+		{E90B46B5-F450-4C22-AF50-2EDFB8788B21}.Debug|Win32.ActiveCfg = Debug|Any CPU
+		{E90B46B5-F450-4C22-AF50-2EDFB8788B21}.Debug|x64.ActiveCfg = Debug|Any CPU
+		{E90B46B5-F450-4C22-AF50-2EDFB8788B21}.Debug|x86.ActiveCfg = Debug|Any CPU
+		{E90B46B5-F450-4C22-AF50-2EDFB8788B21}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{E90B46B5-F450-4C22-AF50-2EDFB8788B21}.Release|Any CPU.Build.0 = Release|Any CPU
+		{E90B46B5-F450-4C22-AF50-2EDFB8788B21}.Release|Mixed Platforms.ActiveCfg = Release|Any CPU
+		{E90B46B5-F450-4C22-AF50-2EDFB8788B21}.Release|Mixed Platforms.Build.0 = Release|Any CPU
+		{E90B46B5-F450-4C22-AF50-2EDFB8788B21}.Release|Win32.ActiveCfg = Release|Any CPU
+		{E90B46B5-F450-4C22-AF50-2EDFB8788B21}.Release|x64.ActiveCfg = Release|Any CPU
+		{E90B46B5-F450-4C22-AF50-2EDFB8788B21}.Release|x86.ActiveCfg = Release|Any CPU
+		{06408B28-1028-46BB-B8DF-598B4ABABC52}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{06408B28-1028-46BB-B8DF-598B4ABABC52}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{06408B28-1028-46BB-B8DF-598B4ABABC52}.Debug|Mixed Platforms.ActiveCfg = Debug|Any CPU
+		{06408B28-1028-46BB-B8DF-598B4ABABC52}.Debug|Mixed Platforms.Build.0 = Debug|Any CPU
+		{06408B28-1028-46BB-B8DF-598B4ABABC52}.Debug|Win32.ActiveCfg = Debug|Any CPU
+		{06408B28-1028-46BB-B8DF-598B4ABABC52}.Debug|x64.ActiveCfg = Debug|Any CPU
+		{06408B28-1028-46BB-B8DF-598B4ABABC52}.Debug|x86.ActiveCfg = Debug|Any CPU
+		{06408B28-1028-46BB-B8DF-598B4ABABC52}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{06408B28-1028-46BB-B8DF-598B4ABABC52}.Release|Any CPU.Build.0 = Release|Any CPU
+		{06408B28-1028-46BB-B8DF-598B4ABABC52}.Release|Mixed Platforms.ActiveCfg = Release|Any CPU
+		{06408B28-1028-46BB-B8DF-598B4ABABC52}.Release|Mixed Platforms.Build.0 = Release|Any CPU
+		{06408B28-1028-46BB-B8DF-598B4ABABC52}.Release|Win32.ActiveCfg = Release|Any CPU
+		{06408B28-1028-46BB-B8DF-598B4ABABC52}.Release|x64.ActiveCfg = Release|Any CPU
+		{06408B28-1028-46BB-B8DF-598B4ABABC52}.Release|x86.ActiveCfg = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
@@ -243,6 +275,8 @@ Global
 		{F9E90F10-8AE9-46F7-B946-753E53243AC9} = {7B3017BB-1CD8-4E81-859E-F9321FBCBD92}
 		{5412DDEF-826E-403C-83CD-198D7447C49B} = {7B3017BB-1CD8-4E81-859E-F9321FBCBD92}
 		{EA2162B2-38A8-414F-A4CE-6FA250A3071B} = {7B3017BB-1CD8-4E81-859E-F9321FBCBD92}
+		{E90B46B5-F450-4C22-AF50-2EDFB8788B21} = {7B3017BB-1CD8-4E81-859E-F9321FBCBD92}
+		{06408B28-1028-46BB-B8DF-598B4ABABC52} = {7B3017BB-1CD8-4E81-859E-F9321FBCBD92}
 		{D8B2564C-4766-4DDF-B7E0-43DB3971B3A3} = {403AE901-EC7A-4C81-ABC9-3FB2FF09367D}
 		{8691E70D-6EA8-44BD-91EA-DB69D61E0F10} = {403AE901-EC7A-4C81-ABC9-3FB2FF09367D}
 		{89B48A68-F452-4543-A9FD-41C8466EECBC} = {403AE901-EC7A-4C81-ABC9-3FB2FF09367D}
