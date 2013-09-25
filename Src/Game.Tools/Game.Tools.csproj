@@ -32,31 +32,63 @@
   <ItemGroup>
     <Reference Include="INIFileParser">
       <HintPath>..\..\packages\ini-parser.1.7.1\lib\INIFileParser.dll</HintPath>
+      <Private>False</Private>
     </Reference>
     <Reference Include="log4net">
       <HintPath>..\..\packages\log4net.2.0.0\lib\net40-full\log4net.dll</HintPath>
+      <Private>False</Private>
     </Reference>
     <Reference Include="System" />
-    <Reference Include="System.Core" />
-    <Reference Include="System.Xml.Linq" />
-    <Reference Include="System.Data.DataSetExtensions" />
     <Reference Include="Microsoft.CSharp" />
-    <Reference Include="System.Data" />
-    <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="CommandLine\CommandLine.cs" />
-    <Compile Include="CommandLine\Commands.cs" />
+    <Compile Include="CommandLine\CommandPrompt.cs" />
+    <Compile Include="CommandLine\Commands\Help.cs" />
+    <Compile Include="CommandLine\Interfaces\Command.cs" />
+    <Compile Include="Elements\Characters\CharacterInterface.cs" />
+    <Compile Include="Elements\Characters\TypeInterface.cs" />
+    <Compile Include="Elements\Items\ItemInterface.cs" />
+    <Compile Include="Elements\Models\InventoryInterface.cs" />
+    <Compile Include="Elements\Models\ModelInterface.cs" />
     <Compile Include="GameTools.cs" />
     <Compile Include="IniManager\IniManager.cs" />
     <Compile Include="IniManager\IniLoader.cs" />
     <Compile Include="IniManager\IniWriter.cs" />
     <Compile Include="Language\LanguageConfig.cs" />
     <Compile Include="Language\LanguageManager.cs" />
+    <Compile Include="Networking\Connections\Client.cs" />
+    <Compile Include="Networking\Connections\Server.cs" />
+    <Compile Include="Networking\Connections\TCPClient.cs" />
+    <Compile Include="Networking\Connections\TCPServer.cs" />
+    <Compile Include="Networking\Connections\UDPClient.cs" />
+    <Compile Include="Networking\Connections\UDPServer.cs" />
+    <Compile Include="Networking\Interfaces\Authorization.cs" />
+    <Compile Include="Networking\Interfaces\Client.cs" />
+    <Compile Include="Networking\Interfaces\ClientQueue.cs" />
+    <Compile Include="Networking\Interfaces\Database.cs" />
+    <Compile Include="Networking\Interfaces\Server.cs" />
+    <Compile Include="Networking\Interfaces\SysInfo.cs" />
+    <Compile Include="Networking\Messages\Interfaces\Command.cs" />
+    <Compile Include="Networking\Messages\Interfaces\Message.cs" />
+    <Compile Include="Networking\Messages\Managment\ChatManager.cs" />
+    <Compile Include="Networking\Messages\Managment\MessageCommunication.cs" />
+    <Compile Include="Networking\Messages\Templates\Disconnect.cs" />
+    <Compile Include="Networking\Messages\Templates\TextMessage.cs" />
+    <Compile Include="Networking\Messages\Types\CommandType.cs" />
+    <Compile Include="Networking\Messages\Types\TextMessageType.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>
     <None Include="packages.config" />
+  </ItemGroup>
+  <ItemGroup>
+    <Folder Include="Database\" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Examples\Open this folder" />
+  </ItemGroup>
+  <ItemGroup>
+    <Content Include="Schemats\Connections.png" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
