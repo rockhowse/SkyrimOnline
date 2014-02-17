@@ -1,4 +1,5 @@
 ﻿using IniParser;
+using IniParser.Model;
 using log4net;
 
 #region
@@ -89,7 +90,7 @@ namespace Game.Tools.IniManager
                 lock (syncValue)
                 {
                     nameCache = pathToIni;
-                    cache = parser.LoadFile(pathToIni);
+                    cache = parser.ReadFile(pathToIni);
                 }
 
                 lock (syncContainer)
@@ -112,7 +113,7 @@ namespace Game.Tools.IniManager
                 lock (syncValue)
                 {
                     nameCache = pathToIni;
-                    cache = parser.LoadFile(pathToIni);
+                    cache = parser.ReadFile(pathToIni);
                 }
 
                 lock (syncContainer)

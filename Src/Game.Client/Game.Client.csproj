@@ -31,16 +31,14 @@
       <HintPath>..\..\..\..\..\..\..\Program Files (x86)\MonoGame\v3.0\Assemblies\WindowsGL\MonoGame.Framework.dll</HintPath>
     </Reference>
     <Reference Include="protobuf-net">
-      <HintPath>..\..\packages\protobuf-net.2.0.0.666\lib\net40\protobuf-net.dll</HintPath>
-      <Private>False</Private>
+      <HintPath>..\..\packages\protobuf-net.2.0.0.668\lib\net40\protobuf-net.dll</HintPath>
     </Reference>
     <Reference Include="RGiesecke.DllExport.Metadata">
-      <HintPath>..\..\packages\UnmanagedExports.1.2.4.23262\lib\net\RGiesecke.DllExport.Metadata.dll</HintPath>
+      <HintPath>..\..\packages\UnmanagedExports.1.2.6\lib\net\RGiesecke.DllExport.Metadata.dll</HintPath>
       <Private>False</Private>
     </Reference>
     <Reference Include="SteamKit2">
-      <HintPath>..\..\packages\SteamKit2.1.4.1\lib\net40\SteamKit2.dll</HintPath>
-      <Private>False</Private>
+      <HintPath>..\..\packages\SteamKit2.1.5.0\lib\net40\SteamKit2.dll</HintPath>
     </Reference>
     <Reference Include="System" />
     <Reference Include="System.Core" />
@@ -90,7 +88,6 @@
       <Name>Skyrim.Script %28Microsoft Visual C++ Compiler Nov 2012 CTP%29</Name>
     </ProjectReference>
   </ItemGroup>
-  <ItemGroup />
   <ItemGroup>
     <EmbeddedResource Include="Config\Play.resx">
       <DependentUpon>Play.cs</DependentUpon>
@@ -105,7 +102,7 @@
     <PostBuildEvent>
     </PostBuildEvent>
   </PropertyGroup>
-  <Import Project="../../packages/UnmanagedExports.1.2.4.23262/tools/RGiesecke.DllExport.targets" />
+  <Import Project="../../packages/UnmanagedExports.1.2.6/tools/RGiesecke.DllExport.targets" Condition="Exists('../../packages/UnmanagedExports.1.2.6/tools/RGiesecke.DllExport.targets')" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
        Other similar extension points exist, see Microsoft.Common.targets.
   <Target Name="BeforeBuild">

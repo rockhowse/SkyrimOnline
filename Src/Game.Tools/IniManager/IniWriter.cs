@@ -1,4 +1,5 @@
 ﻿using IniParser;
+using IniParser.Model;
 using log4net;
 
 #region
@@ -399,7 +400,7 @@ namespace Game.Tools.IniManager
             {
                 try
                 {
-                    parser.SaveFile(path, data);
+                    parser.WriteFile(path, data);
                     result = true;
                 }
                 catch (Exception ex)
