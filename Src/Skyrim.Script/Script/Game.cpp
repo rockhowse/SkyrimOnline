@@ -38,3 +38,4 @@ void ::Game::Script::Skyrim::Game::DisablePlayerControls(bool abMovement, bool a
 {
 	::Game::DisablePlayerControls(abMovement, abFighting, abCamSwitch, abLooking, abSneaking, abMenu, abActivate, abJournalTabs, aiDisablePOVType);
 }
+

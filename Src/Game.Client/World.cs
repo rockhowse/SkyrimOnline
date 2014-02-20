@@ -9,7 +9,7 @@ namespace Game.Client
 {
     internal class World : IWorld
     {
-        private IActor actor = null;
+        //private IActor actor = null; commenting out until we start running 3D syncs again
         private Int64 time;
 
         public void Update()
