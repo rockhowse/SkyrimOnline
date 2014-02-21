@@ -3,6 +3,7 @@
 using System.IO;
 using System.Reflection;
 using IniParser;
+using IniParser.Model;
 using log4net;
 
 #endregion

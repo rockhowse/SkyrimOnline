@@ -14,7 +14,7 @@ namespace FreeScript
 		length = strlen(d);
 		capacity = length * 2;
 		data = new char[capacity];
-		strcpy(data, d);
+		strcpy_s(data, capacity, d); //created a more secure string copy with size capacity to prevent buffer overflow, used to be strcpy(data, d). Change back if desired
 	}
 
 	BSString::~BSString()

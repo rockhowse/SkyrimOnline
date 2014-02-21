@@ -29,14 +29,15 @@
     <ErrorReport>prompt</ErrorReport>
     <WarningLevel>4</WarningLevel>
   </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)' == 'Client Release|AnyCPU'">
+    <OutputPath>bin\Client Release\</OutputPath>
+  </PropertyGroup>
   <ItemGroup>
     <Reference Include="INIFileParser">
-      <HintPath>..\..\packages\ini-parser.1.7.1\lib\INIFileParser.dll</HintPath>
-      <Private>False</Private>
+      <HintPath>..\..\packages\ini-parser.2.0.2\lib\INIFileParser.dll</HintPath>
     </Reference>
     <Reference Include="log4net">
-      <HintPath>..\..\packages\log4net.2.0.0\lib\net40-full\log4net.dll</HintPath>
-      <Private>False</Private>
+      <HintPath>..\..\packages\log4net.2.0.3\lib\net40-full\log4net.dll</HintPath>
     </Reference>
     <Reference Include="System" />
     <Reference Include="Microsoft.CSharp" />
