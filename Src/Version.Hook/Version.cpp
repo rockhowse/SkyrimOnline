@@ -19,7 +19,7 @@ std::string GetPath()
 	// Getting path to system dir and to d3d8.dll
 	::GetSystemDirectory(buffer,MAX_PATH);
 	// Append dll name
-	strcat(buffer,"\\version.dll");
+	strcat_s(buffer, MAX_PATH,"\\version.dll"); //changed to more secure strcat to prevent buffer overflows, used to be strcat(buffer, "\\version.dll"), change back if desired
 
 	return std::string(buffer);
 }

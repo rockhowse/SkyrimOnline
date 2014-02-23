@@ -15,8 +15,8 @@ namespace Game.Tools.Language
 
         private static volatile LanguageManager instance;
         private static readonly object syncRoot = new Object();
-        private static IniLoader serverConfig = null;
-        private static IniLoader languageFile = null;
+        //private static IniLoader serverConfig = null; Neither of these are used right now. Functions are commented out below. Ok to delete?
+        //private static IniLoader languageFile = null;
 
 
         /// <summary>
