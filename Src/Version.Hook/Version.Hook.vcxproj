@@ -60,10 +60,15 @@
       <WarningLevel>Level3</WarningLevel>
       <Optimization>Disabled</Optimization>
       <PreprocessorDefinitions>WIN32;_DEBUG;_WINDOWS;_USRDLL;GW2LP_EXPORTS;%(PreprocessorDefinitions)</PreprocessorDefinitions>
+<<<<<<< HEAD
       <WholeProgramOptimization>false</WholeProgramOptimization>
       <AdditionalIncludeDirectories>$(SolutionDir)\Dependencies;$(SolutionDir)\Dependencies\include;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
       <AdditionalUsingDirectories>$(SolutionDir)Bin\$(Configuration)</AdditionalUsingDirectories>
       <FunctionLevelLinking>true</FunctionLevelLinking>
+=======
+      <DebugInformationFormat>EditAndContinue</DebugInformationFormat>
+      <WholeProgramOptimization>true</WholeProgramOptimization>
+>>>>>>> b436c44035fbaa114d8d49078ad7071728852523
     </ClCompile>
     <Link>
       <SubSystem>Windows</SubSystem>
