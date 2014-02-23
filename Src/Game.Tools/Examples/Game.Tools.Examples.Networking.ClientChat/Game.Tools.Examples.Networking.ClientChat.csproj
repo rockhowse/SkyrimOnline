@@ -30,9 +30,7 @@
     <DefineConstants>TRACE</DefineConstants>
     <ErrorReport>prompt</ErrorReport>
     <WarningLevel>4</WarningLevel>
-  </PropertyGroup>
-  <PropertyGroup Condition="'$(Configuration)|$(Platform)' == 'Client Release|AnyCPU'">
-    <OutputPath>bin\Client Release\</OutputPath>
+    <NoWarn>0168</NoWarn>
   </PropertyGroup>
   <ItemGroup>
     <Reference Include="System" />
