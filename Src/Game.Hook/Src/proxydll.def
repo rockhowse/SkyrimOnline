@@ -1,4 +1,4 @@
-LIBRARY	"d3d9"
+LIBRARY	"Game.Hook.dll"
 
 EXPORTS
         Direct3DCreate9 @1

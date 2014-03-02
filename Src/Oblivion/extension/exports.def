@@ -1,4 +1,4 @@
-LIBRARY	"Oblivion"
+LIBRARY	"Oblivion.Online.dll"
 EXPORTS
 OBSEPlugin_Query
 OBSEPlugin_Load

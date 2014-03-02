@@ -18,9 +18,9 @@ namespace Game.Client.Config
         private static string MASTER_SERVER_ADDRESS = "game.skyrim-online.com";
 
         // Added
-        public static readonly string NOT_A_NUMBER = "Only numbers in Port field !!!";
-        public static readonly string NO_PORT_SET = "Before join, add server port";
-        public static readonly string NO_ADDRESS_SET = "Before join, add server address: IP or server Name";
+        public static readonly string NOT_A_NUMBER = "Port can only contain numbers. Please enter a number.";
+        public static readonly string NO_PORT_SET = "No port set. Please enter a port.";
+        public static readonly string NO_ADDRESS_SET = "No address set. Please enter an IP or URL.";
         private readonly MasterClient client;
         private readonly ListViewColumnSorter sorter = new ListViewColumnSorter();
         private Int64 GAME_SERVER_ID;
