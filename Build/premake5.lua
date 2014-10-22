@@ -24,10 +24,6 @@ solution "Skyrim Online"
 		"PriRel", 
 		"PubRel" 
 	}
-    flags 
-	{ 
-		"NoRTTI"
-	}
 
 	vectorextensions "SSE2"
 	floatingpoint "Fast"

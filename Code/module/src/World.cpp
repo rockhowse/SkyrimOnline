@@ -8,6 +8,8 @@
 #include "plugin.h"
 #include "skyscript.h"
 
+#include "FreeScript.h"
+
 #include "easylogging++.h"
 
 World::World()
@@ -50,11 +52,17 @@ void World::Send(Packet* apPacket)
 void World::SendHello()
 {
 	Messages::CliGame_HelloSend pMessage;
-	pMessage.name = "toto";
+
+	Skyrim::ActorHelper actorHelper(Skyrim::GetPlayer());
+	Skyrim::TESNPCHelper npcHelper(actorHelper.GetNpc());
+
+	pMessage.name = npcHelper.GetName();
 	Send(&pMessage);
 }
 
 void HandleGameCli_HelloRecv(const Messages::GameCli_HelloRecv& aMsg)
 {
-	LOG(INFO) << aMsg.version;
+	std::ostringstream oss;
+	oss << "Skyrim Online v" << aMsg.version << " connected.";
+	Debug::Notification((char*)oss.str().c_str());
 }
