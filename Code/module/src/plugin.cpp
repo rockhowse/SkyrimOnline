@@ -26,6 +26,8 @@ DWORD ___result;
 
 HMODULE g_hModule;
 
+extern void LoadBaseVersion();
+
 void Error(char *pattern, ...)
 {
 	char text[1024];
@@ -137,6 +139,7 @@ BOOL APIENTRY DllMain(HMODULE hModule, DWORD fdwReason, LPVOID lpReserved)
         case DLL_PROCESS_ATTACH: 
         {
 			g_hModule = hModule;
+			LoadBaseVersion();
 			DragonPluginInit(hModule);
 			break;
 		}

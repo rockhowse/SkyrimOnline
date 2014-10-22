@@ -3,6 +3,7 @@
 
 #include "BoostServer.h"
 #include "BoostManager.h"
+#include "CliGame_Handler.h"
 #include <cstdint>
 
 class Player;
@@ -24,6 +25,7 @@ public:
 private:
 
 	Player* m_players[UINT16_MAX];
+	Messages::CliGame_Handler m_handler;
 };
 
 extern GameServer* g_pServer;

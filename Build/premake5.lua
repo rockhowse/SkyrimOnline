@@ -38,6 +38,7 @@ solution "Skyrim Online"
         "../include/scriptdragon",
         "../code/",         
         "../code/boost/", 
+        "../code/mhook/", 
         "../code/boost/thread/",
         "../code/boost/filesystem/",
         "../code/boost/system/",
@@ -86,11 +87,14 @@ solution "Skyrim Online"
 			includedirs 
             { 
                 "../code/game/include/", 
+                "../code/messages/server/"
             }
 			files 
             { 
                 "../code/game/include/**.h", 
                 "../code/game/src/**.cpp",
+                "../code/messages/server/**.cpp",
+                "../code/messages/server/**.h",
             }
             libdirs 
             {
@@ -116,11 +120,14 @@ solution "Skyrim Online"
 			includedirs 
             { 
                 "../code/module/include/", 
+                "../code/messages/client/", 
             }
 			files 
             { 
                 "../code/module/include/**.h", 
                 "../code/module/src/**.cpp",
+                "../code/messages/client/**.cpp",
+                "../code/messages/client/**.h",
             }
             libdirs 
             {
@@ -134,7 +141,9 @@ solution "Skyrim Online"
                 "boost_thread", 
                 "boost_chrono",
                 "cryptopp",
-                "Network"
+                "Network",
+                "disasm",
+                "mhook"
             }
             
                 
@@ -165,6 +174,22 @@ solution "Skyrim Online"
                 "boost_chrono",
                 "cryptopp"
             }
+        
+        project "disasm"
+			kind "StaticLib"
+			language "C"
+			targetdir "lib"
+			targetname "disasm"
+            includedirs { "../code/disasm/" }
+			files { "../code/disasm/*.c" }    
+            
+        project "mhook"
+			kind "StaticLib"
+			language "C++"
+			targetdir "lib"
+			targetname "mhook"
+            includedirs { "../code/disasm/" }
+			files { "../code/mhook/*.cpp" }    
             
         project "boost_filesystem"
 			kind "StaticLib"

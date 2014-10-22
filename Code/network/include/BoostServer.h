@@ -13,7 +13,6 @@
 
 #include <unordered_map>
 
-
 class BoostConnection;
 class BoostServer : public BoostAcceptor::Listener
 {
@@ -118,6 +117,12 @@ public:
 	TaskManager* GetMediumTaskManager() { return &m_mediumTaskManager; }
 	TaskManager* GetHeavyTaskManager() { return &m_heavyTaskManager; }
 
+	static std::string Serialize(Packet* apMessage);
+
+	static std::string Serialize(WriteBuffer* apMessage);
+
+	static std::string Serialize(const std::string& aMessage);
+
 protected:
 
 	/**
@@ -130,15 +135,12 @@ protected:
 	*/
 	void SendForce(uint16_t aConnectionId, Packet* apMessage);
 
-	static std::string Serialize(Packet* apMessage);
 
 	TaskManager			m_lightTaskManager;
 	TaskManager			m_mediumTaskManager;
 	TaskManager			m_heavyTaskManager;
 
 private:
-
-	void HandleKeyExchange(BoostConnection* apConnection, ReadBuffer* apBuffer);
 
 	friend class PacketSenderTask;
 	friend class PacketSendAllTask;
@@ -149,7 +151,6 @@ private:
     IdGenerator							m_idPool;
     boost::recursive_mutex				m_mapGuard;
 	std::unordered_map <uint16_t, BoostConnection*> m_idToConnection;
-	class KeyAgreement*					m_keyAgreement;
 };
 
 #endif // NETWORK_BOOST_SERVER_H

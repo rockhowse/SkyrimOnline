@@ -45,7 +45,7 @@ void GameServer::OnConsume(uint16_t aConnectionId, ReadBuffer* pBuffer)
 		uint16_t opcode = 0;
 		pBuffer->Read_uint16(opcode);
 
-
+		m_handler.HandleBuffer(pBuffer, opcode, aConnectionId);
 	}
 }
 

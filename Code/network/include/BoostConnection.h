@@ -47,7 +47,7 @@ public:
      *
      * @return nullptr if no packet is available or the packet.
      */
-    ReadBuffer* Consume();
+    bool Consume(ReadBuffer*& apBuffer);
 
     /**
      * @brief Close the connection.
@@ -132,7 +132,7 @@ public:
 	 *
 	 * @param acSharedSecret The shared secret.
 	 */
-	void SetSharedSecret(const std::string& acSharedSecret);
+	void SetSharedSecret(const std::string& acSharedSecret, bool aClient);
 	/**
 	 * @brief Enables encryption.
 	 *
@@ -144,14 +144,18 @@ public:
 private:
 
     void Read();
+	void StartEncryptionHandshake();
 
 	void DoWrite();
 
     void HandleWrite(const boost::system::error_code& aError);
     void HandleReadHeader(const boost::system::error_code& aError, size_t aBytesRead);
-    void HandleReadBody(const boost::system::error_code& aError, size_t aBytesRead);
+	void HandleReadBody(const boost::system::error_code& aError, size_t aBytesRead);
+	void HandleReadEncryptionHeader(const boost::system::error_code& aError, size_t aBytesRead);
+	void HandleReadEncryptionBody(const boost::system::error_code& aError, size_t aBytesRead);
     void HandleConnect(const boost::system::error_code& aError);
 	void HandleResolve(const boost::system::error_code& aError, boost::asio::ip::tcp::resolver::iterator aEndpointItor);
+	void HandleHandshake(ReadBuffer* apBuffer);
 
     boost::asio::ip::tcp::socket m_socket;
 	boost::asio::ip::tcp::resolver m_resolver;

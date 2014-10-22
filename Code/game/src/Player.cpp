@@ -1,6 +1,7 @@
 #include "Player.h"
 #include "GameServer.h"
 
+#include <easylogging++.h>
 
 Player::Player(uint16_t aPlayerId)
 	: m_connectionId(aPlayerId)
@@ -43,4 +44,14 @@ void Player::SendMovementUpdate(const Player* apPlayer)
 void Player::SetMovement(const Movement& acMovement)
 {
 	m_movementTracker.Add(acMovement);
+}
+
+void HandleCliGame_HelloRecv(const Messages::CliGame_HelloRecv& aMsg)
+{
+	LOG(INFO) << aMsg.connectionId << " " << aMsg.name;
+
+	Messages::GameCli_HelloSend* pMessage = new Messages::GameCli_HelloSend;
+	pMessage->version = 0;
+
+	g_pServer->Send(aMsg.connectionId, pMessage);
 }

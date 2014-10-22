@@ -9,6 +9,15 @@
 
 #include <boost/asio.hpp>
 #include <boost/thread.hpp>
+#include <string>
+
+class IKeyAgreement
+{
+public:
+
+	virtual void Serialize(std::string& aBuffer) = 0;
+	virtual std::string Agree(class ReadBuffer* apBuffer) = 0;
+};
 
 class BoostConnection;
 class BoostManager
@@ -51,6 +60,8 @@ public:
 	 */
 	static BoostManager& GetInstance();
 
+	IKeyAgreement* GetKeyAgreement() { return m_pKeyAgreement; }
+
 private:
 
 	BoostManager();
@@ -69,6 +80,7 @@ private:
 	IOPool* m_pools;
 	uint32_t m_poolCount;
 	uint32_t m_poolCursor;
+	IKeyAgreement* m_pKeyAgreement;
 };
 
 #endif // NETWORK_BOOST_MANAGER_H

@@ -3,3 +3,7 @@ Build/lib
 Build/Bin/Game.exe
 Build/Bin/Version.dll
 Build/Bin/*.lib
+Build/gsl
+Build/gsl.exe
+Build/Codegen.bat
+Code/Messages/*.xml
