@@ -1,9 +1,9 @@
 #include "GameServer.h"
 #include <boost/thread.hpp>
-#include "BoostManager.h"
 
 int main()
 {
+	EnetServer::Initialize();
 	try
 	{
 		g_pServer = new GameServer();
@@ -20,8 +20,6 @@ int main()
 	}
 
 	delete g_pServer; g_pServer = 0;
-
-	BoostManager::Destroy();
     
 	return 0;
 }

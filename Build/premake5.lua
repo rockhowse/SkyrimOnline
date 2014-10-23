@@ -40,7 +40,7 @@ solution "Skyrim Online"
         "../code/boost/system/",
         "../code/cryptopp/include/",
         "../code/log",
-        "../code/network/include"
+        "../code/network/include",
 	}
 	
     location "projects"
@@ -104,7 +104,9 @@ solution "Skyrim Online"
                 "boost_thread", 
                 "boost_chrono",
                 "cryptopp",
-                "Network"
+                "Network",
+                "ws2_32",
+                "winmm"
             }
               
 	group "Client"
@@ -139,7 +141,9 @@ solution "Skyrim Online"
                 "cryptopp",
                 "Network",
                 "disasm",
-                "mhook"
+                "mhook",
+                "ws2_32",
+                "winmm"
             }
             
                 
@@ -155,7 +159,9 @@ solution "Skyrim Online"
 			files 
             { 
                 "../code/network/include/**.h", 
+                "../code/network/include/enet/**.h", 
                 "../code/network/src/**.cpp",
+                "../code/network/src/enet/**.c",
             }
             libdirs 
             {

@@ -6,11 +6,9 @@
 GameServer* g_pServer = nullptr;
 
 GameServer::GameServer()
-    :BoostServer()
+    :EnetServer()
 {
 	std::memset(m_players, 0, sizeof(Player*) * UINT16_MAX);
-
-	BoostManager::Setup(1);
 
 	long port = 10578;
 

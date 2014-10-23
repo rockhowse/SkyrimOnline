@@ -1,14 +1,13 @@
 #ifndef GAME_SERVER_H
 #define GAME_SERVER_H
 
-#include "BoostServer.h"
-#include "BoostManager.h"
+#include "EnetServer.h"
 #include "CliGame_Handler.h"
 #include <cstdint>
 
 class Player;
 
-class GameServer : public BoostServer
+class GameServer : public EnetServer
 {
 public:
 

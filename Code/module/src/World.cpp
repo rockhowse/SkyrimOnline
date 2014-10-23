@@ -2,8 +2,7 @@
 
 #include "World.h"
 #include "Buffer.h"
-#include "BoostManager.h"
-#include "BoostServer.h"
+#include "EnetServer.h"
 
 #include "plugin.h"
 #include "skyscript.h"
@@ -14,39 +13,38 @@
 
 World::World()
 {
-	m_pConnection.reset(new BoostConnection(BoostManager::GetInstance().GetIoService(), 0));
-	m_pConnection->Connect("127.0.0.1", 10578);
+	Connect("127.0.0.1", 10578);
 }
 
 World::~World()
 {
 }
 
-void World::Update()
+void World::OnUpdate()
 {
-	if (m_pConnection)
-	{
-		ReadBuffer* pBuffer = nullptr;
-		while (m_pConnection->Consume(pBuffer))
-		{
-			if (pBuffer == nullptr)
-			{
-				SendHello();
-			}
-			else
-			{
-				uint16_t opcode;
-				pBuffer->Read_uint16(opcode);
+}
 
-				m_handler.HandleBuffer(pBuffer, opcode, 0);
-			}
-		}
-	}
+void World::OnConnection(uint16_t aConnectionId)
+{
+	SendHello();
+}
+
+void World::OnDisconnection(uint16_t aConnectionId)
+{
+
+}
+
+void World::OnConsume(uint16_t aConnectionId, ReadBuffer* pBuffer)
+{
+	uint16_t opcode;
+	pBuffer->Read_uint16(opcode);
+
+	m_handler.HandleBuffer(pBuffer, opcode, 0);
 }
 
 void World::Send(Packet* apPacket)
 {
-	m_pConnection->Write(BoostServer::Serialize(apPacket));
+	SendReliable(0, apPacket);
 }
 
 void World::SendHello()

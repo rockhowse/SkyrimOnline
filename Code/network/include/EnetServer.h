@@ -1,11 +1,10 @@
-#ifndef NETWORK_BOOST_SERVER_H
-#define NETWORK_BOOST_SERVER_H
+#ifndef NETWORK_ENET_SERVER_H
+#define NETWORK_ENET_SERVER_H
 
 #if defined(_MSC_VER) && (_MSC_VER >= 1200)
 # pragma once
 #endif // defined(_MSC_VER) && (_MSC_VER >= 1200)
 
-#include "BoostAcceptor.h"
 #include "IdGenerator.h"
 #include "Packet.h"
 #include "TaskManager.h"
@@ -13,19 +12,22 @@
 
 #include <unordered_map>
 
-class BoostConnection;
-class BoostServer : public BoostAcceptor::Listener
+#include <enet/enet.h>
+
+class EnetServer
 {
 public:
 
+	static void Initialize();
+
     /**
-     * @brief Constructs a BoostServer.
+     * @brief Constructs a EnetServer.
      *
-     * Constructs a BoostServer.
+     * Constructs a EnetServer.
      *
      */
-	BoostServer();
-    virtual ~BoostServer();
+	EnetServer();
+	virtual ~EnetServer();
 
     /**
      * @brief Updates everything.
@@ -71,9 +73,6 @@ public:
 	 * @return 
 	 */
 	virtual void OnConsume(uint16_t aConnectionId, ReadBuffer* pBuffer) = 0;
-
-
-    BoostConnection* OnConnection(BoostConnection* apConnection);
     
     /**
      * @brief Hosts a server on port for IPv4 and port + 1 for IPv6.
@@ -84,6 +83,18 @@ public:
      */
     void Host(uint16_t aPort);
 
+	void Connect(const std::string& acHost, uint16_t aPort);
+
+	/**
+	* @brief Send a reliable packet to a connection.
+	*
+	* Force Send a reliable packet to a connection.
+	*
+	* @param aConnectionId The connection to send it to.
+	* @param apMessage The message to send.
+	*/
+	void SendReliable(uint16_t aConnectionId, Packet* apMessage);
+
 	/**
 	* @brief Send a packet to a connection.
 	*
@@ -93,25 +104,6 @@ public:
 	* @param apMessage The message to send.
 	*/
 	void Send(uint16_t aConnectionId, Packet* apMessage);
-
-	/**
-	* @brief Send a packet to all active connections.
-	*
-	* Send a packet to all active connections.
-	*
-	* @param apMessage The message to send.
-	*/
-	void SendAll(Packet* apMessage);
-
-	/**
-	* @brief Send a packet to all active connections except for one.
-	*
-	* Send a packet to all active connections except for one.
-	*
-	* @param aExcludedConnectionId The connection to exclude.
-	* @param apMessage The message to send.
-	*/
-	void SendAllBut(uint16_t aExcludedConnectionId, Packet* apMessage);
 
 	TaskManager* GetLightTaskManager() { return &m_lightTaskManager; }
 	TaskManager* GetMediumTaskManager() { return &m_mediumTaskManager; }
@@ -125,16 +117,6 @@ public:
 
 protected:
 
-	/**
-	* @brief Force send a packet to a connection.
-	*
-	* Force send a packet to a connection.
-	*
-	* @param aConnectionId The connection to send it to.
-	* @param apMessage The message to send.
-	*/
-	void SendForce(uint16_t aConnectionId, Packet* apMessage);
-
 
 	TaskManager			m_lightTaskManager;
 	TaskManager			m_mediumTaskManager;
@@ -142,15 +124,12 @@ protected:
 
 private:
 
-	friend class PacketSenderTask;
-	friend class PacketSendAllTask;
-	friend class PacketSendAllButTask;
-
-    BoostAcceptor*						m_ipv4Acceptor;
-    BoostAcceptor*						m_ipv6Acceptor;
     IdGenerator							m_idPool;
-    boost::recursive_mutex				m_mapGuard;
-	std::unordered_map <uint16_t, BoostConnection*> m_idToConnection;
+    
+	ENetAddress							m_address;
+	ENetHost*							m_pHost;
+	ENetPeer*							m_pPeers[UINT16_MAX];
+	ENetPeer*							m_pServer;
 };
 
-#endif // NETWORK_BOOST_SERVER_H
+#endif // NETWORK_ENET_SERVER_H

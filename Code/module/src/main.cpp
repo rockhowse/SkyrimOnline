@@ -1,5 +1,4 @@
 #include <iostream>
-#include "BoostManager.h"
 #include "World.h"
 
 #include "plugin.h"
@@ -9,7 +8,7 @@ World* g_pWorld = nullptr;
 
 extern "C" __declspec(dllexport) void main()
 {
-	BoostManager::Setup(1);
+	EnetServer::Initialize();
 
 	g_pWorld = new World;
 	while (true)
@@ -17,6 +16,4 @@ extern "C" __declspec(dllexport) void main()
 		g_pWorld->Update();
 		Wait(0);
 	}
-
-	BoostManager::Destroy();
 }
