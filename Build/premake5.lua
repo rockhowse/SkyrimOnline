@@ -110,6 +110,35 @@ solution "Skyrim Online"
             }
               
 	group "Client"
+		project "D3D9.hook"
+            targetname "d3d9"
+			kind "SharedLib"
+			language "C++"
+			targetdir "bin"
+			includedirs 
+            { 
+				"$(DXSDK_DIR)/Include",
+                "../code/d3d9/include/",
+            }
+			files 
+            { 
+                "../code/d3d9/include/**.h", 
+                "../code/d3d9/src/**.cpp",
+				"../code/d3d9/src/**.def",
+            }
+			libdirs 
+            {
+                "$(DXSDK_DIR)/Lib/x86"
+            }
+			
+            links 
+            { 
+                "ws2_32",
+                "winmm",
+                "d3d9",
+                "d3dx9"
+            }
+			
 		project "Module"
             targetname "Version"
 			kind "SharedLib"
@@ -145,7 +174,6 @@ solution "Skyrim Online"
                 "ws2_32",
                 "winmm"
             }
-            
                 
  	group "Common"
 		project "Network"

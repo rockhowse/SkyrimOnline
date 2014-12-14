@@ -1,8 +1,12 @@
 Build/projects
 Build/lib
-Build/Bin/Game.exe
-Build/Bin/Version.dll
+Build/Bin/d3d9*.dll
+Build/Bin/Game*.exe
+Build/Bin/Version*.dll
 Build/Bin/*.lib
+Build/Bin/*.exp
+Build/Bin/*.idb
+Build/Bin/*.pdb
 Build/gsl
 Build/gsl.exe
 Build/Codegen.bat
