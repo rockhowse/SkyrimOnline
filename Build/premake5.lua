@@ -117,14 +117,14 @@ solution "Skyrim Online"
 			targetdir "bin"
 			includedirs 
             { 
-				"$(DXSDK_DIR)/Include",
-                "../code/d3d9/include/",
+				"$(DXSDK_DIR)/Include/",
+                "../code/d3d9/include/"
             }
 			files 
             { 
                 "../code/d3d9/include/**.h", 
                 "../code/d3d9/src/**.cpp",
-				"../code/d3d9/src/**.def",
+				"../code/d3d9/src/**.def"
             }
 			libdirs 
             {
@@ -139,26 +139,29 @@ solution "Skyrim Online"
                 "d3dx9"
             }
 			
-		project "Module"
-            targetname "Version"
+		project "SkyrimOnline"
+            targetname "SkyrimOnline"
 			kind "SharedLib"
 			language "C++"
 			targetdir "bin"
 			includedirs 
             { 
-                "../code/module/include/", 
-                "../code/messages/client/", 
+				"$(DXSDK_DIR)/Include/",
+                "../code/skyrimonline/include/", 
+                "../code/messages/client/",
             }
 			files 
             { 
-                "../code/module/include/**.h", 
-                "../code/module/src/**.cpp",
+                "../code/skyrimonline/include/**.h", 
+                "../code/skyrimonline/src/**.cpp",
+				"../code/skyrimonline/src/**.def",
                 "../code/messages/client/**.cpp",
-                "../code/messages/client/**.h",
+                "../code/messages/client/**.h"
             }
             libdirs 
             {
-                "../lib" 
+				"$(DXSDK_DIR)/Lib/x86",
+                "lib" 
             }
             
             links 
@@ -172,7 +175,17 @@ solution "Skyrim Online"
                 "disasm",
                 "mhook",
                 "ws2_32",
-                "winmm"
+                "winmm",
+            }
+		
+		project "Version.Hook"
+            targetname "Version"
+			kind "SharedLib"
+			language "C++"
+			targetdir "bin"
+			files 
+            { 
+                "../code/version/src/**.cpp"
             }
                 
  	group "Common"

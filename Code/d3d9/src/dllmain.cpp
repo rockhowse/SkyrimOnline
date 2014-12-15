@@ -1,5 +1,5 @@
 // proxydll.cpp
-#include "../include/stdafx.h"
+#include <stdafx.h>
 
 HINSTANCE gl_hGameHook;
 HINSTANCE gl_hThisInstance;
@@ -78,17 +78,16 @@ BOOL APIENTRY DllMain(HMODULE hModule, DWORD fdwReason, LPVOID lpReserved)
 	{
 	case DLL_PROCESS_ATTACH:
 	{
-		std::string FileName;
+		std::string strL;
 
-		FileName.resize(MAX_PATH);
-		GetModuleFileName(NULL, &FileName[0], MAX_PATH);
+		strL.resize(MAX_PATH);
+		GetModuleFileName(NULL, &strL[0], MAX_PATH);
 
 		DisableThreadLibraryCalls(hModule);
 
-		if (FileName.find("TESV.exe") != std::string::npos || FileName.find("Oblivion.exe") != std::string::npos)
+		if (strL.find("TESV.exe") != std::string::npos)
 		{
 			gl_hThisInstance = hModule;
-
 			LoadOriginalDll();
 		}
 

@@ -4,69 +4,29 @@
 
 #include <windef.h>
 
-extern "C"
-__declspec(dllimport)
-FARPROC
-WINAPI
-GetProcAddress(
-__in HMODULE hModule,
-__in LPCSTR lpProcName
-);
+extern "C" __declspec(dllimport) FARPROC WINAPI GetProcAddress(__in HMODULE hModule, __in LPCSTR lpProcName);
 
-extern "C"
-__declspec(dllimport)
-UINT
-WINAPI
-GetSystemDirectoryA(
-__out_ecount_part_opt(uSize, return +1) LPSTR lpBuffer,
-__in UINT uSize
-);
+extern "C" __declspec(dllimport) UINT WINAPI GetSystemDirectoryA(__out_ecount_part_opt(uSize, return +1) LPSTR lpBuffer, __in UINT uSize);
 
-extern "C"
-__declspec(dllimport)
-UINT
-WINAPI
-GetSystemDirectoryW(
-__out_ecount_part_opt(uSize, return +1) LPWSTR lpBuffer,
-__in UINT uSize
-);
+extern "C"__declspec(dllimport) UINT WINAPI GetSystemDirectoryW(__out_ecount_part_opt(uSize, return +1) LPWSTR lpBuffer, __in UINT uSize);
+
 #ifdef UNICODE
-#define GetSystemDirectory  GetSystemDirectoryW
+	#define GetSystemDirectory  GetSystemDirectoryW
 #else
-#define GetSystemDirectory  GetSystemDirectoryA
+	#define GetSystemDirectory  GetSystemDirectoryA
 #endif // !UNICODE
 
-extern "C"
-__declspec(dllimport)
-__out_opt
-HMODULE
-WINAPI
-LoadLibraryA(
-__in LPCSTR lpLibFileName
-);
+extern "C" __declspec(dllimport) __out_opt HMODULE WINAPI LoadLibraryA(__in LPCSTR lpLibFileName);
 
-extern "C"
-__declspec(dllimport)
-__out_opt
-HMODULE
-WINAPI
-LoadLibraryW(
-__in LPCWSTR lpLibFileName
-);
+extern "C" __declspec(dllimport) __out_opt HMODULE WINAPI LoadLibraryW(__in LPCWSTR lpLibFileName);
+
 #ifdef UNICODE
-#define LoadLibrary  LoadLibraryW
+	#define LoadLibrary  LoadLibraryW
 #else
-#define LoadLibrary  LoadLibraryA
+	#define LoadLibrary  LoadLibraryA
 #endif // !UNICODE
 
-extern "C"
-__declspec(dllimport)
-__declspec(noreturn)
-VOID
-WINAPI
-ExitProcess(
-__in UINT uExitCode
-);
+extern "C" __declspec(dllimport) __declspec(noreturn) VOID WINAPI ExitProcess(__in UINT uExitCode);
 
 typedef BOOL(WINAPI *t_VerQueryValueA)(_In_ LPCVOID pBlock, _In_ LPCTSTR lpSubBlock, _Out_ LPVOID *lplpBuffer, _Out_ PUINT puLen);
 typedef BOOL(WINAPI *t_GetFileVersionInfoA)(_In_ LPCTSTR lptstrFilename, _Reserved_ DWORD dwHandle, _In_ DWORD dwLen, _Out_ LPVOID lpData);
@@ -105,16 +65,16 @@ void LoadOriginalDll(void)
 {
 	if (!module)
 		module = LoadLibrary(GetPath().c_str());
+
 	// Debug
 	if (!module)
-	{
 		ExitProcess(0); // exit the hard way
-	}
 }
 
 void LoadBaseVersion()
 {
 	LoadOriginalDll();
+
 	r_VerQueryValueA = (t_VerQueryValueA)GetProcAddress(module, "VerQueryValueA");
 	r_VerQueryValueW = (t_VerQueryValueW)GetProcAddress(module, "VerQueryValueW");
 	r_GetFileVersionInfoA = (t_GetFileVersionInfoA)GetProcAddress(module, "GetFileVersionInfoA");
@@ -179,3 +139,23 @@ extern "C" BOOL __declspec(dllexport) WINAPI GetFileVersionInfoExW(_In_ DWORD dw
 #pragma comment(linker, "/EXPORT:GetFileVersionInfoSizeW=_GetFileVersionInfoSizeW@8")
 #pragma comment(linker, "/EXPORT:GetFileVersionInfoSizeExA=_GetFileVersionInfoSizeExA@12")
 #pragma comment(linker, "/EXPORT:GetFileVersionInfoSizeExW=_GetFileVersionInfoSizeExW@12")
+
+BOOL APIENTRY DllMain(HMODULE hModule, DWORD fdwReason, LPVOID lpReserved)
+{
+	switch (fdwReason)
+	{
+		case DLL_PROCESS_ATTACH:
+		{
+			LoadBaseVersion();
+
+			LoadLibraryA("d3d9.dll");
+
+			break;
+		}
+		case DLL_PROCESS_DETACH:
+		{
+			break;
+		}
+	}
+	return TRUE;
+}

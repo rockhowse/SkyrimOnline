@@ -6,6 +6,7 @@
 
 #include "plugin.h"
 #include "skyscript.h"
+
 #include <windows.h>
 #include <stdio.h>
 
@@ -24,9 +25,7 @@ DWORD ___stack[MAX_STACK_LEN];
 DWORD ___stackindex;
 DWORD ___result;
 
-HMODULE g_hModule;
-
-extern void LoadBaseVersion();
+extern HMODULE g_hModule;
 
 void Error(char *pattern, ...)
 {
@@ -110,7 +109,9 @@ void DragonPluginInit(HMODULE hModule)
 	In order to provide NORMAL support i need a plugins to be distributed without the DragonScript.dll engine 
 	cuz user always must have the latest version which cud be found ONLY on my web page
 	*/
-	if (!hDragon) Error("Can't load %s, download latest version from http://alexander.sannybuilder.com/Files/tes/", SCRIPT_DRAGON);
+	if (!hDragon) 
+		Error("Can't load %s, download latest version from http://alexander.sannybuilder.com/Files/tes/", SCRIPT_DRAGON);
+
 	NativeCall = (TNativeCall)GetProcAddress(hDragon, "Nativecall");
 	ObscriptCall = (TObscriptCall)GetProcAddress(hDragon, "Obscriptcall");
 	GetPlayerObjectHandle = (TGetPlayerObjectHandle)GetProcAddress(hDragon, "GetPlayerObjectHandle");
@@ -122,31 +123,8 @@ void DragonPluginInit(HMODULE hModule)
 	BSString_Create = (TBSString_Create)GetProcAddress(hDragon, "BSString_Create");
 	BSString_Free = (TBSString_Free)GetProcAddress(hDragon, "BSString_Free");
 
-	if(!NativeCall || !ObscriptCall || !GetPlayerObjectHandle || !ExecuteConsoleCommand 
-		|| !GetConsoleSelectedRef || !dyn_cast || !RegisterPlugin || !Wait
-		|| !BSString_Create || !BSString_Free)
-	{
+	if(!NativeCall || !ObscriptCall || !GetPlayerObjectHandle || !ExecuteConsoleCommand  || !GetConsoleSelectedRef || !dyn_cast || !RegisterPlugin || !Wait || !BSString_Create || !BSString_Free)
 		Error("ScriptDragon engine dll `%s` has not all needed functions inside, exiting", SCRIPT_DRAGON);
-	}
 
 	RegisterPlugin(hModule);
-}
-
-BOOL APIENTRY DllMain(HMODULE hModule, DWORD fdwReason, LPVOID lpReserved)
-{
-    switch (fdwReason)
-    {
-        case DLL_PROCESS_ATTACH: 
-        {
-			g_hModule = hModule;
-			LoadBaseVersion();
-			DragonPluginInit(hModule);
-			break;
-		}
-        case DLL_PROCESS_DETACH:
-        {
-            break;
-        }
-    }
-    return TRUE;
 }

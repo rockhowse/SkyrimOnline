@@ -11,6 +11,7 @@ extern "C" __declspec(dllexport) void main()
 	EnetServer::Initialize();
 
 	g_pWorld = new World;
+
 	while (true)
 	{
 		g_pWorld->Update();
