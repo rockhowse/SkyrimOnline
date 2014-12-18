@@ -3,6 +3,8 @@ Build/lib/*.lib
 Build/lib/*.pdb
 Build/Bin/d3d9*.dll
 Build/Bin/SkyrimOnline*.dll
+Build/Bin/Game.Module*.dll
+Build/Bin/OblivionOnline*.dll
 Build/Bin/Game*.exe
 Build/Bin/Version*.dll
 Build/Bin/*.lib
