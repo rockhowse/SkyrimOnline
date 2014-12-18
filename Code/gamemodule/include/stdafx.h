@@ -22,3 +22,7 @@
 #include <stack>
 #include <iostream>
 #include <string>
+
+#include <DInput\Input.hpp>
+#include <Directx\myIDirect3D9.h>
+#include <Directx\myIDirect3DDevice9.h>

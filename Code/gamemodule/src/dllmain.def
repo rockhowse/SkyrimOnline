@@ -1,4 +1,4 @@
-LIBRARY	"SkyrimOnline.dll"
+LIBRARY	"Game.Module.dll"
 
 EXPORTS
         Direct3DCreate9 @1

@@ -67,12 +67,13 @@ int IniReadInt(char *inifile, char *section, char *param, int def)
 	char curdir[MAX_PATH];
 	GetModuleFileNameA(g_hModule, curdir, sizeof(curdir));
 	std::string fname = GetPathFromFilename(curdir) + inifile;
+
 	return GetPrivateProfileIntA(section, param, def, fname.c_str());
 }
 
 bool GetKeyPressed(BYTE key)
 {
-  return (GetKeyState(key) & 0x80000000) > 0;
+	return (GetKeyState(key) & 0x80000000) > 0;
 }
 
 void PrintDebug(char *pattern, ...)
@@ -105,11 +106,11 @@ void PrintNote(char *pattern, ...)
 void DragonPluginInit(HMODULE hModule)
 {
 	HMODULE hDragon = LoadLibraryA(SCRIPT_DRAGON);
-	/* 
-	In order to provide NORMAL support i need a plugins to be distributed without the DragonScript.dll engine 
+	/*
+	In order to provide NORMAL support i need a plugins to be distributed without the DragonScript.dll engine
 	cuz user always must have the latest version which cud be found ONLY on my web page
 	*/
-	if (!hDragon) 
+	if (!hDragon)
 		Error("Can't load %s, download latest version from http://alexander.sannybuilder.com/Files/tes/", SCRIPT_DRAGON);
 
 	NativeCall = (TNativeCall)GetProcAddress(hDragon, "Nativecall");
@@ -123,7 +124,7 @@ void DragonPluginInit(HMODULE hModule)
 	BSString_Create = (TBSString_Create)GetProcAddress(hDragon, "BSString_Create");
 	BSString_Free = (TBSString_Free)GetProcAddress(hDragon, "BSString_Free");
 
-	if(!NativeCall || !ObscriptCall || !GetPlayerObjectHandle || !ExecuteConsoleCommand  || !GetConsoleSelectedRef || !dyn_cast || !RegisterPlugin || !Wait || !BSString_Create || !BSString_Free)
+	if (!NativeCall || !ObscriptCall || !GetPlayerObjectHandle || !ExecuteConsoleCommand || !GetConsoleSelectedRef || !dyn_cast || !RegisterPlugin || !Wait || !BSString_Create || !BSString_Free)
 		Error("ScriptDragon engine dll `%s` has not all needed functions inside, exiting", SCRIPT_DRAGON);
 
 	RegisterPlugin(hModule);

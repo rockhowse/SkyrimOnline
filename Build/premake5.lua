@@ -115,17 +115,20 @@ solution "Skyrim Online"
 			kind "SharedLib"
 			language "C++"
 			targetdir "bin"
+			
 			includedirs 
             { 
 				"$(DXSDK_DIR)/Include/",
                 "../code/d3d9/include/"
             }
+			
 			files 
             { 
                 "../code/d3d9/include/**.h", 
                 "../code/d3d9/src/**.cpp",
 				"../code/d3d9/src/**.def"
             }
+			
 			libdirs 
             {
                 "$(DXSDK_DIR)/Lib/x86"
@@ -144,20 +147,23 @@ solution "Skyrim Online"
 			kind "SharedLib"
 			language "C++"
 			targetdir "bin"
+			
 			includedirs 
             { 
 				"$(DXSDK_DIR)/Include/",
                 "../code/skyrimonline/include/", 
                 "../code/messages/client/",
             }
+			
 			files 
             { 
+				"../code/messages/client/**.cpp",
+                "../code/messages/client/**.h",
                 "../code/skyrimonline/include/**.h", 
                 "../code/skyrimonline/src/**.cpp",
-				"../code/skyrimonline/src/**.def",
-                "../code/messages/client/**.cpp",
-                "../code/messages/client/**.h"
+				"../code/skyrimonline/src/**.def"
             }
+			
             libdirs 
             {
 				"$(DXSDK_DIR)/Lib/x86",
@@ -177,15 +183,101 @@ solution "Skyrim Online"
                 "ws2_32",
                 "winmm",
             }
+			project "OblivionOnline"
+            targetname "OblivionOnline"
+			kind "SharedLib"
+			language "C++"
+			targetdir "bin"
+			
+			includedirs 
+            { 
+				"$(DXSDK_DIR)/Include/",
+                "../code/obliviononline/include/", 
+            }
+			
+			files 
+            { 
+                "../code/obliviononline/include/**.h", 
+                "../code/obliviononline/src/**.cpp",
+				"../code/obliviononline/src/**.def"
+            }
+			
+            libdirs 
+            {
+				"$(DXSDK_DIR)/Lib/x86",
+                "lib" 
+            }
+            
+            links 
+            { 
+                "boost_filesystem", 
+                "boost_system", 
+                "boost_thread", 
+                "boost_chrono",
+                "cryptopp",
+                "Network",
+                "disasm",
+                "mhook",
+                "ws2_32",
+                "winmm",
+            }
+			
+		project "Game.Module"
+            targetname "Game.Module"
+			kind "SharedLib"
+			language "C++"
+			targetdir "bin"
+			
+			includedirs 
+            { 
+				"$(DXSDK_DIR)/Include/",
+                "../code/gamemodule/include/", 
+            }
+			
+			files 
+            { 
+                "../code/gamemodule/include/**.h", 
+                "../code/gamemodule/src/**.cpp",
+				"../code/gamemodule/src/**.def",
+            }
+			
+            libdirs 
+            {
+				"$(DXSDK_DIR)/Lib/x86",
+                "lib"
+            }
+            
+            links 
+            { 
+                "boost_filesystem",
+				"boost_system",
+				"boost_thread",
+				"boost_chrono",
+				"cryptopp",
+				"Network",
+				"disasm",
+				"mhook",
+				"ws2_32",
+				"winmm",
+				"d3d9",
+                "d3dx9"
+            }
 		
 		project "Version.Hook"
             targetname "Version"
 			kind "SharedLib"
 			language "C++"
 			targetdir "bin"
+			
+			includedirs 
+            { 
+                "../code/version/include/"
+            }
+			
 			files 
             { 
-                "../code/version/src/**.cpp"
+                "../code/version/include/**.h",
+				"../code/version/src/**.cpp",
             }
                 
  	group "Common"

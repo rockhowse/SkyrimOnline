@@ -11,8 +11,7 @@
 namespace Skyrim
 {
 	//--------------------------------------------------------------------------------
-	Character::Character(Actor* pActor)
-		:m_pActor(pActor)
+	Character::Character(Actor* pActor) : m_pActor(pActor)
 	{
 		m_FaceMorph.reserve(19);
 		m_WornForms.reserve(14);
@@ -122,9 +121,9 @@ namespace Skyrim
 	void Character::EquipItems(std::vector<uint32_t> wornForms)
 	{
 		::Actor::UnequipAll((CActor*)m_pActor);
-		for( auto itor = wornForms.begin(); itor != wornForms.end(); ++itor )
+		for (auto itor = wornForms.begin(); itor != wornForms.end(); ++itor)
 		{
-			if( *itor != 0 )
+			if (*itor != 0)
 			{
 				//f << std::hex << mActor << " " << ::Game::GetFormById(*itor) << std::endl;
 				//f << "AddItem" << ::ObjectReference::AddItem(rtti_cast(mActor, Actor, TESObjectREFR), ::Game::GetFormById(*itor), 1, true) << std::endl;
@@ -135,16 +134,16 @@ namespace Skyrim
 	//--------------------------------------------------------------------------------
 	TESForm* Character::GetWornForm(uint32_t mask)
 	{
-		return (TESForm*)Skyrim::GetWornForm(m_pActor,mask);
+		return (TESForm*)Skyrim::GetWornForm(m_pActor, mask);
 	}
 	//--------------------------------------------------------------------------------
 	const std::vector<uint32_t>& Character::GetAllWornForms()
 	{
 		m_WornForms.clear();
-		for(uint32_t i=0; i <= 13; i++)
+		for (uint32_t i = 0; i <= 13; i++)
 		{
 			TESForm* pForm = this->GetWornForm(1 << i);
-			if( pForm != nullptr )
+			if (pForm != nullptr)
 			{
 				m_WornForms.push_back(pForm->formID);
 			}
@@ -161,7 +160,7 @@ namespace Skyrim
 		try{
 			return (BGSLocation*)ObjectReference::GetCurrentLocation((::TESObjectREFR*)rtti_cast(m_pActor, Actor, TESObjectREFR));
 		}
-		catch(...)
+		catch (...)
 		{
 		}
 
@@ -171,16 +170,18 @@ namespace Skyrim
 	std::string Character::GetLocationString()
 	{
 		Skyrim::BGSLocation* location = (Skyrim::BGSLocation*)GetLocation();
-		if(location != nullptr)
+		if (location != nullptr)
 			return Skyrim::BGSLocationHelper(location).GetName();
+
 		return "";
 	}
 	//--------------------------------------------------------------------------------
 	uint32_t Character::GetLocationId()
 	{
 		Skyrim::BGSLocation* location = (Skyrim::BGSLocation*)GetLocation();
-		if(location != nullptr)
+		if (location != nullptr)
 			return location->formID;
+
 		return 0;
 	}
 	//--------------------------------------------------------------------------------
@@ -204,10 +205,9 @@ namespace Skyrim
 		if (IsRidding())
 		{
 			Actor * lMount = (Actor*)Game::GetPlayersLastRiddenHorse();
-			if(lMount)
-			{
+
+			if (lMount)
 				return lMount->baseForm->formID;
-			}
 		}
 
 		return 0;
