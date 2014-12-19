@@ -7,6 +7,7 @@ typedef HWND(WINAPI *GetActiveWindow_t)(void);
 GetActiveWindow_t GetActiveWindow_r;
 WNDPROC WindowProc_r = NULL;
 HWND hwnd = NULL, previous = NULL;
+
 bool active = false, isHooked = false;
 
 HINSTANCE g_user32 = 0;

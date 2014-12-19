@@ -1,7 +1,7 @@
 #include <stdafx.h>
 
 #include <DInput\Input.hpp>
-#include "WinAPI.hpp"
+#include <WinAPI.hpp>
 
 #pragma unmanaged
 

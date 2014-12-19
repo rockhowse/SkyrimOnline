@@ -62,5 +62,6 @@ BOOL APIENTRY DllMain(HMODULE hModule, DWORD fdwReason, LPVOID lpReserved)
 			break;
 		}
 	}
+
 	return TRUE;
-	}
+}

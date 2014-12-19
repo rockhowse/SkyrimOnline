@@ -182,6 +182,7 @@ solution "Skyrim Online"
                 "mhook",
                 "ws2_32",
                 "winmm",
+				"Game.Module"
             }
 			project "OblivionOnline"
             targetname "OblivionOnline"
@@ -231,7 +232,8 @@ solution "Skyrim Online"
 			includedirs 
             { 
 				"$(DXSDK_DIR)/Include/",
-                "../code/gamemodule/include/", 
+                "../code/gamemodule/include/",
+				"../include/MyGUI"			
             }
 			
 			files 
@@ -260,7 +262,9 @@ solution "Skyrim Online"
 				"ws2_32",
 				"winmm",
 				"d3d9",
-                "d3dx9"
+                "d3dx9",
+				"MyGUI.DirectXPlatform.lib",
+				"MyGUIEngine.lib"
             }
 		
 		project "Version.Hook"
