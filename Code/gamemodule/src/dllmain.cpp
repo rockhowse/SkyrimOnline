@@ -5,7 +5,7 @@
 
 // ILOVEPIE did GetSkyrimSearchString & GetOblivionSearchString.
 
-void GetSkyrimSearchString(std::string & search_string)
+void GetSkyrimSearchString(std::string &search_string)
 {
 	char output[256];
 
@@ -13,7 +13,7 @@ void GetSkyrimSearchString(std::string & search_string)
 
 	search_string = std::string(&output[0]);
 }
-void GetOblivionSearchString(std::string & search_string)
+void GetOblivionSearchString(std::string &search_string)
 {
 	char output[256];
 

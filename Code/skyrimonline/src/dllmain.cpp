@@ -16,7 +16,6 @@ HANDLE WINAPI FakeCreateThread(LPSECURITY_ATTRIBUTES lpThreadAttributes, SIZE_T 
 	{
 		ScriptDragonIsLoaded = true;
 		DragonPluginInit(gl_hThisInstance);
-		//MessageBox(NULL, "Script loaded", "mHook", MB_ICONWARNING);
 	}
 
 	return oCreateThread(lpThreadAttributes, dwStackSize, lpStartAddress, lpParameter, dwCreationFlags, lpThreadId);
@@ -28,29 +27,24 @@ BOOL APIENTRY DllMain(HMODULE hModule, DWORD fdwReason, LPVOID lpReserved)
 {
 	switch (fdwReason)
 	{
-	case DLL_PROCESS_ATTACH:
-		{
-			std::string strL;
+		case DLL_PROCESS_ATTACH:
+			{
+				DisableThreadLibraryCalls(hModule);
 
-			strL.resize(MAX_PATH);
-			GetModuleFileName(NULL, &strL[0], MAX_PATH);
+				gl_hThisInstance = hModule;
 
-			DisableThreadLibraryCalls(hModule);
-
-			gl_hThisInstance = hModule;
-
-			HINSTANCE kernel = GetModuleHandle("kernel32.dll");
-			oCreateThread = (tCreateThread)GetProcAddress(kernel, "CreateThread");
-			Mhook_SetHook((PVOID*)&oCreateThread, FakeCreateThread);
+				HINSTANCE kernel = GetModuleHandle("kernel32.dll");
+				oCreateThread = (tCreateThread)GetProcAddress(kernel, "CreateThread");
+				Mhook_SetHook((PVOID*)&oCreateThread, FakeCreateThread);
 			
-			break;
-		}
-	case DLL_PROCESS_DETACH:
-		{
-			Mhook_Unhook((PVOID*)&FakeCreateThread); // Unhook fake thread which we created.
+				break;
+			}
+		case DLL_PROCESS_DETACH:
+			{
+				Mhook_Unhook((PVOID*)&FakeCreateThread); // Unhook fake thread which we created.
 
-			break;
-		}
+				break;
+			}
 	}
 	return TRUE;
 }

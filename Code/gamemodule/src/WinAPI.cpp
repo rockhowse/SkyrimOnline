@@ -29,7 +29,6 @@ HWND WINAPI GetActiveWindow_c(void)
 
 	if (previous != GetActiveWindow_r() && hwnd == GetActiveWindow_r())
 	{
-		//SetForegroundWindow(first);
 		SetCapture(hwnd);
 		ShowCursor(FALSE);
 	}
