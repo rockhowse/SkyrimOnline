@@ -4,10 +4,10 @@
 #include "plugin.h"
 #include "skyscript.h"
 
-World* g_pWorld = nullptr;
-
 typedef void(*tInitializeGame)(void);
 tInitializeGame InitializeGame;
+
+World* g_pWorld = nullptr;
 
 extern "C" __declspec(dllexport) void main()
 {
@@ -21,6 +21,7 @@ extern "C" __declspec(dllexport) void main()
 		GameModule = LoadLibraryA("Game.Module.dll");
 
 	InitializeGame = (tInitializeGame)GetProcAddress(GameModule, "InitializeGame");
+	InitializeGame();
 
 	while (true)
 	{

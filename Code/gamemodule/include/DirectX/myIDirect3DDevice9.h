@@ -1,5 +1,7 @@
 #pragma once
 
+#include <Engine\Hook\Function.hpp>
+
 class myIDirect3DDevice9 : public IDirect3DDevice9
 {
 public:
@@ -128,9 +130,23 @@ public:
     HRESULT __stdcall CreateQuery(D3DQUERYTYPE Type,IDirect3DQuery9** ppQuery);
     // END: The original DX9 function definitions
 
+	HINSTANCE GetHinstance();
+	HWND GetWindow();
+	RECT GetSize();
+
+	Signal<void(IDirect3DDevice9*)> OnPresent;
+	Signal<void(IDirect3DDevice9*)> OnReset;
+
+	bool IsNullRenderer();
+	void SetNullRenderer(bool pNullRenderer);
+
+	IDirect3DDevice9 * GetDevice();
+
 private:
     IDirect3DDevice9 *m_pIDirect3DDevice9;
     
+	bool mNullRenderer;
+
 	// This is our test function
 	void ShowWeAreHere(void);
 };

@@ -1,5 +1,6 @@
 #include <stdafx.h>
 #include <dllmain.h>
+
 #include <DirectX\DirectXHook.h>
 #include <WinAPI.hpp>
 
@@ -43,9 +44,15 @@ BOOL APIENTRY DllMain(HMODULE hModule, DWORD fdwReason, LPVOID lpReserved)
 				InitInstance(hModule);
 
 				if (ModuleFileName.find(findSkyrimString) != std::string::npos)
+				{
+					GameType = 1; // Set the game to Skyrim.
 					LoadLibraryA("SkyrimOnline.dll");
+				}
 				else
+				{
+					GameType = 2; // Set the game to Oblivion.
 					LoadLibraryA("OblivionOnline.dll");
+				}
 
 				HookDInput();
 				HookWinAPI();

@@ -23,6 +23,16 @@
 #include <iostream>
 #include <string>
 
+#include <list>
+#include <vector>
+#include <ctime>
+#include <deque>
+#include <unordered_map>
+#include <cstdint>
+#include <array>
+#include <sstream>
+#include <functional>
+
 #include <DInput\Input.hpp>
 #include <Directx\myIDirect3D9.h>
 #include <Directx\myIDirect3DDevice9.h>

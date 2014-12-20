@@ -1,6 +1,11 @@
 #pragma once
 
-namespace Game
+#include <stdafx.h>
+
+#include <MyGUI.h>
+#include <MyGUI_DirectXPlatform.h>
+
+namespace GameModule
 {
 	namespace Overlay
 	{
@@ -8,12 +13,22 @@ namespace Game
 		{
 			public:
 
-			Chat();
+			Chat(MyGUI::Gui* pUI);
 
 			~Chat();
 
+			void setTypingMode(bool AllowTyping);
+
 			private:
 
+			MyGUI::Gui* myGUI;
+			MyGUI::ListPtr myList;
+			MyGUI::EditPtr myEdit;
+
+			HANDLE mMutex;
+
 		};
+
+		extern Chat* TheChat;
 	}
 }

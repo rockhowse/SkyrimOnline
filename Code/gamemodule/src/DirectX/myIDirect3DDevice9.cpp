@@ -121,7 +121,10 @@ UINT    myIDirect3DDevice9::GetNumberOfSwapChains(void)
 
 HRESULT myIDirect3DDevice9::Reset(D3DPRESENT_PARAMETERS* pPresentationParameters)
 {
-	return(m_pIDirect3DDevice9->Reset(pPresentationParameters));
+	HRESULT res = (m_pIDirect3DDevice9->Reset(pPresentationParameters));
+	OnReset(this);
+
+	return res;
 }
 
 HRESULT myIDirect3DDevice9::Present(CONST RECT* pSourceRect, CONST RECT* pDestRect, HWND hDestWindowOverride, CONST RGNDATA* pDirtyRegion)
@@ -129,6 +132,8 @@ HRESULT myIDirect3DDevice9::Present(CONST RECT* pSourceRect, CONST RECT* pDestRe
 	// we may want to draw own things here before flipping surfaces
 	// ... draw own stuff ...
 	//this->ShowWeAreHere();
+
+	OnPresent(this);
 
 	// call original routine
 	HRESULT hres = m_pIDirect3DDevice9->Present(pSourceRect, pDestRect, hDestWindowOverride, pDirtyRegion);
@@ -639,6 +644,41 @@ HRESULT myIDirect3DDevice9::DeletePatch(UINT Handle)
 HRESULT myIDirect3DDevice9::CreateQuery(D3DQUERYTYPE Type, IDirect3DQuery9** ppQuery)
 {
 	return(m_pIDirect3DDevice9->CreateQuery(Type, ppQuery));
+}
+
+HWND myIDirect3DDevice9::GetWindow()
+{
+	D3DDEVICE_CREATION_PARAMETERS cparams;
+	this->GetCreationParameters(&cparams);
+	return cparams.hFocusWindow;
+}
+
+HINSTANCE myIDirect3DDevice9::GetHinstance()
+{
+	return (HINSTANCE)GetWindowLong(GetWindow(), GWL_HINSTANCE);
+}
+
+IDirect3DDevice9 * myIDirect3DDevice9::GetDevice()
+{
+	return m_pIDirect3DDevice9;
+}
+
+RECT myIDirect3DDevice9::GetSize()
+{
+	RECT rect;
+	GetWindowRect(GetWindow(), &rect);
+
+	return rect;
+}
+
+bool myIDirect3DDevice9::IsNullRenderer()
+{
+	return mNullRenderer;
+}
+
+void myIDirect3DDevice9::SetNullRenderer(bool pNullRenderer)
+{
+	mNullRenderer = pNullRenderer;
 }
 
 // This is our test function

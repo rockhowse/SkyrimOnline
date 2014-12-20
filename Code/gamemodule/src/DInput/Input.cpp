@@ -230,8 +230,9 @@ private:
 	uint8_t mBuffer[256];
 };
 
-class myDirectInput : public IDirectInput8A {
-public:
+class myDirectInput : public IDirectInput8A
+{
+	public:
 
 	myDirectInput(IDirectInput8A * obj) : mRealInput(obj)
 	{
@@ -284,7 +285,7 @@ public:
 	HRESULT _stdcall EnumDevicesBySemantics(LPCSTR a, LPDIACTIONFORMATA b, LPDIENUMDEVICESBYSEMANTICSCBA c, void* d, DWORD e) { return mRealInput->EnumDevicesBySemantics(a, b, c, d, e); }
 	HRESULT _stdcall ConfigureDevices(LPDICONFIGUREDEVICESCALLBACK a, LPDICONFIGUREDEVICESPARAMSA b, DWORD c, void* d) { return mRealInput->ConfigureDevices(a, b, c, d); }
 
-private:
+	private:
 	IDirectInput8A	* mRealInput;
 	ULONG mReferences;
 };

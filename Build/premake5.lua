@@ -182,8 +182,8 @@ solution "Skyrim Online"
                 "mhook",
                 "ws2_32",
                 "winmm",
-				"Game.Module"
             }
+
 			project "OblivionOnline"
             targetname "OblivionOnline"
 			kind "SharedLib"

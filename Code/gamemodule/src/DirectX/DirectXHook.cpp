@@ -3,9 +3,9 @@
 // global variables
 #pragma data_seg (".d3d9_shared")
 myIDirect3DDevice9* gl_pmyIDirect3DDevice9;
-myIDirect3D9*       gl_pmyIDirect3D9;
-HINSTANCE           gl_hOriginalDll;
-HINSTANCE           gl_hThisInstance;
+myIDirect3D9* gl_pmyIDirect3D9;
+HINSTANCE gl_hOriginalDll;
+HINSTANCE gl_hThisInstance;
 #pragma data_seg ()
 
 void LoadOriginalDll(void)
