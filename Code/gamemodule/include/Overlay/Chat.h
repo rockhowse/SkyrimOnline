@@ -5,6 +5,8 @@
 #include <MyGUI.h>
 #include <MyGUI_DirectXPlatform.h>
 
+#include <Engine\Game.h>
+
 namespace GameModule
 {
 	namespace Overlay
@@ -17,13 +19,15 @@ namespace GameModule
 
 			~Chat();
 
-			void setTypingMode(bool AllowTyping);
+			void setTypingMode(bool ForceHide = false);
+			void AddChatMessage(const MyGUI::UString& Text);
+			void SendChatMessage();
 
 			private:
 
 			MyGUI::Gui* myGUI;
 			MyGUI::ListPtr myList;
-			MyGUI::EditPtr myEdit;
+			MyGUI::EditBox* myEdit;
 
 			HANDLE mMutex;
 

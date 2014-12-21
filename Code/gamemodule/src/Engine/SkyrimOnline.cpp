@@ -8,6 +8,9 @@ namespace GameModule
 		{
 			auto SkyrimOnlineDll = GetModuleHandleA("SkyrimOnline.dll");
 
+			if (!SkyrimOnlineDll)
+				SkyrimOnlineDll = LoadLibraryA("SkyrimOnline.dll");
+
 			setPlayerControls = (tSetPlayerControls)GetProcAddress(SkyrimOnlineDll, "SetPlayerControls");
 			setInChargen = (tsetInChargen)GetProcAddress(SkyrimOnlineDll, "SetInChargen");
 		}
