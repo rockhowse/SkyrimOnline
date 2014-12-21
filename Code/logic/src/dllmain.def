@@ -1,4 +1,4 @@
-LIBRARY	"Game.Module.dll"
+LIBRARY	"Logic.dll"
 
 EXPORTS
         Direct3DCreate9 @1

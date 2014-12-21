@@ -5,6 +5,8 @@ namespace Logic
 { 
 	namespace Engine
 	{
+		Interfaces::IController* TheController;
+
 		void InitializeGame()
 		{
 			EnetServer::Initialize();
