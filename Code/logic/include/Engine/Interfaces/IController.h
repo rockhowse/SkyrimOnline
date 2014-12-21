@@ -34,6 +34,6 @@ namespace Logic
 			};
 		}
 
-		static Interfaces::IController* TheController;
+		extern Interfaces::IController* TheController;
 	}
 }

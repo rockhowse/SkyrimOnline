@@ -74,7 +74,7 @@ namespace Logic
 			if (this->directXPlatform && this->myGUI)
 				this->myGUI->setVisiblePointer(Visible);
 		}
-		std::ofstream as("tcode.txt");
+
 		void GUI::InjectKey(unsigned char Key, bool isPressed)
 		{
 			if (this->directXPlatform == nullptr || this->myGUI == nullptr)
