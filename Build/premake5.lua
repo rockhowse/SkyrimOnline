@@ -38,7 +38,6 @@ solution "Skyrim Online"
         "../code/boost/thread/",
         "../code/boost/filesystem/",
         "../code/boost/system/",
-        "../code/cryptopp/include/",
         "../code/log",
         "../code/network/include",
 	}
@@ -103,14 +102,13 @@ solution "Skyrim Online"
                 "boost_system", 
                 "boost_thread", 
                 "boost_chrono",
-                "cryptopp",
                 "Network",
                 "ws2_32",
                 "winmm"
             }
               
 	group "Client"
-		project "D3D9.hook"
+		project "d3d9hook"
             targetname "d3d9"
 			kind "SharedLib"
 			language "C++"
@@ -142,26 +140,28 @@ solution "Skyrim Online"
                 "d3dx9"
             }
 			
-		project "SkyrimOnline"
-            targetname "SkyrimOnline"
+		project "SkyrimEngine"
+            targetname "SkyrimEngine"
 			kind "SharedLib"
 			language "C++"
 			targetdir "bin"
 			
+            defines
+            {
+                "SKYRIM_EXPORTS"
+            }
+            
 			includedirs 
             { 
 				"$(DXSDK_DIR)/Include/",
-                "../code/skyrimonline/include/", 
-                "../code/messages/client/",
+                "../code/skyrimengine/include/skyrim", 
             }
 			
 			files 
             { 
-				"../code/messages/client/**.cpp",
-                "../code/messages/client/**.h",
-                "../code/skyrimonline/include/**.h", 
-                "../code/skyrimonline/src/**.cpp",
-				"../code/skyrimonline/src/**.def"
+                "../code/skyrimengine/include/**.h", 
+                "../code/skyrimengine/src/**.cpp",
+				"../code/skyrimengine/src/**.def"
             }
 			
             libdirs 
@@ -176,7 +176,6 @@ solution "Skyrim Online"
                 "boost_system", 
                 "boost_thread", 
                 "boost_chrono",
-                "cryptopp",
                 "Network",
                 "disasm",
                 "mhook",
@@ -184,23 +183,42 @@ solution "Skyrim Online"
                 "winmm",
             }
 
-			project "OblivionOnline"
-            targetname "OblivionOnline"
+		project "OblivionEngine"
+            targetname "OblivionEngine"
 			kind "SharedLib"
 			language "C++"
 			targetdir "bin"
 			
+            defines
+            {
+                "OBSE_EXPORTS",
+                "OBLIVION=1",
+                "OBLIVION_VERSION=0x010201A0",
+                "OBSE_CORE",
+            }
+            
 			includedirs 
             { 
 				"$(DXSDK_DIR)/Include/",
-                "../code/obliviononline/include/", 
+                "../code/oblivionengine/include/oblivion", 
+                "../code/oblivionengine/obse", 
+                "../code/oblivionengine/obse_common", 
+                "../code/oblivionengine/common",
+                "../code/oblivionengine/"
             }
 			
 			files 
             { 
-                "../code/obliviononline/include/**.h", 
-                "../code/obliviononline/src/**.cpp",
-				"../code/obliviononline/src/**.def"
+                "../code/oblivionengine/include/**.h", 
+                "../code/oblivionengine/src/**.cpp",
+                "../code/oblivionengine/src/**.def",
+                "../code/oblivionengine/obse/**.cpp",
+                "../code/oblivionengine/obse_common/**.cpp",
+                "../code/oblivionengine/common/**.cpp",
+                "../code/oblivionengine/obse/**.h",
+                "../code/oblivionengine/obse_common/**.h",
+                "../code/oblivionengine/common/**.h",
+				"../code/oblivionengine/src/**.def"
             }
 			
             libdirs 
@@ -215,16 +233,21 @@ solution "Skyrim Online"
                 "boost_system", 
                 "boost_thread", 
                 "boost_chrono",
-                "cryptopp",
                 "Network",
                 "disasm",
                 "mhook",
                 "ws2_32",
                 "winmm",
             }
+            
+            forceincludes
+            {
+                "IPrefix.h",
+                "obse_common/obse_prefix.h"
+            }
 			
-		project "Game.Module"
-            targetname "Game.Module"
+		project "Logic"
+            targetname "Logic"
 			kind "SharedLib"
 			language "C++"
 			targetdir "bin"
@@ -232,15 +255,20 @@ solution "Skyrim Online"
 			includedirs 
             { 
 				"$(DXSDK_DIR)/Include/",
-                "../code/gamemodule/include/",
-				"../include/MyGUI"			
+                "../code/logic/include/",
+				"../include/MyGUI",
+                "../code/oblivionengine/include/", 
+                "../code/skyrimengine/include/", 
+                "../code/messages/client/"
             }
 			
 			files 
             { 
-                "../code/gamemodule/include/**.h", 
-                "../code/gamemodule/src/**.cpp",
-				"../code/gamemodule/src/**.def",
+                "../code/logic/include/**.h", 
+                "../code/logic/src/**.cpp",
+				"../code/logic/src/**.def",
+                "../code/messages/client/**.cpp",
+                "../code/messages/client/**.h",
             }
 			
             libdirs 
@@ -261,14 +289,16 @@ solution "Skyrim Online"
 				"mhook",
 				"ws2_32",
 				"winmm",
-				"d3d9",
-                "d3dx9",
+				"d3d9.lib",
+                "d3dx9.lib",
 				"MyGUI.DirectXPlatform.lib",
-				"MyGUIEngine.lib"
+				"MyGUIEngine.lib",
+                "OblivionEngine",
+                "SkyrimEngine"
             }
 		
-		project "Version.Hook"
-            targetname "Version"
+		project "version"
+            targetname "version"
 			kind "SharedLib"
 			language "C++"
 			targetdir "bin"
@@ -364,6 +394,3 @@ solution "Skyrim Online"
 				files { "../code/thread/*.cpp", "../code/thread/pthread/*.cpp", "../code/thread/*.hpp" }
 			configuration {"gmake"}
 				files { "../code/thread/*.cpp", "../code/thread/pthread/*.cpp", "../code/thread/*.hpp" }
-
-dofile "cryptopp.lua"
-

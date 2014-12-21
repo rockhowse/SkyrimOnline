@@ -45,6 +45,28 @@ namespace Messages
         uint16_t version;
     };
     
+    class GameCli_ChatRecv : public Packet
+    {
+    public:
+        GameCli_ChatRecv() {}
+        ~GameCli_ChatRecv() {}
+    
+        void Deserialize(ReadBuffer* pBuffer)
+        {
+            pBuffer->Read_uint16(senderId);
+            pBuffer->Read_string(message);
+        }
+        void Serialize(WriteBuffer* pBuffer)
+        {
+            pBuffer->Write_uint16(GameCli_Chat_Opcode);
+            pBuffer->Write_uint16(senderId);
+            pBuffer->Write_string(message);
+        }
+    
+        uint16_t senderId;
+        std::string message;
+    };
+    
     class CliGame_HelloSend : public Packet
     {
     public:
@@ -62,6 +84,25 @@ namespace Messages
         }
     
         std::string name;
+    };
+    
+    class CliGame_ChatSend : public Packet
+    {
+    public:
+        CliGame_ChatSend() {}
+        ~CliGame_ChatSend() {}
+    
+        void Deserialize(ReadBuffer* pBuffer)
+        {
+            pBuffer->Read_string(message);
+        }
+        void Serialize(WriteBuffer* pBuffer)
+        {
+            pBuffer->Write_uint16(CliGame_Chat_Opcode);
+            pBuffer->Write_string(message);
+        }
+    
+        std::string message;
     };
     
 }

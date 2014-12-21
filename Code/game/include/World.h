@@ -14,7 +14,7 @@ struct Point2D
 	}
 };
 
-namespace std 
+namespace std
 {
 	template <> struct hash < Point2D >
 	{

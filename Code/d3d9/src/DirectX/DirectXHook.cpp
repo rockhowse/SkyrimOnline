@@ -1,15 +1,15 @@
 #include <stdafx.h>
 
-HINSTANCE gl_hGameHook;
+HINSTANCE g_gameHook;
 
 void LoadOriginalDll(void)
 {
 	// Try to load the SkyrimOnline Plugin, if pointer empty
-	if (!gl_hGameHook)
-		gl_hGameHook = ::LoadLibrary("Game.Module.dll");
+	if (!g_gameHook)
+		g_gameHook = ::LoadLibrary("Logic.dll");
 
 	// Debug
-	if (!gl_hGameHook)
+	if (!g_gameHook)
 	{
 		OutputDebugString("PROXYDLL: Original d3d9.dll not loaded ERROR ****\r\n");
 		::ExitProcess(0); // exit the hard way
@@ -18,11 +18,11 @@ void LoadOriginalDll(void)
 
 void WINAPI D3DPERF_SetOptions(DWORD dwOptions)
 {
-	if (!gl_hGameHook)
+	if (!g_gameHook)
 		LoadOriginalDll(); // Looking for the "SkyrimOnline Plugin"
 
 	typedef void (WINAPI* D3D9_Type)(DWORD dwOptions);
-	D3D9_Type D3DPERF_SetOptions_fn = (D3D9_Type)GetProcAddress(gl_hGameHook, "D3DPERF_SetOptions");
+	D3D9_Type D3DPERF_SetOptions_fn = (D3D9_Type)GetProcAddress(g_gameHook, "D3DPERF_SetOptions");
 
 	// Debug
 	if (!D3DPERF_SetOptions_fn)
@@ -34,11 +34,11 @@ void WINAPI D3DPERF_SetOptions(DWORD dwOptions)
 // Exported function (faking d3d9.dll's one-and-only export)
 IDirect3D9* WINAPI Direct3DCreate9(UINT SDKVersion)
 {
-	if (!gl_hGameHook)
+	if (!g_gameHook)
 		LoadOriginalDll(); // Looking for the "SkyrimOnline Plugin"
 
 	typedef IDirect3D9 *(WINAPI* D3D9_Type)(UINT SDKVersion);
-	D3D9_Type D3DCreate9_fn = (D3D9_Type)GetProcAddress(gl_hGameHook, "Direct3DCreate9");
+	D3D9_Type D3DCreate9_fn = (D3D9_Type)GetProcAddress(g_gameHook, "Direct3DCreate9");
 
 	// Debug
 	if (!D3DCreate9_fn)
@@ -57,9 +57,9 @@ void ExitInstance(void)
 	OutputDebugString("PROXYDLL: ExitInstance called.\r\n");
 
 	// Release the SkyrimOnline Plugin
-	if (gl_hGameHook)
+	if (g_gameHook)
 	{
-		::FreeLibrary(gl_hGameHook);
-		gl_hGameHook = NULL;
+		::FreeLibrary(g_gameHook);
+		g_gameHook = NULL;
 	}
 }

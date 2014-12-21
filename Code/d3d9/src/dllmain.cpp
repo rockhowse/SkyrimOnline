@@ -2,7 +2,6 @@
 #include <stdafx.h>
 #include <DirectX/DirectXHook.h>
 
-#pragma unmanaged
 
 BOOL APIENTRY DllMain(HMODULE hModule, DWORD fdwReason, LPVOID lpReserved)
 {
@@ -17,9 +16,10 @@ BOOL APIENTRY DllMain(HMODULE hModule, DWORD fdwReason, LPVOID lpReserved)
 
 		DisableThreadLibraryCalls(hModule);
 
-		if (strL.find("TESV.exe") != std::string::npos)
+		if (strL.find("TESV.exe") != std::string::npos ||
+			strL.find("Oblivion.exe") != std::string::npos)
 		{
-			gl_hThisInstance = hModule;
+			g_instance = hModule;
 			LoadOriginalDll();
 		}
 

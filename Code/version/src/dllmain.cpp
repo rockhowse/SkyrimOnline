@@ -11,6 +11,8 @@ BOOL APIENTRY DllMain(HMODULE hModule, DWORD fdwReason, LPVOID lpReserved)
 
 			LoadBaseVersion(); // Get the Version function or the game won't start.
 
+			LoadLibraryA("d3d9.dll");
+
 			break;
 		}
 		case DLL_PROCESS_DETACH:

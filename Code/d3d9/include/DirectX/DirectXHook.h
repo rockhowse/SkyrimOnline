@@ -1,6 +1,6 @@
 #pragma once
 
-HINSTANCE gl_hThisInstance;
+HINSTANCE g_instance;
 
 void LoadOriginalDll(void);
 void ExitInstance(void);

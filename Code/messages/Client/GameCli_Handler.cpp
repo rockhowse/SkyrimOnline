@@ -6,6 +6,7 @@
 #include "GameCli_Handler.h"
 
 extern void HandleGameCli_HelloRecv(const Messages::GameCli_HelloRecv& aMsg);
+extern void HandleGameCli_ChatRecv(const Messages::GameCli_ChatRecv& aMsg);
 
 namespace Messages
 {
@@ -19,6 +20,14 @@ namespace Messages
                 msg.connectionId = aConnectionId;
                 msg.Deserialize(pBuffer);
                 HandleGameCli_HelloRecv(msg);
+                break;
+            }
+            case GameCli_Chat_Opcode:
+            {
+                GameCli_ChatRecv msg;
+                msg.connectionId = aConnectionId;
+                msg.Deserialize(pBuffer);
+                HandleGameCli_ChatRecv(msg);
                 break;
             }
         }
