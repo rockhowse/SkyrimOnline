@@ -1,7 +1,5 @@
 #include "Game.h"
 
-#pragma managed
-
 namespace Skyrim
 {
 	void Skyrim::SetPlayerControls(bool Enable)

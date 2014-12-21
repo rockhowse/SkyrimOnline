@@ -7,6 +7,8 @@
 #include <Engine\SkyrimOnline.h>
 #include <Engine\OblivionOnline.h>
 
+#include <Engine\Input.h>
+
 #include <Overlay\GUI.h>
 #include <Overlay\Chat.h>
 
@@ -20,6 +22,6 @@ namespace GameModule
 	{
 		extern "C" __declspec(dllexport) void InitializeGame();
 
-		GameModule::Engine::Interfaces::IController* iController;
+		extern GameModule::Engine::Interfaces::IController* iController;
 	}
 }

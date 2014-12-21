@@ -26,11 +26,16 @@ namespace GameModule
 
 			void setCursor(bool Visible);
 
+			void InjectKey(unsigned char key, bool isPressed);
+			void InjectMouse(unsigned char Key, bool isPressed);
+			void MouseMove(unsigned int PositionX, unsigned int PositionY, unsigned int PositionZ);
+
 			private:
 
 			MyGUI::DirectXPlatform* directXPlatform;
 			MyGUI::Gui* myGUI;
 
+			int PositionX, PositionY;
 		};
 
 		extern GUI* TheGUI;

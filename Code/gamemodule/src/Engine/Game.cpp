@@ -4,12 +4,15 @@ namespace GameModule
 { 
 	namespace Engine
 	{
+		GameModule::Engine::Interfaces::IController* iController;
+
 		void Engine::InitializeGame()
 		{
 			IDirect3D9* pDevice;
 			gl_pmyIDirect3DDevice9->GetDirect3D(&pDevice);
 
-			TheIInputHook->SetListener(TheIInputHook->GetListener());
+			GameModule::Engine::Input::TheInputListener = new GameModule::Engine::Input::UnmanagedInputListener;
+			TheIInputHook->SetListener(GameModule::Engine::Input::TheInputListener); // Set listener.
 
 			GameModule::Overlay::TheGUI = new GameModule::Overlay::GUI(); // Initialize the GUI.
 
