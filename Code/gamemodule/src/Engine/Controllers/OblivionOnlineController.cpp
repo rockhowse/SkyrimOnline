@@ -8,14 +8,19 @@ namespace GameModule
 {
 	namespace Engine
 	{
-		void OblivionOnlineController::EnableInput()
+		namespace Controllers
 		{
-			oblivionOnline->SetPlayerControls();
-		}
+			OblivionOnline* oblivionOnline = new OblivionOnline();
 
-		void OblivionOnlineController::DisableInput()
-		{
-			oblivionOnline->SetPlayerControls();
+			void OblivionOnlineController::EnableInput()
+			{
+				oblivionOnline->SetPlayerControls();
+			}
+
+			void OblivionOnlineController::DisableInput()
+			{
+				oblivionOnline->SetPlayerControls();
+			}
 		}
 	}
 }

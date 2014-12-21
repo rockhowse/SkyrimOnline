@@ -8,16 +8,21 @@ namespace GameModule
 {
 	namespace Engine
 	{
-		void SkyrimOnlineController::EnableInput()
+		namespace Controllers
 		{
-			skyrimOnline->SetPlayerControls(true);
-			skyrimOnline->SetInChargen(false, false, false);
-		}
+			SkyrimOnline* skyrimOnline = new SkyrimOnline();
 
-		void SkyrimOnlineController::DisableInput()
-		{
-			skyrimOnline->SetPlayerControls(false);
-			skyrimOnline->SetInChargen(true, true, false);
+			void SkyrimOnlineController::EnableInput()
+			{
+				skyrimOnline->SetPlayerControls(true);
+				skyrimOnline->SetInChargen(false, false, false);
+			}
+
+			void SkyrimOnlineController::DisableInput()
+			{
+				skyrimOnline->SetPlayerControls(false);
+				skyrimOnline->SetInChargen(true, true, false);
+			}
 		}
 	}
 }

@@ -2,7 +2,6 @@
 
 #include <stdafx.h>
 
-#include <Engine\Game.h>
 #include <MyGUI.h>
 #include <MyGUI_DirectXPlatform.h>
 

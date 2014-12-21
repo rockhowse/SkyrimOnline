@@ -17,10 +17,6 @@ namespace GameModule
 
 				virtual void EnableInput();
 				virtual void DisableInput();
-
-				private:
-
-				OblivionOnline* oblivionOnline = new OblivionOnline();
 			};
 		}
 	}

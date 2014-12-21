@@ -4,6 +4,8 @@
 #include <DirectX\DirectXHook.h>
 #include <WinAPI.hpp>
 
+int GameType = 0;
+
 // ILOVEPIE did GetSkyrimSearchString & GetOblivionSearchString.
 
 void GetSkyrimSearchString(std::string &search_string)

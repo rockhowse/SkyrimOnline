@@ -18,7 +18,7 @@ struct Function
 template <class Func>
 class Signal
 {
-public:
+	public:
 
 	template <class T>
 	void Add(T f)
@@ -26,16 +26,16 @@ public:
 		mFunctions.push_back(f);
 	}
 
-	template <class... Args> 
+	template <class... Args>
 	void operator()(Args... args)
 	{
-		for(auto itor : mFunctions)
+		for (auto itor : mFunctions)
 		{
 			itor(args...);
 		}
 	}
 
-private:
+	private:
 
 	std::vector<std::function<Func>> mFunctions;
 };

@@ -7,4 +7,4 @@
 	If GameType is 2 then we known the game is Oblivion. 
 */
 
-int GameType = 0;
+extern int GameType;
