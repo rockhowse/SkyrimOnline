@@ -110,26 +110,64 @@ solution "Skyrim Online"
             }
               
 	group "Client"
-		project "Module"
-            targetname "Version"
+		project "D3D9.hook"
+            targetname "d3d9"
 			kind "SharedLib"
 			language "C++"
 			targetdir "bin"
+			
 			includedirs 
             { 
-                "../code/module/include/", 
-                "../code/messages/client/", 
+				"$(DXSDK_DIR)/Include/",
+                "../code/d3d9/include/"
             }
+			
 			files 
             { 
-                "../code/module/include/**.h", 
-                "../code/module/src/**.cpp",
-                "../code/messages/client/**.cpp",
-                "../code/messages/client/**.h",
+                "../code/d3d9/include/**.h", 
+                "../code/d3d9/src/**.cpp",
+				"../code/d3d9/src/**.def"
             }
+			
+			libdirs 
+            {
+                "$(DXSDK_DIR)/Lib/x86"
+            }
+			
+            links 
+            { 
+                "ws2_32",
+                "winmm",
+                "d3d9",
+                "d3dx9"
+            }
+			
+		project "SkyrimOnline"
+            targetname "SkyrimOnline"
+			kind "SharedLib"
+			language "C++"
+			targetdir "bin"
+			
+			includedirs 
+            { 
+				"$(DXSDK_DIR)/Include/",
+                "../code/skyrimonline/include/", 
+                "../code/messages/client/",
+            }
+			
+			files 
+            { 
+				"../code/messages/client/**.cpp",
+                "../code/messages/client/**.h",
+                "../code/skyrimonline/include/**.h", 
+                "../code/skyrimonline/src/**.cpp",
+				"../code/skyrimonline/src/**.def"
+            }
+			
             libdirs 
             {
-                "../lib" 
+				"$(DXSDK_DIR)/Lib/x86",
+                "lib" 
             }
             
             links 
@@ -143,9 +181,108 @@ solution "Skyrim Online"
                 "disasm",
                 "mhook",
                 "ws2_32",
-                "winmm"
+                "winmm",
+            }
+
+			project "OblivionOnline"
+            targetname "OblivionOnline"
+			kind "SharedLib"
+			language "C++"
+			targetdir "bin"
+			
+			includedirs 
+            { 
+				"$(DXSDK_DIR)/Include/",
+                "../code/obliviononline/include/", 
+            }
+			
+			files 
+            { 
+                "../code/obliviononline/include/**.h", 
+                "../code/obliviononline/src/**.cpp",
+				"../code/obliviononline/src/**.def"
+            }
+			
+            libdirs 
+            {
+				"$(DXSDK_DIR)/Lib/x86",
+                "lib" 
             }
             
+            links 
+            { 
+                "boost_filesystem", 
+                "boost_system", 
+                "boost_thread", 
+                "boost_chrono",
+                "cryptopp",
+                "Network",
+                "disasm",
+                "mhook",
+                "ws2_32",
+                "winmm",
+            }
+			
+		project "Game.Module"
+            targetname "Game.Module"
+			kind "SharedLib"
+			language "C++"
+			targetdir "bin"
+			
+			includedirs 
+            { 
+				"$(DXSDK_DIR)/Include/",
+                "../code/gamemodule/include/",
+				"../include/MyGUI"			
+            }
+			
+			files 
+            { 
+                "../code/gamemodule/include/**.h", 
+                "../code/gamemodule/src/**.cpp",
+				"../code/gamemodule/src/**.def",
+            }
+			
+            libdirs 
+            {
+				"$(DXSDK_DIR)/Lib/x86",
+                "lib"
+            }
+            
+            links 
+            { 
+                "boost_filesystem",
+				"boost_system",
+				"boost_thread",
+				"boost_chrono",
+				"cryptopp",
+				"Network",
+				"disasm",
+				"mhook",
+				"ws2_32",
+				"winmm",
+				"d3d9",
+                "d3dx9",
+				"MyGUI.DirectXPlatform.lib",
+				"MyGUIEngine.lib"
+            }
+		
+		project "Version.Hook"
+            targetname "Version"
+			kind "SharedLib"
+			language "C++"
+			targetdir "bin"
+			
+			includedirs 
+            { 
+                "../code/version/include/"
+            }
+			
+			files 
+            { 
+                "../code/version/include/**.h",
+				"../code/version/src/**.cpp",
+            }
                 
  	group "Common"
 		project "Network"
