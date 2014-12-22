@@ -9,5 +9,5 @@ void HandleCliGame_ChatRecv(const Messages::CliGame_ChatRecv& aMsg)
 	pMessage->senderId = aMsg.connectionId;
 	pMessage->message = aMsg.message;
 
-	g_pServer->SendReliable(aMsg.connectionId, pMessage);
+	g_pServer->SendReliableAll(pMessage);
 }

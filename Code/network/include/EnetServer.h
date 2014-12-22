@@ -105,6 +105,24 @@ public:
 	*/
 	void Send(uint16_t aConnectionId, Packet* apMessage);
 
+	/**
+	* @brief Send a reliable packet to a connection.
+	*
+	* Force Send a reliable packet to a connection.
+	*
+	* @param apMessage The message to send.
+	*/
+	void SendReliableAll(Packet* apMessage);
+
+	/**
+	* @brief Send a packet to a connection.
+	*
+	* Send a packet to a connection.
+	*
+	* @param apMessage The message to send.
+	*/
+	void SendAll(Packet* apMessage);
+
 	TaskManager* GetLightTaskManager() { return &m_lightTaskManager; }
 	TaskManager* GetMediumTaskManager() { return &m_mediumTaskManager; }
 	TaskManager* GetHeavyTaskManager() { return &m_heavyTaskManager; }

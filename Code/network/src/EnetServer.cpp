@@ -153,3 +153,37 @@ void EnetServer::SendReliable(uint16_t aConnectionId, Packet* apMessage)
 		}
 	}
 }
+
+void EnetServer::SendAll(Packet* apMessage)
+{
+	std::string buffer = EnetServer::Serialize(apMessage);
+
+	delete apMessage;
+
+	if (m_pServer != nullptr)
+	{
+		return;
+	}
+	else
+	{
+		ENetPacket* pPacket = enet_packet_create(buffer.data(), buffer.size(), ENET_PACKET_FLAG_UNRELIABLE_FRAGMENT);
+		enet_host_broadcast(m_pHost, 0, pPacket);
+	}
+}
+
+void EnetServer::SendReliableAll(Packet* apMessage)
+{
+	std::string buffer = EnetServer::Serialize(apMessage);
+
+	delete apMessage;
+
+	if (m_pServer != nullptr)
+	{
+		return;
+	}
+	else
+	{
+		ENetPacket* pPacket = enet_packet_create(buffer.data(), buffer.size(), ENET_PACKET_FLAG_RELIABLE);
+		enet_host_broadcast(m_pHost, 0, pPacket);
+	}
+}
