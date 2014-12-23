@@ -44,9 +44,14 @@ namespace Logic
 				return &m_player;
 			}
 
-			void SkyrimController::SendChatMessage(const std::string& Message)
+			void SkyrimController::SendMessage(Packet* apPacket)
 			{
-				m_world.SendChatMessage(Message);
+				m_world.SendMessage(apPacket);
+			}
+
+			void SkyrimController::SendReliableMessage(Packet* apPacket)
+			{
+				m_world.SendReliableMessage(apPacket);
 			}
 		}
 	}

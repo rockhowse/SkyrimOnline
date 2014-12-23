@@ -56,12 +56,12 @@ Player* GameServer::GetPlayer(uint16_t aConnectionId) const
 	return m_players[aConnectionId];
 }
 
-void GameServer::SetPlayerName(uint16_t aConnectionId, std::string Name) const
+void GameServer::SetPlayerName(uint16_t aConnectionId, const std::string& Name)
 {
 	m_players[aConnectionId]->SetName(Name);
 }
 
-std::string GameServer::GetPlayerName(uint16_t aConnectionId) const
+std::string GameServer::GetPlayerName(uint16_t aConnectionId)
 {
 	return m_players[aConnectionId]->GetName();
 }

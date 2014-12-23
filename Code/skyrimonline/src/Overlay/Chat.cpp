@@ -47,7 +47,11 @@ namespace Logic
 
 		void Chat::SendChatMessage()
 		{
-			Logic::Engine::TheController->SendChatMessage(m_pEdit->getCaption());
+			Messages::CliGame_ChatSend* pMessage = new Messages::CliGame_ChatSend;
+
+			pMessage->message = m_pEdit->getCaption();
+			Logic::Engine::TheController->SendReliableMessage(pMessage);
+
 			m_pEdit->eraseText(0, m_pEdit->getTextLength());
 		}
 	}

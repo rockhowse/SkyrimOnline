@@ -51,7 +51,8 @@ namespace Logic
 				Interfaces::IUserInterface* GetUI();
 				Interfaces::IPlayer* GetPlayer();
 				
-				void SendChatMessage(const std::string& Message);
+				void SendMessage(Packet* apPacket);
+				void SendReliableMessage(Packet* apPacket);
 
 			private:
 

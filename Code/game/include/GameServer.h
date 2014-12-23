@@ -20,8 +20,8 @@ public:
 	void OnConsume(uint16_t aConnectionId, ReadBuffer* pBuffer);
 	
 	Player* GetPlayer(uint16_t aConnectionId) const;
-	void SetPlayerName(uint16_t aConnectionId, std::string Name) const;
-	std::string GetPlayerName(uint16_t aConnectionId) const;
+	void SetPlayerName(uint16_t aConnectionId, const std::string& Name);
+	std::string GetPlayerName(uint16_t aConnectionId);
 
 private:
 
