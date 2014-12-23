@@ -47,10 +47,10 @@ void World::Send(Packet* apPacket)
 
 void World::SendHello(const std::string& acPlayerName)
 {
-	Messages::CliGame_HelloSend pMessage;
+	Messages::CliGame_HelloSend* pMessage = new Messages::CliGame_HelloSend;
 
-	pMessage.name = acPlayerName;
-	Send(&pMessage);
+	pMessage->name = acPlayerName;
+	Send(pMessage);
 }
 
 void HandleGameCli_HelloRecv(const Messages::GameCli_HelloRecv& aMsg)

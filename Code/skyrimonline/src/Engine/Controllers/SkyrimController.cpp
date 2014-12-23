@@ -17,6 +17,11 @@ namespace Logic
 			SkyrimController::~SkyrimController()
 			{}
 
+			void SkyrimController::Update()
+			{
+				m_world.Update();
+			}
+
 			void SkyrimController::EnableInput()
 			{
 				ScriptDragon::Game::EnablePlayerControls(true, true, true, true, true, true, true, true, 0);

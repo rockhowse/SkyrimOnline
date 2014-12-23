@@ -31,6 +31,8 @@ namespace Logic
 
 				virtual IUserInterface* GetUI() = 0;
 				virtual IPlayer* GetPlayer() = 0;
+
+				virtual void Update() = 0;
 			};
 		}
 

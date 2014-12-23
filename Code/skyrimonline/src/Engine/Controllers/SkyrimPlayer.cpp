@@ -4,6 +4,10 @@
 
 #include <Engine/Controllers/SkyrimController.h>
 #include <skyscript.h>
+#include <GameForms.h>
+#include <GameReferences.h>
+#include <GameObjects.h>
+#include <GameRTTI.h>
 
 namespace Logic
 {
@@ -20,7 +24,12 @@ namespace Logic
 
 			const std::string SkyrimPlayer::GetName()
 			{
-				return m_pPlayer->GetName();
+				TESNPC* pNpc = DYNAMIC_CAST(m_pPlayer->baseForm, TESForm, TESNPC);
+				if (pNpc)
+				{
+					return pNpc->fullName.name.data;
+				}
+				return "ERROR";
 			}
 		}
 	}

@@ -4,6 +4,7 @@
 
 #include <Engine/Interfaces/IController.h>
 #include <skse/GameReferences.h>
+#include <Engine/World.h>
 
 namespace Logic
 {
@@ -41,6 +42,8 @@ namespace Logic
 
 				SkyrimController();
 				~SkyrimController();
+				
+				void Update();
 
 				void EnableInput();
 				void DisableInput();
@@ -52,7 +55,7 @@ namespace Logic
 
 				SkyrimUserInterface m_userInterface;
 				SkyrimPlayer m_player;
-
+				World m_world;
 			};
 		}
 	}

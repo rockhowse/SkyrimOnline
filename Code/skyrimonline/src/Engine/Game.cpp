@@ -5,7 +5,7 @@ namespace Logic
 { 
 	namespace Engine
 	{
-		Interfaces::IController* TheController;
+		Interfaces::IController* TheController = nullptr;
 
 		void InitializeGame()
 		{
@@ -32,7 +32,7 @@ namespace Logic
 
 		void Update()
 		{
-
+			TheController->Update();
 		}
 	}
 }
