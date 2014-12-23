@@ -3,12 +3,13 @@ Build/lib/*.lib
 !Build/lib/MyGUI*.lib
 Build/lib/*.pdb
 Build/Bin/SkyrimOnline*.dll
-Build/Bin/Game*.exe
+Build/Bin/server/Game*.exe
 Build/Bin/*.lib
 Build/Bin/*.exp
 Build/Bin/*.idb
 Build/Bin/*.pdb
 Build/Bin/logs/
+Build/Bin/server/logs/
 Build/gsl
 Build/gsl.exe
 Build/Codegen.bat
