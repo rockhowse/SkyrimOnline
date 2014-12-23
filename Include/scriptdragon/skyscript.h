@@ -12,6 +12,9 @@
 
 #define BSScript_StaticFunctionTag 0
 
+namespace ScriptDragon
+{
+
 namespace Game
 {
     static void AddAchievement(int aiAchievementID) {
@@ -2809,3 +2812,5 @@ namespace Enchantment
         return NativeInvoke::Invoke<bool>("Enchantment", "IsHostile", self);
     }
  }
+
+}

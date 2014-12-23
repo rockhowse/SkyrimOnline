@@ -8,413 +8,418 @@
 
 #include <windows.h>
 
-typedef int ScriptNone;
-typedef int ScriptAny;
-typedef DWORD uint;
-typedef char Axis;
-
-class BGSListForm;
-class CActor;
-class TESWordOfPower;
-class TESQuest;
-class BGSKeyword;
-class BGSLocation;
-class BGSLocationRefType;
-class BGSMessage;
-class BGSMusicType;
-class BGSReferenceEffect;
-class BGSScene;
-class BGSShaderParticleGeometryData;
-class BGSSoundCategory;
-class EffectSetting;
-class TESEffectShader;
-class TESFaction;
-class TESGlobal;
-class TESImageSpaceModifier;
-class TESLevCharacter;
-class TESLevItem;
-class TESLevSpell;
-class TESNPC;
-class TESClass;
-class TESObjectCELL;
-class TESKey;
-class BGSVoiceType;
-class TESWorldSpace;
-class TESRace;
-class BGSOutfit;
-class BGSEncounterZone;
-class BGSImpactDataSet;
-class TESTopic;
-class BGSPerk;
-class TESShout;
-class SpellItem;
-class TESPackage;
-class TESObjectWEAP;
-class TESObjectARMO;
-class TESIdleForm;
-class BGSBaseAlias;
-class BGSRefAlias;
-class BGSLocAlias;
-class ScrollItem;
-class ActiveEffect;
-class TESWeather;
-class TESAmmo;
-class TESSound;
-class TESTopicInfo;
-class BGSAssociationType;
-class IngredientItem;
-class AlchemyItem;
-class EnchantmentItem;
-class PlayerCharacter;
-
-class BaseFormComponent
+namespace ScriptDragon
 {
-public:
-	BaseFormComponent();
-	~BaseFormComponent();
-	virtual void forcevmt();
-};
 
-class TESForm : public BaseFormComponent // size = 0x14
-{
-public:
-	TESForm();
-	~TESForm();
-	virtual void forcevmt();
-	/* 4  */ DWORD unk_f4;
-	/* 8  */ DWORD unk_f8;
-	/* C  */ DWORD ref_id;
-	/* 10 */ DWORD unk_f16;
-}; // 0x14
+	typedef int ScriptNone;
+	typedef int ScriptAny;
+	typedef DWORD uint;
+	typedef char Axis;
 
-class TESChildCell
-{
-	TESChildCell();
-	~TESChildCell();
-}; 
+	class BGSListForm;
+	class CActor;
+	class TESWordOfPower;
+	class TESQuest;
+	class BGSKeyword;
+	class BGSLocation;
+	class BGSLocationRefType;
+	class BGSMessage;
+	class BGSMusicType;
+	class BGSReferenceEffect;
+	class BGSScene;
+	class BGSShaderParticleGeometryData;
+	class BGSSoundCategory;
+	class EffectSetting;
+	class TESEffectShader;
+	class TESFaction;
+	class TESGlobal;
+	class TESImageSpaceModifier;
+	class TESLevCharacter;
+	class TESLevItem;
+	class TESLevSpell;
+	class TESNPC;
+	class TESClass;
+	class TESObjectCELL;
+	class TESKey;
+	class BGSVoiceType;
+	class TESWorldSpace;
+	class TESRace;
+	class BGSOutfit;
+	class BGSEncounterZone;
+	class BGSImpactDataSet;
+	class TESTopic;
+	class BGSPerk;
+	class TESShout;
+	class SpellItem;
+	class TESPackage;
+	class TESObjectWEAP;
+	class TESObjectARMO;
+	class TESIdleForm;
+	class BGSBaseAlias;
+	class BGSRefAlias;
+	class BGSLocAlias;
+	class ScrollItem;
+	class ActiveEffect;
+	class TESWeather;
+	class TESAmmo;
+	class TESSound;
+	class TESTopicInfo;
+	class BGSAssociationType;
+	class IngredientItem;
+	class AlchemyItem;
+	class EnchantmentItem;
+	class PlayerCharacter;
 
-class TESObjectREFR : public TESForm 
-{
-	TESObjectREFR();
-	~TESObjectREFR();
-}; 
+	class BaseFormComponent
+	{
+	public:
+		BaseFormComponent();
+		~BaseFormComponent();
+		virtual void forcevmt();
+	};
 
-class BGSListForm
-{
-    BGSListForm();
-    ~BGSListForm();
-};
+	class TESForm : public BaseFormComponent // size = 0x14
+	{
+	public:
+		TESForm();
+		~TESForm();
+		virtual void forcevmt();
+		/* 4  */ DWORD unk_f4;
+		/* 8  */ DWORD unk_f8;
+		/* C  */ DWORD ref_id;
+		/* 10 */ DWORD unk_f16;
+	}; // 0x14
 
-class ACTOR
-{
-    ACTOR();
-    ~ACTOR();
-};
+	class TESChildCell
+	{
+		TESChildCell();
+		~TESChildCell();
+	};
 
-class TESWordOfPower
-{
-    TESWordOfPower();
-    ~TESWordOfPower();
-};
+	class TESObjectREFR : public TESForm
+	{
+		TESObjectREFR();
+		~TESObjectREFR();
+	};
 
-class TESQuest
-{
-    TESQuest();
-    ~TESQuest();
-};
+	class BGSListForm
+	{
+		BGSListForm();
+		~BGSListForm();
+	};
 
-class BGSKeyword
-{
-    BGSKeyword();
-    ~BGSKeyword();
-};
+	class ACTOR
+	{
+		ACTOR();
+		~ACTOR();
+	};
 
-class BGSLocation
-{
-    BGSLocation();
-    ~BGSLocation();
-};
+	class TESWordOfPower
+	{
+		TESWordOfPower();
+		~TESWordOfPower();
+	};
 
-class BGSLocationRefType
-{
-    BGSLocationRefType();
-    ~BGSLocationRefType();
-};
+	class TESQuest
+	{
+		TESQuest();
+		~TESQuest();
+	};
 
-class BGSMessage
-{
-    BGSMessage();
-    ~BGSMessage();
-};
+	class BGSKeyword
+	{
+		BGSKeyword();
+		~BGSKeyword();
+	};
 
-class BGSMusicType
-{
-    BGSMusicType();
-    ~BGSMusicType();
-};
+	class BGSLocation
+	{
+		BGSLocation();
+		~BGSLocation();
+	};
 
-class BGSReferenceEffect
-{
-    BGSReferenceEffect();
-    ~BGSReferenceEffect();
-};
+	class BGSLocationRefType
+	{
+		BGSLocationRefType();
+		~BGSLocationRefType();
+	};
 
-class BGSScene
-{
-    BGSScene();
-    ~BGSScene();
-};
+	class BGSMessage
+	{
+		BGSMessage();
+		~BGSMessage();
+	};
 
-class BGSShaderParticleGeometryData
-{
-    BGSShaderParticleGeometryData();
-    ~BGSShaderParticleGeometryData();
-};
+	class BGSMusicType
+	{
+		BGSMusicType();
+		~BGSMusicType();
+	};
 
-class BGSSoundCategory
-{
-    BGSSoundCategory();
-    ~BGSSoundCategory();
-};
+	class BGSReferenceEffect
+	{
+		BGSReferenceEffect();
+		~BGSReferenceEffect();
+	};
 
-class EffectSetting
-{
-    EffectSetting();
-    ~EffectSetting();
-};
+	class BGSScene
+	{
+		BGSScene();
+		~BGSScene();
+	};
 
-class TESEffectShader
-{
-    TESEffectShader();
-    ~TESEffectShader();
-};
+	class BGSShaderParticleGeometryData
+	{
+		BGSShaderParticleGeometryData();
+		~BGSShaderParticleGeometryData();
+	};
 
-class TESFaction
-{
-    TESFaction();
-    ~TESFaction();
-};
+	class BGSSoundCategory
+	{
+		BGSSoundCategory();
+		~BGSSoundCategory();
+	};
 
-class TESGlobal
-{
-    TESGlobal();
-    ~TESGlobal();
-};
+	class EffectSetting
+	{
+		EffectSetting();
+		~EffectSetting();
+	};
 
-class TESImageSpaceModifier
-{
-    TESImageSpaceModifier();
-    ~TESImageSpaceModifier();
-};
+	class TESEffectShader
+	{
+		TESEffectShader();
+		~TESEffectShader();
+	};
 
-class TESLevCharacter
-{
-    TESLevCharacter();
-    ~TESLevCharacter();
-};
+	class TESFaction
+	{
+		TESFaction();
+		~TESFaction();
+	};
 
-class TESLevItem
-{
-    TESLevItem();
-    ~TESLevItem();
-};
+	class TESGlobal
+	{
+		TESGlobal();
+		~TESGlobal();
+	};
 
-class TESLevSpell
-{
-    TESLevSpell();
-    ~TESLevSpell();
-};
+	class TESImageSpaceModifier
+	{
+		TESImageSpaceModifier();
+		~TESImageSpaceModifier();
+	};
 
-class TESNPC
-{
-    TESNPC();
-    ~TESNPC();
-};
+	class TESLevCharacter
+	{
+		TESLevCharacter();
+		~TESLevCharacter();
+	};
 
-class TESClass
-{
-    TESClass();
-    ~TESClass();
-};
+	class TESLevItem
+	{
+		TESLevItem();
+		~TESLevItem();
+	};
 
-class TESObjectCELL
-{
-    TESObjectCELL();
-    ~TESObjectCELL();
-};
+	class TESLevSpell
+	{
+		TESLevSpell();
+		~TESLevSpell();
+	};
 
-class TESKey
-{
-    TESKey();
-    ~TESKey();
-};
+	class TESNPC
+	{
+		TESNPC();
+		~TESNPC();
+	};
 
-class BGSVoiceType
-{
-    BGSVoiceType();
-    ~BGSVoiceType();
-};
+	class TESClass
+	{
+		TESClass();
+		~TESClass();
+	};
 
-class TESWorldSpace
-{
-    TESWorldSpace();
-    ~TESWorldSpace();
-};
+	class TESObjectCELL
+	{
+		TESObjectCELL();
+		~TESObjectCELL();
+	};
 
-class TESRace
-{
-    TESRace();
-    ~TESRace();
-};
+	class TESKey
+	{
+		TESKey();
+		~TESKey();
+	};
 
-class BGSOutfit
-{
-    BGSOutfit();
-    ~BGSOutfit();
-};
+	class BGSVoiceType
+	{
+		BGSVoiceType();
+		~BGSVoiceType();
+	};
 
-class BGSEncounterZone
-{
-    BGSEncounterZone();
-    ~BGSEncounterZone();
-};
+	class TESWorldSpace
+	{
+		TESWorldSpace();
+		~TESWorldSpace();
+	};
 
-class BGSImpactDataSet
-{
-    BGSImpactDataSet();
-    ~BGSImpactDataSet();
-};
+	class TESRace
+	{
+		TESRace();
+		~TESRace();
+	};
 
-class TESTopic
-{
-    TESTopic();
-    ~TESTopic();
-};
+	class BGSOutfit
+	{
+		BGSOutfit();
+		~BGSOutfit();
+	};
 
-class BGSPerk
-{
-    BGSPerk();
-    ~BGSPerk();
-};
+	class BGSEncounterZone
+	{
+		BGSEncounterZone();
+		~BGSEncounterZone();
+	};
 
-class TESShout
-{
-    TESShout();
-    ~TESShout();
-};
+	class BGSImpactDataSet
+	{
+		BGSImpactDataSet();
+		~BGSImpactDataSet();
+	};
 
-class SpellItem
-{
-    SpellItem();
-    ~SpellItem();
-};
+	class TESTopic
+	{
+		TESTopic();
+		~TESTopic();
+	};
 
-class TESPackage
-{
-    TESPackage();
-    ~TESPackage();
-};
+	class BGSPerk
+	{
+		BGSPerk();
+		~BGSPerk();
+	};
 
-class TESObjectWEAP
-{
-    TESObjectWEAP();
-    ~TESObjectWEAP();
-};
+	class TESShout
+	{
+		TESShout();
+		~TESShout();
+	};
 
-class TESObjectARMO
-{
-    TESObjectARMO();
-    ~TESObjectARMO();
-};
+	class SpellItem
+	{
+		SpellItem();
+		~SpellItem();
+	};
 
-class TESIdleForm
-{
-    TESIdleForm();
-    ~TESIdleForm();
-};
+	class TESPackage
+	{
+		TESPackage();
+		~TESPackage();
+	};
 
-class BGSBaseAlias
-{
-    BGSBaseAlias();
-    ~BGSBaseAlias();
-};
+	class TESObjectWEAP
+	{
+		TESObjectWEAP();
+		~TESObjectWEAP();
+	};
 
-class BGSRefAlias
-{
-    BGSRefAlias();
-    ~BGSRefAlias();
-};
+	class TESObjectARMO
+	{
+		TESObjectARMO();
+		~TESObjectARMO();
+	};
 
-class BGSLocAlias
-{
-    BGSLocAlias();
-    ~BGSLocAlias();
-};
+	class TESIdleForm
+	{
+		TESIdleForm();
+		~TESIdleForm();
+	};
 
-class ScrollItem
-{
-    ScrollItem();
-    ~ScrollItem();
-};
+	class BGSBaseAlias
+	{
+		BGSBaseAlias();
+		~BGSBaseAlias();
+	};
 
-class ActiveEffect
-{
-    ActiveEffect();
-    ~ActiveEffect();
-};
+	class BGSRefAlias
+	{
+		BGSRefAlias();
+		~BGSRefAlias();
+	};
 
-class TESWeather
-{
-    TESWeather();
-    ~TESWeather();
-};
+	class BGSLocAlias
+	{
+		BGSLocAlias();
+		~BGSLocAlias();
+	};
 
-class TESAmmo
-{
-    TESAmmo();
-    ~TESAmmo();
-};
+	class ScrollItem
+	{
+		ScrollItem();
+		~ScrollItem();
+	};
 
-class TESSound
-{
-    TESSound();
-    ~TESSound();
-};
+	class ActiveEffect
+	{
+		ActiveEffect();
+		~ActiveEffect();
+	};
 
-class TESTopicInfo
-{
-    TESTopicInfo();
-    ~TESTopicInfo();
-};
+	class TESWeather
+	{
+		TESWeather();
+		~TESWeather();
+	};
 
-class BGSAssociationType
-{
-    BGSAssociationType();
-    ~BGSAssociationType();
-};
+	class TESAmmo
+	{
+		TESAmmo();
+		~TESAmmo();
+	};
 
-class IngredientItem
-{
-    IngredientItem();
-    ~IngredientItem();
-};
+	class TESSound
+	{
+		TESSound();
+		~TESSound();
+	};
 
-class AlchemyItem
-{
-    AlchemyItem();
-    ~AlchemyItem();
-};
+	class TESTopicInfo
+	{
+		TESTopicInfo();
+		~TESTopicInfo();
+	};
 
-class EnchantmentItem
-{
-    EnchantmentItem();
-    ~EnchantmentItem();
-};
+	class BGSAssociationType
+	{
+		BGSAssociationType();
+		~BGSAssociationType();
+	};
 
-class PlayerCharacter
-{
-    PlayerCharacter();
-    ~PlayerCharacter();
-};
+	class IngredientItem
+	{
+		IngredientItem();
+		~IngredientItem();
+	};
+
+	class AlchemyItem
+	{
+		AlchemyItem();
+		~AlchemyItem();
+	};
+
+	class EnchantmentItem
+	{
+		EnchantmentItem();
+		~EnchantmentItem();
+	};
+
+	class PlayerCharacter
+	{
+		PlayerCharacter();
+		~PlayerCharacter();
+	};
 
 
+
+}

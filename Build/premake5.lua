@@ -107,166 +107,40 @@ solution "Skyrim Online"
                 "winmm"
             }
               
-	group "Client"
-		project "d3d9hook"
-            targetname "d3d9"
-			kind "SharedLib"
-			language "C++"
-			targetdir "bin"
-			
-			includedirs 
-            { 
-				"$(DXSDK_DIR)/Include/",
-                "../code/d3d9/include/"
-            }
-			
-			files 
-            { 
-                "../code/d3d9/include/**.h", 
-                "../code/d3d9/src/**.cpp",
-				"../code/d3d9/src/**.def"
-            }
-			
-			libdirs 
-            {
-                "$(DXSDK_DIR)/Lib/x86"
-            }
-			
-            links 
-            { 
-                "ws2_32",
-                "winmm",
-                "d3d9",
-                "d3dx9"
-            }
-			
-		project "SkyrimEngine"
-            targetname "SkyrimEngine"
+	group "Client"		
+		project "SkyrimOnline"
+            targetname "SkyrimOnline"
 			kind "SharedLib"
 			language "C++"
 			targetdir "bin"
 			
             defines
             {
-                "SKYRIM_EXPORTS"
+                "SKYRIM_EXPORTS",
+                "RUNTIME",
+                "RUNTIME_VERSION=0x09200000"
             }
             
 			includedirs 
             { 
-				"$(DXSDK_DIR)/Include/",
-                "../code/skyrimengine/include/skyrim", 
-            }
-			
-			files 
-            { 
-                "../code/skyrimengine/include/**.h", 
-                "../code/skyrimengine/src/**.cpp",
-				"../code/skyrimengine/src/**.def"
-            }
-			
-            libdirs 
-            {
-				"$(DXSDK_DIR)/Lib/x86",
-                "lib" 
-            }
-            
-            links 
-            { 
-                "boost_filesystem", 
-                "boost_system", 
-                "boost_thread", 
-                "boost_chrono",
-                "Network",
-                "disasm",
-                "mhook",
-                "ws2_32",
-                "winmm",
-            }
-
-		project "OblivionEngine"
-            targetname "OblivionEngine"
-			kind "SharedLib"
-			language "C++"
-			targetdir "bin"
-			
-            defines
-            {
-                "OBSE_EXPORTS",
-                "OBLIVION=1",
-                "OBLIVION_VERSION=0x010201A0",
-                "OBSE_CORE",
-            }
-            
-			includedirs 
-            { 
-				"$(DXSDK_DIR)/Include/",
-                "../code/oblivionengine/include/oblivion", 
-                "../code/oblivionengine/obse", 
-                "../code/oblivionengine/obse_common", 
-                "../code/oblivionengine/common",
-                "../code/oblivionengine/"
-            }
-			
-			files 
-            { 
-                "../code/oblivionengine/include/**.h", 
-                "../code/oblivionengine/src/**.cpp",
-                "../code/oblivionengine/src/**.def",
-                "../code/oblivionengine/obse/**.cpp",
-                "../code/oblivionengine/obse_common/**.cpp",
-                "../code/oblivionengine/common/**.cpp",
-                "../code/oblivionengine/obse/**.h",
-                "../code/oblivionengine/obse_common/**.h",
-                "../code/oblivionengine/common/**.h",
-				"../code/oblivionengine/src/**.def"
-            }
-			
-            libdirs 
-            {
-				"$(DXSDK_DIR)/Lib/x86",
-                "lib" 
-            }
-            
-            links 
-            { 
-                "boost_filesystem", 
-                "boost_system", 
-                "boost_thread", 
-                "boost_chrono",
-                "Network",
-                "disasm",
-                "mhook",
-                "ws2_32",
-                "winmm",
-            }
-            
-            forceincludes
-            {
-                "IPrefix.h",
-                "obse_common/obse_prefix.h"
-            }
-			
-		project "Logic"
-            targetname "Logic"
-			kind "SharedLib"
-			language "C++"
-			targetdir "bin"
-			
-			includedirs 
-            { 
-				"$(DXSDK_DIR)/Include/",
-                "../code/logic/include/",
+                "../code/skyrimonline/include/",
 				"../include/MyGUI",
-                "../code/oblivionengine/include/", 
-                "../code/skyrimengine/include/", 
-                "../code/messages/client/"
+                "../code/messages/client/",
+				"$(DXSDK_DIR)/Include/",
+                "../code/skyrimonline/include", 
+                "../code/skyrimonline/",
+                "../code/skyrimonline/skse",                 
             }
 			
 			files 
             { 
-                "../code/logic/include/**.h", 
-                "../code/logic/src/**.cpp",
-				"../code/logic/src/**.def",
+                "../code/skyrimonline/include/**.h", 
+                "../code/skyrimonline/src/**.cpp",
+				"../code/skyrimonline/src/**.def",
+                "../code/skyrimonline/common/**.h", 
+                "../code/skyrimonline/common/**.cpp",
+                "../code/skyrimonline/skse/**.h", 
+                "../code/skyrimonline/skse/**.cpp",
                 "../code/messages/client/**.cpp",
                 "../code/messages/client/**.h",
             }
@@ -274,7 +148,7 @@ solution "Skyrim Online"
             libdirs 
             {
 				"$(DXSDK_DIR)/Lib/x86",
-                "lib"
+                "lib" 
             }
             
             links 
@@ -283,7 +157,6 @@ solution "Skyrim Online"
 				"boost_system",
 				"boost_thread",
 				"boost_chrono",
-				"cryptopp",
 				"Network",
 				"disasm",
 				"mhook",
@@ -293,26 +166,13 @@ solution "Skyrim Online"
                 "d3dx9.lib",
 				"MyGUI.DirectXPlatform.lib",
 				"MyGUIEngine.lib",
-                "OblivionEngine",
-                "SkyrimEngine"
             }
-		
-		project "version"
-            targetname "version"
-			kind "SharedLib"
-			language "C++"
-			targetdir "bin"
-			
-			includedirs 
-            { 
-                "../code/version/include/"
+            
+            forceincludes
+            {
+                "common/IPrefix.h"
             }
 			
-			files 
-            { 
-                "../code/version/include/**.h",
-				"../code/version/src/**.cpp",
-            }
                 
  	group "Common"
 		project "Network"
