@@ -53,17 +53,14 @@ namespace Messages
     
         void Deserialize(ReadBuffer* pBuffer)
         {
-            pBuffer->Read_uint16(senderId);
             pBuffer->Read_string(message);
         }
         void Serialize(WriteBuffer* pBuffer)
         {
             pBuffer->Write_uint16(GameCli_Chat_Opcode);
-            pBuffer->Write_uint16(senderId);
             pBuffer->Write_string(message);
         }
     
-        uint16_t senderId;
         std::string message;
     };
     
