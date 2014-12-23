@@ -33,9 +33,12 @@ namespace Logic
 				virtual IPlayer* GetPlayer() = 0;
 
 				virtual void Update() = 0;
+
+				virtual void SendChatMessage(const std::string& Message) = 0;
 			};
 		}
 
 		extern Interfaces::IController* TheController;
+
 	}
 }

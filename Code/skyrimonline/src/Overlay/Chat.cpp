@@ -42,15 +42,13 @@ namespace Logic
 
 		void Chat::AddChatMessage(const MyGUI::UString& acString)
 		{
-			m_pList->addItem(acString); // this line should be: "Username says: text" but for the moment it is good.
+			m_pList->addItem(acString);
 		}
 
 		void Chat::SendChatMessage()
 		{
-			m_pList->addItem(m_pEdit->getCaption()); // this line should be: "Username says: text" but for the moment it is good.
+			Logic::Engine::TheController->SendChatMessage(m_pEdit->getCaption());
 			m_pEdit->eraseText(0, m_pEdit->getTextLength());
-
-			// Send message code here.
 		}
 	}
 }

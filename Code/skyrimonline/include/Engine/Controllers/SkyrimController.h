@@ -50,6 +50,8 @@ namespace Logic
 
 				Interfaces::IUserInterface* GetUI();
 				Interfaces::IPlayer* GetPlayer();
+				
+				void SendChatMessage(const std::string& Message);
 
 			private:
 

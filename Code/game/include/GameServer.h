@@ -18,8 +18,10 @@ public:
     void OnConnection(uint16_t aConnectionId);
     void OnDisconnection(uint16_t aConnectionId);
 	void OnConsume(uint16_t aConnectionId, ReadBuffer* pBuffer);
-
+	
 	Player* GetPlayer(uint16_t aConnectionId) const;
+	void SetPlayerName(uint16_t aConnectionId, std::string Name) const;
+	std::string GetPlayerName(uint16_t aConnectionId) const;
 
 private:
 

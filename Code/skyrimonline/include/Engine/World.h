@@ -24,10 +24,11 @@ public:
 
 	void OnConsume(uint16_t aConnectionId, ReadBuffer* pBuffer);
 
+	void SendChatMessage(const std::string& Message);
+
 private:
 
 	void SendHello(const std::string& acPlayerName);
-
 	std::unique_ptr<EnetServer> m_pConnection;
 	Messages::GameCli_Handler m_handler;
 };

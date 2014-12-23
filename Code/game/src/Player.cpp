@@ -3,9 +3,7 @@
 
 #include <easylogging++.h>
 
-Player::Player(uint16_t aPlayerId)
-	: m_connectionId(aPlayerId)
-	, m_name("Default")
+Player::Player(uint16_t aPlayerId) : m_connectionId(aPlayerId), m_name("Default")
 {
 }
 
@@ -49,6 +47,8 @@ void Player::SetMovement(const Movement& acMovement)
 void HandleCliGame_HelloRecv(const Messages::CliGame_HelloRecv& aMsg)
 {
 	LOG(INFO) << aMsg.connectionId << " " << aMsg.name;
+
+	g_pServer->SetPlayerName(aMsg.connectionId, aMsg.name);
 
 	Messages::GameCli_HelloSend* pMessage = new Messages::GameCli_HelloSend;
 	pMessage->version = 0;

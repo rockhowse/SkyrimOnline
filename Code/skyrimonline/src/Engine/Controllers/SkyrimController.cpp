@@ -43,6 +43,11 @@ namespace Logic
 			{
 				return &m_player;
 			}
+
+			void SkyrimController::SendChatMessage(const std::string& Message)
+			{
+				m_world.SendChatMessage(Message);
+			}
 		}
 	}
 }

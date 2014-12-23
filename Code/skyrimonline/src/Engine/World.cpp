@@ -53,6 +53,15 @@ void World::SendHello(const std::string& acPlayerName)
 	Send(pMessage);
 }
 
+void World::SendChatMessage(const std::string& Message)
+{
+	Messages::CliGame_ChatSend* pMessage = new Messages::CliGame_ChatSend;
+
+	pMessage->message = Message;
+
+	Send(pMessage);
+}
+
 void HandleGameCli_HelloRecv(const Messages::GameCli_HelloRecv& aMsg)
 {
 	std::ostringstream oss;
