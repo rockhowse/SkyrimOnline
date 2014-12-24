@@ -56,6 +56,10 @@ solution "Skyrim Online"
         {
             "WIN32"
         }
+        
+    configuration {"gmake"}
+		linkoptions( "-lm -lpthread -pthread -g" ) 
+		buildoptions {"-g --std=c++11" } 
 	
     configuration "PriDeb"
         defines { "DEBUG" }
@@ -106,74 +110,74 @@ solution "Skyrim Online"
                 "ws2_32",
                 "winmm"
             }
-              
-	group "Client"		
-		project "SkyrimOnline"
-            targetname "SkyrimOnline"
-			kind "SharedLib"
-			language "C++"
-			targetdir "bin"
-			
-            defines
-            {
-                "SKYRIM_EXPORTS",
-                "RUNTIME",
-                "RUNTIME_VERSION=0x09200000"
-            }
-            
-			includedirs 
-            { 
-                "../code/skyrimonline/include/",
-				"../include/MyGUI",
-                "../code/messages/client/",
-				"$(DXSDK_DIR)/Include/",
-                "../code/skyrimonline/include", 
-                "../code/skyrimonline/",
-                "../code/skyrimonline/skse",                 
-            }
-			
-			files 
-            { 
-                "../code/skyrimonline/include/**.h", 
-                "../code/skyrimonline/src/**.cpp",
-				"../code/skyrimonline/src/**.def",
-                "../code/skyrimonline/common/**.h", 
-                "../code/skyrimonline/common/**.cpp",
-                "../code/skyrimonline/skse/**.h", 
-                "../code/skyrimonline/skse/**.cpp",
-                "../code/messages/client/**.cpp",
-                "../code/messages/client/**.h",
-            }
-			
-            libdirs 
-            {
-				"$(DXSDK_DIR)/Lib/x86",
-                "lib" 
-            }
-            
-            links 
-            { 
-                "boost_filesystem",
-				"boost_system",
-				"boost_thread",
-				"boost_chrono",
-				"Network",
-				"disasm",
-				"mhook",
-				"ws2_32",
-				"winmm",
-				"d3d9.lib",
-                "d3dx9.lib",
-				"MyGUI.DirectXPlatform.lib",
-				"MyGUIEngine.lib",
-            }
-            
-            forceincludes
-            {
-                "common/IPrefix.h"
-            }
-			
+    if os.is("windows") then
+        group "Client"		
+            project "SkyrimOnline"
+                targetname "SkyrimOnline"
+                kind "SharedLib"
+                language "C++"
+                targetdir "bin"
                 
+                defines
+                {
+                    "SKYRIM_EXPORTS",
+                    "RUNTIME",
+                    "RUNTIME_VERSION=0x09200000"
+                }
+                
+                includedirs 
+                { 
+                    "../code/skyrimonline/include/",
+                    "../include/MyGUI",
+                    "../code/messages/client/",
+                    "$(DXSDK_DIR)/Include/",
+                    "../code/skyrimonline/include", 
+                    "../code/skyrimonline/",
+                    "../code/skyrimonline/skse",                 
+                }
+                
+                files 
+                { 
+                    "../code/skyrimonline/include/**.h", 
+                    "../code/skyrimonline/src/**.cpp",
+                    "../code/skyrimonline/src/**.def",
+                    "../code/skyrimonline/common/**.h", 
+                    "../code/skyrimonline/common/**.cpp",
+                    "../code/skyrimonline/skse/**.h", 
+                    "../code/skyrimonline/skse/**.cpp",
+                    "../code/messages/client/**.cpp",
+                    "../code/messages/client/**.h",
+                }
+                
+                libdirs 
+                {
+                    "$(DXSDK_DIR)/Lib/x86",
+                    "lib" 
+                }
+                
+                links 
+                { 
+                    "boost_filesystem",
+                    "boost_system",
+                    "boost_thread",
+                    "boost_chrono",
+                    "Network",
+                    "disasm",
+                    "mhook",
+                    "ws2_32",
+                    "winmm",
+                    "d3d9.lib",
+                    "d3dx9.lib",
+                    "MyGUI.DirectXPlatform.lib",
+                    "MyGUIEngine.lib",
+                }
+                
+                forceincludes
+                {
+                    "common/IPrefix.h"
+                }
+                
+    end          
  	group "Common"
 		project "Network"
 			kind "StaticLib"
