@@ -98,14 +98,14 @@ solution "Skyrim Online"
 			includedirs 
             { 
                 "../Code/game/include/", 
-                "../Code/messages/server/"
+                "../Code/messages/Server/"
             }
 			files 
             { 
                 "../Code/game/include/**.h", 
                 "../Code/game/src/**.cpp",
-                "../Code/messages/server/**.cpp",
-                "../Code/messages/server/**.h",
+                "../Code/messages/Server/**.cpp",
+                "../Code/messages/Server/**.h",
             }
             libdirs 
             {
@@ -139,7 +139,7 @@ solution "Skyrim Online"
                 { 
                     "../Code/skyrimonline/include/",
                     "../include/MyGUI",
-                    "../Code/messages/client/",
+                    "../Code/messages/Client/",
                     "$(DXSDK_DIR)/Include/",
                     "../Code/skyrimonline/include", 
                     "../Code/skyrimonline/",
@@ -155,8 +155,8 @@ solution "Skyrim Online"
                     "../Code/skyrimonline/common/**.cpp",
                     "../Code/skyrimonline/skse/**.h", 
                     "../Code/skyrimonline/skse/**.cpp",
-                    "../Code/messages/client/**.cpp",
-                    "../Code/messages/client/**.h",
+                    "../Code/messages/Client/**.cpp",
+                    "../Code/messages/Client/**.h",
                 }
                 
                 libdirs 
