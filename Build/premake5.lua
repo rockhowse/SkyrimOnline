@@ -78,7 +78,7 @@ solution "Skyrim Online"
 		project "Game"
 			kind "ConsoleApp"
 			language "C++"
-			targetdir "bin"
+			targetdir "bin/server"
 			includedirs 
             { 
                 "../code/game/include/", 

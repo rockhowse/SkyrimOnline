@@ -51,6 +51,9 @@ namespace Logic
 
 				Interfaces::IUserInterface* GetUI();
 				Interfaces::IPlayer* GetPlayer();
+				
+				void SendMessage(Packet* apPacket);
+				void SendReliableMessage(Packet* apPacket);
 
 			private:
 
