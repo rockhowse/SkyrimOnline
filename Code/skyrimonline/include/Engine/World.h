@@ -7,6 +7,8 @@
 #include "GameCli_Handler.h"
 #include <xmemory>
 
+#undef SendMessage
+
 class World : public EnetServer
 {
 public:
@@ -14,7 +16,8 @@ public:
 	World();
 	~World();
 
-	void Send(Packet* apPacket);
+	void SendMessage(Packet* apPacket);
+	void SendReliableMessage(Packet* apPacket);
 
 	void OnUpdate();
 
@@ -27,7 +30,6 @@ public:
 private:
 
 	void SendHello(const std::string& acPlayerName);
-
 	std::unique_ptr<EnetServer> m_pConnection;
 	Messages::GameCli_Handler m_handler;
 };

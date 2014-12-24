@@ -2,6 +2,11 @@
 
 #include <stdafx.h>
 
+#include <Buffer.h>
+#include <EnetServer.h>
+
+#undef SendMessage
+
 namespace Logic
 {
 	namespace Engine
@@ -33,9 +38,13 @@ namespace Logic
 				virtual IPlayer* GetPlayer() = 0;
 
 				virtual void Update() = 0;
+
+				virtual void SendMessage(Packet* apPacket) = 0;
+				virtual void SendReliableMessage(Packet* apPacket) = 0;
 			};
 		}
 
 		extern Interfaces::IController* TheController;
+
 	}
 }

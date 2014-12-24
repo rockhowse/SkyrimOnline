@@ -40,7 +40,12 @@ void World::OnConsume(uint16_t aConnectionId, ReadBuffer* pBuffer)
 	m_handler.HandleBuffer(pBuffer, opcode, 0);
 }
 
-void World::Send(Packet* apPacket)
+void World::SendMessage(Packet* apPacket)
+{
+	Send(0, apPacket);
+}
+
+void World::SendReliableMessage(Packet* apPacket)
 {
 	SendReliable(0, apPacket);
 }
@@ -50,7 +55,7 @@ void World::SendHello(const std::string& acPlayerName)
 	Messages::CliGame_HelloSend* pMessage = new Messages::CliGame_HelloSend;
 
 	pMessage->name = acPlayerName;
-	Send(pMessage);
+	SendReliableMessage(pMessage);
 }
 
 void HandleGameCli_HelloRecv(const Messages::GameCli_HelloRecv& aMsg)

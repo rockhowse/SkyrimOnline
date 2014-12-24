@@ -44,6 +44,16 @@ namespace Logic
 			{
 				return &m_player;
 			}
+
+			void SkyrimController::SendMessage(Packet* apPacket)
+			{
+				m_world.SendMessage(apPacket);
+			}
+
+			void SkyrimController::SendReliableMessage(Packet* apPacket)
+			{
+				m_world.SendReliableMessage(apPacket);
+			}
 		}
 	}
 }
