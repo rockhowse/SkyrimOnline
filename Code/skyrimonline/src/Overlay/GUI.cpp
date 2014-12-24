@@ -136,10 +136,15 @@ namespace Logic
 						break;
 				}
 
-				this->myGUI->injectKeyPress(code, key);
+				if (MyGUI::InputManager::getInstance().isShiftPressed())
+				{
+					key = toupper(key);
+				}
+
+				MyGUI::InputManager::getInstance().injectKeyPress(code, key);
 			}
 			else
-				this->myGUI->injectKeyRelease(code);
+				MyGUI::InputManager::getInstance().injectKeyRelease(code);
 		}
 
 		void GUI::InjectMouse(unsigned char Key, bool isPressed)

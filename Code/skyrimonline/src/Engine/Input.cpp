@@ -1,4 +1,5 @@
 #include <Engine\Input.h>
+#include <DInput\Input.hpp>
 
 namespace Logic
 {
@@ -15,17 +16,19 @@ namespace Logic
 				if (MyGUI::InputManager::getInstance().isFocusKey() == false && key == DIK_RCONTROL) // Right CTRL is pressend, give focus to text box.
 				{
 					Logic::Overlay::TheChat->SetTyping(false);
+					TheIInputHook->SetInputEnabled(false);
 				}
 				else if (key == DIK_ESCAPE) // Escape is pressed, reset focus of text box.
 				{
 					Logic::Overlay::TheChat->SetTyping(true);
+					TheIInputHook->SetInputEnabled(true);
 				}
 				else if ((key == DIK_RETURN || key == DIK_NUMPADENTER) && Logic::Overlay::TheChat->IsTyping()) // Enter is pressed, send the message and reset focus of text box.
 				{
 					Logic::Overlay::TheChat->SendChatMessage();
 					Logic::Overlay::TheChat->SetTyping(true);
 				}
-				else
+				else if (key != DIK_RCONTROL && key != DIK_LCONTROL)
 				{
 					Logic::Overlay::TheGUI->InjectKey(key, true);
 				}
@@ -34,8 +37,10 @@ namespace Logic
 			void InputManager::OnRelease(BYTE code)
 			{
 				uint8_t key = code;
-
-				Logic::Overlay::TheGUI->InjectKey(key, false);
+				if (key != DIK_RCONTROL && key != DIK_LCONTROL)
+				{
+					Logic::Overlay::TheGUI->InjectKey(key, false);
+				}
 			}
 
 			void InputManager::OnMousePress(BYTE code)

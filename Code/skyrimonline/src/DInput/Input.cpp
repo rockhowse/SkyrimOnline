@@ -47,16 +47,74 @@ public:
 		mListener = listener;
 	}
 
+	void ProcessKeyboardData(uint8_t* apData);
+	void ProcessMouseData(DIMOUSESTATE2* mouseState);
+
 private:
 
 	InputHook() : mEnabled(true), mListener(nullptr)
 	{
-
+		memset(m_buffer, 0, 256);
+		memset(m_mouseBuffer, 0, 4);
 	}
 
 	bool mEnabled;
 	InputListener* mListener;
+	uint8_t m_buffer[256];
+	uint8_t m_mouseBuffer[4];
 };
+
+void InputHook::ProcessKeyboardData(uint8_t* apData)
+{
+	for (uint32_t idx = 0; idx < 256; idx++)
+	{
+		if (apData[idx] != m_buffer[idx])
+		{
+			m_buffer[idx] = apData[idx];
+			bool keydown = apData[idx] != 0;
+
+			if (mListener)
+			{
+				if (keydown)
+					mListener->OnPress(idx);
+				else
+					mListener->OnRelease(idx);
+			}
+		}
+	}
+
+	if (!mEnabled)
+	{
+		memset(apData, 0, 256);
+	}
+}
+
+void InputHook::ProcessMouseData(DIMOUSESTATE2* apMouseState)
+{
+	POINT pos;
+	GetCursorPos(&pos);
+	if (mListener)
+		mListener->OnMouseMove(pos.x, pos.y, 0);
+
+	for (auto i = 0; i < 4; ++i)
+	{
+		uint8_t state = apMouseState->rgbButtons[i];
+		if (state != m_mouseBuffer[i])
+		{
+			m_mouseBuffer[i] = state;
+			if (state & 0x80)
+			{
+				if (mListener)
+					mListener->OnMousePress(i);
+			}
+			else
+			{
+				if (mListener)
+					mListener->OnMouseRelease(i);
+			}
+		}
+	}
+}
 
 class myDirectInputDevice : public IDirectInputDevice8A
 {
@@ -64,7 +122,6 @@ public:
 	myDirectInputDevice(IDirectInputDevice8A * device, bool keyboard)
 		:mRealDevice(device), mKeyboard(keyboard)
 	{
-		memset(mBuffer, 0, 256);
 	}
 
 	HRESULT _stdcall QueryInterface(REFIID riid, LPVOID * ppvObj)
@@ -101,70 +158,27 @@ public:
 	{
 		if (mKeyboard)
 		{
-			uint8_t	buffer[256] = { 0 };
-			HRESULT ret = mRealDevice->GetDeviceState(256, buffer);
-			if (ret != DI_OK)
-				return ret;
+			uint8_t	rawData[256];
+			HRESULT hr = mRealDevice->GetDeviceState(256, rawData);
+			if (hr != DI_OK) return hr;
 
-			for (auto i = 0; i < 256; ++i)
-			{
+			InputHook::GetInstance()->ProcessKeyboardData(rawData);
 
-				if (buffer[i] != mBuffer[i])
-				{
-					mBuffer[i] = buffer[i];
+			memcpy(outData, rawData, outDataLen < 256 ? outDataLen : 256);
 
-					if (buffer[i] & 0x80)
-					{
-						if (InputHook::GetInstance()->GetListener())
-							InputHook::GetInstance()->GetListener()->OnPress(i);
-					}
-					else
-					{
-						if (InputHook::GetInstance()->GetListener())
-							InputHook::GetInstance()->GetListener()->OnRelease(i);
-					}
-				}
-			}
-
-
-			if (InputHook::GetInstance()->IsInputEnabled() == false)
-				memset(buffer, 0, 256);
-
-			memcpy(outData, buffer, outDataLen < 256 ? outDataLen : 256);
-
-			return ret;
+			return hr;
 		}
 		else
 		{
-			POINT pos;
-			GetCursorPos(&pos);
-			if (InputHook::GetInstance()->GetListener())
-				InputHook::GetInstance()->GetListener()->OnMouseMove(pos.x, pos.y, 0);
-
 			HRESULT ret = mRealDevice->GetDeviceState(outDataLen, outData);
 
 			if (ret != DI_OK)
 				return ret;
 
 			DIMOUSESTATE2* mouseState = (DIMOUSESTATE2*)outData;
-			for (auto i = 0; i < 4; ++i)
-			{
-				char state = mouseState->rgbButtons[i];
-				if (state != mBuffer[i])
-				{
-					mBuffer[i] = state;
-					if (state & 0x80)
-					{
-						if (InputHook::GetInstance()->GetListener())
-							InputHook::GetInstance()->GetListener()->OnMousePress(i);
-					}
-					else
-					{
-						if (InputHook::GetInstance()->GetListener())
-							InputHook::GetInstance()->GetListener()->OnMouseRelease(i);
-					}
-				}
-			}
+			
+			InputHook::GetInstance()->ProcessMouseData(mouseState);
+
 			return ret;
 		}
 
@@ -173,26 +187,23 @@ public:
 	HRESULT _stdcall GetDeviceData(DWORD dataSize, DIDEVICEOBJECTDATA * outData, DWORD * outDataLen, DWORD flags)
 	{
 		HRESULT ret = mRealDevice->GetDeviceData(dataSize, outData, outDataLen, flags);
-		/*if(outData)
-			for(uint32_t i = 0 ; i < *outDataLen; ++i)
-			{
-			if(outData[i].dwData & 0x80)
-			{
-			if(InputHook::GetInstance()->GetListener())
-			InputHook::GetInstance()->GetListener()->OnPress(outData[i].dwOfs);
-			}
-			else
-			{
-			if(InputHook::GetInstance()->GetListener())
-			InputHook::GetInstance()->GetListener()->OnRelease(outData[i].dwOfs);
-			}
-			}
 
-			if(InputHook::GetInstance()->IsInputEnabled() == false)
-			{
+		if (!InputHook::GetInstance()->IsInputEnabled())
+		{
 			*outDataLen = 0;
-			}*/
+		}
 
+		if (mKeyboard)
+		{
+			uint8_t	rawData[256];
+			HRESULT hr = mRealDevice->GetDeviceState(256, rawData);
+			if (hr == DI_OK)
+			{
+				InputHook::GetInstance()->ProcessKeyboardData(rawData);
+			}
+
+			
+		}
 
 		return ret;
 	}
@@ -223,7 +234,6 @@ public:
 private:
 	IDirectInputDevice8A * mRealDevice;
 	bool mKeyboard;
-	uint8_t mBuffer[256];
 };
 
 class myDirectInput : public IDirectInput8A
