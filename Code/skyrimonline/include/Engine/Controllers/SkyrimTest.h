@@ -23,6 +23,7 @@ namespace Logic
 
 			private:
 
+				bool m_jumped;
 				Actor* m_pActor;
 			};
 		}

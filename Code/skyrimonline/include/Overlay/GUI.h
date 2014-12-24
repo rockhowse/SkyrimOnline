@@ -32,7 +32,7 @@ namespace Logic
 
 			private:
 
-			MyGUI::DirectXPlatform* directXPlatform;
+			MyGUI::DirectXPlatform* m_pPlatform;
 			MyGUI::Gui* myGUI;
 
 			int PositionX, PositionY;

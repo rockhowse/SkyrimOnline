@@ -7,12 +7,16 @@ namespace Logic
 	{
 		GUI* TheGUI = nullptr;
 
-		GUI::GUI() : directXPlatform(nullptr), myGUI(nullptr)
+		GUI::GUI() : m_pPlatform(nullptr), myGUI(nullptr)
 		{
-			this->directXPlatform = new MyGUI::DirectXPlatform();
-			this->directXPlatform->initialise(g_pIDirect3DDevice9);
+			m_pPlatform = new MyGUI::DirectXPlatform();
+			m_pPlatform->initialise(g_pIDirect3DDevice9);
 
-			this->directXPlatform->getDataManagerPtr()->addResourceLocation(".\\Data\\Online\\UI\\", false); // Add resource path for MyGUI.
+			m_pPlatform->getDataManagerPtr()->addResourceLocation(".\\Data\\Online\\UI\\", false); // Add resource path for MyGUI.
+
+			D3DDISPLAYMODE disp;
+			g_pIDirect3D9->GetAdapterDisplayMode(D3DADAPTER_DEFAULT, &disp);
+			m_pPlatform->getRenderManagerPtr()->setViewSize(disp.Width, disp.Height);
 
 			myGUI = new MyGUI::Gui();
 			myGUI->initialise("MyGUI_Core.xml");
@@ -30,12 +34,12 @@ namespace Logic
 				this->myGUI = nullptr;
 			}
 
-			if (this->directXPlatform != nullptr)
+			if (this->m_pPlatform != nullptr)
 			{
-				this->directXPlatform->shutdown();
+				this->m_pPlatform->shutdown();
 
-				delete this->directXPlatform;
-				this->directXPlatform = nullptr;
+				delete this->m_pPlatform;
+				this->m_pPlatform = nullptr;
 			}
 		}
 
@@ -53,8 +57,8 @@ namespace Logic
 
 			try
 			{
-				if (this->myGUI && this->directXPlatform)
-					this->directXPlatform->getRenderManagerPtr()->drawOneFrame();
+				if (this->myGUI && this->m_pPlatform)
+					this->m_pPlatform->getRenderManagerPtr()->drawOneFrame();
 			}
 			catch (...)
 			{
@@ -66,18 +70,18 @@ namespace Logic
 
 		void GUI::OnLostDevice(IDirect3DDevice9* pDevice)
 		{
-			this->directXPlatform->getRenderManagerPtr()->deviceLost();
+			this->m_pPlatform->getRenderManagerPtr()->deviceLost();
 		}
 
 		void GUI::setCursor(bool Visible)
 		{
-			if (this->directXPlatform && this->myGUI)
+			if (this->m_pPlatform && this->myGUI)
 				this->myGUI->setVisiblePointer(Visible);
 		}
 
 		void GUI::InjectKey(unsigned char Key, bool isPressed)
 		{
-			if (this->directXPlatform == nullptr || this->myGUI == nullptr)
+			if (this->m_pPlatform == nullptr || this->myGUI == nullptr)
 				return;
 
 			MyGUI::KeyCode code((MyGUI::KeyCode::Enum)Key);
@@ -140,7 +144,7 @@ namespace Logic
 
 		void GUI::InjectMouse(unsigned char Key, bool isPressed)
 		{
-			if (this->directXPlatform == nullptr || this->myGUI == nullptr)
+			if (this->m_pPlatform == nullptr || this->myGUI == nullptr)
 				return;
 
 				MyGUI::MouseButton code((MyGUI::MouseButton::Enum)Key);
@@ -153,7 +157,7 @@ namespace Logic
 
 		void GUI::MouseMove(unsigned int PositionX, unsigned int PositionY, unsigned int PositionZ)
 		{
-			if (this->directXPlatform == nullptr || this->myGUI == nullptr)
+			if (this->m_pPlatform == nullptr || this->myGUI == nullptr)
 				return;
 
 			this->PositionX = std::min<int>(PositionX, this->myGUI->getViewWidth());
