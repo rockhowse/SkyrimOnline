@@ -27,6 +27,7 @@ namespace Logic
 				{
 					Logic::Overlay::TheChat->SendChatMessage();
 					Logic::Overlay::TheChat->SetTyping(true);
+					TheIInputHook->SetInputEnabled(true);
 				}
 				else if (key != DIK_RCONTROL && key != DIK_LCONTROL)
 				{
