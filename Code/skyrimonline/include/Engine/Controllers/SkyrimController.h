@@ -2,6 +2,7 @@
 
 #include <stdafx.h>
 
+#include "SkyrimTest.h"
 #include <Engine/Interfaces/IController.h>
 #include <skse/GameReferences.h>
 #include <Engine/World.h>
@@ -56,6 +57,7 @@ namespace Logic
 				SkyrimUserInterface m_userInterface;
 				SkyrimPlayer m_player;
 				World m_world;
+				SkyrimTest m_test;
 			};
 		}
 	}

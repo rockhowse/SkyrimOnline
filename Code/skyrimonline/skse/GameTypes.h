@@ -106,7 +106,6 @@ public:
 
 	const char *	Get(void);
 
-private:
 	char	* m_data;	// 00
 	UInt16	m_dataLen;	// 04
 	UInt16	m_bufLen;	// 06

@@ -20,6 +20,7 @@ namespace Logic
 			void SkyrimController::Update()
 			{
 				m_world.Update();
+				m_test.Update();
 			}
 
 			void SkyrimController::EnableInput()

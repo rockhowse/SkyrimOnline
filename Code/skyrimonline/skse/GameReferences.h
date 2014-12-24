@@ -75,9 +75,9 @@ public:
 	virtual UInt32			Unk_0D(void);
 	virtual UInt32			Unk_0E(void);
 	virtual UInt32			Unk_0F(void);
-	virtual UInt32			Unk_10(void);
-	virtual UInt32			Unk_11(void);
-	virtual UInt32			Unk_12(void);
+	virtual bool			GetVariableFloat(BSFixedString* apVariable, float* apReturn);
+	virtual bool			GetVariableInt(BSFixedString* apVariable, UInt32* apReturn);
+	virtual bool			GetVariableBool(BSFixedString* apVariable, UInt8* apReturn);
 
 //	void	** _vtbl;
 };
