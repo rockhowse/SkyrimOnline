@@ -11,7 +11,7 @@
 
 World::World()
 {
-	Connect("127.0.0.1", 10578);
+	Connect("87.98.221.175", 10578);
 }
 
 World::~World()

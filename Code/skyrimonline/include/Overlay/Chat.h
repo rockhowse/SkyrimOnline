@@ -21,6 +21,7 @@ namespace Logic
 			~Chat();
 
 			void SetTyping(bool aForceHide = false);
+			bool IsTyping() const;
 			void AddChatMessage(const MyGUI::UString& acString);
 			void SendChatMessage();
 

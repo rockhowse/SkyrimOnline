@@ -20,7 +20,7 @@ namespace Logic
 				{
 					Logic::Overlay::TheChat->SetTyping(true);
 				}
-				else if (key == DIK_RETURN || key == DIK_NUMPADENTER) // Enter is pressed, send the message and reset focus of text box.
+				else if ((key == DIK_RETURN || key == DIK_NUMPADENTER) && Logic::Overlay::TheChat->IsTyping()) // Enter is pressed, send the message and reset focus of text box.
 				{
 					Logic::Overlay::TheChat->SendChatMessage();
 					Logic::Overlay::TheChat->SetTyping(true);

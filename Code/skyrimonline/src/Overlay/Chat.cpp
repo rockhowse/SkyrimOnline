@@ -40,6 +40,11 @@ namespace Logic
 			}
 		}
 
+		bool Chat::IsTyping() const
+		{
+			return MyGUI::InputManager::getInstance().isFocusKey();
+		}
+
 		void Chat::AddChatMessage(const MyGUI::UString& acString)
 		{
 			m_pList->addItem(acString);
