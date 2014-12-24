@@ -26,6 +26,39 @@ namespace Messages
         void HandleBuffer(ReadBuffer* pBuffer, uint16_t aOpcode, uint16_t aConnectionId);
     };
 
+    class Movement
+    {
+    public:
+        Movement() {}
+        ~Movement() {}
+    
+        void Deserialize(ReadBuffer* pBuffer)
+        {
+            pBuffer->Read_float(x);
+            pBuffer->Read_float(y);
+            pBuffer->Read_float(z);
+            pBuffer->Read_float(rot);
+            pBuffer->Read_float(velocity);
+            pBuffer->Read_uint16(animation);
+        }
+        void Serialize(WriteBuffer* pBuffer)
+        {
+            pBuffer->Write_float(x);
+            pBuffer->Write_float(y);
+            pBuffer->Write_float(z);
+            pBuffer->Write_float(rot);
+            pBuffer->Write_float(velocity);
+            pBuffer->Write_uint16(animation);
+        }
+    
+        float x;
+        float y;
+        float z;
+        float rot;
+        float velocity;
+        uint16_t animation;
+    };
+    
     class CliGame_HelloRecv : public Packet
     {
     public:
@@ -62,6 +95,25 @@ namespace Messages
         }
     
         std::string message;
+    };
+    
+    class CliGame_PositionRecv : public Packet
+    {
+    public:
+        CliGame_PositionRecv() {}
+        ~CliGame_PositionRecv() {}
+    
+        void Deserialize(ReadBuffer* pBuffer)
+        {
+            movement.Deserialize(pBuffer);
+        }
+        void Serialize(WriteBuffer* pBuffer)
+        {
+            pBuffer->Write_uint16(CliGame_Position_Opcode);
+            movement.Serialize(pBuffer);
+        }
+    
+        Movement movement;
     };
     
     class GameCli_HelloSend : public Packet
@@ -103,6 +155,28 @@ namespace Messages
     
         uint16_t senderId;
         std::string message;
+    };
+    
+    class GameCli_PositionSend : public Packet
+    {
+    public:
+        GameCli_PositionSend() {}
+        ~GameCli_PositionSend() {}
+    
+        void Deserialize(ReadBuffer* pBuffer)
+        {
+            pBuffer->Read_uint16(actorId);
+            movement.Deserialize(pBuffer);
+        }
+        void Serialize(WriteBuffer* pBuffer)
+        {
+            pBuffer->Write_uint16(GameCli_Position_Opcode);
+            pBuffer->Write_uint16(actorId);
+            movement.Serialize(pBuffer);
+        }
+    
+        uint16_t actorId;
+        Movement movement;
     };
     
 }

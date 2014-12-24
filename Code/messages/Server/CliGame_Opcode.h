@@ -15,6 +15,7 @@ namespace Messages
     {
             CliGame_Hello_Opcode = 0x0000 + 0x0000,
             CliGame_Chat_Opcode = 0x0000 + 0x0002,
+            CliGame_Position_Opcode = 0x0000 + 0x0004,
     };
 }
 

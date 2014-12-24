@@ -15,6 +15,7 @@ namespace Messages
     {
             GameCli_Hello_Opcode = 0x0000 + 0x0001,
             GameCli_Chat_Opcode = 0x0000 + 0x0003,
+            GameCli_Position_Opcode = 0x0000 + 0x0005,
     };
 }
 

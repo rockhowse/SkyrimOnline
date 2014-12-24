@@ -7,6 +7,7 @@
 
 extern void HandleCliGame_HelloRecv(const Messages::CliGame_HelloRecv& aMsg);
 extern void HandleCliGame_ChatRecv(const Messages::CliGame_ChatRecv& aMsg);
+extern void HandleCliGame_PositionRecv(const Messages::CliGame_PositionRecv& aMsg);
 
 namespace Messages
 {
@@ -28,6 +29,14 @@ namespace Messages
                 msg.connectionId = aConnectionId;
                 msg.Deserialize(pBuffer);
                 HandleCliGame_ChatRecv(msg);
+                break;
+            }
+            case CliGame_Position_Opcode:
+            {
+                CliGame_PositionRecv msg;
+                msg.connectionId = aConnectionId;
+                msg.Deserialize(pBuffer);
+                HandleCliGame_PositionRecv(msg);
                 break;
             }
         }
