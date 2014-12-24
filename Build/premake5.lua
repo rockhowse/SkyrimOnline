@@ -30,16 +30,16 @@ solution "Skyrim Online"
     
     includedirs 
     { 
-        "../include/", 
-        "../include/scriptdragon",
-        "../code/",         
-        "../code/boost/", 
-        "../code/mhook/", 
-        "../code/boost/thread/",
-        "../code/boost/filesystem/",
-        "../code/boost/system/",
-        "../code/log",
-        "../code/network/include",
+        "../Include/", 
+        "../Include/scriptdragon",
+        "../Code/",         
+        "../Code/boost/", 
+        "../Code/mhook/", 
+        "../Code/boost/thread/",
+        "../Code/boost/filesystem/",
+        "../Code/boost/system/",
+        "../Code/log",
+        "../Code/network/include",
 	}
     
     if os.is("windows") then
@@ -97,15 +97,15 @@ solution "Skyrim Online"
 			targetdir "bin/server"
 			includedirs 
             { 
-                "../code/game/include/", 
-                "../code/messages/server/"
+                "../Code/game/include/", 
+                "../Code/messages/server/"
             }
 			files 
             { 
-                "../code/game/include/**.h", 
-                "../code/game/src/**.cpp",
-                "../code/messages/server/**.cpp",
-                "../code/messages/server/**.h",
+                "../Code/game/include/**.h", 
+                "../Code/game/src/**.cpp",
+                "../Code/messages/server/**.cpp",
+                "../Code/messages/server/**.h",
             }
             libdirs 
             {
@@ -137,26 +137,26 @@ solution "Skyrim Online"
                 
                 includedirs 
                 { 
-                    "../code/skyrimonline/include/",
+                    "../Code/skyrimonline/include/",
                     "../include/MyGUI",
-                    "../code/messages/client/",
+                    "../Code/messages/client/",
                     "$(DXSDK_DIR)/Include/",
-                    "../code/skyrimonline/include", 
-                    "../code/skyrimonline/",
-                    "../code/skyrimonline/skse",                 
+                    "../Code/skyrimonline/include", 
+                    "../Code/skyrimonline/",
+                    "../Code/skyrimonline/skse",                 
                 }
                 
                 files 
                 { 
-                    "../code/skyrimonline/include/**.h", 
-                    "../code/skyrimonline/src/**.cpp",
-                    "../code/skyrimonline/src/**.def",
-                    "../code/skyrimonline/common/**.h", 
-                    "../code/skyrimonline/common/**.cpp",
-                    "../code/skyrimonline/skse/**.h", 
-                    "../code/skyrimonline/skse/**.cpp",
-                    "../code/messages/client/**.cpp",
-                    "../code/messages/client/**.h",
+                    "../Code/skyrimonline/include/**.h", 
+                    "../Code/skyrimonline/src/**.cpp",
+                    "../Code/skyrimonline/src/**.def",
+                    "../Code/skyrimonline/common/**.h", 
+                    "../Code/skyrimonline/common/**.cpp",
+                    "../Code/skyrimonline/skse/**.h", 
+                    "../Code/skyrimonline/skse/**.cpp",
+                    "../Code/messages/client/**.cpp",
+                    "../Code/messages/client/**.h",
                 }
                 
                 libdirs 
@@ -195,14 +195,14 @@ solution "Skyrim Online"
 			targetdir "bin"
 			includedirs 
             { 
-                "../code/network/include/", 
+                "../Code/network/include/", 
             }
 			files 
             { 
-                "../code/network/include/**.h", 
-                "../code/network/include/enet/**.h", 
-                "../code/network/src/**.cpp",
-                "../code/network/src/**.c",
+                "../Code/network/include/**.h", 
+                "../Code/network/include/enet/**.h", 
+                "../Code/network/src/**.cpp",
+                "../Code/network/src/**.c",
             }
             defines
             {
@@ -227,16 +227,16 @@ solution "Skyrim Online"
 			language "C"
 			targetdir "lib"
 			targetname "disasm"
-            includedirs { "../code/disasm/" }
-			files { "../code/disasm/*.c" }    
+            includedirs { "../Code/disasm/" }
+			files { "../Code/disasm/*.c" }    
             
         project "mhook"
 			kind "StaticLib"
 			language "C++"
 			targetdir "lib"
 			targetname "mhook"
-            includedirs { "../code/disasm/" }
-			files { "../code/mhook/*.cpp" }    
+            includedirs { "../Code/disasm/" }
+			files { "../Code/mhook/*.cpp" }    
     end        
         project "boost_filesystem"
 			kind "StaticLib"
@@ -244,21 +244,21 @@ solution "Skyrim Online"
 			targetdir "lib"
 			targetname "boost_filesystem"
 			defines { "BOOST_FILESYSTEM_STATIC_LINK=1" }
-			files { "../code/filesystem/*.cpp" }
+			files { "../Code/filesystem/*.cpp" }
 
 		project "boost_system"
 			kind "StaticLib"
 			language "C++"
 			targetdir "lib"
 			targetname "boost_system"
-			files { "../code/system/*.cpp", "../code/system/*.hpp" }
+			files { "../Code/system/*.cpp", "../Code/system/*.hpp" }
 			
 		project "boost_chrono"
 			kind "StaticLib"
 			language "C++"
 			targetdir "lib"
 			targetname "boost_chrono"
-			files { "../code/chrono/*.cpp" }
+			files { "../Code/chrono/*.cpp" }
 			
 		project "boost_thread"
 			kind "StaticLib"
@@ -267,8 +267,8 @@ solution "Skyrim Online"
 			targetname "boost_thread"
 			defines { "BOOST_THREAD_BUILD_LIB=1" }
 			configuration { "vs*"}
-				files { "../code/thread/*.cpp", "../code/thread/win32/*.cpp", "../code/thread/*.hpp" }
-			configuration {"xcode*" }
-				files { "../code/thread/*.cpp", "../code/thread/pthread/*.cpp", "../code/thread/*.hpp" }
+				files { "../Code/thread/*.cpp", "../Code/thread/win32/*.cpp", "../Code/thread/*.hpp" }
+			configuration {"xCode*" }
+				files { "../Code/thread/*.cpp", "../Code/thread/pthread/*.cpp", "../Code/thread/*.hpp" }
 			configuration {"gmake"}
-				files { "../code/thread/*.cpp", "../code/thread/pthread/*.cpp", "../code/thread/*.hpp" }
+				files { "../Code/thread/*.cpp", "../Code/thread/pthread/*.cpp", "../Code/thread/*.hpp" }
