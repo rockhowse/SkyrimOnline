@@ -12,6 +12,7 @@ namespace Logic
 		namespace Controllers
 		{
 			SkyrimController::SkyrimController()
+				: m_test()
 			{}
 
 			SkyrimController::~SkyrimController()
@@ -20,7 +21,7 @@ namespace Logic
 			void SkyrimController::Update()
 			{
 				m_world.Update();
-				//m_test.Update();
+				m_test.Update();
 			}
 
 			void SkyrimController::EnableInput()

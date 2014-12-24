@@ -60,7 +60,7 @@ namespace Logic
 				SkyrimUserInterface m_userInterface;
 				SkyrimPlayer m_player;
 				World m_world;
-				//SkyrimTest m_test;
+				SkyrimTest m_test;
 			};
 		}
 	}

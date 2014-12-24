@@ -711,6 +711,7 @@ class BSFaceGenNiNode;
 class TESNPC : public TESActorBase
 {
 public:
+
 	enum { kTypeID = kFormType_NPC };
 
 	struct FaceMorphs
@@ -720,7 +721,13 @@ public:
 			kNumOptions =	19,
 			kNumPresets =	4,
 		};
-		
+
+		void CopyFrom(const FaceMorphs& acRhs)
+		{
+			memcpy(option, acRhs.option, sizeof(float) * kNumOptions);
+			memcpy(presets, acRhs.presets, sizeof(UInt32) * kNumPresets);
+		}
+
 		float	option[kNumOptions];
 		UInt32	presets[kNumPresets];
 	};
