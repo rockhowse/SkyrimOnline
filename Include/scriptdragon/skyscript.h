@@ -1593,10 +1593,8 @@ namespace ObjectReference
         return NativeInvoke::Invoke<bool>("ObjectReference", "SetAngle", self, afXAngle, afYAngle, afZAngle);
     }
 
-    static void SetAnimationVariableBool(TESObjectREFR * self, char * arVariableName, bool abNewValue) {
-        char *_arVariableName = BSString_Create(arVariableName);
-        NativeInvoke::Invoke<ScriptNone>("ObjectReference", "SetAnimationVariableBool", self, &_arVariableName, abNewValue);
-        BSString_Free(_arVariableName);
+    static void SetAnimationVariableBool(TESObjectREFR * self, void * arVariableName, bool abNewValue) {
+        NativeInvoke::Invoke<ScriptNone>("ObjectReference", "SetAnimationVariableBool", self, arVariableName, abNewValue);
     }
 
     static void SetAnimationVariableInt(TESObjectREFR * self, char * arVariableName, int aiNewValue) {

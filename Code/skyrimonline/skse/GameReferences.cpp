@@ -12,6 +12,22 @@ const _LookupREFRObjectByHandle		LookupREFRObjectByHandle = (_LookupREFRObjectBy
 
 const UInt32 * g_invalidRefHandle = (UInt32*)0x01310630;
 
+bool IAnimationGraphManagerHolder::SetVariableFloat(BSFixedString* apVariable, float aValue)
+{
+	return CALL_MEMBER_FN(this, SetVariableFloat)(apVariable, aValue);
+}
+
+bool IAnimationGraphManagerHolder::SetVariableInt(BSFixedString* apVariable, UInt32 aValue)
+{
+	return CALL_MEMBER_FN(this, SetVariableInt)(apVariable, aValue);
+}
+
+bool IAnimationGraphManagerHolder::SetVariableBool(BSFixedString* apVariable, bool aValue)
+{
+	UInt8 val = aValue ? 1 : 0;
+	return CALL_MEMBER_FN(this, SetVariableBool)(apVariable, aValue);
+}
+
 UInt32 TESObjectREFR::CreateRefHandle(void)
 {
 	if (handleRefObject.GetRefCount() > 0)

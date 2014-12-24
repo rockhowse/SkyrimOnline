@@ -60,7 +60,7 @@ class IAnimationGraphManagerHolder
 public:
 	virtual ~IAnimationGraphManagerHolder();
 
-	virtual UInt32			Unk_01(void);
+	virtual bool			SendAnimationEvent(BSFixedString* apAnimEvent);
 	virtual UInt32			Unk_02(void);
 	virtual UInt32			Unk_03(void);
 	virtual UInt32			Unk_04(void);
@@ -78,6 +78,15 @@ public:
 	virtual bool			GetVariableFloat(BSFixedString* apVariable, float* apReturn);
 	virtual bool			GetVariableInt(BSFixedString* apVariable, UInt32* apReturn);
 	virtual bool			GetVariableBool(BSFixedString* apVariable, UInt8* apReturn);
+
+	bool					SetVariableFloat(BSFixedString* apVariable, float aValue);
+	bool					SetVariableInt(BSFixedString* apVariable, UInt32 aValue);
+	bool					SetVariableBool(BSFixedString* apVariable, bool aValue);
+
+	MEMBER_FN_PREFIX(IAnimationGraphManagerHolder);
+	DEFINE_MEMBER_FN(SetVariableBool, bool, 0x650C60, BSFixedString*, UInt8);
+	DEFINE_MEMBER_FN(SetVariableInt, bool, 0x650C80, BSFixedString*, UInt32);
+	DEFINE_MEMBER_FN(SetVariableFloat, bool, 0x650CA0, BSFixedString*, float);
 
 //	void	** _vtbl;
 };

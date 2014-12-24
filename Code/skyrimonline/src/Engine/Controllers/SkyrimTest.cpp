@@ -28,7 +28,7 @@ namespace Logic
 				int cache = GetVariable_real(pThis, apVarName, e);
 
 				oss << (int)*e;
-				f << oss.str() << std::endl;
+				//f << oss.str() << std::endl;
 
 				return cache;
 			}
@@ -40,7 +40,7 @@ namespace Logic
 				ScriptDragon::TESObjectREFR* pMe = (ScriptDragon::TESObjectREFR*)ScriptDragon::Game::GetPlayer();
 				ScriptDragon::TESNPC* pNPC = (ScriptDragon::TESNPC*)ScriptDragon::Game::GetFormById(ID_TESNPC::EncBandit00Template);
 
-				m_pActor = (Actor*)ScriptDragon::ObjectReference::PlaceActorAtMe(pMe, pNPC, 4, NULL);				
+				m_pActor = (Actor*)ScriptDragon::ObjectReference::PlaceActorAtMe(pMe, pNPC, 4, NULL);		
 			}
 			
 			SkyrimTest::~SkyrimTest()
@@ -49,18 +49,16 @@ namespace Logic
 
 			void SkyrimTest::Update()
 			{
-				char inplaceStr[sizeof(BSFixedString)];
-				BSFixedString str("bMotionDriven");
-				//ScriptDragon::ObjectReference::SetAnimationVariableBool((ScriptDragon::TESObjectREFR*)m_pActor, "bMotionDriven", false);
-				
-				UInt8 ret = 0;
-				if (m_pActor->animGraphHolder.GetVariableBool(&str, &ret))
-				{
-					ScriptDragon::Debug::Notification("Motion driven");
-				}
-				//ScriptDragon::ObjectReference::GetAnimationVariableBool((ScriptDragon::TESObjectREFR*)m_pActor, "bMotionDriven:Animation");
-				ScriptDragon::ExecuteConsoleCommand("sae SprintStart", (HANDLE)m_pActor);
-				//ScriptDragon::Debug::SendAnimationEvent((ScriptDragon::TESObjectREFR*)DYNAMIC_CAST(m_pActor, Actor, TESObjectREFR), "IdleForceDefaultState");
+				BSFixedString str("bAnimationDriven");
+				bool success = m_pActor->animGraphHolder.SetVariableBool(&str, true);
+				BSFixedString str2("bMotionDriven");
+				success = m_pActor->animGraphHolder.SetVariableBool(&str2, false);
+				BSFixedString speedStr("Speed");
+				float fSpeed = 80.0f;
+				m_pActor->animGraphHolder.SetVariableFloat(&speedStr, fSpeed);
+
+				BSFixedString animStr("MoveStart");
+				m_pActor->animGraphHolder.SendAnimationEvent(&animStr);
 			}
 		}
 	}
