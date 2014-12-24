@@ -41,9 +41,21 @@ solution "Skyrim Online"
         "../code/log",
         "../code/network/include",
 	}
+    
+    if os.is("windows") then
+    links
+    {
+        "ws2_32",
+        "winmm"
+    }
+    end
 	
     location "projects"
-	platforms { "x32" }
+    if os.is("windows") then
+        platforms { "x32" }
+    else
+        platforms { "x64" }
+    end
 	
 	configuration { "vs*"}
 		buildoptions 
@@ -59,7 +71,7 @@ solution "Skyrim Online"
         
     configuration {"gmake"}
 		linkoptions( "-lm -lpthread -pthread -g" ) 
-		buildoptions {"-g --std=c++11" } 
+		buildoptions {"-g --std=c++11 -fpermissive" } 
 	
     configuration "PriDeb"
         defines { "DEBUG" }
@@ -107,8 +119,6 @@ solution "Skyrim Online"
                 "boost_thread", 
                 "boost_chrono",
                 "Network",
-                "ws2_32",
-                "winmm"
             }
     if os.is("windows") then
         group "Client"		
@@ -192,8 +202,13 @@ solution "Skyrim Online"
                 "../code/network/include/**.h", 
                 "../code/network/include/enet/**.h", 
                 "../code/network/src/**.cpp",
-                "../code/network/src/enet/**.c",
+                "../code/network/src/**.c",
             }
+            defines
+            {
+                "HAS_SOCKLEN_T"
+            }
+            
             libdirs 
             {
                 "../lib" 
@@ -205,9 +220,8 @@ solution "Skyrim Online"
                 "boost_system", 
                 "boost_thread", 
                 "boost_chrono",
-                "cryptopp"
             }
-        
+    if os.is("windows") then    
         project "disasm"
 			kind "StaticLib"
 			language "C"
@@ -223,7 +237,7 @@ solution "Skyrim Online"
 			targetname "mhook"
             includedirs { "../code/disasm/" }
 			files { "../code/mhook/*.cpp" }    
-            
+    end        
         project "boost_filesystem"
 			kind "StaticLib"
 			language "C++"

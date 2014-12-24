@@ -1,5 +1,7 @@
 #include "Buffer.h"
 #include <fstream>
+#include <cstring>
+#include <cstdlib>
 
 ReadBuffer::ReadBuffer(const uint8_t* acpData, uint32_t aSize)
 	: m_position(0)
