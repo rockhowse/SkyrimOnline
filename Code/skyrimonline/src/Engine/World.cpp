@@ -70,3 +70,8 @@ void HandleGameCli_ChatRecv(const Messages::GameCli_ChatRecv& aMsg)
 {
 	Logic::Overlay::TheChat->AddChatMessage(MyGUI::UString(aMsg.message));
 }
+
+void HandleGameCli_PositionRecv(const Messages::GameCli_PositionRecv& aMsg)
+{
+
+}

@@ -55,3 +55,8 @@ void HandleCliGame_HelloRecv(const Messages::CliGame_HelloRecv& aMsg)
 
 	g_pServer->Send(aMsg.connectionId, pMessage);
 }
+
+void HandleCliGame_PositionRecv(const Messages::CliGame_PositionRecv& aMsg)
+{
+
+}
