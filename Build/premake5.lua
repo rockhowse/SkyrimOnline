@@ -70,7 +70,7 @@ solution "Skyrim Online"
         }
         
     configuration {"gmake"}
-		linkoptions( "-lm -lpthread -pthread -g" ) 
+		linkoptions( "-lm -lrt -lpthread -pthread -g" ) 
 		buildoptions {"-g --std=c++11 -fpermissive" } 
 	
     configuration "PriDeb"
