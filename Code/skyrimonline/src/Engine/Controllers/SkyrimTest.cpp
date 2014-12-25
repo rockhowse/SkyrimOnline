@@ -22,15 +22,13 @@ namespace Logic
 				: m_jumped(false)
 			{
 				ScriptDragon::TESObjectREFR* pMe = (ScriptDragon::TESObjectREFR*)ScriptDragon::Game::GetPlayer();
-				ScriptDragon::TESNPC* pNPC = (ScriptDragon::TESNPC*)ScriptDragon::Game::GetFormById(ID_TESNPC::EncBandit00Template);
+				Actor* pActor = (Actor*)ScriptDragon::Game::GetPlayer();
+				ScriptDragon::TESNPC* pNPC = (ScriptDragon::TESNPC*)pActor->baseForm;
 				IFormFactory* pFactory = IFormFactory::GetFactoryForType(kFormType_NPC);
 				TESNPC* pNpc = (TESNPC*)pFactory->Create();
-				
 				pNpc->CopyFromEx((TESForm*)pNPC);
 				pNpc->fullName.name = BSFixedString("Lol");
 
-				m_pActor = (Actor*)ScriptDragon::ObjectReference::PlaceActorAtMe(pMe, (ScriptDragon::TESNPC*)pNPC, 4, NULL);
-				ScriptDragon::Actor::EnableAI((ScriptDragon::CActor*)m_pActor, false);
 				m_pActor = (Actor*)ScriptDragon::ObjectReference::PlaceActorAtMe(pMe, (ScriptDragon::TESNPC*)pNpc, 4, NULL);
 			}
 			

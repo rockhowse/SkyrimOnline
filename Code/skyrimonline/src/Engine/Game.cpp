@@ -9,6 +9,11 @@ namespace Logic
 
 		void InitializeGame()
 		{
+			if (TheController)
+			{
+				return;
+			}
+
 			EnetServer::Initialize();
 
 			IDirect3D9* pDevice;

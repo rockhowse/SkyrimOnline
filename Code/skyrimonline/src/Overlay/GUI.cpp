@@ -70,7 +70,15 @@ namespace Logic
 
 		void GUI::OnLostDevice(IDirect3DDevice9* pDevice)
 		{
-			this->m_pPlatform->getRenderManagerPtr()->deviceLost();
+			try
+			{
+				this->m_pPlatform->getRenderManagerPtr()->deviceLost();
+			}
+			catch (MyGUI::Exception& exception)
+			{
+
+			}
+			
 		}
 
 		void GUI::setCursor(bool Visible)

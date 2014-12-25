@@ -180,6 +180,7 @@ solution "Skyrim Online"
                     "d3dx9.lib",
                     "MyGUI.DirectXPlatform.lib",
                     "MyGUIEngine.lib",
+                    "dbghelp",
                 }
                 
                 forceincludes
