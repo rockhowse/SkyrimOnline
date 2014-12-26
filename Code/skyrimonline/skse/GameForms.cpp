@@ -95,7 +95,16 @@ void TESForm::CopyFromEx(TESForm * rhsForm)
 
 			lhs->unk10A = rhs->unk10A;
 			lhs->npcClass = rhs->npcClass;
-			lhs->headData = rhs->headData;
+			lhs->headData = (TESNPC::HeadData *)FormHeap_Allocate(sizeof(TESNPC::HeadData));
+			lhs->headData->hairColor = (BGSColorForm*)IFormFactory::GetFactoryForType(kFormType_ColorForm)->Create();
+			lhs->headData->hairColor->abgr = rhs->headData->hairColor->abgr;
+			lhs->headData->hairColor->flags = rhs->headData->hairColor->flags;
+			lhs->headData->hairColor->formType = rhs->headData->hairColor->formType;
+			lhs->headData->hairColor->fullName.CopyFromBase(&rhs->headData->hairColor->fullName);
+			lhs->headData->hairColor->unk04 = rhs->headData->hairColor->unk04;
+			lhs->headData->hairColor->unk10 = rhs->headData->hairColor->unk10;
+			lhs->headData->headTexture = rhs->headData->headTexture;
+
 			lhs->unk114 = rhs->unk114;
 			lhs->combatStyle = rhs->combatStyle;
 			lhs->unk11C = rhs->unk11C;

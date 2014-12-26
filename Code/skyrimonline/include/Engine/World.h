@@ -16,8 +16,8 @@ public:
 	World();
 	~World();
 
-	void SendMessage(Packet* apPacket);
-	void SendReliableMessage(Packet* apPacket);
+	void Send(Packet* apPacket);
+	void SendReliable(Packet* apPacket);
 
 	void OnUpdate();
 
@@ -30,10 +30,11 @@ public:
 private:
 
 	void SendHello(const std::string& acPlayerName);
+	
 	std::unique_ptr<EnetServer> m_pConnection;
 	Messages::GameCli_Handler m_handler;
-};
 
-extern World* g_pWorld;
+
+};
 
 #endif // WORLD_H

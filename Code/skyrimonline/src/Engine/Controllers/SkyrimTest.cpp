@@ -2,7 +2,9 @@
 
 #include <stdafx.h>
 
+#include <messages/Client/GameCli_Handler.h>
 #include <Engine/Controllers/SkyrimTest.h>
+#include <Engine/Controllers/SkyrimHelpers.h>
 #include <skyscript.h>
 #include <enums.h>
 #include <GameRTTI.h>
@@ -27,6 +29,11 @@ namespace Logic
 				IFormFactory* pFactory = IFormFactory::GetFactoryForType(kFormType_NPC);
 				TESNPC* pNpc = (TESNPC*)pFactory->Create();
 				pNpc->CopyFromEx((TESForm*)pNPC);
+
+				Messages::Npc serializeStruct;
+				Serialize((TESNPC*)pNPC, serializeStruct);
+				Deserialize(pNpc, serializeStruct);
+
 				pNpc->fullName.name = BSFixedString("Lol");
 
 				m_pActor = (Actor*)ScriptDragon::ObjectReference::PlaceActorAtMe(pMe, (ScriptDragon::TESNPC*)pNpc, 4, NULL);
@@ -38,7 +45,7 @@ namespace Logic
 
 			void SkyrimTest::Update()
 			{
-				if (m_jumped == false)
+				//if (m_jumped == false)
 				{
 					BSFixedString str("bAnimationDriven");
 					bool success = m_pActor->animGraphHolder.SetVariableBool(&str, true);

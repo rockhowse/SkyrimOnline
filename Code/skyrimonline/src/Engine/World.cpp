@@ -24,7 +24,7 @@ void World::OnUpdate()
 
 void World::OnConnection(uint16_t aConnectionId)
 {
-	SendHello(Logic::Engine::TheController->GetPlayer()->GetName());
+	SendHello(Logic::Engine::TheController->GetLocalPlayer()->GetName());
 }
 
 void World::OnDisconnection(uint16_t aConnectionId)
@@ -40,14 +40,14 @@ void World::OnConsume(uint16_t aConnectionId, ReadBuffer* pBuffer)
 	m_handler.HandleBuffer(pBuffer, opcode, 0);
 }
 
-void World::SendMessage(Packet* apPacket)
+void World::Send(Packet* apPacket)
 {
-	Send(0, apPacket);
+	EnetServer::Send(0, apPacket);
 }
 
-void World::SendReliableMessage(Packet* apPacket)
+void World::SendReliable(Packet* apPacket)
 {
-	SendReliable(0, apPacket);
+	EnetServer::SendReliable(0, apPacket);
 }
 
 void World::SendHello(const std::string& acPlayerName)
@@ -55,7 +55,7 @@ void World::SendHello(const std::string& acPlayerName)
 	Messages::CliGame_HelloSend* pMessage = new Messages::CliGame_HelloSend;
 
 	pMessage->name = acPlayerName;
-	SendReliableMessage(pMessage);
+	SendReliable(pMessage);
 }
 
 void HandleGameCli_HelloRecv(const Messages::GameCli_HelloRecv& aMsg)
@@ -63,7 +63,9 @@ void HandleGameCli_HelloRecv(const Messages::GameCli_HelloRecv& aMsg)
 	std::ostringstream oss;
 	oss << "Skyrim Online v" << aMsg.version << " connected.";
 
-	Logic::Engine::TheController->GetUI()->Debug(oss.str());
+	Logic::Overlay::TheChat->AddChatMessage(oss.str());
+
+	Logic::Engine::TheController->GetLocalPlayer()->InitializeServerNode();
 }
 
 void HandleGameCli_ChatRecv(const Messages::GameCli_ChatRecv& aMsg)
@@ -72,6 +74,16 @@ void HandleGameCli_ChatRecv(const Messages::GameCli_ChatRecv& aMsg)
 }
 
 void HandleGameCli_PositionRecv(const Messages::GameCli_PositionRecv& aMsg)
+{
+
+}
+
+void HandleGameCli_PlayerAddRecv(const Messages::GameCli_PlayerAddRecv& aMsg)
+{
+
+}
+
+void HandleGameCli_PlayerRemoveRecv(const Messages::GameCli_PlayerRemoveRecv& aMsg)
 {
 
 }

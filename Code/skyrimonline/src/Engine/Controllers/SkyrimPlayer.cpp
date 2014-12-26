@@ -16,7 +16,8 @@ namespace Logic
 		namespace Controllers
 		{
 			SkyrimPlayer::SkyrimPlayer()
-				: m_pPlayer((Actor*)ScriptDragon::Game::GetPlayer())
+				: m_pCharacter((Actor*)ScriptDragon::Game::GetPlayer())
+				, m_pHorse(nullptr)
 			{}
 
 			SkyrimPlayer::~SkyrimPlayer()
@@ -24,12 +25,21 @@ namespace Logic
 
 			const std::string SkyrimPlayer::GetName()
 			{
-				TESNPC* pNpc = DYNAMIC_CAST(m_pPlayer->baseForm, TESForm, TESNPC);
+				TESNPC* pNpc = DYNAMIC_CAST(m_pCharacter->baseForm, TESForm, TESNPC);
 				if (pNpc)
 				{
 					return pNpc->fullName.name.data;
 				}
 				return "ERROR";
+			}
+
+			void SkyrimPlayer::InitializeServerNode()
+			{
+				Messages::CliGame_PlayerInitializeSend* pPacket = new Messages::CliGame_PlayerInitializeSend;
+
+				
+
+				TheController->SendReliable(pPacket);
 			}
 		}
 	}

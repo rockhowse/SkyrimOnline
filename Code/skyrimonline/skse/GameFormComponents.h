@@ -601,7 +601,7 @@ public:
 	struct Data
 	{
 		SpellItem**	spells;	// SpellItem**  (null terminated array of spells)
-		void	* unk4;
+		TESForm**	unk4;
 		TESShout**	shouts;
 		UInt32		numSpells;
 		UInt32		numUnk4;

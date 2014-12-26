@@ -8,6 +8,8 @@
 extern void HandleGameCli_HelloRecv(const Messages::GameCli_HelloRecv& aMsg);
 extern void HandleGameCli_ChatRecv(const Messages::GameCli_ChatRecv& aMsg);
 extern void HandleGameCli_PositionRecv(const Messages::GameCli_PositionRecv& aMsg);
+extern void HandleGameCli_PlayerAddRecv(const Messages::GameCli_PlayerAddRecv& aMsg);
+extern void HandleGameCli_PlayerRemoveRecv(const Messages::GameCli_PlayerRemoveRecv& aMsg);
 
 namespace Messages
 {
@@ -37,6 +39,22 @@ namespace Messages
                 msg.connectionId = aConnectionId;
                 msg.Deserialize(pBuffer);
                 HandleGameCli_PositionRecv(msg);
+                break;
+            }
+            case GameCli_PlayerAdd_Opcode:
+            {
+                GameCli_PlayerAddRecv msg;
+                msg.connectionId = aConnectionId;
+                msg.Deserialize(pBuffer);
+                HandleGameCli_PlayerAddRecv(msg);
+                break;
+            }
+            case GameCli_PlayerRemove_Opcode:
+            {
+                GameCli_PlayerRemoveRecv msg;
+                msg.connectionId = aConnectionId;
+                msg.Deserialize(pBuffer);
+                HandleGameCli_PlayerRemoveRecv(msg);
                 break;
             }
         }

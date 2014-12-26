@@ -32,9 +32,12 @@ namespace Logic
 
 				const std::string GetName();
 
+				void InitializeServerNode();
+
 			private:
 
-				Actor* m_pPlayer;
+				Actor* m_pCharacter;
+				Actor* m_pHorse;
 			};
 
 			class SkyrimController : public Interfaces::IController
@@ -50,10 +53,12 @@ namespace Logic
 				void DisableInput();
 
 				Interfaces::IUserInterface* GetUI();
-				Interfaces::IPlayer* GetPlayer();
-				
-				void SendMessage(Packet* apPacket);
-				void SendReliableMessage(Packet* apPacket);
+				Interfaces::IPlayer* GetLocalPlayer();
+				Interfaces::IPlayer* GetPlayerById(uint16_t aPLayerId);
+
+
+				void Send(Packet* apPacket);
+				void SendReliable(Packet* apPacket);
 
 			private:
 
@@ -61,6 +66,9 @@ namespace Logic
 				SkyrimPlayer m_player;
 				World m_world;
 				SkyrimTest m_test;
+
+				SkyrimPlayer* m_pPlayers[UINT16_MAX + 1];
+
 			};
 		}
 	}

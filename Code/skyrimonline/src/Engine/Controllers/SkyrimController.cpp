@@ -13,10 +13,13 @@ namespace Logic
 		{
 			SkyrimController::SkyrimController()
 				: m_test()
-			{}
+			{
+				memset(m_pPlayers, 0, sizeof(SkyrimPlayer*) * (UINT16_MAX + 1));
+			}
 
 			SkyrimController::~SkyrimController()
-			{}
+			{
+			}
 
 			void SkyrimController::Update()
 			{
@@ -41,19 +44,24 @@ namespace Logic
 				return &m_userInterface;
 			}
 
-			Interfaces::IPlayer* SkyrimController::GetPlayer()
+			Interfaces::IPlayer* SkyrimController::GetLocalPlayer()
 			{
 				return &m_player;
 			}
 
-			void SkyrimController::SendMessage(Packet* apPacket)
+			Interfaces::IPlayer* SkyrimController::GetPlayerById(uint16_t aPLayerId)
 			{
-				m_world.SendMessage(apPacket);
+				return m_pPlayers[aPLayerId];
 			}
 
-			void SkyrimController::SendReliableMessage(Packet* apPacket)
+			void SkyrimController::Send(Packet* apPacket)
 			{
-				m_world.SendReliableMessage(apPacket);
+				m_world.Send(apPacket);
+			}
+
+			void SkyrimController::SendReliable(Packet* apPacket)
+			{
+				m_world.SendReliable(apPacket);
 			}
 		}
 	}

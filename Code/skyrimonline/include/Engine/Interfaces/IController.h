@@ -25,6 +25,8 @@ namespace Logic
 				virtual ~IPlayer() {}
 
 				virtual const std::string GetName() = 0;
+
+				virtual void InitializeServerNode() = 0;
 			};
 
 			struct IController
@@ -32,15 +34,16 @@ namespace Logic
 				virtual ~IController() {}
 
 				virtual void EnableInput() = 0;
-				virtual void DisableInput() = 0;;
+				virtual void DisableInput() = 0;
 
 				virtual IUserInterface* GetUI() = 0;
-				virtual IPlayer* GetPlayer() = 0;
+				virtual IPlayer* GetLocalPlayer() = 0;
+				virtual IPlayer* GetPlayerById(uint16_t aPlayerId) = 0;
 
 				virtual void Update() = 0;
 
-				virtual void SendMessage(Packet* apPacket) = 0;
-				virtual void SendReliableMessage(Packet* apPacket) = 0;
+				virtual void Send(Packet* apPacket) = 0;
+				virtual void SendReliable(Packet* apPacket) = 0;
 			};
 		}
 
