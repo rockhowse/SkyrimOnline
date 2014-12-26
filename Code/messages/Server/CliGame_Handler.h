@@ -62,6 +62,7 @@ namespace Messages
             pBuffer->Read_float(rot);
             pBuffer->Read_float(velocity);
             pBuffer->Read_uint16(animation);
+            pBuffer->Read_uint32(time);
         }
         void Serialize(WriteBuffer* pBuffer)
         {
@@ -69,12 +70,14 @@ namespace Messages
             pBuffer->Write_float(rot);
             pBuffer->Write_float(velocity);
             pBuffer->Write_uint16(animation);
+            pBuffer->Write_uint32(time);
         }
     
         Vector3 pos;
         float rot;
         float velocity;
         uint16_t animation;
+        uint32_t time;
     };
     
     class FactionInfo
@@ -602,19 +605,19 @@ namespace Messages
         void Deserialize(ReadBuffer* pBuffer)
         {
             player_npc.Deserialize(pBuffer);
-            horse_npc.Deserialize(pBuffer);
+            pBuffer->Read_uint32(horseId);
             movement.Deserialize(pBuffer);
         }
         void Serialize(WriteBuffer* pBuffer)
         {
             pBuffer->Write_uint16(CliGame_PlayerInitialize_Opcode);
             player_npc.Serialize(pBuffer);
-            horse_npc.Serialize(pBuffer);
+            pBuffer->Write_uint32(horseId);
             movement.Serialize(pBuffer);
         }
     
         Npc player_npc;
-        Npc horse_npc;
+        uint32_t horseId;
         Movement movement;
     };
     
@@ -692,7 +695,7 @@ namespace Messages
             pBuffer->Read_uint16(playerId);
             pBuffer->Read_string(name);
             player_npc.Deserialize(pBuffer);
-            horse_npc.Deserialize(pBuffer);
+            pBuffer->Read_uint32(horseId);
             movement.Deserialize(pBuffer);
         }
         void Serialize(WriteBuffer* pBuffer)
@@ -701,14 +704,14 @@ namespace Messages
             pBuffer->Write_uint16(playerId);
             pBuffer->Write_string(name);
             player_npc.Serialize(pBuffer);
-            horse_npc.Serialize(pBuffer);
+            pBuffer->Write_uint32(horseId);
             movement.Serialize(pBuffer);
         }
     
         uint16_t playerId;
         std::string name;
         Npc player_npc;
-        Npc horse_npc;
+        uint32_t horseId;
         Movement movement;
     };
     

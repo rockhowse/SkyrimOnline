@@ -1,13 +1,20 @@
 #include "GameServer.h"
 #include "easylogging++.h"
+#include "Player.h"
 
 void HandleCliGame_ChatRecv(const Messages::CliGame_ChatRecv& aMsg)
 {
-	LOG(INFO) << "Chat : " << aMsg.connectionId << " " << aMsg.message;
+	Player* pPlayer = g_pServer->GetPlayer(aMsg.connectionId);
+	if (!pPlayer)
+	{
+		return;
+	}
+
+	LOG(INFO) << "event=player_chat connection_id=" << aMsg.connectionId << " name=" << pPlayer->GetName() << " message=\"" << aMsg.message << "\"";
 
 	Messages::GameCli_ChatSend* pMessage = new Messages::GameCli_ChatSend;
 	pMessage->senderId = aMsg.connectionId;
-	pMessage->message = g_pServer->GetPlayerName(pMessage->senderId) + " says: " + aMsg.message;
+	pMessage->message = pPlayer->GetName() + " says: " + aMsg.message;
 
 	g_pServer->SendReliableAll(pMessage);
 }

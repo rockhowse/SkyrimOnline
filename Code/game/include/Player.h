@@ -2,6 +2,7 @@
 #define PLAYER_H
 
 #include "Movements.h"
+#include "CliGame_Handler.h"
 
 class Player
 {
@@ -23,7 +24,13 @@ public:
 	void SendMovementUpdate(const Player* apPlayer);
 
 	// Gameplay
-	void SetMovement(const Movement& acMovement);
+	void SetMovement(const Messages::Movement& acMovement);
+	void SetNpc(const Messages::Npc& acNpc);
+	void SetHorse(uint32_t aId);
+
+	const Messages::Movement& GetMovement() const;
+	const Messages::Npc& GetNpc() const;
+	uint32_t GetHorse() const;
 
 private:
 
@@ -32,6 +39,8 @@ private:
 
 	// 6 movements will be held at any point in time, ~2 seconds delay
 	MovementTracker<6> m_movementTracker;
+	Messages::Npc m_npc;
+	uint32_t m_horseId;
 };
 
 #endif // PLAYER_H

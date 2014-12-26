@@ -19,7 +19,6 @@ namespace Logic
 	{
 		namespace Controllers
 		{
-			std::fstream f("test.log", std::ios::trunc | std::ios::out);
 			SkyrimTest::SkyrimTest()
 				: m_jumped(false)
 			{
@@ -45,22 +44,19 @@ namespace Logic
 
 			void SkyrimTest::Update()
 			{
-				//if (m_jumped == false)
+				if (m_jumped == false)
 				{
 					BSFixedString str("bAnimationDriven");
 					bool success = m_pActor->animGraphHolder.SetVariableBool(&str, true);
 					BSFixedString str2("bMotionDriven");
 					success &= m_pActor->animGraphHolder.SetVariableBool(&str2, false);
-					BSFixedString speedStr("Speed");
-					float fSpeed = 0.0f;
-					success &= m_pActor->animGraphHolder.SetVariableFloat(&speedStr, fSpeed);
+					//BSFixedString speedStr("Speed");
+					//float fSpeed = 0.0f;
+					//success &= m_pActor->animGraphHolder.SetVariableFloat(&speedStr, fSpeed);
 
-					BSFixedString animStr("JumpStandingStart");
+					BSFixedString animStr("MoveStart");
 					if (m_pActor->animGraphHolder.SendAnimationEvent(&animStr) && success)
 					{
-						m_pActor->UpdateSkinColor();
-						m_pActor->UpdateHairColor();
-
 						m_jumped = true;
 					}
 				}

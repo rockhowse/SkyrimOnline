@@ -4,16 +4,7 @@
 #include <cstdint>
 #include <list>
 #include <string>
-
-class Movement
-{
-public:
-
-	float m_x;
-	float m_y;
-	float m_z;
-	float m_heading;
-};
+#include "CliGame_Handler.h"
 
 template <uint32_t ToHold>
 class MovementTracker
@@ -25,7 +16,7 @@ public:
 	~MovementTracker()
 	{}
 
-	void Add(const Movement& acMovement)
+	void Add(const Messages::Movement& acMovement)
 	{
 		if (m_movements.size() >= ToHold)
 		{
@@ -34,19 +25,19 @@ public:
 		m_movements.push_back(acMovement);
 	}
 
-	Movement GetLatest()
+	const Messages::Movement& GetLatest() const
 	{
 		return m_movements.back();
 	}
 
-	const std::list<Movement>& GetMovements()
+	const std::list<Messages::Movement>& GetMovements()
 	{
 		return m_movements;
 	}
 
 private:
 
-	std::list<Movement> m_movements;
+	std::list<Messages::Movement> m_movements;
 };
 
 

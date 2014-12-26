@@ -8,29 +8,32 @@ GameServer* g_pServer = nullptr;
 GameServer::GameServer()
     :EnetServer()
 {
-	std::memset(m_players, 0, sizeof(Player*) * UINT16_MAX);
+	std::memset(m_players, 0, sizeof(Player*) * (UINT16_MAX +1 ));
 
 	long port = 10578;
 
 	Host((uint16_t)port);
 
-	LOG(INFO) << "Server started.";
+	LOG(INFO) << "event=server_state value=started";
 }
 
 GameServer::~GameServer()
 {
+	LOG(INFO) << "event=server_state value=stopped";
 }
 
 void GameServer::OnConnection(uint16_t aId)
 {
-	LOG(INFO) << "Connect : " << aId;
+	LOG(INFO) << "event=connected connection_id=" << aId;
 
 	m_players[aId] = new Player(aId);
 }
 
 void GameServer::OnDisconnection(uint16_t aId)
 {
-	LOG(INFO) << "Disconnect : " << aId;
+	LOG(INFO) << "event=disconnected connection_id=" << aId;
+
+	m_world.Leave(m_players[aId]);
 
 	delete m_players[aId];
 	m_players[aId] = nullptr;
@@ -49,6 +52,7 @@ void GameServer::OnConsume(uint16_t aConnectionId, ReadBuffer* pBuffer)
 
 void GameServer::OnUpdate()
 {
+	m_world.Update();
 }
 
 Player* GameServer::GetPlayer(uint16_t aConnectionId) const
@@ -56,12 +60,7 @@ Player* GameServer::GetPlayer(uint16_t aConnectionId) const
 	return m_players[aConnectionId];
 }
 
-void GameServer::SetPlayerName(uint16_t aConnectionId, const std::string& Name)
+World* GameServer::GetWorld()
 {
-	m_players[aConnectionId]->SetName(Name);
-}
-
-std::string GameServer::GetPlayerName(uint16_t aConnectionId)
-{
-	return m_players[aConnectionId]->GetName();
+	return &m_world;
 }

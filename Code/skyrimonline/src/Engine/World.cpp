@@ -11,7 +11,7 @@
 
 World::World()
 {
-	Connect("87.98.221.175", 10578);
+	Connect("127.0.0.1", 10578);
 }
 
 World::~World()
@@ -63,6 +63,8 @@ void HandleGameCli_HelloRecv(const Messages::GameCli_HelloRecv& aMsg)
 	std::ostringstream oss;
 	oss << "Skyrim Online v" << aMsg.version << " connected.";
 
+	LOG(INFO) << "event=hello state=success version=" << aMsg.version;
+
 	Logic::Overlay::TheChat->AddChatMessage(oss.str());
 
 	Logic::Engine::TheController->GetLocalPlayer()->InitializeServerNode();
@@ -70,20 +72,30 @@ void HandleGameCli_HelloRecv(const Messages::GameCli_HelloRecv& aMsg)
 
 void HandleGameCli_ChatRecv(const Messages::GameCli_ChatRecv& aMsg)
 {
+	LOG(INFO) << "event=chat_recv message=\"" << aMsg.message << "\"";
 	Logic::Overlay::TheChat->AddChatMessage(MyGUI::UString(aMsg.message));
 }
 
 void HandleGameCli_PositionRecv(const Messages::GameCli_PositionRecv& aMsg)
 {
+	Logic::Engine::Interfaces::IPlayer* pPlayer = Logic::Engine::TheController->GetPlayerById(aMsg.playerId);
+	if (!pPlayer)
+	{
+		LOG(ERROR) << "event=position player_id=" << aMsg.playerId << " message=\"Player is null\"";
+		return;
+	}
 
+	pPlayer->PushMovement(aMsg.movement);
 }
 
 void HandleGameCli_PlayerAddRecv(const Messages::GameCli_PlayerAddRecv& aMsg)
 {
-
+	LOG(INFO) << "event=player_add id=" << aMsg.playerId << " name=" << aMsg.name;
+	Logic::Engine::TheController->HandlePlayerAdd(aMsg);
 }
 
 void HandleGameCli_PlayerRemoveRecv(const Messages::GameCli_PlayerRemoveRecv& aMsg)
 {
-
+	LOG(INFO) << "event=player_remove id=" << aMsg.playerId;
+	Logic::Engine::TheController->HandlePlayerRemove(aMsg);
 }

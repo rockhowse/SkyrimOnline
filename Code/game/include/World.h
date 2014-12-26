@@ -2,6 +2,7 @@
 #define WORLD_H
 
 #include <boost/functional/hash.hpp>
+#include <list>
 
 struct Point2D
 {
@@ -47,7 +48,11 @@ public:
 	void Enter(Player* apPlayer);
 	void Leave(Player* apPlayer);
 
+	void UpdateMovement(Player* apPlayer);
+
 private:
+
+	std::list<Player*> m_pPlayerList;
 };
 
 #endif // WORLD_H

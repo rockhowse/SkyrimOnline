@@ -381,10 +381,11 @@ namespace Logic
 
 				if (apNpc->headData == nullptr)
 				{
-					int* ptr = 0;
-					*ptr = 4;
+					apNpc->headData = (TESNPC::HeadData*)FormHeap_Allocate(sizeof(TESNPC::HeadData));
 				}
 
+				apNpc->headData->hairColor = (BGSColorForm*)IFormFactory::GetFactoryForType(kFormType_ColorForm)->Create();
+				apNpc->headData->hairColor->unk20 = aNpc.hairColor.unk20;
 				apNpc->headData->hairColor->abgr = aNpc.hairColor.abgr;
 
 				apNpc->headData->headTexture = (BGSTextureSet *)LookupFormByID(aNpc.headTextureId);

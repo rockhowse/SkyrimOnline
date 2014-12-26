@@ -3,6 +3,7 @@
 
 #include "EnetServer.h"
 #include "CliGame_Handler.h"
+#include "World.h"
 #include <cstdint>
 
 class Player;
@@ -20,13 +21,14 @@ public:
 	void OnConsume(uint16_t aConnectionId, ReadBuffer* pBuffer);
 	
 	Player* GetPlayer(uint16_t aConnectionId) const;
-	void SetPlayerName(uint16_t aConnectionId, const std::string& Name);
-	std::string GetPlayerName(uint16_t aConnectionId);
+	World* GetWorld();
 
 private:
 
-	Player* m_players[UINT16_MAX];
+	Player* m_players[UINT16_MAX + 1];
 	Messages::CliGame_Handler m_handler;
+
+	World m_world;
 };
 
 extern GameServer* g_pServer;

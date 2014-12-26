@@ -39,16 +39,47 @@ void Player::SendMovementUpdate(const Player* apPlayer)
 {
 }
 
-void Player::SetMovement(const Movement& acMovement)
+void Player::SetMovement(const Messages::Movement& acMovement)
 {
 	m_movementTracker.Add(acMovement);
 }
 
+void Player::SetNpc(const Messages::Npc& acNpc)
+{
+	m_npc = acNpc;
+}
+
+void Player::SetHorse(uint32_t aId)
+{
+	m_horseId = aId;
+}
+
+const Messages::Movement& Player::GetMovement() const
+{
+	return m_movementTracker.GetLatest();
+}
+
+const Messages::Npc& Player::GetNpc() const
+{
+	return m_npc;
+}
+
+uint32_t Player::GetHorse() const
+{
+	return m_horseId;
+}
+
 void HandleCliGame_HelloRecv(const Messages::CliGame_HelloRecv& aMsg)
 {
-	LOG(INFO) << aMsg.connectionId << " " << aMsg.name;
+	Player* pPlayer = g_pServer->GetPlayer(aMsg.connectionId);
+	if (!pPlayer)
+	{
+		return;
+	}
 
-	g_pServer->SetPlayerName(aMsg.connectionId, aMsg.name);
+	LOG(INFO) << "event=hello connection_id=" <<  aMsg.connectionId << " name=" << aMsg.name;
+
+	pPlayer->SetName(aMsg.name);
 
 	Messages::GameCli_HelloSend* pMessage = new Messages::GameCli_HelloSend;
 	pMessage->version = 0;
@@ -56,7 +87,35 @@ void HandleCliGame_HelloRecv(const Messages::CliGame_HelloRecv& aMsg)
 	g_pServer->Send(aMsg.connectionId, pMessage);
 }
 
+void HandleCliGame_PlayerInitializeRecv(const Messages::CliGame_PlayerInitializeRecv& aMsg)
+{
+	Player* pPlayer = g_pServer->GetPlayer(aMsg.connectionId);
+	if (!pPlayer)
+	{
+		return;
+	}
+
+	LOG(INFO) << "event=initialize_player connection_id=" << aMsg.connectionId << " class_id=" << aMsg.player_npc.classId
+		<< " race_id=" << aMsg.player_npc.raceId;
+
+	pPlayer->SetNpc(aMsg.player_npc);
+	pPlayer->SetHorse(aMsg.horseId);
+	pPlayer->SetMovement(aMsg.movement);
+
+	g_pServer->GetWorld()->Enter(pPlayer);
+}
+
 void HandleCliGame_PositionRecv(const Messages::CliGame_PositionRecv& aMsg)
 {
+	Player* pPlayer = g_pServer->GetPlayer(aMsg.connectionId);
+	if (!pPlayer)
+	{
+		return;
+	}
 
+	pPlayer->SetMovement(aMsg.movement);
+	g_pServer->GetWorld()->UpdateMovement(pPlayer);
+
+	LOG(INFO) << "event=position x=" << aMsg.movement.pos.x << " y=" << aMsg.movement.pos.y << " z=" << aMsg.movement.pos.z
+		<< " rot=" << aMsg.movement.rot << " velocity=" << aMsg.movement.velocity << " animation=" << aMsg.movement.animation;
 }

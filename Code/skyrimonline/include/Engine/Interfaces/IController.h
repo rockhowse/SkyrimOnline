@@ -5,7 +5,7 @@
 #include <Buffer.h>
 #include <EnetServer.h>
 
-#undef SendMessage
+#include <GameCli_Handler.h>
 
 namespace Logic
 {
@@ -27,6 +27,8 @@ namespace Logic
 				virtual const std::string GetName() = 0;
 
 				virtual void InitializeServerNode() = 0;
+
+				virtual void PushMovement(const Messages::Movement& acMovement) = 0;
 			};
 
 			struct IController
@@ -44,6 +46,9 @@ namespace Logic
 
 				virtual void Send(Packet* apPacket) = 0;
 				virtual void SendReliable(Packet* apPacket) = 0;
+
+				virtual void HandlePlayerAdd(const Messages::GameCli_PlayerAddRecv& acMsg) = 0;
+				virtual void HandlePlayerRemove(const Messages::GameCli_PlayerRemoveRecv& acMsg) = 0;
 			};
 		}
 
