@@ -24,18 +24,35 @@ namespace Logic
 
 		}
 
+		void Chat::SetVisibility(bool aForceHide)
+		{
+			if (m_pEdit == nullptr || m_pList == nullptr)
+				return;
+
+			if (aForceHide == false && m_pEdit->isVisible() == false && m_pList->isVisible() == false)
+			{
+				m_pEdit->setVisible(true);
+				m_pList->setVisible(true);
+			}
+			else
+			{
+				m_pEdit->setVisible(false);
+				m_pList->setVisible(false);
+			}
+		}
+
 		void Chat::SetTyping(bool aForceHide)
 		{
 			if (aForceHide == false && MyGUI::InputManager::getInstance().isFocusKey() == false)
 			{
 				Logic::Engine::TheController->DisableInput();
-				Logic::Overlay::TheGUI->setCursor(true);
+				Logic::Overlay::TheGUI->SetCursor(true);
 				MyGUI::InputManager::getInstance().setKeyFocusWidget(m_pEdit);
 			}
 			else
 			{
 				Logic::Engine::TheController->EnableInput();
-				Logic::Overlay::TheGUI->setCursor(false);
+				Logic::Overlay::TheGUI->SetCursor(false);
 				MyGUI::InputManager::getInstance().resetKeyFocusWidget();
 			}
 		}

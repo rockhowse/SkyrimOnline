@@ -20,6 +20,8 @@ namespace Logic
 
 			~Chat();
 
+			void SetVisibility(bool aForceHide);
+
 			void SetTyping(bool aForceHide = false);
 			bool IsTyping() const;
 			void AddChatMessage(const MyGUI::UString& acString);
