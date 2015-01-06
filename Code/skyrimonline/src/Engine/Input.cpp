@@ -31,7 +31,7 @@ namespace Logic
 				}
 				else if (key == DIK_F8)
 				{
-					Logic::Overlay::TheChat->SetVisibility(false);
+					Logic::Overlay::TheChat->SetVisible(!Logic::Overlay::TheChat->IsVisible());
 				}
 				else if (key != DIK_RCONTROL && key != DIK_LCONTROL)
 				{

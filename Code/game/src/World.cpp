@@ -72,3 +72,8 @@ void World::UpdateMovement(Player* apPlayer)
 		}
 	}
 }
+
+const std::list<Player*>& World::GetPlayers()
+{
+	return m_pPlayerList;
+}

@@ -21,14 +21,15 @@ public:
 	void OnConsume(uint16_t aConnectionId, ReadBuffer* pBuffer);
 	
 	Player* GetPlayer(uint16_t aConnectionId) const;
+	
 	World* GetWorld();
-
+	
 private:
 
 	Player* m_players[UINT16_MAX + 1];
 	Messages::CliGame_Handler m_handler;
 
-	World m_world;
+	World m_world;	
 };
 
 extern GameServer* g_pServer;
