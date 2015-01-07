@@ -70,11 +70,17 @@ namespace Logic
 			m_ScrollBarPosition[0] = m_pList->getVScrollRange();
 			m_ScrollBarPosition[1] = m_pList->getVScrollPosition();
 
-			m_pList->addText(acString + '\n');
-
+			m_pList->insertText(acString + '\n');
+			m_ChatTextList.push_back(acString + '\n');
 
 			if (m_pList->getVScrollPosition() - m_ScrollBarPosition[1] > m_pList->getVScrollRange() - m_ScrollBarPosition[0])
 				m_pList->setVScrollPosition(m_ScrollBarPosition[1]);
+
+			if (m_ChatTextList.size() > 200)
+			{
+				m_pList->eraseText(0, m_ChatTextList.front().length());
+				m_ChatTextList.erase(m_ChatTextList.begin());
+			}
 		}
 
 		void Chat::SendChatMessage()

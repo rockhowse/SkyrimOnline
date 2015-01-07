@@ -36,6 +36,8 @@ namespace Logic
 			MyGUI::EditBox* m_pEdit;
 
 			size_t m_ScrollBarPosition[2];
+			
+			std::list<std::string> m_ChatTextList; // To keep number of messages and text to get length of the first message.
 
 			void EditKeyPressEvent(MyGUI::EditBox* aSender);
 		};
