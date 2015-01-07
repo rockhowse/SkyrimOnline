@@ -50,7 +50,7 @@ public:
 
 	void UpdateMovement(Player* apPlayer);
 
-	const std::list<Player*>& GetPlayers();
+	const std::list<Player*>& GetPlayers() const;
 
 private:
 

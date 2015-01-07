@@ -28,14 +28,16 @@ namespace Logic
 
 			void AddChatMessage(const MyGUI::UString& acString);
 			void SendChatMessage();
-
+			
 		private:
 
 			MyGUI::Gui* m_pGUI;
-			MyGUI::ListPtr m_pList;
+			MyGUI::EditBox* m_pList;
 			MyGUI::EditBox* m_pEdit;
-			boost::mutex m_lock;
 
+			size_t m_ScrollBarPosition[2];
+
+			void EditKeyPressEvent(MyGUI::EditBox* aSender);
 		};
 
 		extern Chat* TheChat;

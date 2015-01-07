@@ -13,15 +13,21 @@ namespace Logic
 			MyGUI::LayoutManager::getInstance().loadLayout("Chat.xml");
 
 			m_pEdit = m_pGUI->findWidget<MyGUI::EditBox>("Chat_Edit");
-			m_pList = m_pGUI->findWidget<MyGUI::List>("Chat_List");
+			m_pList = m_pGUI->findWidget<MyGUI::EditBox>("Chat_List");
 
-			m_pList->setNeedKeyFocus(false);
-			m_pEdit->setEditMultiLine(false);
+			m_pList->setTextAlign(MyGUI::Align::Default);
+			m_pList->setEditStatic(true);
+			m_pList->setVisibleHScroll(false);
+			m_pList->setVisibleVScroll(true);
+			m_pList->setOverflowToTheLeft(true);
+			m_pList->setEditWordWrap(true);
+
+			m_pEdit->eventEditTextChange += MyGUI::newDelegate(this, &Chat::EditKeyPressEvent);
 		}
 
 		Chat::~Chat()
 		{
-
+			m_pEdit->eventEditTextChange -= MyGUI::newDelegate(this, &Chat::EditKeyPressEvent);
 		}
 
 		void Chat::SetVisible(bool aHide)
@@ -61,18 +67,35 @@ namespace Logic
 
 		void Chat::AddChatMessage(const MyGUI::UString& acString)
 		{
-			m_pList->addItem(acString);
-			m_pList->beginToItemLast();
+			m_ScrollBarPosition[0] = m_pList->getVScrollRange();
+			m_ScrollBarPosition[1] = m_pList->getVScrollPosition();
+
+			m_pList->addText(acString + '\n');
+
+
+			if (m_pList->getVScrollPosition() - m_ScrollBarPosition[1] > m_pList->getVScrollRange() - m_ScrollBarPosition[0])
+				m_pList->setVScrollPosition(m_ScrollBarPosition[1]);
 		}
 
 		void Chat::SendChatMessage()
 		{
+			if (m_pEdit->getTextLength() == 0)
+			{
+				return;
+			}
+
 			Messages::CliGame_ChatSend* pMessage = new Messages::CliGame_ChatSend;
 
 			pMessage->message = m_pEdit->getCaption();
 			Logic::Engine::TheController->SendReliable(pMessage);
 
 			m_pEdit->eraseText(0, m_pEdit->getTextLength());
+		}
+
+		void Chat::EditKeyPressEvent(MyGUI::EditBox* aSender)
+		{
+			if (aSender->getTextLength() > 256)
+				aSender->eraseText(aSender->getTextLength() - 1, 1);
 		}
 	}
 }

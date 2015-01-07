@@ -16,5 +16,13 @@ void HandleCliGame_ChatRecv(const Messages::CliGame_ChatRecv& aMsg)
 	pMessage->senderId = aMsg.connectionId;
 	pMessage->message = pPlayer->GetName() + " says: " + aMsg.message;
 
+	if (pMessage->message.length() > 71) // Split chat message to prevent long lines in chat box for user.
+	{
+		for (int i = 71; i <= pMessage->message.length(); i += 71)
+		{
+			pMessage->message.insert(i, "\n");
+		}
+	}
+
 	g_pServer->SendReliableAll(pMessage);
 }
