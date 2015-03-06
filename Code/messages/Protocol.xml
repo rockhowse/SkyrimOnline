@@ -1,0 +1,163 @@
+<Messages seed="0x0000" >
+    <Struct name="Vector3" >
+        <Field type="float" name="x" />
+        <Field type="float" name="y" />
+        <Field type="float" name="z" />
+    </Struct>
+
+    <Struct name="Movement" >
+        <Field type="Vector3" struct="1" name="pos" />
+        <Field type="float" name="rot" />
+        <Field type="float" name="velocity" />
+        <Field type="uint16" name="animation" />
+        <Field type="uint32" name="time" />
+    </Struct>
+    
+    <Struct name="FactionInfo" >
+        <Field type="uint32" name="factionId" />
+        <Field type="char" name="rank" />
+    </Struct>
+    
+    <Struct name="ActorBaseData" >
+        <Field type="uint32" name="flags" />
+        <Field type="uint16" name="unk08" />
+        <Field type="uint16" name="unk0A" />
+        <Field type="uint16" name="level" />
+        <Field type="uint16" name="minLevel" />
+        <Field type="uint16" name="maxLevel" />
+        <Field type="uint16" name="unk12" />
+        <Field type="uint16" name="unk14" />
+        <Field type="uint16" name="unk16" />
+        <Field type="uint16" name="unk18" />
+        <Field type="uint16" name="unk1A" />
+        <Field type="uint32" name="unk1C" />
+        <Field type="uint32" name="voiceId" />
+        <Field type="uint32" name="unk24" />
+        <Field type="uint32" name="unk28" />
+        <Field type="FactionInfo" struct="1" array="1" name="factions" />
+    </Struct>
+    
+    <Struct name="TESContainerData" >
+        <Field type="uint32" name="count" />
+        <Field type="uint32" name="formId" />
+        <Field type="uint32" name="unk00" />
+        <Field type="uint32" name="unk04" />
+        <Field type="float" name="unk08" />
+    </Struct>
+    
+    <Struct name="TESContainer" >
+        <Field type="TESContainerData" struct="1" array="1" name="entries" />
+    </Struct>
+    
+    <Struct name="TESpellList" >
+        <Field type="uint32" array="1" name="spellIds" />
+        <Field type="uint32" array="1" name="formIds" />
+        <Field type="uint32" array="1" name="shoutIds" />
+    </Struct>
+    
+    <Struct name="BGSOverridePackCollection" >
+        <Field type="uint32" name="unk04" />
+        <Field type="uint32" name="unk08" />
+        <Field type="uint32" name="unk0C" />
+        <Field type="uint32" name="unk10" />
+    </Struct>
+    
+    <Struct name="FaceMorphs" >
+        <Field type="float" array="1" name="options" />
+        <Field type="uint32" name="preset0" />
+        <Field type="uint32" name="preset1" />
+        <Field type="uint32" name="preset2" />
+        <Field type="uint32" name="preset3" />
+    </Struct>
+    
+    <Struct name="TESFullName" >
+        <Field type="string" name="data" />
+    </Struct>
+    
+    <Struct name="BGSColorForm" >
+        <Field type="TESFullName" struct="1" name="fullName" />
+        <Field type="uint32" name="abgr" />
+        <Field type="uint32" name="unk20" />
+    </Struct>
+    
+    <Struct name="Npc" >
+        <Field type="uint32" name="flags" />
+        <Field type="uint16" name="unk10" />
+        <Field type="uint8" name="formType" />
+        <Field type="Vector3" struct="1" name="bound1" />
+        <Field type="Vector3" struct="1" name="bound2" />
+        <Field type="ActorBaseData" struct="1" name="actorBaseData" />
+        <Field type="TESContainer" struct="1" name="container" />
+        <Field type="TESpellList" struct="1" name="spellList" />
+        <Field type="uint32" name="skinId" />
+        <Field type="uint32" name="keywordIds" array="1" />
+        <Field type="uint32" name="raceId" />
+        <Field type="BGSOverridePackCollection" struct="1" name="overridePacks" />
+        <Field type="uint16" name="unk10A" />
+        <Field type="uint32" name="classId" />
+        <Field type="BGSColorForm" struct="1" name="hairColor" />
+        <Field type="uint32" name="headTextureId" />
+        <Field type="uint32" name="unk114" />
+        <Field type="uint32" name="combatStyleId" />
+        <Field type="uint32" name="unk11C" />
+        <Field type="uint32" name="overlayId" />
+        <Field type="float" name="height" />
+        <Field type="float" name="weight" />
+        <Field type="uint32" name="skinFarId" />
+        <Field type="uint32" name="outfitId" />
+        <Field type="uint32" name="sleepOutfitId" />
+        <Field type="uint32" name="unk144" />
+        <Field type="uint32" name="factionId" />
+        <Field type="uint32" name="headpartIds" array="1" />
+        <Field type="uint8" name="unk151" />
+        <Field type="uint8" name="unk152" />
+        <Field type="uint8" name="unk153" />
+        <Field type="uint8" name="red" />
+        <Field type="uint8" name="green" />
+        <Field type="uint8" name="blue" />
+        <Field type="uint32" name="unk158" />
+        <Field type="FaceMorphs" struct="1" name="faceMorphs" />
+        <Field type="uint32" name="unk160" />
+    </Struct>
+
+    <Message name="Hello" opcode="0x0000" origin="Cli" >
+        <Field type="string" name="name" />
+    </Message>
+    <Message name="Hello" opcode="0x0001" origin="Game" >
+        <Field type="uint16" name="version" />
+    </Message>
+    
+    <Message name="Chat" opcode="0x0002" origin="Cli" >
+        <Field type="string" name="message" />
+    </Message>
+    <Message name="Chat" opcode="0x0003" origin="Game" >
+        <Field type="uint16" name="senderId" />
+        <Field type="string" name="message" />
+    </Message>
+    
+    <Message name="Position" opcode="0x0004" origin="Cli" >
+        <Field type="Movement" struct="1" name="movement" />
+    </Message>
+    <Message name="Position" opcode="0x0005" origin="Game" >
+        <Field type="uint16" name="playerId" />
+        <Field type="Movement" struct="1" name="movement" />
+    </Message>
+    
+    <Message name="PlayerAdd" opcode="0x0006" origin="Game" >
+        <Field type="uint16" name="playerId" />
+        <Field type="string" name="name" />
+        <Field type="Npc" struct="1" name="player_npc" />
+        <Field type="uint32" name="horseId" />
+        <Field type="Movement" struct="1" name="movement" />
+    </Message>
+    
+    <Message name="PlayerRemove" opcode="0x0007" origin="Game" >
+        <Field type="uint16" name="playerId" />
+    </Message>
+    
+    <Message name="PlayerInitialize" opcode="0x0008" origin="Cli" >
+        <Field type="Npc" struct="1" name="player_npc" />
+        <Field type="uint32" name="horseId" />
+        <Field type="Movement" struct="1" name="movement" />
+    </Message>
+</Messages>
