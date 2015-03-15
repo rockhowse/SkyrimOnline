@@ -2,12 +2,14 @@ Build/projects
 Build/lib/*.lib
 !Build/lib/MyGUI*.lib
 Build/lib/*.pdb
+Build/lib/*.idb
 Build/Bin/SkyrimOnline*.dll
 Build/Bin/server/Game*.exe
 Build/Bin/*.lib
 Build/Bin/*.exp
 Build/Bin/*.idb
 Build/Bin/*.pdb
+Build/Bin/server/*.pdb
 Build/Bin/logs/
 Build/Bin/server/logs/
 Build/gsl

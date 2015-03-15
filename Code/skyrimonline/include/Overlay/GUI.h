@@ -24,7 +24,7 @@ namespace Logic
 			void OnRender(IDirect3DDevice9* pDevice);
 			void OnLostDevice(IDirect3DDevice9* pDevice);
 
-			void setCursor(bool Visible);
+			void SetCursor(bool Visible);
 
 			void InjectKey(unsigned char key, bool isPressed);
 			void InjectMouse(unsigned char Key, bool isPressed);

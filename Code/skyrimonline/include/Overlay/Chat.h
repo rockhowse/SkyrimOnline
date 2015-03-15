@@ -20,18 +20,26 @@ namespace Logic
 
 			~Chat();
 
+			void SetVisible(bool aHide);
+
 			void SetTyping(bool aForceHide = false);
 			bool IsTyping() const;
+			bool IsVisible() const;
+
 			void AddChatMessage(const MyGUI::UString& acString);
 			void SendChatMessage();
-
+			
 		private:
 
 			MyGUI::Gui* m_pGUI;
-			MyGUI::ListPtr m_pList;
+			MyGUI::EditBox* m_pList;
 			MyGUI::EditBox* m_pEdit;
-			boost::mutex m_lock;
 
+			size_t m_scrollBarPosition[2];
+			
+			std::list<std::string> m_chatList; // To keep number of messages and text to get length of the first message.
+
+			void EditKeyPressEvent(MyGUI::EditBox* aSender);
 		};
 
 		extern Chat* TheChat;

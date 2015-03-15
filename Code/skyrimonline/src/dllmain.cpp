@@ -4,8 +4,6 @@
 #include <DirectX\DirectXHook.h>
 #include <WinAPI.hpp>
 
-int GameType = 0;
-
 HMODULE g_hModule;
 
 BOOL APIENTRY DllMain(HMODULE hModule, DWORD fdwReason, LPVOID lpReserved)

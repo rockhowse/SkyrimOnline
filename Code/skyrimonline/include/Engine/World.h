@@ -16,6 +16,8 @@ public:
 	World();
 	~World();
 
+	void Connect();
+
 	void Send(Packet* apPacket);
 	void SendReliable(Packet* apPacket);
 
@@ -30,7 +32,7 @@ public:
 private:
 
 	void SendHello(const std::string& acPlayerName);
-	
+
 	std::unique_ptr<EnetServer> m_pConnection;
 	Messages::GameCli_Handler m_handler;
 

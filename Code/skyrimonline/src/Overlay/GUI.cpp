@@ -21,7 +21,7 @@ namespace Logic
 			myGUI = new MyGUI::Gui();
 			myGUI->initialise("MyGUI_Core.xml");
 
-			this->setCursor(false);
+			this->SetCursor(false);
 		}
 
 		GUI::~GUI()
@@ -80,8 +80,8 @@ namespace Logic
 			}
 			
 		}
-
-		void GUI::setCursor(bool Visible)
+		
+		void GUI::SetCursor(bool Visible)
 		{
 			if (this->m_pPlatform && this->myGUI)
 				this->myGUI->setVisiblePointer(Visible);
