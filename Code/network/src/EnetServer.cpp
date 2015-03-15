@@ -56,6 +56,8 @@ bool EnetServer::Update()
 
 	OnUpdate();
 
+	boost::this_thread::sleep_for(boost::chrono::milliseconds(10));
+	
     return true;
 } 
 

@@ -28,7 +28,11 @@ namespace Logic
 				m_cachedClock = clock();
 
 				m_world.Update();
-				//m_test.Update();
+
+#ifndef PUBLIC_BUILD
+				m_test.Update();
+#endif
+
 				m_player.Update(deltaClock);
 
 				for (uint32_t i : m_activeIds)

@@ -84,7 +84,10 @@ namespace Logic
 				SkyrimUserInterface m_userInterface;
 				SkyrimPlayer m_player;
 				World m_world;
-				//SkyrimTest m_test;
+
+#ifndef PUBLIC_BUILD
+				SkyrimTest m_test;
+#endif
 
 				clock_t m_cachedClock;
 

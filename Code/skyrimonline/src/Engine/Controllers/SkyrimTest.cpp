@@ -44,17 +44,31 @@ namespace Logic
 
 			void SkyrimTest::Update()
 			{
-				if (m_jumped == false)
+				Actor* pActor = (Actor*)ScriptDragon::Game::GetPlayer();
+
+				BSFixedString str("bAnimationDriven");
+				bool success = m_pActor->animGraphHolder.SetVariableBool(&str, false);
+				BSFixedString str2("bMotionDriven");
+				success &= m_pActor->animGraphHolder.SetVariableBool(&str2, false);
+				BSFixedString str3("iIsPlayer");
+				UInt32 ret = 0;
+				pActor->animGraphHolder.GetVariableInt(&str3, &ret);
+				m_pActor->animGraphHolder.SetVariableInt(&str3, ret);
+
+				TheController->GetUI()->
+
+				//if (m_jumped == false)
 				{
-					BSFixedString str("bAnimationDriven");
-					bool success = m_pActor->animGraphHolder.SetVariableBool(&str, true);
-					BSFixedString str2("bMotionDriven");
-					success &= m_pActor->animGraphHolder.SetVariableBool(&str2, false);
+
 					//BSFixedString speedStr("Speed");
 					//float fSpeed = 0.0f;
 					//success &= m_pActor->animGraphHolder.SetVariableFloat(&speedStr, fSpeed);
 
 					BSFixedString animStr("MoveStart");
+
+					
+					m_pActor->rot = pActor->rot;
+
 					if (m_pActor->animGraphHolder.SendAnimationEvent(&animStr) && success)
 					{
 						m_jumped = true;
