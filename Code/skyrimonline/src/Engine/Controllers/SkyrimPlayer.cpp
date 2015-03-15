@@ -61,7 +61,7 @@ namespace Logic
 
 				Deserialize(pNpc, acMsg.player_npc);
 
-				pNpc->fullName.name = BSFixedString("Lol");
+				pNpc->fullName.name = BSFixedString(acMsg.name.c_str());
 
 				m_pCharacter = (Actor*)ScriptDragon::ObjectReference::PlaceActorAtMe(pLocalPlayer, (ScriptDragon::TESNPC*)pNpc, 4, NULL);
 
@@ -71,7 +71,7 @@ namespace Logic
 				m_pCharacter->pos.x = m_futurePosition.pos.x;
 				m_pCharacter->pos.y = m_futurePosition.pos.y;
 				m_pCharacter->pos.z = m_futurePosition.pos.z;
-				m_pCharacter->pos.z = m_futurePosition.rot;
+				m_pCharacter->rot.z = m_futurePosition.rot;
 
 				LOG(INFO) << "event=skyrim_player_spawn";
 			}
@@ -99,7 +99,7 @@ namespace Logic
 						m_pCharacter->pos.x = m_pCharacter->pos.x * bLerp + m_futurePosition.pos.x * aLerp;
 						m_pCharacter->pos.y = m_pCharacter->pos.y * bLerp + m_futurePosition.pos.y * aLerp;
 						m_pCharacter->pos.z = m_pCharacter->pos.z * bLerp + m_futurePosition.pos.z * aLerp;
-						m_pCharacter->pos.z = m_pCharacter->rot.y * bLerp + m_futurePosition.rot * aLerp;
+						m_pCharacter->rot.z = m_pCharacter->rot.z * bLerp + m_futurePosition.rot * aLerp;
 
 						m_positionTimer += aDeltaClock;
 						m_positionTimer = m_positionTimer > m_futurePosition.time ? m_futurePosition.time : m_positionTimer;
@@ -109,7 +109,7 @@ namespace Logic
 						m_pCharacter->pos.x = m_futurePosition.pos.x;
 						m_pCharacter->pos.y = m_futurePosition.pos.y;
 						m_pCharacter->pos.z = m_futurePosition.pos.z;
-						m_pCharacter->pos.z = m_futurePosition.rot;
+						m_pCharacter->rot.z = m_futurePosition.rot;
 					}
 				}
 			}

@@ -29,6 +29,10 @@ namespace Logic
 					Logic::Overlay::TheChat->SetTyping(true);
 					TheIInputHook->SetInputEnabled(true);
 				}
+				else if (key == DIK_F8)
+				{
+					Logic::Overlay::TheChat->SetVisible(!Logic::Overlay::TheChat->IsVisible());
+				}
 				else if (key != DIK_RCONTROL && key != DIK_LCONTROL)
 				{
 					Logic::Overlay::TheGUI->InjectKey(key, true);

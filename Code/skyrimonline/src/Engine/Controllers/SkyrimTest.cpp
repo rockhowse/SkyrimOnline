@@ -47,15 +47,18 @@ namespace Logic
 				Actor* pActor = (Actor*)ScriptDragon::Game::GetPlayer();
 
 				BSFixedString str("bAnimationDriven");
-				bool success = m_pActor->animGraphHolder.SetVariableBool(&str, false);
+				bool success = m_pActor->animGraphHolder.SetVariableBool(&str, true);
 				BSFixedString str2("bMotionDriven");
 				success &= m_pActor->animGraphHolder.SetVariableBool(&str2, false);
-				BSFixedString str3("iIsPlayer");
-				UInt32 ret = 0;
-				pActor->animGraphHolder.GetVariableInt(&str3, &ret);
-				m_pActor->animGraphHolder.SetVariableInt(&str3, ret);
+				BSFixedString str3("bInMoveState");
+				m_pActor->animGraphHolder.SetVariableBool(&str3, true);
 
-				TheController->GetUI()->
+				BSFixedString directionStr("Direction");
+				float dir = 0.0f;
+				pActor->animGraphHolder.GetVariableFloat(&directionStr, &dir);
+				m_pActor->animGraphHolder.SetVariableFloat(&directionStr, dir);
+
+				//TheController->GetUI()->Debug()
 
 				//if (m_jumped == false)
 				{
@@ -66,8 +69,7 @@ namespace Logic
 
 					BSFixedString animStr("MoveStart");
 
-					
-					m_pActor->rot = pActor->rot;
+
 
 					if (m_pActor->animGraphHolder.SendAnimationEvent(&animStr) && success)
 					{
