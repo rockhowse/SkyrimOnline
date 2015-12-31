@@ -57,6 +57,7 @@ def GenerateClassDefinition(f, Class, isStruct, origin, destination):
         f.write('\tclass '+prefix+'_'+Class.getAttribute('name')+dest+' : public Packet\n')
         
     f.write('\t{\n')
+    f.write('\tpublic:\n')
     f.write('\t\tvoid Deserialize(ReadBuffer* pBuffer)\n')
     f.write('\t\t{\n')
     for field in fields:
@@ -70,10 +71,12 @@ def GenerateClassDefinition(f, Class, isStruct, origin, destination):
             
             f.write('\t\t\t\tfor(uint32_t i = 0; i < length; ++i)\n')
             f.write('\t\t\t\t{\n')
-            f.write('\t\t\t\t\t'+Type+' entry;\n')
+            
             if field.getAttribute('struct') == '1':
+                f.write('\t\t\t\t\t'+Type+' entry;\n')
                 f.write('\t\t\t\t\tentry.Deserialize(pBuffer);\n')
             else:
+                f.write('\t\t\t\t\t'+GetCppType(Type)+' entry;\n')
                 f.write('\t\t\t\t\tpBuffer->Read_'+Type+'(entry);\n')
             f.write('\t\t\t\t\t'+Name+'.push_back(entry);\n')
             f.write('\t\t\t\t}\n')

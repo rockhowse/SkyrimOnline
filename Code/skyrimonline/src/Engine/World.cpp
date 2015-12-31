@@ -4,8 +4,7 @@
 #include <Buffer.h>
 #include <EnetServer.h>
 
-#include <Engine\Interfaces\IController.h>
-#include <Overlay\Chat.h>
+#include <Overlay/Chat.h>
 
 #include "easylogging++.h"
 
@@ -24,13 +23,13 @@ void World::OnUpdate()
 
 void World::OnConnection(uint16_t aConnectionId)
 {
-	SendHello(Logic::Engine::TheController->GetLocalPlayer()->GetName());
+	SendHello(TheController->GetLocalPlayer()->GetName());
 }
 
 void World::OnDisconnection(uint16_t aConnectionId)
 {
 	//Logic::Engine::TheController->GetUI()->Debug("Connection to the server lost !");
-	Logic::Overlay::TheChat->AddChatMessage("Connection to the server lost !");
+	TheChat->AddChatMessage("Connection to the server lost !");
 }
 
 void World::OnConsume(uint16_t aConnectionId, ReadBuffer* pBuffer)
@@ -71,20 +70,20 @@ void HandleGameCli_HelloRecv(const Messages::GameCli_HelloRecv& aMsg)
 
 	LOG(INFO) << "event=hello state=success version=" << aMsg.version;
 
-	Logic::Overlay::TheChat->AddChatMessage(oss.str());
+	TheChat->AddChatMessage(oss.str());
 
-	Logic::Engine::TheController->GetLocalPlayer()->InitializeServerNode();
+	TheController->GetLocalPlayer()->InitializeServerNode();
 }
 
 void HandleGameCli_ChatRecv(const Messages::GameCli_ChatRecv& aMsg)
 {
 	LOG(INFO) << "event=chat_recv message=\"" << aMsg.message << "\"";
-	Logic::Overlay::TheChat->AddChatMessage(MyGUI::UString(aMsg.message));
+	TheChat->AddChatMessage(MyGUI::UString(aMsg.message));
 }
 
 void HandleGameCli_PositionRecv(const Messages::GameCli_PositionRecv& aMsg)
 {
-	Logic::Engine::Interfaces::IPlayer* pPlayer = Logic::Engine::TheController->GetPlayerById(aMsg.playerId);
+	SkyrimPlayer* pPlayer = TheController->GetPlayerById(aMsg.playerId);
 	if (!pPlayer)
 	{
 		LOG(ERROR) << "event=position player_id=" << aMsg.playerId << " message=\"Player is null\"";
@@ -97,11 +96,11 @@ void HandleGameCli_PositionRecv(const Messages::GameCli_PositionRecv& aMsg)
 void HandleGameCli_PlayerAddRecv(const Messages::GameCli_PlayerAddRecv& aMsg)
 {
 	LOG(INFO) << "event=player_add id=" << aMsg.playerId << " name=" << aMsg.name;
-	Logic::Engine::TheController->HandlePlayerAdd(aMsg);
+	TheController->HandlePlayerAdd(aMsg);
 }
 
 void HandleGameCli_PlayerRemoveRecv(const Messages::GameCli_PlayerRemoveRecv& aMsg)
 {
 	LOG(INFO) << "event=player_remove id=" << aMsg.playerId;
-	Logic::Engine::TheController->HandlePlayerRemove(aMsg);
+	TheController->HandlePlayerRemove(aMsg);
 }

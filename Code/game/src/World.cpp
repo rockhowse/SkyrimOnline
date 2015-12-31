@@ -62,7 +62,7 @@ void World::UpdateMovement(Player* apPlayer)
 {
 	for (auto pPlayer : m_pPlayerList)
 	{
-		if (pPlayer != apPlayer)
+		if (pPlayer != apPlayer && Distance(pPlayer->GetMovement().pos, apPlayer->GetMovement().pos) < 2000.f)
 		{
 			Messages::GameCli_PositionSend* apMessage = new Messages::GameCli_PositionSend;
 			apMessage->playerId = apPlayer->GetId();

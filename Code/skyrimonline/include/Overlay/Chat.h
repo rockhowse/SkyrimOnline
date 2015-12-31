@@ -8,40 +8,35 @@
 #include <Engine/Game.h>
 #include <boost/thread/mutex.hpp>
 
-namespace Logic
+class Chat
 {
-	namespace Overlay
-	{
-		class Chat
-		{
-		public:
+public:
 
-			Chat(MyGUI::Gui* apGUI);
+	Chat(MyGUI::Gui* apGUI);
 
-			~Chat();
+	~Chat();
 
-			void SetVisible(bool aHide);
+	void SetVisible(bool aHide);
 
-			void SetTyping(bool aForceHide = false);
-			bool IsTyping() const;
-			bool IsVisible() const;
+	void SetTyping(bool aForceHide = false);
+	bool IsTyping() const;
+	bool IsVisible() const;
 
-			void AddChatMessage(const MyGUI::UString& acString);
-			void SendChatMessage();
+	void AddChatMessage(const MyGUI::UString& acString);
+	void SendChatMessage();
 			
-		private:
+private:
 
-			MyGUI::Gui* m_pGUI;
-			MyGUI::EditBox* m_pList;
-			MyGUI::EditBox* m_pEdit;
+	MyGUI::Gui* m_pGUI;
+	MyGUI::EditBox* m_pList;
+	MyGUI::EditBox* m_pEdit;
 
-			size_t m_scrollBarPosition[2];
+	size_t m_scrollBarPosition[2];
 			
-			std::list<std::string> m_chatList; // To keep number of messages and text to get length of the first message.
+	std::list<std::string> m_chatList; // To keep number of messages and text to get length of the first message.
 
-			void EditKeyPressEvent(MyGUI::EditBox* aSender);
-		};
+	void EditKeyPressEvent(MyGUI::EditBox* aSender);
+};
 
-		extern Chat* TheChat;
-	}
-}
+extern Chat* TheChat;
+

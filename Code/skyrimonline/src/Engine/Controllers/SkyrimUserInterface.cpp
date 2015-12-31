@@ -5,22 +5,14 @@
 #include <Engine/Controllers/SkyrimController.h>
 #include <skyscript.h>
 
-namespace Logic
+
+SkyrimUserInterface::SkyrimUserInterface()
+{}
+
+SkyrimUserInterface::~SkyrimUserInterface()
+{}
+
+void SkyrimUserInterface::Debug(const std::string& acString)
 {
-	namespace Engine
-	{
-		namespace Controllers
-		{
-			SkyrimUserInterface::SkyrimUserInterface()
-			{}
-
-			SkyrimUserInterface::~SkyrimUserInterface()
-			{}
-
-			void SkyrimUserInterface::Debug(const std::string& acString)
-			{
-				ScriptDragon::Debug::Notification((char*)acString.c_str());
-			}
-		}
-	}
+	ScriptDragon::Debug::Notification((char*)acString.c_str());
 }

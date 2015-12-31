@@ -6,6 +6,9 @@
 #include <string>
 #include "CliGame_Handler.h"
 
+float Norm(Messages::Vector3& aPoint);
+float Distance(Messages::Vector3 aPointA, Messages::Vector3 aPointB);
+
 template <uint32_t ToHold>
 class MovementTracker
 {

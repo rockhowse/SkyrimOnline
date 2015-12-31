@@ -26,6 +26,7 @@ namespace Messages
 
 	class Vector3
 	{
+	public:
 		void Deserialize(ReadBuffer* pBuffer)
 		{
 			pBuffer->Read_float(x);
@@ -47,6 +48,7 @@ namespace Messages
 
 	class Movement
 	{
+	public:
 		void Deserialize(ReadBuffer* pBuffer)
 		{
 			pos.Deserialize(pBuffer);
@@ -74,6 +76,7 @@ namespace Messages
 
 	class FactionInfo
 	{
+	public:
 		void Deserialize(ReadBuffer* pBuffer)
 		{
 			pBuffer->Read_uint32(factionId);
@@ -92,6 +95,7 @@ namespace Messages
 
 	class ActorBaseData
 	{
+	public:
 		void Deserialize(ReadBuffer* pBuffer)
 		{
 			pBuffer->Read_uint32(flags);
@@ -167,6 +171,7 @@ namespace Messages
 
 	class TESContainerData
 	{
+	public:
 		void Deserialize(ReadBuffer* pBuffer)
 		{
 			pBuffer->Read_uint32(count);
@@ -194,6 +199,7 @@ namespace Messages
 
 	class TESContainer
 	{
+	public:
 		void Deserialize(ReadBuffer* pBuffer)
 		{
 			{
@@ -224,6 +230,7 @@ namespace Messages
 
 	class TESpellList
 	{
+	public:
 		void Deserialize(ReadBuffer* pBuffer)
 		{
 			{
@@ -231,7 +238,7 @@ namespace Messages
 				pBuffer->Read_uint32(length);
 				for(uint32_t i = 0; i < length; ++i)
 				{
-					uint32 entry;
+					uint32_t entry;
 					pBuffer->Read_uint32(entry);
 					spellIds.push_back(entry);
 				}
@@ -241,7 +248,7 @@ namespace Messages
 				pBuffer->Read_uint32(length);
 				for(uint32_t i = 0; i < length; ++i)
 				{
-					uint32 entry;
+					uint32_t entry;
 					pBuffer->Read_uint32(entry);
 					formIds.push_back(entry);
 				}
@@ -251,7 +258,7 @@ namespace Messages
 				pBuffer->Read_uint32(length);
 				for(uint32_t i = 0; i < length; ++i)
 				{
-					uint32 entry;
+					uint32_t entry;
 					pBuffer->Read_uint32(entry);
 					shoutIds.push_back(entry);
 				}
@@ -290,6 +297,7 @@ namespace Messages
 
 	class BGSOverridePackCollection
 	{
+	public:
 		void Deserialize(ReadBuffer* pBuffer)
 		{
 			pBuffer->Read_uint32(unk04);
@@ -314,6 +322,7 @@ namespace Messages
 
 	class FaceMorphs
 	{
+	public:
 		void Deserialize(ReadBuffer* pBuffer)
 		{
 			{
@@ -356,6 +365,7 @@ namespace Messages
 
 	class TESFullName
 	{
+	public:
 		void Deserialize(ReadBuffer* pBuffer)
 		{
 			pBuffer->Read_string(data);
@@ -371,6 +381,7 @@ namespace Messages
 
 	class BGSColorForm
 	{
+	public:
 		void Deserialize(ReadBuffer* pBuffer)
 		{
 			fullName.Deserialize(pBuffer);
@@ -392,6 +403,7 @@ namespace Messages
 
 	class Npc
 	{
+	public:
 		void Deserialize(ReadBuffer* pBuffer)
 		{
 			pBuffer->Read_uint32(flags);
@@ -408,7 +420,7 @@ namespace Messages
 				pBuffer->Read_uint32(length);
 				for(uint32_t i = 0; i < length; ++i)
 				{
-					uint32 entry;
+					uint32_t entry;
 					pBuffer->Read_uint32(entry);
 					keywordIds.push_back(entry);
 				}
@@ -435,7 +447,7 @@ namespace Messages
 				pBuffer->Read_uint32(length);
 				for(uint32_t i = 0; i < length; ++i)
 				{
-					uint32 entry;
+					uint32_t entry;
 					pBuffer->Read_uint32(entry);
 					headpartIds.push_back(entry);
 				}
@@ -545,6 +557,7 @@ namespace Messages
 
 	class CliGame_HelloRecv : public Packet
 	{
+	public:
 		void Deserialize(ReadBuffer* pBuffer)
 		{
 			pBuffer->Read_string(name);
@@ -561,6 +574,7 @@ namespace Messages
 
 	class GameCli_HelloSend : public Packet
 	{
+	public:
 		void Deserialize(ReadBuffer* pBuffer)
 		{
 			pBuffer->Read_uint16(version);
@@ -577,6 +591,7 @@ namespace Messages
 
 	class CliGame_ChatRecv : public Packet
 	{
+	public:
 		void Deserialize(ReadBuffer* pBuffer)
 		{
 			pBuffer->Read_string(message);
@@ -593,6 +608,7 @@ namespace Messages
 
 	class GameCli_ChatSend : public Packet
 	{
+	public:
 		void Deserialize(ReadBuffer* pBuffer)
 		{
 			pBuffer->Read_uint16(senderId);
@@ -612,6 +628,7 @@ namespace Messages
 
 	class CliGame_PositionRecv : public Packet
 	{
+	public:
 		void Deserialize(ReadBuffer* pBuffer)
 		{
 			movement.Deserialize(pBuffer);
@@ -628,6 +645,7 @@ namespace Messages
 
 	class GameCli_PositionSend : public Packet
 	{
+	public:
 		void Deserialize(ReadBuffer* pBuffer)
 		{
 			pBuffer->Read_uint16(playerId);
@@ -647,6 +665,7 @@ namespace Messages
 
 	class GameCli_PlayerAddSend : public Packet
 	{
+	public:
 		void Deserialize(ReadBuffer* pBuffer)
 		{
 			pBuffer->Read_uint16(playerId);
@@ -675,6 +694,7 @@ namespace Messages
 
 	class GameCli_PlayerRemoveSend : public Packet
 	{
+	public:
 		void Deserialize(ReadBuffer* pBuffer)
 		{
 			pBuffer->Read_uint16(playerId);
@@ -691,6 +711,7 @@ namespace Messages
 
 	class CliGame_PlayerInitializeRecv : public Packet
 	{
+	public:
 		void Deserialize(ReadBuffer* pBuffer)
 		{
 			player_npc.Deserialize(pBuffer);

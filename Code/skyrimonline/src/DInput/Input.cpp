@@ -201,8 +201,6 @@ public:
 			{
 				InputHook::GetInstance()->ProcessKeyboardData(rawData);
 			}
-
-			
 		}
 
 		return ret;
@@ -210,7 +208,13 @@ public:
 
 	HRESULT _stdcall SetDataFormat(const DIDATAFORMAT* a) { return mRealDevice->SetDataFormat(a); }
 	HRESULT _stdcall SetEventNotification(HANDLE a) { return mRealDevice->SetEventNotification(a); }
-	HRESULT _stdcall SetCooperativeLevel(HWND a, DWORD b) { return mRealDevice->SetCooperativeLevel(a, b); }
+	HRESULT _stdcall SetCooperativeLevel(HWND a, DWORD b) 
+	{ 
+#ifndef PUBLIC_BUILD
+		b = DISCL_BACKGROUND | DISCL_NONEXCLUSIVE;
+#endif
+		return mRealDevice->SetCooperativeLevel(a, b); 
+	}
 	HRESULT _stdcall GetObjectInfo(LPDIDEVICEOBJECTINSTANCEA a, DWORD b, DWORD c) { return mRealDevice->GetObjectInfo(a, b, c); }
 	HRESULT _stdcall GetDeviceInfo(LPDIDEVICEINSTANCEA a) { return mRealDevice->GetDeviceInfo(a); }
 	HRESULT _stdcall RunControlPanel(HWND a, DWORD b) { return mRealDevice->RunControlPanel(a, b); }

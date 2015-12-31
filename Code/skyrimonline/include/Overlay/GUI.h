@@ -7,37 +7,32 @@
 
 #include <DirectX\DirectXHook.h>
 
-namespace Logic
+
+class GUI
 {
-	namespace Overlay
-	{
-		class GUI
-		{
-			public:
+	public:
 
-			GUI();
+	GUI();
 
-			~GUI();
+	~GUI();
 
-			MyGUI::Gui* getGUI();
+	MyGUI::Gui* getGUI();
 
-			void OnRender(IDirect3DDevice9* pDevice);
-			void OnLostDevice(IDirect3DDevice9* pDevice);
+	void OnRender(IDirect3DDevice9* pDevice);
+	void OnLostDevice(IDirect3DDevice9* pDevice);
 
-			void SetCursor(bool Visible);
+	void SetCursor(bool Visible);
 
-			void InjectKey(unsigned char key, bool isPressed);
-			void InjectMouse(unsigned char Key, bool isPressed);
-			void MouseMove(unsigned int PositionX, unsigned int PositionY, unsigned int PositionZ);
+	void InjectKey(unsigned char key, bool isPressed);
+	void InjectMouse(unsigned char Key, bool isPressed);
+	void MouseMove(unsigned int PositionX, unsigned int PositionY, unsigned int PositionZ);
 
-			private:
+	private:
 
-			MyGUI::DirectXPlatform* m_pPlatform;
-			MyGUI::Gui* myGUI;
+	MyGUI::DirectXPlatform* m_pPlatform;
+	MyGUI::Gui* myGUI;
 
-			int PositionX, PositionY;
-		};
+	int PositionX, PositionY;
+};
 
-		extern GUI* TheGUI;
-	}
-}
+extern GUI* TheGUI;

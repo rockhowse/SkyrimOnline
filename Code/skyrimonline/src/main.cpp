@@ -40,11 +40,11 @@ extern "C" __declspec(dllexport) void main()
 {
 	__try
 	{
-		Logic::Engine::InitializeGame();
+		InitializeGame();
 
 		while (true)
 		{
-			Logic::Engine::Update();
+			Update();
 			ScriptDragon::Wait(0);
 		}
 	}

@@ -2,30 +2,21 @@
 
 #include <stdafx.h>
 
-#include <Engine/Interfaces/IController.h>
 #include <skse/GameReferences.h>
 #include <Engine/World.h>
 
-namespace Logic
+
+class SkyrimTest
 {
-	namespace Engine
-	{
-		namespace Controllers
-		{
-			class SkyrimTest
-			{
-			public:
+public:
 
-				SkyrimTest();
-				~SkyrimTest();
-				
-				void Update();
+	SkyrimTest();
+	~SkyrimTest();
 
-			private:
+	void Update();
 
-				bool m_jumped;
-				Actor* m_pActor;
-			};
-		}
-	}
-}
+private:
+
+	bool m_jumped;
+	Actor* m_pActor;
+};

@@ -79,20 +79,20 @@ void HandleCliGame_HelloRecv(const Messages::CliGame_HelloRecv& aMsg)
 	}
 
 	std::list<Player*> m_pPlayerList = g_pServer->GetWorld()->GetPlayers();
-	std::string pPlayerName = aMsg.name;
+	std::string playerName = aMsg.name;
 
 	for (Player* p : m_pPlayerList)
 	{
 		if (p->GetName().compare(aMsg.name) == 0)
 		{
-			pPlayerName = aMsg.name + "(" + std::to_string(aMsg.connectionId) + ")";
+			playerName = aMsg.name + "(" + std::to_string(aMsg.connectionId) + ")";
 			break;
 		}
 	}
 
-	LOG(INFO) << "event=hello connection_id=" << aMsg.connectionId << " name=" << pPlayerName;
+	LOG(INFO) << "event=hello connection_id=" << aMsg.connectionId << " name=" << playerName;
 
-	pPlayer->SetName(pPlayerName);
+	pPlayer->SetName(playerName);
 
 	Messages::GameCli_HelloSend* pMessage = new Messages::GameCli_HelloSend;
 	pMessage->version = 0;
