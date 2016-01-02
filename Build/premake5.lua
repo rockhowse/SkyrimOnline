@@ -40,6 +40,7 @@ solution "Skyrim Online"
         "../Code/boost/system/",
         "../Code/log",
         "../Code/network/include",
+		"../Include/inih/cpp",
 	}
     
     if os.is("windows") then

@@ -1,5 +1,6 @@
 #include "EnetServer.h"
 #include "easylogging++.h"
+#include "INIReader.h"
 
 _INITIALIZE_EASYLOGGINGPP
 
@@ -62,19 +63,36 @@ bool EnetServer::Update()
 
 void EnetServer::Host()  {
 	/*
+	INIReader reader("../examples/test.ini");
+
+	if (reader.ParseError() < 0) {
+		std::cout << "Can't load 'test.ini'\n";
+		return 1;
+	}
+	std::cout << "Config loaded from 'test.ini': version="
+		<< reader.GetInteger("protocol", "version", -1) << ", name="
+		<< reader.Get("user", "name", "UNKNOWN") << ", email="
+		<< reader.Get("user", "email", "UNKNOWN") << ", pi="
+		<< reader.GetReal("user", "pi", -1) << ", active="
+		<< reader.GetBoolean("user", "active", true) << "\n";
+	return 0;
+
+
+	
 	temp config... supports the format:
 	X.X.X.X:P
 	127.0.0.1:10534
-	*/
-	FILE *fp = fopen("ServerConfig.ini", "r");
+	
+	FILE *fp = fopen("C:\\chupacabra\\SkyrimOnline\\Build\\Bin\\server\\ServerConfig.ini", "r");
 
 	// if we have a config, use it
 	if (fp) {
+		char keyName[11];
 		char ipStr[16];
 		int  port;
 
-		while (fscanf(fp, "%s:%d",
-			&ipStr, &port) == 5) {
+		while (fscanf(fp, "%s %d",
+			&keyName, &ipStr, &port) == 3) {
 
 			enet_address_set_host(&m_address, ipStr);
 			m_address.port = port;
@@ -89,6 +107,7 @@ void EnetServer::Host()  {
 	else {
 		Host(DEFAULT_SERVER_PORT);
 	}
+	*/
 }
 
 void EnetServer::Host(uint16_t aPort)

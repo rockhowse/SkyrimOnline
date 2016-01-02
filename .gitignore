@@ -12,6 +12,7 @@ Build/Bin/*.pdb
 Build/Bin/server/*.pdb
 Build/Bin/logs/
 Build/Bin/server/logs/
+Build/Bin/server
 Build/gsl
 Build/gsl.exe
 Build/Codegen.bat
