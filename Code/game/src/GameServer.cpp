@@ -15,6 +15,9 @@ GameServer::GameServer()
 	LOG(INFO) << "event=server_state value=started";
 
 	PrintAddress(getAddress());
+
+	// hard coding version for now
+	LOG(INFO) << "Version v0.0.2";
 }
 
 GameServer::~GameServer()
