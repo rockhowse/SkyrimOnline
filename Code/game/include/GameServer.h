@@ -30,6 +30,7 @@ private:
 	Messages::CliGame_Handler m_handler;
 
 	World m_world;	
+	void PrintAddress(ENetAddress address);
 };
 
 extern GameServer* g_pServer;

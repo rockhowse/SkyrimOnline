@@ -1,7 +1,6 @@
 #include "EnetServer.h"
 #include "easylogging++.h"
 
-
 _INITIALIZE_EASYLOGGINGPP
 
 void EnetServer::Initialize()
@@ -60,6 +59,37 @@ bool EnetServer::Update()
 	
     return true;
 } 
+
+void EnetServer::Host()  {
+	/*
+	temp config... supports the format:
+	X.X.X.X:P
+	127.0.0.1:10534
+	*/
+	FILE *fp = fopen("ServerConfig.ini", "r");
+
+	// if we have a config, use it
+	if (fp) {
+		char ipStr[16];
+		int  port;
+
+		while (fscanf(fp, "%s:%d",
+			&ipStr, &port) == 5) {
+
+			enet_address_set_host(&m_address, ipStr);
+			m_address.port = port;
+
+		}
+		fclose(fp);
+		// otherwise listen on all interfaces with all passed in ports
+		m_pHost = enet_host_create(&m_address, 1024, 4, 0, 0);
+
+		m_pServer = nullptr;
+	}
+	else {
+		Host(DEFAULT_SERVER_PORT);
+	}
+}
 
 void EnetServer::Host(uint16_t aPort)
 {
@@ -188,4 +218,8 @@ void EnetServer::SendReliableAll(Packet* apMessage)
 		ENetPacket* pPacket = enet_packet_create(buffer.data(), buffer.size(), ENET_PACKET_FLAG_RELIABLE);
 		enet_host_broadcast(m_pHost, 0, pPacket);
 	}
+}
+
+ENetAddress EnetServer::getAddress() {
+	return m_address;
 }

@@ -14,6 +14,8 @@
 
 #include <enet/enet.h>
 
+#define DEFAULT_SERVER_PORT 10578
+
 class EnetServer
 {
 public:
@@ -74,6 +76,14 @@ public:
 	 */
 	virtual void OnConsume(uint16_t aConnectionId, ReadBuffer* pBuffer) = 0;
     
+	/**
+	* @brief Hosts a server on port for IPv4 and port + 1 for IPv6.
+	*
+	* Attempts to read from ServerConfing.ini for a specific IP and port
+	* If that fails it uses the default address of ENET_HOST_ANY
+	*/
+	void Host();
+
     /**
      * @brief Hosts a server on port for IPv4 and port + 1 for IPv6.
      *
@@ -135,10 +145,11 @@ public:
 
 protected:
 
-
 	TaskManager			m_lightTaskManager;
 	TaskManager			m_mediumTaskManager;
 	TaskManager			m_heavyTaskManager;
+
+	ENetAddress getAddress();
 
 private:
 
