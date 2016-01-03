@@ -14,8 +14,6 @@ GameServer::GameServer()
 	Host();
 	LOG(INFO) << "event=server_state value=started";
 
-	PrintAddress(getAddress());
-
 	// hard coding version for now
 	LOG(INFO) << "Version v0.0.2";
 }
@@ -66,20 +64,4 @@ Player* GameServer::GetPlayer(uint16_t aConnectionId) const
 World* GameServer::GetWorld()
 {
 	return &m_world;
-}
-
-void GameServer::PrintAddress(ENetAddress address)
-{
-	unsigned char bytes[4];
-	bytes[0] = address.host & 0xFF;
-	bytes[1] = (address.host >> 8) & 0xFF;
-	bytes[2] = (address.host >> 16) & 0xFF;
-	bytes[3] = (address.host >> 24) & 0xFF;
-
-	printf("%d.%d.%d.%d:%d\n",
-		bytes[3],
-		bytes[2],
-		bytes[1],
-		bytes[0],
-		address.port);
 }

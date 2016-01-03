@@ -149,8 +149,6 @@ protected:
 	TaskManager			m_mediumTaskManager;
 	TaskManager			m_heavyTaskManager;
 
-	ENetAddress getAddress();
-
 private:
 
     IdGenerator							m_idPool;

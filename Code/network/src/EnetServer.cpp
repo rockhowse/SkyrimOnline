@@ -62,52 +62,33 @@ bool EnetServer::Update()
 } 
 
 void EnetServer::Host()  {
-	/*
-	INIReader reader("../examples/test.ini");
+	char* configName = "ServerConfig.ini";
+	long serverPort;
+	std::string serverAddress;
+
+	serverPort = DEFAULT_SERVER_PORT;
+	serverAddress = "0.0.0.0";
+
+	INIReader reader(configName);
 
 	if (reader.ParseError() < 0) {
-		std::cout << "Can't load 'test.ini'\n";
-		return 1;
-	}
-	std::cout << "Config loaded from 'test.ini': version="
-		<< reader.GetInteger("protocol", "version", -1) << ", name="
-		<< reader.Get("user", "name", "UNKNOWN") << ", email="
-		<< reader.Get("user", "email", "UNKNOWN") << ", pi="
-		<< reader.GetReal("user", "pi", -1) << ", active="
-		<< reader.GetBoolean("user", "active", true) << "\n";
-	return 0;
-
-
+		std::cout << "Can't load " << configName << ". Loading defaults. \n";
+		Host(DEFAULT_SERVER_PORT);
+	} else {
+		serverAddress = reader.Get("server", "address", "0.0.0.0");
+		serverPort = reader.GetInteger("server", "port", DEFAULT_SERVER_PORT);
 	
-	temp config... supports the format:
-	X.X.X.X:P
-	127.0.0.1:10534
-	
-	FILE *fp = fopen("C:\\chupacabra\\SkyrimOnline\\Build\\Bin\\server\\ServerConfig.ini", "r");
+		std::cout << "Config loaded from " << configName << ":\n"
+			<< "address=" << serverAddress << "\n"
+			<< "port=" << serverPort << "\n";
 
-	// if we have a config, use it
-	if (fp) {
-		char keyName[11];
-		char ipStr[16];
-		int  port;
+		enet_address_set_host(&m_address, serverAddress.c_str());
+		m_address.port = (enet_uint16)serverPort;
 
-		while (fscanf(fp, "%s %d",
-			&keyName, &ipStr, &port) == 3) {
-
-			enet_address_set_host(&m_address, ipStr);
-			m_address.port = port;
-
-		}
-		fclose(fp);
-		// otherwise listen on all interfaces with all passed in ports
 		m_pHost = enet_host_create(&m_address, 1024, 4, 0, 0);
-
+		
 		m_pServer = nullptr;
 	}
-	else {
-		Host(DEFAULT_SERVER_PORT);
-	}
-	*/
 }
 
 void EnetServer::Host(uint16_t aPort)
@@ -237,8 +218,4 @@ void EnetServer::SendReliableAll(Packet* apMessage)
 		ENetPacket* pPacket = enet_packet_create(buffer.data(), buffer.size(), ENET_PACKET_FLAG_RELIABLE);
 		enet_host_broadcast(m_pHost, 0, pPacket);
 	}
-}
-
-ENetAddress EnetServer::getAddress() {
-	return m_address;
 }
