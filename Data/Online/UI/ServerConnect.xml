@@ -1,0 +1,13 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<MyGUI type="Layout" version="3.2.0">
+    <Widget type="EditBox" skin="EditBox_Dark" position="10 735 200 35" layer="Overlapped" name="Server_Edit_Addr">
+		<Property key="Alpha" value="0.7"/>
+	</Widget>
+    <Widget type="EditBox" skin="EditBox_Dark" position="220 735 200 35" layer="Overlapped" name="Server_Exit_Port">
+		<Property key="Alpha" value="0.7"/>
+	</Widget>
+    <Widget type="Button" skin="Button" position="10 635 300 35" layer="Overlapped" name="Server_Btn_Connect">
+		<Property key="Widget_Caption" value="Connect"/>
+		<Property key="Alpha" value="0.7"/>
+	</Widget>
+</MyGUI>
