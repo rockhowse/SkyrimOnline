@@ -5,6 +5,7 @@
 #include <EnetServer.h>
 
 #include <Overlay/Chat.h>
+#include <Overlay/ServerConnect.h>
 
 #include "easylogging++.h"
 

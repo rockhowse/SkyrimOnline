@@ -9,6 +9,7 @@
 
 #include <Overlay\GUI.h>
 #include <Overlay\Chat.h>
+#include <Overlay\ServerConnect.h>
 
 #include <Engine\Controllers\SkyrimController.h>
 
