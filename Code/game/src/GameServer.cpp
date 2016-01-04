@@ -15,7 +15,7 @@ GameServer::GameServer()
 	LOG(INFO) << "event=server_state value=started";
 
 	// hard coding version for now
-	LOG(INFO) << "Version v0.0.2";
+	LOG(INFO) << "Version v0.0.3";
 }
 
 GameServer::~GameServer()

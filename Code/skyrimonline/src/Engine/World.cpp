@@ -5,7 +5,7 @@
 #include <EnetServer.h>
 
 #include <Overlay/Chat.h>
-#include <Overlay/ServerConnect.h>
+//#include <Overlay/ServerConnect.h>
 
 #include "easylogging++.h"
 
@@ -39,6 +39,11 @@ void World::OnConsume(uint16_t aConnectionId, ReadBuffer* pBuffer)
 	pBuffer->Read_uint16(opcode);
 
 	m_handler.HandleBuffer(pBuffer, opcode, 0);
+}
+
+void World::Connect(const char * addrStr, uint16_t port)
+{
+	EnetServer::Connect(addrStr, port);
 }
 
 void World::Connect()

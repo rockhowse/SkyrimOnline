@@ -4,7 +4,7 @@
 
 #include <Overlay\GUI.h>
 #include <Overlay\Chat.h>
-#include <Overlay\ServerConnect.h>
+//#include <Overlay\ServerConnect.h>
 
 struct InputManager : public InputListener
 {

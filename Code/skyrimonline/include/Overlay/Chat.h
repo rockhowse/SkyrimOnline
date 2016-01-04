@@ -31,11 +31,25 @@ private:
 	MyGUI::EditBox* m_pList;
 	MyGUI::EditBox* m_pEdit;
 
+	// Server Connect
+	MyGUI::EditBox* m_pAddr;
+	MyGUI::EditBox* m_pPort;
+	MyGUI::Button* m_pConnect;
+
 	size_t m_scrollBarPosition[2];
 			
 	std::list<std::string> m_chatList; // To keep number of messages and text to get length of the first message.
 
 	void EditKeyPressEvent(MyGUI::EditBox* aSender);
+
+	void MouseClickedEvent(MyGUI::Widget* aSender); 
+
+	/*	Mouse Event testing 
+	void MousePressedEvent(MyGUI::Widget* aSender, int left, int top, MyGUI::MouseButton id);
+	void MouseReleasedEvent(MyGUI::Widget* aSender, int left, int top, MyGUI::MouseButton id);
+	static void notifyMouseSetFocus(MyGUI::Widget* _sender, MyGUI::Widget* _old);
+	static void notifyMouseLostFocus(MyGUI::Widget* _sender, MyGUI::Widget* _new);
+	*/
 };
 
 extern Chat* TheChat;

@@ -16,6 +16,7 @@ public:
 	World();
 	~World();
 
+	void Connect(const char * addrStr, uint16_t port);
 	void Connect();
 
 	void Send(Packet* apPacket);

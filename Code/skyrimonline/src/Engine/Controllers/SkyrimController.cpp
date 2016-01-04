@@ -100,3 +100,7 @@ void SkyrimController::HandlePlayerRemove(const Messages::GameCli_PlayerRemoveRe
 	delete m_pPlayers[acMsg.playerId];
 	m_pPlayers[acMsg.playerId] = nullptr;
 }
+
+void SkyrimController::ConnectToWorld(char * addrStr, uint16_t port) {
+	m_world.Connect(addrStr, port);
+}

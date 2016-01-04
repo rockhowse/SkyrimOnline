@@ -21,10 +21,7 @@ public:
 	void SetTyping(bool aForceHide = false);
 	bool IsTyping() const;
 	bool IsVisible() const;
-
-	void AddServerConnectMessage(const MyGUI::UString& acString);
-	void SendServerConnectMessage();
-			
+	
 private:
 
 	MyGUI::Gui* m_pGUI;
@@ -32,8 +29,11 @@ private:
 	MyGUI::EditBox* m_pPort;
 	MyGUI::Button* m_pConnect;
 
-	void EditKeyPressEvent(MyGUI::EditBox* aSender);
-	void ButtonClickEvent(MyGUI::Widget* aSender);
+	void MousePressedEvent(MyGUI::Widget* aSender, int left, int top, MyGUI::MouseButton id);
+	void MouseReleasedEvent(MyGUI::Widget* aSender, int left, int top, MyGUI::MouseButton id);
+	void MouseClickedEvent(MyGUI::Widget* aSender);
+	static void notifyMouseSetFocus(MyGUI::Widget* _sender, MyGUI::Widget* _old);
+	static void notifyMouseLostFocus(MyGUI::Widget* _sender, MyGUI::Widget* _new);
 };
 
 extern ServerConnect* TheServerConnect;

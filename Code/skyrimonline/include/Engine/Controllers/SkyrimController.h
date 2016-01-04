@@ -72,6 +72,9 @@ public:
 	void HandlePlayerAdd(const Messages::GameCli_PlayerAddRecv& acMsg);
 	void HandlePlayerRemove(const Messages::GameCli_PlayerRemoveRecv& acMsg);
 
+
+	void ConnectToWorld(char * addrStr, uint16_t port);
+
 private:
 
 	SkyrimUserInterface m_userInterface;

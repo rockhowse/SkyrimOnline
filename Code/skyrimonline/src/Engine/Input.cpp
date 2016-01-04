@@ -49,7 +49,7 @@ void InputManager::OnRelease(BYTE code)
 
 void InputManager::OnMousePress(BYTE code)
 {
-	TheGUI->InjectMouse((uint8_t)code, true);
+  	TheGUI->InjectMouse((uint8_t)code, true);
 }
 
 void InputManager::OnMouseRelease(BYTE code)

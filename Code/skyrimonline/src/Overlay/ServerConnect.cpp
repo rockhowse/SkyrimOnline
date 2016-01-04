@@ -13,17 +13,26 @@ ServerConnect::ServerConnect(MyGUI::Gui* pUI)
 	m_pPort		= m_pGUI->findWidget<MyGUI::EditBox>("Server_Edit_Port");
 	m_pConnect	= m_pGUI->findWidget<MyGUI::Button>("Server_Btn_Connect");
 
-	m_pAddr->eventEditTextChange += MyGUI::newDelegate(this, &ServerConnect::EditKeyPressEvent);
-	m_pPort->eventEditTextChange += MyGUI::newDelegate(this, &ServerConnect::EditKeyPressEvent);
-	m_pConnect->eventMouseButtonClick += MyGUI::newDelegate(this, &ServerConnect::ButtonClickEvent);
+	//m_pAddr->eventEditTextChange += MyGUI::newDelegate(this, &ServerConnect::EditKeyPressEvent);
+	//m_pPort->eventEditTextChange += MyGUI::newDelegate(this, &ServerConnect::EditKeyPressEvent);
+
+	m_pConnect->eventMouseButtonClick += MyGUI::newDelegate(this, &ServerConnect::MouseClickedEvent);
+	m_pConnect->eventMouseButtonPressed += MyGUI::newDelegate(this, &ServerConnect::MousePressedEvent);
+	m_pConnect->eventMouseButtonReleased += MyGUI::newDelegate(this, &ServerConnect::MouseReleasedEvent);
+	m_pConnect->eventMouseSetFocus += MyGUI::newDelegate(notifyMouseSetFocus);
+	m_pConnect->eventMouseLostFocus += MyGUI::newDelegate(notifyMouseLostFocus);
 }
 
 ServerConnect::~ServerConnect()
 {
-	m_pAddr->eventEditTextChange -= MyGUI::newDelegate(this, &ServerConnect::EditKeyPressEvent);
-	m_pPort->eventEditTextChange -= MyGUI::newDelegate(this, &ServerConnect::EditKeyPressEvent);
+	//m_pAddr->eventEditTextChange -= MyGUI::newDelegate(this, &ServerConnect::EditKeyPressEvent);
+	//m_pPort->eventEditTextChange -= MyGUI::newDelegate(this, &ServerConnect::EditKeyPressEvent);
 
-	m_pConnect->eventMouseButtonClick -= MyGUI::newDelegate(this, &ServerConnect::ButtonClickEvent);
+	m_pConnect->eventMouseButtonClick -= MyGUI::newDelegate(this, &ServerConnect::MouseClickedEvent);
+	m_pConnect->eventMouseButtonPressed -= MyGUI::newDelegate(this, &ServerConnect::MousePressedEvent);
+	m_pConnect->eventMouseButtonReleased -= MyGUI::newDelegate(this, &ServerConnect::MouseReleasedEvent);
+	m_pConnect->eventMouseSetFocus -= MyGUI::newDelegate(notifyMouseSetFocus);
+	m_pConnect->eventMouseLostFocus -= MyGUI::newDelegate(notifyMouseLostFocus);
 }
 
 void ServerConnect::SetVisible(bool aHide)
@@ -36,76 +45,37 @@ void ServerConnect::SetVisible(bool aHide)
 	m_pConnect->setVisible(aHide);
 }
 
-void ServerConnect::SetTyping(bool aForceHide)
-{
-	if (aForceHide == false && MyGUI::InputManager::getInstance().isFocusKey() == false)
-	{
-		TheController->DisableInput();
-		TheGUI->SetCursor(true);
-		MyGUI::InputManager::getInstance().setKeyFocusWidget(m_pAddr);
-	}
-	else
-	{
-		TheController->EnableInput();
-		TheGUI->SetCursor(false);
-		MyGUI::InputManager::getInstance().resetKeyFocusWidget();
-	}
-}
-
-bool ServerConnect::IsTyping() const
-{
-	return MyGUI::InputManager::getInstance().isFocusKey();
-}
-
 bool ServerConnect::IsVisible() const
 {
 	return m_pAddr->isVisible() && m_pPort->isVisible() && m_pConnect->isVisible();
 }
 
-void ServerConnect::AddServerConnectMessage(const MyGUI::UString& acString)
+void ServerConnect::MousePressedEvent(MyGUI::Widget* aSender, int left, int top, MyGUI::MouseButton id)
 {
-	/*
-	m_scrollBarPosition[0] = m_pList->getVScrollRange();
-	m_scrollBarPosition[1] = m_pList->getVScrollPosition();
-
-	m_pList->insertText(acString + '\n');
-	m_chatList.push_back(acString + '\n');
-
-	if (m_pList->getVScrollPosition() - m_scrollBarPosition[1] > m_pList->getVScrollRange() - m_scrollBarPosition[0])
-		m_pList->setVScrollPosition(m_scrollBarPosition[1]);
-
-	if (m_chatList.size() > 200)
-	{
-		m_pList->eraseText(0, m_chatList.front().length());
-		m_chatList.erase(m_chatList.begin());
-	}
-	*/
+	MyGUI::Button* image = aSender->castType<MyGUI::Button>();
+	image->setCaption("Pressed");
 }
 
-void ServerConnect::SendServerConnectMessage()
+void ServerConnect::MouseReleasedEvent(MyGUI::Widget* aSender, int left, int top, MyGUI::MouseButton id)
 {
-	/*
-	if (m_pEdit->getTextLength() == 0)
-	{
-		return;
-	}
-
-	Messages::CliGame_ServerConnectSend* pMessage = new Messages::CliGame_ServerConnectSend;
-
-	pMessage->message = m_pEdit->getCaption();
-	TheController->SendReliable(pMessage);
-
-	m_pEdit->eraseText(0, m_pEdit->getTextLength());
-	*/
+	MyGUI::Button* image = aSender->castType<MyGUI::Button>();
+	image->setCaption("Released");
 }
 
-void ServerConnect::EditKeyPressEvent(MyGUI::EditBox* aSender)
+void ServerConnect::MouseClickedEvent(MyGUI::Widget* aSender)
 {
-	if (aSender->getTextLength() > 256)
-		aSender->eraseText(aSender->getTextLength() - 1, 1);
+	MyGUI::Button* image = aSender->castType<MyGUI::Button>();
+	image->setCaption("Clicked");
 }
 
-void ServerConnect::ButtonClickEvent(MyGUI::Widget* aSender)
+void ServerConnect::notifyMouseSetFocus(MyGUI::Widget* _sender, MyGUI::Widget* _old)
 {
-	// connect to server here
+	MyGUI::Button* image = _sender->castType<MyGUI::Button>();
+	image->setCaption("Active");
+}
+
+void ServerConnect::notifyMouseLostFocus(MyGUI::Widget* _sender, MyGUI::Widget* _new)
+{
+	MyGUI::Button* image = _sender->castType<MyGUI::Button>();
+	image->setCaption("Normal");
 }

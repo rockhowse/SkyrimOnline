@@ -26,7 +26,8 @@ void InitializeGame()
 	onReset->Add(std::bind(&GUI::OnLostDevice, TheGUI, std::placeholders::_1));
 
 	TheChat = new Chat(TheGUI->getGUI()); // Initialize the chat.
-	TheServerConnect = new ServerConnect(TheGUI->getGUI()); // Initialize the server connect GUI
+	//currently mouse events don't work
+	// TheServerConnect = new ServerConnect(TheGUI->getGUI()); // Initialize the server connect GUI
 
 	TheController = new SkyrimController();
 }
