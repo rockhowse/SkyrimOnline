@@ -4,6 +4,7 @@
 
 void HandleCliGame_ChatRecv(const Messages::CliGame_ChatRecv& aMsg)
 {
+	// Receive chat message
 	Player* pPlayer = g_pServer->GetPlayer(aMsg.connectionId);
 	if (!pPlayer)
 	{
