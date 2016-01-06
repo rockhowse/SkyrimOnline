@@ -40,7 +40,6 @@ solution "Skyrim Online"
         "../Code/boost/system/",
         "../Code/log",
         "../Code/network/include",
-		"../Include/inih/cpp",
 	}
     
     if os.is("windows") then
@@ -198,13 +197,18 @@ solution "Skyrim Online"
 			includedirs 
             { 
                 "../Code/network/include/", 
+				"../Include/inih/cpp",
             }
 			files 
             { 
                 "../Code/network/include/**.h", 
-                "../Code/network/include/enet/**.h", 
+                "../Code/network/include/enet/**.h",
+				"../Include/inih/*.h",	
+				"../Include/inih/cpp/*.h",				
                 "../Code/network/src/**.cpp",
                 "../Code/network/src/**.c",
+				"../Include/inih/*.c",	
+				"../Include/inih/cpp/INIReader.cpp",
             }
             defines
             {
